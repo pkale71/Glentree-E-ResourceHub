@@ -18,7 +18,7 @@ class user {
         this.accessToken = data.access_token
     }
     getData(){
-       return {
+       return {user:{
         uuid            :   this.uuid,
         fullName        :   this.fullName,
         role            :   this.role,
@@ -26,7 +26,10 @@ class user {
         email           :   this.email,
         lastLogin      :   this.lastLogin,
         accessToken    :   this.accessToken
-       }
+       },
+    "status_code" : 200,
+    "message" : "success",
+    "status_name" : 'ok'}
         
     }
 }
