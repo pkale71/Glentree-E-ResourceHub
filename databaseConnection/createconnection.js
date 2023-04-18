@@ -1,7 +1,7 @@
 const mysql = require('mysql');
  
   let obj = {
-    connectionLimit: process.env.CONNECTION_LIMIT,
+ 
     password: process.env.DB_PASS,
     user: process.env.DB_USER,
     database: process.env.MYSQL_DB,
