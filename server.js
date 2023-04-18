@@ -11,8 +11,8 @@ app.use(bodyparser.urlencoded({extended:true}))
 dotenv.config();
 
 app.listen(8082,()=>{
-    console.log("server is listing on port no 8080")
+    console.log("server is listing on port no 8082")
 })
 
-app.use('/generateToken',require('./authToken/generateToken'));
+app.use('/authenticate',require('./authToken/authenticate'));
 app.use('/validateToken',require('./authToken/validateToken'))

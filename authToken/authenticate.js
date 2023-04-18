@@ -18,12 +18,19 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 message: "Invalid email or password"
             })
         }
-        console.log(email,password,user[0].password)
+        console.log(email,password,user[0].time)
      let isValidPassword = user[0].password == password
         if(isValidPassword){
             user.password = undefined;
+            let mysqlDatetime = new Date(user[0].time).toTimeString().slice(0, 19).replace('T', ' ');
             const jsontoken = jwt.sign({user: user}, process.env.SECRET_KEY, { expiresIn: '30m'} );
             user[0]['access-token']=jsontoken
+
+            let insert_response = await db.insertToken(jsontoken,user[0].id, mysqlDatetime)
+           // insert_response.then(res=>{console.log("***********************",res)})
+
+            let insert_lastLogin = await db.insertLastLogin(user[0].id,mysqlDatetime)
+            
             return res.json(user)
         }  else{
             return res.json({

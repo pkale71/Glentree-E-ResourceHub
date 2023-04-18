@@ -35,17 +35,44 @@ db.getUserByEmail = (email) =>{
         });
     });
 };
+
+db.getUserDataByEmail = (email) =>{
+    // console.log("************ ", obj)
+    // 
+     return new Promise((resolve, reject)=>{
+       //  console.log("************ ", pool)
+         pool.query('SELECT * FROM user WHERE email = ?', [email], (error, users)=>{
+             if(error){
+                 return reject(error);
+             }
+     //console.log("************ ", users)
  
+             return resolve(users);
+         });
+     });
+ };
+// "SELECT users.name AS user, products.name AS favorite FROM users JOIN products ON users.favorite_product = products.id"
  
- 
-db.insertUser = (userName, email, password) =>{
+db.insertToken = (authtoken, userId, authTime) =>{
     return new Promise((resolve, reject)=>{
-        pool.query('INSERT INTO User (user_name, email, password) VALUES (?,  ?, ?)', [userName, email, password], (error, result)=>{
+        pool.query('INSERT INTO auth_data (auth_token, user_id, auth_time) VALUES (?,  ?, ?)', [authtoken, userId, authTime], (error, result)=>{
             if(error){
                 return reject(error);
             }
              
-              return resolve(result.insertId);
+              return resolve(result);
+        });
+    });
+};
+
+db.insertLastLogin = (userId, authTime) =>{
+    return new Promise((resolve, reject)=>{
+        pool.query('UPDATE user SET last_login=? WHERE id = ?', [authTime,userId], (error, result)=>{
+            if(error){
+                return reject(error);
+            }
+             
+              return resolve(result);
         });
     });
 };
