@@ -13,6 +13,5 @@ dotenv.config();
 app.listen(8082,()=>{
     console.log("server is listing on port no 8082")
 })
-
 app.use('/authenticate',require('./authToken/authenticate'));
 app.use('/validateToken',require('./authToken/validateToken'))

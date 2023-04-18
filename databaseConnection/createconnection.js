@@ -24,8 +24,8 @@ db.getUserByEmail = (email) =>{
    // console.log("************ ", obj)
    // 
     return new Promise((resolve, reject)=>{
-      //  console.log("************ ", pool)
-        pool.query('SELECT * FROM user WHERE email = ?', [email], (error, users)=>{
+      console.log("************ ", mysql.Types)
+        pool.query("SELECT u.uuid,CONCAT(u.first_name,' ',u.last_name) AS fullName,u.role_id,r.name AS role_name, u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id WHERE u.email = ?", [email], (error, users)=>{
             if(error){
                 return reject(error);
             }
@@ -35,6 +35,7 @@ db.getUserByEmail = (email) =>{
         });
     });
 };
+// "SELECT users.name AS user, products.name AS favorite FROM users JOIN products ON users.favorite_product = products.id"
 
 db.getUserDataByEmail = (email) =>{
     // console.log("************ ", obj)
