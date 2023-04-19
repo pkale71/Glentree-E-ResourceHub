@@ -1,5 +1,5 @@
 let jwt = require('jsonwebtoken')
-let db = require('../databaseConnection/createconnection')
+let db = require('./databaseQueryAuth')
 let users = require('../models/user')
 let useUser = new users()
 let email;
@@ -37,7 +37,11 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         } 
      
         } catch(e){
-            console.log(e);
+            return res.json({
+                'message'       :       `Unauthenticated Failed "${email}"`,
+                'status_name'   :       'False',
+                "status_code"   :       401
+            });
         }
 
 })
