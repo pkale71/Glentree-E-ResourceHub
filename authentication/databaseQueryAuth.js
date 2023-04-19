@@ -23,30 +23,6 @@ db.getUserByEmail = (email) =>{
     });
 };
  
-db.insertToken = (authtoken, userId, authTime) =>{
-    return new Promise((resolve, reject)=>{
-        pool.query('INSERT INTO auth_data (auth_token, user_id, auth_time) VALUES (?,  ?, ?)', [authtoken, userId, authTime], (error, result)=>{
-            if(error){
-                return reject(error);
-            }
-             
-              return resolve(result);
-        });
-    });
-};
-
-db.deleteToken = (token) =>{
-    return new Promise((resolve, reject)=>{
-        pool.query('DELETE FROM auth_data WHERE auth_token = ?', [token], (error, result)=>{
-            if(error){
-                return reject(error);
-            }
-             
-              return resolve(result);
-        });
-    });
-};
-
 db.insertLastLogin = (userId, authTime) =>{
     return new Promise((resolve, reject)=>{
         pool.query('UPDATE user SET last_login=? WHERE id = ?', [authTime,userId], (error, result)=>{

@@ -24,7 +24,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             const jsontoken = jwt.sign({user: user}, process.env.SECRET_KEY, { expiresIn: '30m'} );
             if(jsontoken != null || jsontoken != undefined){
                 user[0]['access_token']=jsontoken
-                let insert_response = await db.insertToken(jsontoken,user[0].id, mysqlDatetime)
                 let insert_lastLogin = await db.insertLastLogin(user[0].id,mysqlDatetime)
                 useUser.setData(user[0])
                 return res.json(useUser.getData())
