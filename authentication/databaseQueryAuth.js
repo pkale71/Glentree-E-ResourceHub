@@ -35,4 +35,41 @@ db.insertLastLogin = (userId, authTime) =>{
     });
 };
 
+db.insertToken = (authtoken, userId, authTime) =>{
+        return new Promise((resolve, reject)=>{
+            pool.query('INSERT INTO auth_data (auth_token, user_id, auth_time) VALUES (?,  ?, ?)', [authtoken, userId, authTime], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+                 
+                  return resolve(result);
+            });
+        });
+    };
+
+db.deleteToken = (token) =>{
+            return new Promise((resolve, reject)=>{
+                pool.query('DELETE FROM auth_data WHERE user_id = ?', [token], (error, result)=>{
+                    if(error){
+                        return reject(error);
+                    }
+                     
+                      return resolve(result);
+                });
+            });
+        };
+
+
+        db.selectToken = (userId) =>{
+                return new Promise((resolve, reject)=>{
+                    pool.query('SELECT * FROM auth_data WHERE user_id = ?', [userId], (error, result)=>{
+                        if(error){
+                            return reject(error);
+                        }
+                         
+                          return resolve(result);
+                    });
+                });
+            };
+
 module.exports = db

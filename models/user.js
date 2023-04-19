@@ -1,23 +1,29 @@
 // user table columns name
 
-// id
-// uuid
-// first_name
-// last_name
-// role_id
-// user_type_id
-// mobile
-// email
-// gender
-// school_id
-// password
-// is_active
-// created_on
-// created_by_id
-// deleted_on
-// deleted_by_id
-// last_login
+// import { Role } from "./role";
+// import { UserType } from "./userType";
 
+// export class User {
+//   id?: number;
+//   uuid?: string;
+//   firstName?: string;
+//   lastName?: string;
+//   fullName?: string;
+//   role?: Role;
+//   userType?: UserType;
+//   mobile?: string;
+//   email?: string;
+//   gender?: string;
+//   school?: string;
+//   password?: string;
+//   active?: boolean;
+//   createdOn?: Date;
+//   createdBy?: User;
+//   deletedOn?: Date;
+//   deletedBy?: User;
+//   lastLogin?: Date;
+//   accessToken?: string;
+// }
 
 
 
@@ -29,6 +35,7 @@ class user {
     email
     lastLogin
     accessToken
+    mobile
 
     constructor(){}
 
@@ -47,6 +54,7 @@ class user {
         this.email          =   data.email
         this.lastLogin      =   data.last_login
         this.accessToken    =   data.access_token
+        this.mobile         =   data.mobile
     }
     getData(){
        return {
@@ -55,6 +63,7 @@ class user {
                         fullName       :   this.fullName,
                         role           :   this.role,
                         userType       :   this.userType,
+                        mobile         :   this.mobile,
                         email          :   this.email,
                         lastLogin      :   this.lastLogin,
                         accessToken    :   this.accessToken

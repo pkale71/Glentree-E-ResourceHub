@@ -1,8 +1,22 @@
 let db = require('./databaseQueryAuth')
 let token;
-module.exports = require('express').Router().post('/',async(req,res)=>{
+module.exports = require('express').Router().get('/',async(req,res)=>{
     try{
-              token = req.body.accessToken
+        let tokenReceived = req.headers['authorization']
+         if(typeof tokenReceived !== 'undefined'){
+            tokenArr = tokenReceived.split(" ")
+            token = tokenArr[1]
+            token = token.toString()
+         }
+
+         if(token.length == 0){
+            console.log("1")
+            return res.json({
+                message: "Invalid Token",
+                "status_name": "Access Denied! Unauthorized User",
+                "status_code"   :       401
+            })
+        }        
                 let deletedToken = await db.deleteToken(token)
                 console.log(deletedToken)
                 if(deletedToken.affectedRows > 0){
@@ -19,9 +33,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                         "message" : "Logout Failed, user not found",
                         "status_name" : 'ok'
                     }) 
-                }
-
-     
+                }   
         } catch(e){
             return res.json({
                 "status_code" : 200,

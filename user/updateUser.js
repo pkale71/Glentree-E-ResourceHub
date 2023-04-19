@@ -1,35 +1,22 @@
 let db = require('./databaseQueryUser')
 let commondb = require('../commonFunction/common')
-let userUuid = require('uuid')
 let user;
-let email;
-let password;
+let authData;
+let userId;
 let accessToken;
 let firstName
 let lastName
-let roleId
 let userTypeId
-let mobile
 let gender
-let userUUid;
 let schoolId;
-let createdOn;
-let authData
-let userId
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-         email = req.body.email;
-         password = req.body.password;
          accessToken = req.body.accessToken;
          firstName = req.body.firstName;
          lastName = req.body.lastName;
-         roleId = req.body.role.id
-         mobile = req.body.mobile
          userTypeId = req.body.userType.id
          gender = req.body.gender
-         userUUid = userUuid.v1()
-         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
             if(req.body.role.id==2 && !req.body.school.id){
                 return res.json({
                     "status_code" : 500,
@@ -38,26 +25,25 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 })
             }
          schoolId = req.body.role.id==2?req.body.school.id:null
-
          authData = await commondb.selectToken(accessToken)
-        userId = authData[0].userId
-        if(userId){
-
+         userId = authData[0].userId
+         if(userId){
             user = await commondb.getUserById(userId)
          
             if(user.length == 0){
                return res.json({
-                   message: "Invalid Token"
+                   message: "User Not Found",
+                   "status_code" : 401,
+                   "status_name"  : "Error"
                })
            }
-     
-              // console.log("***********",)
-               let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,schoolId,createdOn)
-               console.log(insertUser)
-                       if(insertUser.affectedRows > 0){
+
+               let updateUser = await db.updateUser(userId,firstName,lastName,gender,userTypeId,schoolId)
+               console.log(updateUser)
+                       if(updateUser.affectedRows > 0){
                            return res.json({
                                "status_code" : 200,
-                               "message" : "Successfully Inserted",
+                               "message" : "Successfully Updated",
                                "status_name" : 'ok'
                            })            
        
@@ -65,30 +51,20 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                        else{
                            return res.json({
                                "status_code" : 500,
-                               "message" : "Insertion Failed",
+                               "message" : "Updation Failed",
                                "status_name" : 'Error'
                            }) 
                        }
            
-        }
+         }
+         
         } catch(e){
-            console.log(e)
-            if(e.code == 'ER_DUP_ENTRY'){
-                return res.json({
-                    "status_code" : 500,
-                    "message" : "User not created",
-                    "status_name" : 'Error',
-                    "error"     :     "Duplicate Entry"
-                }) 
-            }else{
-                return res.json({
-                    "status_code" : 500,
-                    "message" : "User not created",
-                    "status_name" : 'Error',
-                    "error"     :      e
-                }) 
-            }
-           
+            return res.json({
+                "status_code" : 500,
+                "message" : "User not updated",
+                "status_name" : 'Error',
+                "error"     :      e
+            }) 
         }
 
 })
