@@ -36,7 +36,7 @@ class user {
     lastLogin
     accessToken
     mobile
-    isActive
+    active
     createdBy
     deletedBy
 
@@ -94,7 +94,7 @@ class user {
         this.lastLogin      =   data.last_login
         this.accessToken    =   data.access_token
         this.mobile         =   data.mobile
-        this.isActive       =   data.isActive == 1 ?true :false
+        this.active       =     data.isActive
         this.createdBy      =   data.createdById == null ? null : {
                                     'uuid'    :   data.createdbyUuid,
                                     'fullName' :  data.createdfullName
@@ -116,7 +116,7 @@ class user {
                          email          :   this.email,
                          lastLogin      :   this.lastLogin,
                          accessToken    :   this.accessToken,
-                         isActive       :   this.isActive,
+                         active         :   this.active,
                          createdBy      :   this.createdBy,
                          deletedBy      :   this.deletedBy
 
