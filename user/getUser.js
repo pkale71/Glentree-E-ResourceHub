@@ -10,7 +10,7 @@ let userId
 let userList = []
 let token;
 let userUUID;
-module.exports = require('express').Router().get('/:',async(req,res)=>{
+module.exports = require('express').Router().get('/',async(req,res)=>{
     try{
         let tokenReceived = req.headers['authorization']
         if(typeof tokenReceived !== 'undefined'){
@@ -35,13 +35,18 @@ module.exports = require('express').Router().get('/:',async(req,res)=>{
                 }) 
          }
          userUUID = req.params.userUUID
+         console.log("333333",userUUID)
          if(userUUID.length == 0){
-            
+            return res.json({
+                "status_code" : 404,
+                "message" : "No record found",
+                status_name : getCode.getStatus(404)
+            })
          }
          userId = authData[0].userId
         if(userId){
 
-            user = await db.getUsers()
+            user = await db.getUser()
             if(user.length == 0){
                 return res.json({
                     "status_code" : 404,
@@ -49,19 +54,13 @@ module.exports = require('express').Router().get('/:',async(req,res)=>{
                     status_name : getCode.getStatus(404)
                 })
             }
-            userList = []
-            await Array.from(user).forEach(ele=>{
-                useUser.setDataAll(ele)
-                userList.push(useUser.getDataAll())
-            })
-
-            if(user.length == userList.length){
+                useUser.setDataAll(user[0])
                 return res.json({
                     "status_code" : 200,
-                    "data" : userList,
+                    "data" : useUser.getDataAll(),
                     "status_name" : 'ok'
                 })
-            }     
+               
         }
         } catch(e){
             console.log(e)
