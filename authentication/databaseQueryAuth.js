@@ -69,7 +69,7 @@ db.insertToken = (authtoken, userId, authTime) =>{
 db.deleteToken = (token) =>{
             return new Promise((resolve, reject)=>{
                 try{
-                    pool.query('DELETE FROM auth_data WHERE user_id = ?', [token], (error, result)=>{
+                    pool.query('DELETE FROM auth_data WHERE auth_token = ?', [token], (error, result)=>{
                         if(error){
                             return reject(error);
                         }
