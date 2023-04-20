@@ -1,5 +1,7 @@
 let db = require('./databaseQueryAuth')
 let commondb = require('../commonFunction/common')
+let errorCode = require('../commonFunction/errorCode')
+let getCode = new errorCode()
 let user;
 let oldPassword;
 let newPassword;
@@ -15,8 +17,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          if(authData.length == 0){
             return res.json({
                 "status_code" : 401,
-                "message" : "User unauthenticated",
-                "status_name" : 'Error',
+                "message" : "Invalid access token",
+                status_name : getCode.getStatus(401),
                 }) 
          }
          userId = authData[0].userId
@@ -26,7 +28,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          
             if(user.length == 0){
                return res.json({
-                   message: "User Not Found"
+                "status_code" : 404,
+                "message" : "User not found",
+                status_name : getCode.getStatus(404),
                })
            }
            let isValidPassword = user[0].password == oldPassword
@@ -36,7 +40,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 if(insertUser.affectedRows > 0){
                     return res.json({
                         "status_code" : 200,
-                        "message" : "Successfully Updated",
+                        "message" : "success",
                         "status_name" : 'ok'
                     })            
 
@@ -45,7 +49,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     return res.json({
                         "status_code" : 500,
                         "message" : "Password not changed",
-                        "status_name" : 'Error'
+                        status_name : getCode.getStatus(500)
                     }) 
                 }
        }
@@ -53,7 +57,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         return res.json({
             "status_code" : 401,
             "message" : "Password not matched",
-            "status_name" : 'Error',
+            status_name : getCode.getStatus(401),
             
         }) 
     }
@@ -65,10 +69,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : "Password not changed",
-                    "status_name" : 'Error',
+                    status_name : getCode.getStatus(500),
                     "error"     :      e
                 }) 
-           
         }
 
 })

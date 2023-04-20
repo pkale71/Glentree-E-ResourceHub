@@ -1,8 +1,6 @@
 let db = require('./databaseQueryUser')
-let commondb = require('../commonFunction/common')
-let user;
-let authData;
-let userId;
+let errorCode = require('../commonFunction/errorCode')
+let getCode = new errorCode()
 let accessToken;
 let firstName
 let lastName
@@ -21,9 +19,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          uuid   =   req.body.uuid
             if(req.body.role.id==2 && !req.body.school.id){
                 return res.json({
-                    "status_code" : 500,
+                    "status_code" : 404,
                     "message" : "School Id Missing",
-                    "status_name" : 'Failed'
+                    status_name : getCode.getStatus(404),
                 })
             }
          schoolId = req.body.role.id==2?req.body.school.id:null
@@ -32,8 +30,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         if(uuid.length == 0){
             return res.json({
                 message: "uuid not passed",
-                "status_code" : 401,
-                "status_name"  : "Error"
+                "status_code" : 404,
+                status_name : getCode.getStatus(404),
             })
         }
          if(uuid){
@@ -46,16 +44,16 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                        if(updateUser.affectedRows > 0){
                            return res.json({
                                "status_code" : 200,
-                               "message" : "Successfully Updated",
-                               "status_name" : 'ok'
+                               "message" : "success",
+                               status_name : getCode.getStatus(200),
                            })            
        
                        }
                        else{
                            return res.json({
                                "status_code" : 500,
-                               "message" : "Updation Failed",
-                               "status_name" : 'Error'
+                               "message" : "User not updated",
+                               status_name : getCode.getStatus(500),
                            }) 
                        }
            
@@ -65,7 +63,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : "User not updated",
-                "status_name" : 'Error',
+                status_name : getCode.getStatus(500),
                 "error"     :      e
             }) 
         }

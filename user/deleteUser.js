@@ -1,5 +1,7 @@
 let db = require('./databaseQueryUser')
 let commondb = require('../commonFunction/common')
+let errorCode = require('../commonFunction/errorCode')
+let getCode = new errorCode()
 let user;
 let accessToken;
 let uuid;
@@ -20,9 +22,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          
             if(user.length == 0){
                return res.json({
-                   message: "User Not Found",
-                   "status_code" : 401,
-                   "status_name"  : "Error"
+                   message: "User not dound",
+                   "status_code" : 404,
+                   status_name : getCode.getStatus(404),
                })
            }
                let deleteUser = await db.deleteUser(uuid,userId,deletedOn)
@@ -30,8 +32,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                        if(deleteUser.affectedRows > 0){
                            return res.json({
                                "status_code" : 200,
-                               "message" : "Successfully Deleted",
-                               "status_name" : 'ok'
+                               "message" : "success",
+                               status_name : getCode.getStatus(200),
                            })            
        
                        }
@@ -39,7 +41,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                            return res.json({
                                "status_code" : 500,
                                "message" : "User not deleted",
-                               "status_name" : 'Error'
+                               status_name : getCode.getStatus(500),
                            }) 
                        }
            
@@ -52,7 +54,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : "User not deleted",
-                "status_name" : 'Error',
+                status_name : getCode.getStatus(500),
                 "error"     :      e
             }) 
         }

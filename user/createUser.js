@@ -1,6 +1,8 @@
 let db = require('./databaseQueryUser')
 let commondb = require('../commonFunction/common')
 let userUuid = require('uuid')
+let errorCode = require('../commonFunction/errorCode')
+let getCode = new errorCode()
 let user;
 let email;
 let password;
@@ -32,9 +34,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
             if(req.body.role.id==2 && !req.body.school.id){
                 return res.json({
-                    "status_code" : 500,
+                    "status_code" : 404,
                     "message" : "School Id Missing",
-                    "status_name" : 'Failed'
+                    status_name : getCode.getStatus(404)
                 })
             }
          schoolId = req.body.role.id==2?req.body.school.id:null
@@ -47,7 +49,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          
             if(user.length == 0){
                return res.json({
-                   message: "Invalid Token"
+                "status_code" : 401,
+                "message" : "Invalid token",
+                status_name : getCode.getStatus(401)
                })
            }
      
@@ -57,8 +61,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                        if(insertUser.affectedRows > 0){
                            return res.json({
                                "status_code" : 200,
-                               "message" : "Successfully Inserted",
-                               "status_name" : 'ok'
+                               "message" : "success",
+                               status_name : getCode.getStatus(200)
                            })            
        
                        }
@@ -66,7 +70,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                            return res.json({
                                "status_code" : 500,
                                "message" : "Insertion Failed",
-                               "status_name" : 'Error'
+                               status_name : getCode.getStatus(500)
                            }) 
                        }
            
@@ -77,14 +81,14 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : "User not created",
-                    "status_name" : 'Error',
+                    status_name : getCode.getStatus(500),
                     "error"     :     "Duplicate Entry"
                 }) 
             }else{
                 return res.json({
                     "status_code" : 500,
                     "message" : "User not created",
-                    "status_name" : 'Error',
+                    status_name : getCode.getStatus(500),
                     "error"     :      e
                 }) 
             }

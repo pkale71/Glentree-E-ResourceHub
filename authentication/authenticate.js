@@ -1,6 +1,6 @@
-let jwt = require('jsonwebtoken')
 let db = require('./databaseQueryAuth')
-let commondb = require('../commonFunction/common')
+let errorCode = require('../commonFunction/errorCode')
+let getCode = new errorCode()
 let users = require('../models/user')
 let generate_token = require('./tokenGenerate')
 let useUser = new users()
@@ -14,7 +14,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          user = await db.getUserByEmail(email);
         if(user.length == 0){
             return res.json({
-                message: "Invalid email or password"
+                status_code : 401,
+                message: "Invalid email or password",
+                status_name : getCode.getStatus(401)
             })
         }
         user[0]['time'] = Date()
@@ -36,15 +38,17 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             
         }  else{
             return res.json({
-                message: "Invalid email or password"
+                status_code : 401,
+                message: "Invalid email or password",
+                status_name : getCode.getStatus(401)
             });
         } 
      
         } catch(e){
             return res.json({
-                'message'       :       `Unauthenticated Failed "${email}"`,
-                'status_name'   :       'False',
-                "status_code"   :       401
+                status_code : 401,
+                message: "Invalid email or password",
+                status_name : getCode.getStatus(401)
             });
         }
 
