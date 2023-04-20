@@ -5,7 +5,7 @@ let insertSyllabus;
 let id;
 let name;
 
-module.exports = require('express').Router().get('/',async(req,res)=>{
+module.exports = require('express').Router().post('/',async(req,res)=>{
     try
     {
         id = req.body.id;
