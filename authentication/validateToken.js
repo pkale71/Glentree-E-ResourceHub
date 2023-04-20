@@ -168,7 +168,7 @@ module.exports = require('express').Router().get('/',async (req,res,next)=>{
             const verified = (accessToken === authData[0].authToken)
     
             if(verified){
-                console.log("3", req.baseUrl)
+                console.log("3", req.baseUrl,userTypeCode)
                 if(req.baseUrl !=  '/user/createUser'){
                     req.body.accessToken = accessToken
                     
@@ -186,8 +186,8 @@ module.exports = require('express').Router().get('/',async (req,res,next)=>{
     
                     return res.json({
                         'message'       :       `Token not matched`,
-                        status_name : getCode.getStatus(401),
-                        "status_code"   :       401
+                        status_name     :        getCode.getStatus(401),
+                        "status_code"   :        401
                     });
                 }
             }

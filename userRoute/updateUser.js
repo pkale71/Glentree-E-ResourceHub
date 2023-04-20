@@ -29,7 +29,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         //  userId = authData[0].userId
         if(uuid.length == 0){
             return res.json({
-                message: "uuid not passed",
+                message: "User not found",
                 "status_code" : 404,
                 status_name : getCode.getStatus(404),
             })

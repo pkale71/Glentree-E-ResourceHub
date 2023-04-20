@@ -40,9 +40,9 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             user = await db.getUsers()
             if(user.length == 0){
                 return res.json({
-                    "status_code" : 404,
-                    "message" : "No record found",
-                    status_name : getCode.getStatus(404)
+                    "status_code" : 200,
+                    "data" : {'users' : []},
+                    status_name : getCode.getStatus(200)
                 })
             }
             userList = []
@@ -55,7 +55,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 200,
                     "data" : {'users' : userList},
-                    "status_name" : 'ok'
+                    status_name : getCode.getStatus(200)
                 })
             }     
         }
@@ -64,7 +64,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
            
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Error not found",
+                    "message" : "User not found",
                     status_name : getCode.getStatus(500),
                     "error"     :      e
                 }) 
