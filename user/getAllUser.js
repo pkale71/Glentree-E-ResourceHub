@@ -65,7 +65,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : "Error not found",
-                    status_name : getCode.getStatus(505),
+                    status_name : getCode.getStatus(500),
                     "error"     :      e
                 }) 
            
