@@ -9,6 +9,7 @@ let lastName
 let userTypeId
 let gender
 let schoolId;
+let uuid;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
@@ -17,6 +18,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          lastName = req.body.lastName;
          userTypeId = req.body.userType.id
          gender = req.body.gender
+         uuid   =   req.body.uuid
             if(req.body.role.id==2 && !req.body.school.id){
                 return res.json({
                     "status_code" : 500,
@@ -25,20 +27,21 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 })
             }
          schoolId = req.body.role.id==2?req.body.school.id:null
-         authData = await commondb.selectToken(accessToken)
-         userId = authData[0].userId
-         if(userId){
-            user = await commondb.getUserById(userId)
+        //  authData = await commondb.selectToken(accessToken)
+        //  userId = authData[0].userId
+        if(uuid.length == 0){
+            return res.json({
+                message: "uuid not passed",
+                "status_code" : 401,
+                "status_name"  : "Error"
+            })
+        }
+         if(uuid){
+            //user = await commondb.getUserById(userId)
          
-            if(user.length == 0){
-               return res.json({
-                   message: "User Not Found",
-                   "status_code" : 401,
-                   "status_name"  : "Error"
-               })
-           }
+            
 
-               let updateUser = await db.updateUser(userId,firstName,lastName,gender,userTypeId,schoolId)
+               let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId)
                console.log(updateUser)
                        if(updateUser.affectedRows > 0){
                            return res.json({

@@ -37,9 +37,9 @@ db.deleteUser = (uuid,userId,deletedOn) =>{
 };
  
  
-db.updateUser = (userId,firstName,lastName,gender,userTypeId,schoolId) =>{
+db.updateUser = (uuid,firstName,lastName,gender,userTypeId,schoolId) =>{
     return new Promise((resolve, reject)=>{
-        pool.query('UPDATE user SET first_name = ?,last_name = ?, user_type_id= ?, gender= ?, schoolId=? WHERE userUuid = ?', [firstName,lastName,userTypeId,gender,schoolId,userId], (error)=>{
+        pool.query('UPDATE user SET first_name = ?,last_name = ?, user_type_id= ?, gender= ?, schoolId=? WHERE uuid = ?', [firstName,lastName,userTypeId,gender,schoolId,uuid], (error)=>{
             if(error){
                 return reject(error);
             }
