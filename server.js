@@ -74,11 +74,6 @@ async function  verifyToken  (req, res, next){
                    "status_code"   :       401
                });
            }
-           // if(user){
-           //     return res.send({"status":"Successfully Verified",
-           //     "user":user});
-           // }
-          
        }
        else{
            console.log("6")
@@ -131,4 +126,4 @@ app.use('/validateToken',require('./authentication/validateToken'));
 app.use('/logout',require('./authentication/validateToken'),require('./authentication/logout'));
 app.use('/changePassword',require('./authentication/validateToken'),require('./authentication/changePassword'));
 app.use('/user',require('./userRoute/userRoute'))
-app.use('/syllabus',require('./syllabusRoute/syllabusRoute'))
+app.use('/common',require('./commonFunction/commonRoute'))

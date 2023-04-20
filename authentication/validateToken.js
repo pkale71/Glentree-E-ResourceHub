@@ -1,4 +1,4 @@
-let commondb = require('../commonFunction/common')
+let commondb = require('../commonFunction/commonDatabaseQuery')
 let errorCode = require('../commonFunction/errorCode')
 let getCode = new errorCode()
 let userTypeCode;

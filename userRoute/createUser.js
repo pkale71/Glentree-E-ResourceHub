@@ -1,5 +1,5 @@
 let db = require('./databaseQueryUser')
-let commondb = require('../commonFunction/common')
+let commondb = require('../commonFunction/commonDatabaseQuery')
 let userUuid = require('uuid')
 let errorCode = require('../commonFunction/errorCode')
 let getCode = new errorCode()
