@@ -7,12 +7,10 @@ let useUser = new users()
 let user;
 let authData
 let userId
-let userList = []
 let token;
 let userUUID;
-module.exports = require('express').Router().get('/',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
     try{
-        console.log("88888")
         let tokenReceived = req.headers['authorization']
         if(typeof tokenReceived !== 'undefined'){
            tokenArr = tokenReceived.split(" ")
@@ -36,7 +34,6 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                 }) 
          }
          userUUID = req.params.userUUID
-         console.log("333333",userUUID)
          if(userUUID.length == 0){
             return res.json({
                 "status_code" : 404,
@@ -47,7 +44,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
          userId = authData[0].userId
         if(userId){
 
-            user = await db.getUser()
+            user = await db.getUser(userUUID)
             if(user.length == 0){
                 return res.json({
                     "status_code" : 404,
@@ -58,7 +55,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                 useUser.setDataAll(user[0])
                 return res.json({
                     "status_code" : 200,
-                    "data" : useUser.getDataAll(),
+                    "data" :{ user : useUser.getDataAll()},
                     "status_name" : 'ok'
                 })
                

@@ -5,7 +5,7 @@ userRouter.use( '/createUser',require('../authentication/validateToken'),require
 userRouter.use( '/deleteUser',require('../authentication/validateToken'),require('./deleteUser'))
 userRouter.use( '/updateUser',require('../authentication/validateToken'),require('./updateUser'))
 userRouter.use( '/getUsers',require('../authentication/validateToken'),require('./getAllUser'))
-userRouter.use( '/getUser/:userUUID',require('../authentication/validateToken'),require('./getUser'))
+userRouter.use( '/getUser',require('../authentication/validateToken'),require('./getUser'))
 
 
 module.exports = userRouter
