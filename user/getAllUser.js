@@ -54,7 +54,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             if(user.length == userList.length){
                 return res.json({
                     "status_code" : 200,
-                    "data" : userList,
+                    "data" : {'users' : userList},
                     "status_name" : 'ok'
                 })
             }     

@@ -12,6 +12,7 @@ let token;
 let userUUID;
 module.exports = require('express').Router().get('/',async(req,res)=>{
     try{
+        console.log("88888")
         let tokenReceived = req.headers['authorization']
         if(typeof tokenReceived !== 'undefined'){
            tokenArr = tokenReceived.split(" ")
