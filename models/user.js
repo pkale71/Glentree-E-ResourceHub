@@ -36,6 +36,9 @@ class user {
     lastLogin
     accessToken
     mobile
+    isActive
+    createdBy
+    deletedBy
 
     constructor(){}
 
@@ -74,5 +77,51 @@ class user {
         }
         
     }
+
+    setDataAll(data){
+        this.uuid           =   data.uuid
+        this.fullName       =   data.fullName
+        this.role           =   {
+                                    id     :   data.role_id,
+                                    name   :   data.role_name
+                                }
+        this.userType       =   {
+                                    id     :   data.user_type_id,
+                                    name    :   data.user_type_name,
+                                    code    :   data.user_type_code
+                                }
+        this.email          =   data.email
+        this.lastLogin      =   data.last_login
+        this.accessToken    =   data.access_token
+        this.mobile         =   data.mobile
+        this.isActive       =   data.isActive == 1 ?true :false
+        this.createdBy      =   data.createdById == null ? null : {
+                                    'uuid'    :   data.createdbyUuid,
+                                    'fullName' :  data.createdfullName
+                                }
+
+        this.deletedBy      =    data.deleted_by_id == null ? null : {
+                                    'uuid'    :   data.deletedbyUuid,
+                                    'fullName' :  data.deletedfullName
+                                }
+    }
+
+    getDataAll(){
+        return {
+                         uuid           :   this.uuid,
+                         fullName       :   this.fullName,
+                         role           :   this.role,
+                         userType       :   this.userType,
+                         mobile         :   this.mobile,
+                         email          :   this.email,
+                         lastLogin      :   this.lastLogin,
+                         accessToken    :   this.accessToken,
+                         isActive       :   this.isActive,
+                         createdBy      :   this.createdBy,
+                         deletedBy      :   this.deletedBy
+
+         }
+         
+     }
 }
 module.exports = user

@@ -8,11 +8,25 @@ let user;
 let authData
 let userId
 let userList = []
+let token;
 
 module.exports = require('express').Router().get('/',async(req,res)=>{
     try{
-         accessToken = req.body.accessToken;
-         authData = await commondb.selectToken(accessToken)
+        let tokenReceived = req.headers['authorization']
+        if(typeof tokenReceived !== 'undefined'){
+           tokenArr = tokenReceived.split(" ")
+           token = tokenArr[1]
+           token = token.toString()
+        }
+
+        if(token.length == 0){
+           return res.json({
+               message: "Invalid token provided",
+               status_name : getCode.getStatus(401),
+               "status_code"  :       401
+           })
+       }     
+         authData = await commondb.selectToken(token)
          if(authData.length == 0){
             return res.json({
                 "status_code" : 401,
@@ -24,7 +38,6 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
         if(userId){
 
             user = await db.getUsers()
-            console.log(user[0])
             if(user.length == 0){
                 return res.json({
                     "status_code" : 404,
@@ -34,14 +47,14 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             }
             userList = []
             await Array.from(user).forEach(ele=>{
-                useUser.setData(ele)
-                userList.push(useUser.getData())
+                useUser.setDataAll(ele)
+                userList.push(useUser.getDataAll())
             })
 
             if(user.length == userList.length){
                 return res.json({
                     "status_code" : 200,
-                    "data" : user,
+                    "data" : userList,
                     "status_name" : 'ok'
                 })
             }     
