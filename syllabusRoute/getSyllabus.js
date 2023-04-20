@@ -6,18 +6,18 @@ let syllabuses = new syllabusObj()
 let syllabus;
 let syllabusList = [];
 
-module.exports = require('express').Router().get('/',async(req,res)=>{
+module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
         syllabus = await db.getSyllabus()
         if(syllabus.length == 0){
             return res.json({
                 "status_code"   :   404,
-                "data"        : {'syllabus' : []},
+                "data"          :   {'syllabus' : []},
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(syllabus).forEach(ele=>{
+        await Array.from(syllabus).forEach(ele  =>  {
             syllabuses.setDataAll(ele)
             syllabusList.push(syllabuses.getDataAll())
         })

@@ -37,11 +37,11 @@ db.deleteSyllabus = (id) => {
     });
 }
 
-db.insertSyllabus = (id, name) => {
+db.insertSyllabus = (name) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO syllabus (id, name) VALUES (?,  ?)", [id, name], (error, result) => 
+            pool.query("INSERT INTO syllabus (name) VALUES (?)", [name], (error, result) => 
             {
                 if(error)
                 {
@@ -54,5 +54,24 @@ db.insertSyllabus = (id, name) => {
         
     });
 }
+
+db.selectSchool = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT * FROM school WHERE syllabus_id = ?", [id], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db
 
