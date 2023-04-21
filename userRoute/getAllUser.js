@@ -1,7 +1,7 @@
 let db = require('./databaseQueryUser')
-let commondb = require('../commonFunction/commonDatabaseQuery')
+let commondb = require('../common/commonDatabaseQuery')
 let users = require('../models/user')
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let useUser = new users()
 let user;

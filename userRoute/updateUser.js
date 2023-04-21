@@ -1,5 +1,5 @@
 let db = require('./databaseQueryUser')
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let accessToken;
 let firstName
@@ -11,9 +11,16 @@ let uuid;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
+        if(req.body.uuid == undefined ){
+            return res.json({
+                "status_code" : 404,
+                "message" : "Missing uuid",
+                status_name : getCode.getStatus(404)
+            })
+        }
          accessToken = req.body.accessToken;
-         firstName = req.body.firstName;
-         lastName = req.body.lastName;
+         firstName = req.body.firstName 
+         lastName = req.body.lastName 
          userTypeId = req.body.userType.id
          gender = req.body.gender
          uuid   =   req.body.uuid

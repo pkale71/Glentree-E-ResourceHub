@@ -1,7 +1,7 @@
 let db = require('./databaseQueryUser')
-let commondb = require('../commonFunction/commonDatabaseQuery')
+let commondb = require('../common/commonDatabaseQuery')
 let userUuid = require('uuid')
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let user;
 let email;
@@ -21,6 +21,14 @@ let userId
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
+        console.log(req.body.email)
+        if(req.body.email == undefined || req.body.password == undefined || req.body.firstName == undefined  || req.body.role.id == undefined || req.body.mobile == undefined || req.body.userType.id == undefined || req.body.gender == undefined){
+            return res.json({
+                "status_code" : 404,
+                "message" : "Provide all values",
+                status_name : getCode.getStatus(404)
+            })
+        }
          email = req.body.email;
          password = req.body.password;
          accessToken = req.body.accessToken;

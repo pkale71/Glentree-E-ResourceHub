@@ -1,6 +1,6 @@
 let db = require('./databaseQueryAuth')
-let commondb = require('../commonFunction/commonDatabaseQuery')
-let errorCode = require('../commonFunction/errorCode')
+let commondb = require('../common/commonDatabaseQuery')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let user;
 let oldPassword;

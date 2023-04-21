@@ -126,4 +126,4 @@ app.use('/validateToken',require('./authentication/validateToken'));
 app.use('/logout',require('./authentication/validateToken'),require('./authentication/logout'));
 app.use('/changePassword',require('./authentication/validateToken'),require('./authentication/changePassword'));
 app.use('/user',require('./userRoute/userRoute'))
-app.use('/common',require('./commonFunction/commonRoute'))
+app.use('/common',require('./common/commonRoute'))

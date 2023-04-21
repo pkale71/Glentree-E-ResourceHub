@@ -1,6 +1,6 @@
 let db = require('./databaseQueryUser')
-let commondb = require('../commonFunction/commonDatabaseQuery')
-let errorCode = require('../commonFunction/errorCode')
+let commondb = require('../common/commonDatabaseQuery')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let user;
 let accessToken;
@@ -13,6 +13,13 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
          accessToken = req.body.accessToken;
          uuid = req.body.uuid;
+         if(req.body.uuid == undefined){
+            return res.json({
+                "status_code" : 404,
+                "message" : "Uuid missing",
+                status_name : getCode.getStatus(404)
+            })
+        }
          deletedOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
          authData = await commondb.selectToken(accessToken)
          userId = authData[0].userId

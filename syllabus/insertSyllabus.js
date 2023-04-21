@@ -1,5 +1,5 @@
 let db = require('./databaseQuerySyllabus')
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let insertSyllabus;
 let name;
@@ -34,7 +34,6 @@ module.exports = require('express').Router().post('/',async(req,res) => {
     } 
     catch(e)
     {
-        console.log(e)
         return res.json({
             "status_code"   :   500,
             "message"       :   "Syllabus not inserted",

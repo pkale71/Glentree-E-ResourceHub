@@ -1,31 +1,31 @@
-let db = require('./databaseQuerySyllabus')
-let syllabusObj = require('../models/syllabus')
+let db = require('./databaseQueryUserType')
+let userTypeObj = require('../models/userType')
 let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
-let syllabuses = new syllabusObj()
-let syllabus;
-let syllabusList = [];
+let userTypes = new userTypeObj()
+let userType;
+let userTypeList = [];
 
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        syllabus = await db.getSyllabus()
-        if(syllabus.length == 0){
+        userType = await db.getUserTypes()
+        if(userType.length == 0){
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'syllabus' : []},
+                "data"          :   {'userTypes' : []},
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(syllabus).forEach(ele  =>  {
-            syllabuses.setDataAll(ele)
-            syllabusList.push(syllabuses.getDataAll())
+        await Array.from(userType).forEach(ele  =>  {
+            userTypes.setData(ele)
+            userTypeList.push(userTypes.getData())
         })
 
-        if(syllabus.length == syllabusList.length){
+        if(userType.length == userTypeList.length){
             return res.json({
                 "status_code" : 200,
-                "data"        : {'syllabus' : syllabusList},
+                "data"        : {'role' : userTypeList},
                 status_name   : getCode.getStatus(200)
             })
         } 
@@ -34,7 +34,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     {
         return res.json({
             "status_code"   :   500,
-            "message"       :   "Syllabus not found",
+            "message"       :   "User Type not found",
             "status_name"   :   getCode.getStatus(500),
             "error"         :   e
         })     

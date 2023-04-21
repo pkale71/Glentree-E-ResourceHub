@@ -1,6 +1,6 @@
 let db = require('./databaseQueryAuth')
 let token;
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 module.exports = require('express').Router().get('/',async(req,res)=>{
     try{

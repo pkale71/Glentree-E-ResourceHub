@@ -1,5 +1,5 @@
 let db = require('./databaseQueryAuth')
-let errorCode = require('../commonFunction/errorCode')
+let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let users = require('../models/user')
 let generate_token = require('./tokenGenerate')
