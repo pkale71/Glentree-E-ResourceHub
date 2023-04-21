@@ -11,6 +11,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     {
         syllabus = await db.getSyllabus()
         if(syllabus.length == 0){
+            res.status(404)
             return res.json({
                 "status_code"   :   404,
                 "data"          :   {'syllabus' : []},
@@ -24,6 +25,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         })
 
         if(syllabus.length == syllabusList.length){
+            res.status(200)
             return res.json({
                 "status_code" : 200,
                 "data"        : {'syllabus' : syllabusList},
@@ -34,6 +36,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     } 
     catch(e)
     {
+        res.status(500)
         return res.json({
             "status_code"   :   500,
             "message"       :   "Syllabus not found",

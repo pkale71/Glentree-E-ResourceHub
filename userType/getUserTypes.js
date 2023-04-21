@@ -12,6 +12,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         userType = await db.getAllUserTypes()
         userTypeList = [];
         if(userType.length == 0){
+            res.status(404)
             return res.json({
                 "status_code"   :   404,
                 "data"          :   {'userTypes' : []},
@@ -25,6 +26,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         })
 
         if(userType.length == userTypeList.length){
+            res.status(200)
             return res.json({
                 "status_code" : 200,
                 "data"        : {'userTypes' : userTypeList},
@@ -35,6 +37,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     } 
     catch(e)
     {
+        res.status(500)
         return res.json({
             "status_code"   :   500,
             "message"       :   "User Type not found",

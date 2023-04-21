@@ -15,6 +15,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          accessToken = req.body.accessToken;
          authData = await commondb.selectToken(accessToken)
          if(authData.length == 0){
+            res.status(401)
             return res.json({
                 "status_code" : 401,
                 "message" : "Invalid access token",
@@ -27,6 +28,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             user = await commondb.getUserById(userId)
          
             if(user.length == 0){
+                res.status(404)
                return res.json({
                 "status_code" : 404,
                 "message" : "User not found",
@@ -38,6 +40,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         let updateUser = await db.updateUser(userId,newPassword)
         console.log(updateUser)
                 if(insertUser.affectedRows > 0){
+                    res.status(200)
                     return res.json({
                         "status_code" : 200,
                         "message" : "success",
@@ -46,6 +49,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
 
                 }
                 else{
+                    res.status(500)
                     return res.json({
                         "status_code" : 500,
                         "message" : "Password not changed",
@@ -54,6 +58,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 }
        }
        else{
+        res.status(401)
         return res.json({
             "status_code" : 401,
             "message" : "Password not matched",
@@ -65,7 +70,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }
         } catch(e){
             console.log(e)
-           
+            res.status(500)
                 return res.json({
                     "status_code" : 500,
                     "message" : "Password not changed",

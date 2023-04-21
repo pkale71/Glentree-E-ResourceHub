@@ -20,6 +20,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
         }
 
         if(token.length == 0){
+            res.status(401)
            return res.json({
                message: "Invalid token provided",
                status_name : getCode.getStatus(401),
@@ -28,6 +29,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
        }     
          authData = await commondb.selectToken(token)
          if(authData.length == 0){
+            res.status(401)
             return res.json({
                 "status_code" : 401,
                 "message" : "Invalid token",
@@ -39,6 +41,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
 
             user = await db.getUsers()
             if(user.length == 0){
+                res.status(200)
                 return res.json({
                     "status_code" : 200,
                     "data" : {'users' : []},
@@ -53,6 +56,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             })
 
             if(user.length == userList.length){
+                res.status(200)
                 return res.json({
                     "status_code" : 200,
                     "data" : {'users' : userList},
@@ -63,7 +67,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
         }
         } catch(e){
             console.log(e)
-           
+            res.status(500)
                 return res.json({
                     "status_code" : 500,
                     "message" : "User not found",

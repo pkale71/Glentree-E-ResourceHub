@@ -12,6 +12,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         gradeCategory = await db.getGradeCategory()
         gradeCategoryList = [];
         if(gradeCategory.length == 0){
+            res.status(404)
             return res.json({
                 "status_code"   :   404,
                 "data"          :   {'gradeCategory' : []},
@@ -25,6 +26,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         })
 
         if(gradeCategory.length == gradeCategoryList.length){
+            res.status(200)
             return res.json({
                 "status_code" : 200,
                 "data"        : {'gradeCategory' : gradeCategoryList},
@@ -35,6 +37,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     } 
     catch(e)
     {
+        res.status(500)
         return res.json({
             "status_code"   :   500,
             "message"       :   "Grade Category not found",

@@ -7,14 +7,16 @@ let lastName
 let userTypeId
 let gender
 let schoolId;
+let schoolUuid;
 let uuid;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-        if(req.body.uuid == undefined ){
+        if(req.body.uuid == undefined || (req.body.role.id==2 && req.body.school == undefined)){
+            res.status(404)
             return res.json({
                 "status_code" : 404,
-                "message" : "Missing uuid",
+                "message" : "Missing values",
                 status_name : getCode.getStatus(404)
             })
         }
@@ -24,17 +26,33 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          userTypeId = req.body.userType.id
          gender = req.body.gender
          uuid   =   req.body.uuid
-            if(req.body.role.id==2 && !req.body.school.id){
+            if(req.body.role.id==2 && !req.body.school.uuid){
+                res.status(404)
                 return res.json({
                     "status_code" : 404,
-                    "message" : "School Id Missing",
+                    "message" : "School uuid Missing",
                     status_name : getCode.getStatus(404),
                 })
             }
-         schoolId = req.body.role.id==2?req.body.school.id:null
-        //  authData = await commondb.selectToken(accessToken)
-        //  userId = authData[0].userId
+         schoolUuid = req.body.role.id==2?req.body.school.uuid:null
+        if(schoolUuid){
+            console.log("true")
+            schoolId = await db.selectSchool(schoolUuid)
+            if(schoolId.length == 0){
+                res.status(404)
+                return res.json({
+                    "status_code" : 404,
+                    "message" : "Provide valid school uuid number",
+                    status_name : getCode.getStatus(404),
+                })
+            }
+            schoolId = schoolId[0].id
+        }
+        else{
+            schoolId = null
+        }
         if(uuid.length == 0){
+            res.status(404)
             return res.json({
                 message: "User not found",
                 "status_code" : 404,
@@ -42,13 +60,10 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
          if(uuid){
-            //user = await commondb.getUserById(userId)
-         
-            
-
                let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId)
                console.log(updateUser)
                        if(updateUser.affectedRows > 0){
+                        res.status(200)
                            return res.json({
                                "status_code" : 200,
                                "message" : "success",
@@ -57,6 +72,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
        
                        }
                        else{
+                        res.status(500)
                            return res.json({
                                "status_code" : 500,
                                "message" : "User not updated",
@@ -67,6 +83,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          }
          
         } catch(e){
+            res.status(500)
             return res.json({
                 "status_code" : 500,
                 "message" : "User not updated",

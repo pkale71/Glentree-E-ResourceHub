@@ -21,7 +21,7 @@ class school {
     id
     uuid 
     name
-    address
+    location
     contact1
     contact2
     email
@@ -36,97 +36,57 @@ class school {
     constructor(){}
 
     setData(data){
-        this.id                 =           data.id
         this.uuid               =           data.uuid
         this.name               =           data.name
-        this.address            =           data.address
+        this.location           =           data.location
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2
         this.email              =           data.email
         this.curriculumUpload   =           data.curriculumUpload
         this.syllabus           =           {
-                                                id     :   data.user_type_id,
-                                                name    :   data.user_type_name,
-                                                code    :   data.user_type_code
+                                                "id"     :   data.syllabusId,
+                                                "name"    :   data.syllabusName,
                                             }
-        this.gradeCategory      =   {
-                                    id     :   data.user_type_id,
-                                    name    :   data.user_type_name,
-                                    code    :   data.user_type_code
-                                }
-        this.createdOn          =   data.createdOn
-        this.createdBy      =  {
-
-        }
-        this.active    =   data.is_active
-        this.schoolUserSetting         =   {
-            id     :   data.user_type_id,
-            name    :   data.user_type_name,
-            code    :   data.user_type_code
-        }
+        this.gradeCategory      =           {
+                                                "id"     :   data.gradeCategoryId,
+                                                "name"    :   data.gradeCategoryName,
+                                            }
+        this.createdOn          =           data.created_on
+        this.createdBy          =           {
+                                                "id"     :   data.created_by_id,
+                                                "name"    :   data.createdByName
+                                            }
+        this.active             =           data.is_active
+        this.schoolUserSetting  =           {
+                                                "uuid"    :   data.schoolUserSettingUuid,
+                                                "userType":   {
+                                                                "id" : data.userTypeId,
+                                                                "name" : data.userTypeName
+                                                            },
+                                                "canUpload"    :   data.schoolUserSettingUpload,
+                                                "canVerify"    :   data.schoolUserSettingVerify,
+                                                "canPublish"    :   data.schoolUserSettingPublish,
+                                            }
     }
+
+
     getData(){
-       return {
-        user    :   {
-                        uuid           :   this.uuid,
-                        fullName       :   this.fullName,
-                        role           :   this.role,
-                        userType       :   this.userType,
-                        mobile         :   this.mobile,
-                        email          :   this.email,
-                        lastLogin      :   this.lastLogin,
-                        accessToken    :   this.accessToken
-                    },
-        "status_code" : 200,
-        "message" : "success",
-        "status_name" : 'ok'
-        }
-        
-    }
-
-    setDataAll(data){
-        this.uuid           =   data.uuid
-        this.fullName       =   data.fullName
-        this.role           =   {
-                                    id     :   data.role_id,
-                                    name   :   data.role_name
-                                }
-        this.userType       =   {
-                                    id     :   data.user_type_id,
-                                    name    :   data.user_type_name,
-                                    code    :   data.user_type_code
-                                }
-        this.email          =   data.email
-        this.lastLogin      =   data.last_login
-        this.accessToken    =   data.access_token
-        this.mobile         =   data.mobile
-        this.active       =     data.isActive
-        this.createdBy      =   data.createdById == null ? null : {
-                                    'uuid'    :   data.createdbyUuid,
-                                    'fullName' :  data.createdfullName
-                                }
-
-        this.deletedBy      =    data.deleted_by_id == null ? null : {
-                                    'uuid'    :   data.deletedbyUuid,
-                                    'fullName' :  data.deletedfullName
-                                }
-    }
-
-    getDataAll(){
         return {
-                         uuid           :   this.uuid,
-                         fullName       :   this.fullName,
-                         role           :   this.role,
-                         userType       :   this.userType,
-                         mobile         :   this.mobile,
-                         email          :   this.email,
-                         lastLogin      :   this.lastLogin,
-                         accessToken    :   this.accessToken,
-                         active         :   this.active,
-                         createdBy      :   this.createdBy,
-                         deletedBy      :   this.deletedBy
+                        uuid                :   this.uuid,
+                        name                :   this.name,
+                        location            :   this.location,
+                        contact1            :   this.contact1,
+                        contact2            :   this.contact2,
+                        email               :   this.email,
+                        curriculumUpload    :   this.curriculumUpload,
+                        syllabus            :   this.syllabus,
+                        gradeCategory       :   this.gradeCategory,
+                        createdOn           :   this.createdOn,
+                        createdBy           :   this.createdBy,
+                        active              :   this.active,
+                        schoolUserSetting   :   this.schoolUserSetting
 
-         }
+        }
          
      }
 }

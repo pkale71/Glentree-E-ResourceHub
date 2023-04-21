@@ -9,6 +9,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
     {
         name = req.body.name
         if(!req.body.name){
+            res.status(404)
             return res.json({
                 "status_code" : 404,
                 "message" : "Provide data to insert",
@@ -17,6 +18,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
         }
         insertSyllabus = await db.insertSyllabus(name);
         if(insertSyllabus.affectedRows > 0){
+            res.status(200)
             return res.json({
                 "status_code" : 200,
                 "message" : "success",
@@ -25,6 +27,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
 
         }
         else{
+            res.status(404)
             return res.json({
                 "status_code" : 404,
                 "message"     : "Syllabus not inserted",
@@ -34,6 +37,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
     } 
     catch(e)
     {
+        res.status(500)
         return res.json({
             "status_code"   :   500,
             "message"       :   "Syllabus not inserted",

@@ -13,6 +13,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
 
          if(token.length == 0){
             console.log("1")
+            res.status(401)
             return res.json({
                 message: "Invalid token provided",
                 status_name : getCode.getStatus(401),
@@ -22,6 +23,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                 let deletedToken = await db.deleteToken(token)
                 console.log(deletedToken)
                 if(deletedToken.affectedRows > 0){
+                    res.status(200)
                     return res.json({
                         "status_code" : 200,
                         "message" : "success",
@@ -30,6 +32,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
 
                 }
                 else{
+                    res.status(404)
                     return res.json({
                         "status_code" : 404,
                         "message" : "Logout Failed, user not found",
@@ -37,6 +40,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                     }) 
                 }   
         } catch(e){
+            res.status(500)
             return res.json({
                 "status_code" : 500,
                 "message" : "Logout Failed",

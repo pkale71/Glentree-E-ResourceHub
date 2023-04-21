@@ -14,6 +14,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          accessToken = req.body.accessToken;
          uuid = req.body.uuid;
          if(req.body.uuid == undefined){
+            res.status(404)
             return res.json({
                 "status_code" : 404,
                 "message" : "Uuid missing",
@@ -28,6 +29,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             user = await commondb.getUserById(userId)
          
             if(user.length == 0){
+                res.status(404)
                return res.json({
                    message: "User not dound",
                    "status_code" : 404,
@@ -37,6 +39,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                let deleteUser = await db.deleteUser(uuid,userId,deletedOn)
                console.log(deleteUser)
                        if(deleteUser.affectedRows > 0){
+                        res.status(200)
                            return res.json({
                                "status_code" : 200,
                                "message" : "success",
@@ -45,6 +48,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
        
                        }
                        else{
+                        res.status(500)
                            return res.json({
                                "status_code" : 500,
                                "message" : "User not deleted",
@@ -58,6 +62,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         
      
         } catch(e){
+            res.status(500)
             return res.json({
                 "status_code" : 500,
                 "message" : "User not deleted",

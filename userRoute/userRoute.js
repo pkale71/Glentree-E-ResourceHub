@@ -1,11 +1,11 @@
 const express =require('express');
 const userRouter = express.Router();
 
-userRouter.use( '/createUser',require('../authentication/validateToken'),require('./createUser'))
-userRouter.use( '/deleteUser',require('../authentication/validateToken'),require('./deleteUser'))
-userRouter.use( '/updateUser',require('../authentication/validateToken'),require('./updateUser'))
-userRouter.use( '/getUsers',require('../authentication/validateToken'),require('./getAllUser'))
-userRouter.use( '/getUser',require('../authentication/validateToken'),require('./getUser'))
+userRouter.use( '/createUser',require('../authentication/postValidateToken'),require('./createUser'))
+userRouter.use( '/deleteUser',require('../authentication/postValidateToken'),require('./deleteUser'))
+userRouter.use( '/updateUser',require('../authentication/postValidateToken'),require('./updateUser'))
+userRouter.use( '/getUsers',require('../authentication/getValidateToken'),require('./getAllUser'))
+userRouter.use( '/getUser',require('../authentication/getValidateToken'),require('./getUser'))
 
 
 module.exports = userRouter

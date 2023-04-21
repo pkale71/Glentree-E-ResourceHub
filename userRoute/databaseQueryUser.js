@@ -83,4 +83,22 @@ db.getUser = (uuid) => {
         });
     }; 
 
+    db.selectSchool = (uuid) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+                pool.query("SELECT id FROM school WHERE uuid = ?", [uuid], (error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
+
 module.exports = db

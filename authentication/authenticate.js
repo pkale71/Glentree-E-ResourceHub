@@ -13,6 +13,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          password = req.body.password;
          user = await db.getUserByEmail(email);
         if(user.length == 0){
+            res.status(401)
             return res.json({
                 status_code : 401,
                 message: "Invalid email or password",
@@ -33,10 +34,12 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 let insertToken = await db.insertToken(jsontoken, userId, mysqlDatetime)
                 let insert_lastLogin = await db.insertLastLogin(userId,mysqlDatetime)
                 useUser.setData(user[0])
+                res.status(200)
                 return res.json(useUser.getData())
             }
             
         }  else{
+            res.status(401)
             return res.json({
                 status_code : 401,
                 message: "Invalid email or password",
@@ -45,6 +48,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         } 
      
         } catch(e){
+            res.status(401)
             return res.json({
                 status_code : 401,
                 message: "Invalid email or password",
