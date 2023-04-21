@@ -61,7 +61,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }
          if(uuid){
                let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId)
-               console.log(updateUser)
+               console.log("***",updateUser)
                        if(updateUser.affectedRows > 0){
                         res.status(200)
                            return res.json({
