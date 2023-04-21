@@ -73,7 +73,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
                     "status_code" : 500,
                     "message" : "User not found",
                     status_name : getCode.getStatus(500),
-                    "error"     :      e
+                    "error"     :      e.sqlMessage
                 }) 
            
         }

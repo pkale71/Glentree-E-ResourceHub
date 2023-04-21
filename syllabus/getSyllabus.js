@@ -41,7 +41,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             "status_code"   :   500,
             "message"       :   "Syllabus not found",
             "status_name"   :   getCode.getStatus(500),
-            "error"         :   e
+            "error"         :   e.sqlMessage
         })     
     }
 })

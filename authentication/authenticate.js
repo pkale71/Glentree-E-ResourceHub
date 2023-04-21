@@ -52,7 +52,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 status_code : 401,
                 message: "Invalid email or password",
-                status_name : getCode.getStatus(401)
+                status_name : getCode.getStatus(401),
+                errror : e.sqlMessage
             });
         }
 

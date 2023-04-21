@@ -75,7 +75,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     "status_code" : 500,
                     "message" : "Password not changed",
                     status_name : getCode.getStatus(500),
-                    "error"     :      e
+                    "error"     :      e.sqlMessage
                 }) 
         }
 

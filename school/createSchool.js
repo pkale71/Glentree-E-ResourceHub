@@ -82,13 +82,14 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         } catch(e){
             console.log(e)
+            let msg = e.sqlMessage.replace('_UNIQUE', '');
             if(e.code == 'ER_DUP_ENTRY'){
                 res.status(500)
                 return res.json({
                     "status_code"   : 500,
                     "message"       : "School not created",
                     status_name     : getCode.getStatus(500),
-                    "error"         : "Duplicate Entry"
+                    "error"         : msg
                 }) 
             }else{
                 res.status(500)
@@ -96,7 +97,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_code" : 500,
                     "message" : "School not created",
                     status_name : getCode.getStatus(500),
-                    "error"     :      e
+                    "error"     :      e.sqlMessage
                 }) 
             }
            
