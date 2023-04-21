@@ -5,7 +5,7 @@ db.getAllUserTypes = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT u.id , u.name, u.code, u.is_active AS isActive , r.role_id, r.role_name FROM user_type u LEFT JOIN role r ON r.id = u.role_id",(error, result) => 
+            pool.query("SELECT u.id , u.name, u.code, u.is_active, u.role_id, r.name FROM user_type u LEFT JOIN role r ON r.id = u.role_id",(error, result) => 
             {
                 if(error)
                 {

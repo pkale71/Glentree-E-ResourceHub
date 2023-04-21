@@ -39,7 +39,7 @@ class userType {
         this.code   =   data.code
         this.role   =   {
                             id     :   data.role_id,
-                            name   :   data.role_name
+                            //name   :   data.role_name
                         }
     }
 

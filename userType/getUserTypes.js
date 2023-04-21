@@ -9,7 +9,7 @@ let userTypeList = [];
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        userType = await db.getUserTypes()
+        userType = await db.getAllUserTypes()
         if(userType.length == 0){
             return res.json({
                 "status_code"   :   404,
@@ -18,8 +18,8 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             })   
         }
         await Array.from(userType).forEach(ele  =>  {
-            userTypes.setData(ele)
-            userTypeList.push(userTypes.getData())
+            userTypes.setDataAll(ele)
+            userTypeList.push(userTypes.getDataAll())
         })
 
         if(userType.length == userTypeList.length){
