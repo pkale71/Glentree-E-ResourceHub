@@ -56,6 +56,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
                 return res.json({
                     "status_code" : 200,
                     "data" :{ user : useUser.getDataAll()},
+                    "message" : 'success',
                     status_name : getCode.getStatus(200)
                 })
                

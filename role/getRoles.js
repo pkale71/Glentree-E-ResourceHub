@@ -15,6 +15,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             return res.json({
                 "status_code"   :   404,
                 "data"          :   {'roles' : []},
+                "message"       :   'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
@@ -27,6 +28,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             return res.json({
                 "status_code" : 200,
                 "data"        : {'roles' : roleList},
+                "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
         } 

@@ -36,22 +36,34 @@ class school {
     constructor(){}
 
     setData(data){
-        this.id = 
-        this.uuid           =   data.uuid
-        this.name       =   data.name
-        this.role           =   {
-                                    id     :   data.role_id,
-                                    name   :   data.role_name
-                                }
-        this.userType       =   {
+        this.id                 =           data.id
+        this.uuid               =           data.uuid
+        this.name               =           data.name
+        this.address            =           data.address
+        this.contact1           =           data.contact1
+        this.contact2           =           data.contact2
+        this.email              =           data.email
+        this.curriculumUpload   =           data.curriculumUpload
+        this.syllabus           =           {
+                                                id     :   data.user_type_id,
+                                                name    :   data.user_type_name,
+                                                code    :   data.user_type_code
+                                            }
+        this.gradeCategory      =   {
                                     id     :   data.user_type_id,
                                     name    :   data.user_type_name,
                                     code    :   data.user_type_code
                                 }
-        this.email          =   data.email
-        this.lastLogin      =   data.last_login
-        this.accessToken    =   data.access_token
-        this.mobile         =   data.mobile
+        this.createdOn          =   data.createdOn
+        this.createdBy      =  {
+
+        }
+        this.active    =   data.is_active
+        this.schoolUserSetting         =   {
+            id     :   data.user_type_id,
+            name    :   data.user_type_name,
+            code    :   data.user_type_code
+        }
     }
     getData(){
        return {
