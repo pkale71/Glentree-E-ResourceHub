@@ -10,6 +10,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
         role = await db.getRole()
+        roleList = []
         if(role.length == 0){
             return res.json({
                 "status_code"   :   404,

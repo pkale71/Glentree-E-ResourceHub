@@ -36,8 +36,9 @@ class school {
     constructor(){}
 
     setData(data){
+        this.id = 
         this.uuid           =   data.uuid
-        this.fullName       =   data.fullName
+        this.name       =   data.name
         this.role           =   {
                                     id     :   data.role_id,
                                     name   :   data.role_name

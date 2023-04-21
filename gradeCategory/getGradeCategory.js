@@ -10,6 +10,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
         gradeCategory = await db.getGradeCategory()
+        gradeCategoryList = [];
         if(gradeCategory.length == 0){
             return res.json({
                 "status_code"   :   404,

@@ -10,6 +10,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
         userType = await db.getAllUserTypes()
+        userTypeList = [];
         if(userType.length == 0){
             return res.json({
                 "status_code"   :   404,
