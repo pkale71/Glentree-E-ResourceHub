@@ -105,7 +105,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "User not created",
+                    "message" : msg,
                     status_name : getCode.getStatus(500),
                     "error"     :    msg
                 }) 
