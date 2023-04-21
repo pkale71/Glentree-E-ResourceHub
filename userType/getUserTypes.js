@@ -25,7 +25,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         if(userType.length == userTypeList.length){
             return res.json({
                 "status_code" : 200,
-                "data"        : {'role' : userTypeList},
+                "data"        : {'userTypes' : userTypeList},
                 status_name   : getCode.getStatus(200)
             })
         } 
