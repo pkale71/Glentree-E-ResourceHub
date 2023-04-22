@@ -9,5 +9,6 @@ commonRoute.use( '/getGradeCategories',require('../authentication/getValidateTok
 commonRoute.use( '/getRoles',require('../authentication/getValidateToken'),require('../role/getRoles'))
 commonRoute.use( '/getUserTypes',require('../authentication/getValidateToken'),require('../userType/getUserTypes'))
 commonRoute.use( '/getSchoolUserSettting',require('../authentication/getValidateToken'),require('./schoolUserSetting/getSchoolUserSetting'))
+commonRoute.use( '/getSchoolGradeCategory',require('../authentication/getValidateToken'),require('./schoolGradeCategory/getSchoolGradeCategory'))
 
 module.exports = commonRoute

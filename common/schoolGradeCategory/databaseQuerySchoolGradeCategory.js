@@ -1,11 +1,11 @@
 let pool = require('../../databaseConnection/createconnection')
 let db = {};
  
-db.getSchoolUserSetting = () => {
+db.getSchoolGradeCategory = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT *, ut.name AS userTypeName from school_user_setting su LEFT JOIN user_type ut ON ut.id = su.user_type_id",(error, result) => 
+            pool.query("SELECT  s.name AS schoolName, s.uuid AS schoolUuid, s.name AS schoolName, gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN school s ON s.id = sgc.school_id LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id",(error, result) => 
             {
                 if(error)
                 {

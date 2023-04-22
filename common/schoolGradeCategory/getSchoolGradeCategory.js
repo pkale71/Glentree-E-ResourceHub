@@ -1,35 +1,35 @@
 let db = require('./databaseQuerySchoolGradeCategory')
-let schoolUserSettingObj = require('../../models/schoolUserSettting')
+let schoolGradeCategoryObj = require('../../models/schoolGradeCategory')
 let errorCode = require('../errorCode')
 let getCode = new errorCode()
-let schoolUserSettings = new schoolUserSettingObj()
-let schoolUserSetting;
-let schoolUserSettingList = [];
+let schoolGradeCategorys = new schoolGradeCategoryObj()
+let schoolGradeCategory;
+let schoolGradeCategoryList = [];
 
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        schoolUserSetting = await db.getSchoolUserSetting()
-        schoolUserSettingList = [];
-        if(schoolUserSetting.length == 0){
+        schoolGradeCategory = await db.getSchoolGradeCategory()
+        schoolGradeCategoryList = [];
+        if(schoolGradeCategory.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'schoolUserSetting' : []},
+                "data"          :   {'schoolGradeCategory' : []},
                 "message"       :   'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(schoolUserSetting).forEach(ele  =>  {
-            schoolUserSettings.setDataAll(ele)
-            schoolUserSettingList.push(schoolUserSettings.getDataAll())
+        await Array.from(schoolGradeCategory).forEach(ele  =>  {
+            schoolGradeCategorys.setDataAll(ele)
+            schoolGradeCategoryList.push(schoolGradeCategorys.getDataAll())
         })
 
-        if(schoolUserSetting.length == schoolUserSettingList.length){
+        if(schoolGradeCategory.length == schoolGradeCategoryList.length){
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'schoolUserSetting' : schoolUserSettingList},
+                "data"        : {'schoolGradeCategory' : schoolGradeCategoryList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
@@ -40,7 +40,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         res.status(500)
         return res.json({
             "status_code"   :   500,
-            "message"       :   "School user setting not found",
+            "message"       :   "School grade category not found",
             "status_name"   :   getCode.getStatus(500),
             "error"         :   e.sqlMessage
         })     

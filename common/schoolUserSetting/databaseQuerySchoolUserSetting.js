@@ -5,7 +5,7 @@ db.getSchoolUserSetting = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT *, ut.name AS userTypeName from school_user_setting su LEFT JOIN user_type ut ON ut.id = su.user_type_id",(error, result) => 
+            pool.query("SELECT *, ut.name AS userTypeName, ut.code from school_user_setting su LEFT JOIN user_type ut ON ut.id = su.user_type_id",(error, result) => 
             {
                 if(error)
                 {

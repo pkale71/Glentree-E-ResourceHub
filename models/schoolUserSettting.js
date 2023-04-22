@@ -26,7 +26,8 @@ class schoolUserSetting {
         this.userType   =   {
                                 "id" : data.user_type_id,
                                 "name" : data.userTypeName,
-                                
+                                "code" : data.code
+
                             }
     }
 
