@@ -19,21 +19,20 @@ class schoolUserSetting {
     
     setDataAll(data)
     {
-        this.id         =   data.id
         this.uuid       =   data.uuid
         this.canPublish =   data.can_publish
         this.canUpload  =   data.can_upload
         this.canVerify  =   data.can_verify
         this.userType   =   {
                                 "id" : data.user_type_id,
-                                "name" : data.userTypeName
+                                "name" : data.userTypeName,
+                                
                             }
     }
 
     getDataAll()
     {
         return {
-            id          :   this.id,
             uuid        :   this.uuid,
             canUpload   :   this.canUpload,
             canVerify   :   this.canVerify,

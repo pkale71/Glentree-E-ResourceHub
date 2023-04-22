@@ -8,5 +8,6 @@ commonRoute.use( '/createSyllabus',require('../authentication/postValidateToken'
 commonRoute.use( '/getGradeCategories',require('../authentication/getValidateToken'),require('../gradeCategory/getGradeCategory'))
 commonRoute.use( '/getRoles',require('../authentication/getValidateToken'),require('../role/getRoles'))
 commonRoute.use( '/getUserTypes',require('../authentication/getValidateToken'),require('../userType/getUserTypes'))
+commonRoute.use( '/getSchoolUserSettting',require('../authentication/getValidateToken'),require('./schoolUserSetting/getSchoolUserSetting'))
 
 module.exports = commonRoute

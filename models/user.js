@@ -39,12 +39,16 @@ class user {
     active
     createdBy
     deletedBy
+    gender
+    school
+    firstName
+    lastName
 
     constructor(){}
 
     setData(data){
         this.uuid           =   data.uuid
-        this.fullName       =   data.fullName
+        this.fullName       =   data.fullName.trim()
         this.role           =   {
                                     id     :   data.role_id,
                                     name   :   data.role_name
@@ -80,7 +84,9 @@ class user {
 
     setDataAll(data){
         this.uuid           =   data.uuid
-        this.fullName       =   data.fullName
+        this.fullName       =   data.fullName.trim()
+        this.firstName      =   data.first_name
+        this.lastName       =   data.last_name
         this.role           =   {
                                     id     :   data.role_id,
                                     name   :   data.role_name
@@ -104,12 +110,19 @@ class user {
                                     'uuid'    :   data.deletedbyUuid,
                                     'fullName' :  data.deletedfullName
                                 }
+        this.gender         =   data.gender,
+        this.school         =   {
+                                    "uuid" : data.schoolUuid,
+                                    "name" : data.schoolName 
+                                }
     }
 
     getDataAll(){
         return {
                          uuid           :   this.uuid,
                          fullName       :   this.fullName,
+                         firstName      :   this.firstName,
+                         lastName       :   this.lastName,
                          role           :   this.role,
                          userType       :   this.userType,
                          mobile         :   this.mobile,
@@ -118,7 +131,8 @@ class user {
                          accessToken    :   this.accessToken,
                          active         :   this.active,
                          createdBy      :   this.createdBy,
-                         deletedBy      :   this.deletedBy
+                         deletedBy      :   this.deletedBy,
+                         school         :   this.school
 
          }
          
