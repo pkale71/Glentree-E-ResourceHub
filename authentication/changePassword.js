@@ -39,7 +39,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
        if(isValidPassword){
         let updateUser = await db.updateUser(userId,newPassword)
         console.log(updateUser)
-                if(insertUser.affectedRows > 0){
+                if(updateUser.affectedRows > 0){
                     res.status(200)
                     return res.json({
                         "status_code" : 200,
@@ -61,7 +61,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         res.status(401)
         return res.json({
             "status_code" : 401,
-            "message" : "Password not matched",
+            "message" : "Old Password not matched",
             status_name : getCode.getStatus(401),
             
         }) 

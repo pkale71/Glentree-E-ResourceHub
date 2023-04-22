@@ -25,11 +25,26 @@ db.getAllSchools = () => {
     });
 }
 
-db.getSchools = () => {
+db.getSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM school",(error, result) => 
+            pool.query(`SELECT JSON_OBJECT('id',s.id,'uuid',s.uuid , 'name', s.name, 'location', s.location, 'contact1', s.contact1, 'contact2', s.contact2, 
+            'email', s.email, 'curriculumUpload', s.curriculum_upload, 
+            'syllabus', JSON_OBJECT('id', s.syllabus_id, 'name', sy.name), 
+            'gradeCategory',( SELECT JSON_ARRAYAGG(JSON_OBJECT('id', sgc.grade_category_id, 'name', gc.name))), 
+            'schoolUserSetting',( SELECT JSON_ARRAYAGG(JSON_OBJECT('uuid', su.uuid, 'userType', JSON_OBJECT('id',su.user_type_id,
+            'name', ut.name , 'code',ut.code),'canUpload',su.can_upload,'canVerify',su.can_verify,'canPublish',su.can_publish))),
+            'createdOn', s.created_on, 'createdBy', JSON_OBJECT('id',s.created_by_id,
+            'fullName', CONCAT(u.first_name,' ',IFNULL(u.last_name,''))), 'active', s.is_active)
+             FROM school s 
+             LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
+             LEFT JOIN user u ON u.id = s.created_by_id
+             LEFT JOIN school_user_setting su ON su.school_id = s.id
+             LEFT JOIN user_type ut ON ut.id = su.user_type_id
+             LEFT JOIN school_grade_category sgc ON sgc.school_id = s.id
+             LEFT JOIN grade_category gc ON sgc.grade_category_id = gc.id  WHERE s.uuid = ?
+             ORDER BY s.id, sgc.id `, [uuid],(error, result) => 
             {
                 if(error)
                 {
