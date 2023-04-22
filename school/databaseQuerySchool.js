@@ -5,7 +5,13 @@ db.getAllSchools = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email, s.curriculum_upload, s.syllabus_id AS syllabusId, sy.name AS syllabusName, s.grade_category_id AS gradeCategoryId, gc.name AS gradeCategoryName, s.created_on, s.created_by_id, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active, su.uuid AS schoolUserSettingUuid, su.can_upload AS schoolUserSettingUpload, su.can_verify AS schoolUserSettingVerify, su.can_publish AS schoolUserSettingPublish, su.user_type_id AS userTypeId, ut.name AS userTypeName FROM school s LEFT JOIN syllabus sy  ON sy.id = s.syllabus_id LEFT JOIN grade_category gc ON gc.id = s.grade_category_id LEFT JOIN user u ON u.id = s.created_by_id LEFT JOIN school_user_setting su ON su.school_id = s.id LEFT JOIN user_type ut ON ut.id = su.user_type_id ",(error, result) => 
+            pool.query(`SELECT distinct s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email, s.curriculum_upload, s.syllabus_id AS syllabusId,
+            sy.name AS syllabusName, s.created_on, s.created_by_id, 
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active
+            FROM school s 
+            LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
+            LEFT JOIN user u ON u.id = s.created_by_id
+            ORDER BY s.id`,(error, result) => 
             {
                 if(error)
                 {

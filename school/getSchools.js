@@ -21,8 +21,8 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             })   
         }
         await Array.from(school).forEach(ele  =>  {
-            schools.setData(ele)
-            schoolList.push(schools.getData())
+            schools.setDataAll(ele)
+            schoolList.push(schools.getDataAll())
         })
 
         if(school.length == schoolList.length){
