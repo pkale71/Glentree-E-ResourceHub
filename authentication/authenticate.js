@@ -22,9 +22,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }
         user[0]['time'] = Date()
         userId = user[0].id
-        console.log(user[0],email,password,user[0].password,(user[0].password==password))
+        console.log(user[0].is_active)
         let isValidPassword = user[0].password == password
-        if(isValidPassword){
+        if(isValidPassword && user[0].is_active == 1){
             user.password = undefined;
             let mysqlDatetime = new Date(user[0].time).toISOString().slice(0, 19).replace('T', ' ');
             const jsontoken = generate_token(56)
