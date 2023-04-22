@@ -127,6 +127,7 @@ class user {
                          userType       :   this.userType,
                          mobile         :   this.mobile,
                          email          :   this.email,
+                         gender         :   this.gender,
                          lastLogin      :   this.lastLogin,
                          accessToken    :   this.accessToken,
                          active         :   this.active,
