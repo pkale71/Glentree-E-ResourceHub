@@ -10,7 +10,7 @@
 //     email?: string;
 //     curriculumUpload?: string;
 //     syllabus?: Syllabus;
-//     gradeCategory?: GradeCategory[];
+//     gradeCategory?: SchoolGradeCategory[];
 //     createdOn?: Date;
 //     createdBy?: User;
 //     active?: boolean;
@@ -18,7 +18,6 @@
 //   }
 
 class school {
-    id
     uuid 
     name
     location
@@ -35,7 +34,7 @@ class school {
 
     constructor(){}
 
-    setData(data){
+    setDataAll(data){
         this.uuid               =           data.uuid
         this.name               =           data.name
         this.location           =           data.location
@@ -62,7 +61,7 @@ class school {
 
 
 
-    getData(){
+    getDataAll(){
         return {
                         uuid                :   this.uuid,
                         name                :   this.name,
@@ -81,7 +80,7 @@ class school {
          
      }
 
-     setDataAll(data){
+     setData(data){
         this.uuid               =           data.uuid
         this.name               =           data.name
         this.location           =           data.location
@@ -114,7 +113,7 @@ class school {
                                                 "canPublish"    :   data.schoolUserSettingPublish,
                                             }
     }
-    getDataAll(){
+    getData(){
         return {
                         uuid                :   this.uuid,
                         name                :   this.name,
@@ -129,9 +128,7 @@ class school {
                         createdBy           :   this.createdBy,
                         active              :   this.active,
                         schoolUserSetting   :   this.schoolUserSetting
-
-        }
-         
+        }    
      }
 }
 module.exports = school
