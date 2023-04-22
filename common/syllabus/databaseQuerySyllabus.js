@@ -1,11 +1,11 @@
-let pool = require('../databaseConnection/createconnection')
+let pool = require('../../databaseConnection/createconnection')
 let db = {};
  
-db.getRole = () => {
+db.getSyllabus = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * from role",(error, result) => 
+            pool.query("SELECT * from syllabus",(error, result) => 
             {
                 if(error)
                 {
@@ -19,7 +19,7 @@ db.getRole = () => {
     });
 }
 
-db.deleteRole = (id) => {
+db.deleteSyllabus = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -37,7 +37,7 @@ db.deleteRole = (id) => {
     });
 }
 
-db.insertRole = (name) => {
+db.insertSyllabus = (name) => {
     return new Promise((resolve, reject)=>{
         try
         {

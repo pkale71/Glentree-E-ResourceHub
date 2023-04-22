@@ -1,11 +1,11 @@
-let pool = require('../databaseConnection/createconnection')
+let pool = require('../../databaseConnection/createconnection')
 let db = {};
  
-db.getAllUserTypes = () => {
+db.getRole = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT ut.id , ut.name, ut.code, ut.is_active, ut.role_id, r.name AS roleName FROM user_type ut LEFT JOIN role r ON r.id = ut.role_id WHERE ut.code NOT LIKE 'SUADM'",(error, result) => 
+            pool.query("SELECT * from role",(error, result) => 
             {
                 if(error)
                 {
@@ -19,25 +19,7 @@ db.getAllUserTypes = () => {
     });
 }
 
-db.getUserTypes = () => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            pool.query("SELECT * FROM user_type",(error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
-
-db.deleteUserTypes = (id) => {
+db.deleteRole = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -55,7 +37,7 @@ db.deleteUserTypes = (id) => {
     });
 }
 
-db.insertUserTypes = (name) => {
+db.insertRole = (name) => {
     return new Promise((resolve, reject)=>{
         try
         {

@@ -1,34 +1,35 @@
-let db = require('./databaseQuerySyllabus')
-let syllabusObj = require('../models/syllabus')
-let errorCode = require('../common/errorCode')
+let db = require('./databaseQueryRole')
+let roleObj = require('../../models/role')
+let errorCode = require('../errorCode')
 let getCode = new errorCode()
-let syllabuses = new syllabusObj()
-let syllabus;
-let syllabusList = [];
+let roles = new roleObj()
+let role;
+let roleList = [];
 
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        syllabus = await db.getSyllabus()
-        if(syllabus.length == 0){
+        role = await db.getRole()
+        roleList = []
+        if(role.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'syllabus' : []},
+                "data"          :   {'roles' : []},
                 "message"       :   'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(syllabus).forEach(ele  =>  {
-            syllabuses.setDataAll(ele)
-            syllabusList.push(syllabuses.getDataAll())
+        await Array.from(role).forEach(ele  =>  {
+            roles.setDataAll(ele)
+            roleList.push(roles.getDataAll())
         })
 
-        if(syllabus.length == syllabusList.length){
+        if(role.length == roleList.length){
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'syllabus' : syllabusList},
+                "data"        : {'roles' : roleList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
@@ -39,7 +40,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         res.status(500)
         return res.json({
             "status_code"   :   500,
-            "message"       :   "Syllabus not found",
+            "message"       :   "Role not found",
             "status_name"   :   getCode.getStatus(500),
             "error"         :   e.sqlMessage
         })     

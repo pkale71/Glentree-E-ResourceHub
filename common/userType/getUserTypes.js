@@ -1,35 +1,35 @@
-let db = require('./databaseQueryRole')
-let roleObj = require('../models/gradeCategory')
-let errorCode = require('../common/errorCode')
+let db = require('./databaseQueryUserType')
+let userTypeObj = require('../../models/userType')
+let errorCode = require('../errorCode')
 let getCode = new errorCode()
-let roles = new roleObj()
-let role;
-let roleList = [];
+let userTypes = new userTypeObj()
+let userType;
+let userTypeList = [];
 
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        role = await db.getRole()
-        roleList = []
-        if(role.length == 0){
+        userType = await db.getAllUserTypes()
+        userTypeList = [];
+        if(userType.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'roles' : []},
-                "message"       :   'success',
+                "data"          :   {'userTypes' : []},
+                "message"       : 'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(role).forEach(ele  =>  {
-            roles.setDataAll(ele)
-            roleList.push(roles.getDataAll())
+        await Array.from(userType).forEach(ele  =>  {
+            userTypes.setDataAll(ele)
+            userTypeList.push(userTypes.getDataAll())
         })
 
-        if(role.length == roleList.length){
+        if(userType.length == userTypeList.length){
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'roles' : roleList},
+                "data"        : {'userTypes' : userTypeList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
@@ -40,7 +40,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         res.status(500)
         return res.json({
             "status_code"   :   500,
-            "message"       :   "Role not found",
+            "message"       :   "User Type not found",
             "status_name"   :   getCode.getStatus(500),
             "error"         :   e.sqlMessage
         })     

@@ -1,11 +1,11 @@
-let pool = require('../databaseConnection/createconnection')
+let pool = require('../../databaseConnection/createconnection')
 let db = {};
  
-db.getSyllabus = () => {
+db.getGradeCategory = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * from syllabus",(error, result) => 
+            pool.query("SELECT * from grade_category",(error, result) => 
             {
                 if(error)
                 {
@@ -19,7 +19,7 @@ db.getSyllabus = () => {
     });
 }
 
-db.deleteSyllabus = (id) => {
+db.deleteGradeCategory = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -37,7 +37,7 @@ db.deleteSyllabus = (id) => {
     });
 }
 
-db.insertSyllabus = (name) => {
+db.insertGradeCategory = (name) => {
     return new Promise((resolve, reject)=>{
         try
         {

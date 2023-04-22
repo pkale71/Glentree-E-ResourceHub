@@ -1,5 +1,5 @@
 let db = require('./databaseQuerySyllabus')
-let errorCode = require('../common/errorCode')
+let errorCode = require('../errorCode')
 let getCode = new errorCode()
 let insertSyllabus;
 let name;

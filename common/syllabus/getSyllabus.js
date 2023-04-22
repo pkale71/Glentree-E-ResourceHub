@@ -1,35 +1,34 @@
-let db = require('./databaseQueryGradeCategory')
-let gradeCategoryObj = require('../models/gradeCategory')
-let errorCode = require('../common/errorCode')
+let db = require('./databaseQuerySyllabus')
+let syllabusObj = require('../../models/syllabus')
+let errorCode = require('../errorCode')
 let getCode = new errorCode()
-let gradeCategories = new gradeCategoryObj()
-let gradeCategory;
-let gradeCategoryList = [];
+let syllabuses = new syllabusObj()
+let syllabus;
+let syllabusList = [];
 
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        gradeCategory = await db.getGradeCategory()
-        gradeCategoryList = [];
-        if(gradeCategory.length == 0){
+        syllabus = await db.getSyllabus()
+        if(syllabus.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'gradeCategory' : []},
+                "data"          :   {'syllabus' : []},
                 "message"       :   'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        await Array.from(gradeCategory).forEach(ele  =>  {
-            gradeCategories.setDataAll(ele)
-            gradeCategoryList.push(gradeCategories.getDataAll())
+        await Array.from(syllabus).forEach(ele  =>  {
+            syllabuses.setDataAll(ele)
+            syllabusList.push(syllabuses.getDataAll())
         })
 
-        if(gradeCategory.length == gradeCategoryList.length){
+        if(syllabus.length == syllabusList.length){
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'gradeCategory' : gradeCategoryList},
+                "data"        : {'syllabus' : syllabusList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
@@ -40,7 +39,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         res.status(500)
         return res.json({
             "status_code"   :   500,
-            "message"       :   "Grade Category not found",
+            "message"       :   "Syllabus not found",
             "status_name"   :   getCode.getStatus(500),
             "error"         :   e.sqlMessage
         })     

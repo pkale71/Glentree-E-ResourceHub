@@ -1,6 +1,6 @@
 let db = require('./databaseQuerySchoolGradeCategory')
 let schoolGradeCategoryObj = require('../../models/schoolGradeCategory')
-let errorCode = require('../errorCode')
+let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
 let schoolGradeCategorys = new schoolGradeCategoryObj()
 let schoolGradeCategory;
