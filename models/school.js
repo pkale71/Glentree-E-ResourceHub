@@ -43,13 +43,13 @@ class school {
     userType
     schoolUserSettingUpload
     schoolUserSettingVerify
-    canPublish
+    schoolUserSettingPublish
 
 
     constructor(){}
     setSchoolGradeCategory(data){
-            this.gradeCategoryId = data.gradeCategoryId
-            this.gradeCategoryName = data.gradeCategoryName
+            this.gradeCategoryId = data.gradeId
+            this.gradeCategoryName = data.gradeName
     }
 
     getSchoolGradeCategory(){
@@ -60,14 +60,15 @@ class school {
         
     }
     setSchoolUserSetting(data){
-        this.schoolUserSettingUuid = data.schoolUserSettingUuid
+        this.schoolUserSettingUuid = data.uuid
         this.userType = {
-                                    "id" : data.userTypeId,
-                                    "name" : data.userTypeName
+                                    "id" : data.user_type_id,
+                                    "name" : data.userTypeName,
+                                    "code" : data.code
                         }
-        this.schoolUserSettingUpload = data.schoolUserSettingUpload
-        this.schoolUserSettingVerify = data.schoolUserSettingVerify
-        this.schoolUserSettingPublish = data.schoolUserSettingPublish
+        this.schoolUserSettingUpload = data.can_upload
+        this.schoolUserSettingVerify = data.can_verify
+        this.schoolUserSettingPublish = data.can_publish
     }
     
     getSchoolUserSetting(){
@@ -123,7 +124,7 @@ class school {
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2
         this.email              =           data.email
-        this.curriculumUpload   =           data.curriculumUpload
+        this.curriculumUpload   =           data.curriculum_upload
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName,
