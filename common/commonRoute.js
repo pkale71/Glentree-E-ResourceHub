@@ -1,6 +1,7 @@
 const express =require('express');
 const commonRoute = express.Router();
 
+commonRoute.use( '/checkDuplicateEmailMobile',require('../authentication/postValidateToken'),require('./duplicateEmailOrMobile'))
 commonRoute.use( '/getSyllabuses',require('../authentication/getValidateToken'),require('../syllabus/getSyllabus'))
 commonRoute.use( '/deleteSyllabus',require('../authentication/postValidateToken'),require('../syllabus/deleteSyllabus'))
 commonRoute.use( '/createSyllabus',require('../authentication/postValidateToken'),require('../syllabus/insertSyllabus'))

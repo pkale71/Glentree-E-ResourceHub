@@ -9,6 +9,8 @@ let gender
 let schoolId;
 let schoolUuid;
 let uuid;
+let email
+let mobile
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
@@ -26,6 +28,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          userTypeId = req.body.userType.id
          gender = req.body.gender
          uuid   =   req.body.uuid
+         email = req.body.email
+         mobile = req.body.mobile
             if(req.body.role.id==2 && !req.body.school.uuid){
                 res.status(404)
                 return res.json({
@@ -60,7 +64,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
          if(uuid){
-               let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId)
+               let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
                console.log("***",updateUser)
                        if(updateUser.affectedRows > 0){
                         res.status(200)

@@ -26,6 +26,7 @@ class schoolUserSetting {
         this.canVerify  =   data.can_verify
         this.userType   =   {
                                 "id" : data.user_type_id,
+                                "name" : data.userTypeName
                             }
     }
 

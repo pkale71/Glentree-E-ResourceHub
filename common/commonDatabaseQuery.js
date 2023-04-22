@@ -46,4 +46,33 @@ commondb.selectToken = (authToken) =>{
         });
     };
 
+commondb.dupEmail = (email) => {
+    return new Promise((resolve, reject)=>{
+        try{pool.query(`SELECT COUNT(email) AS Exist , uuid FROM user WHERE email LIKE ?`, [email], (error, result)=>{
+            if(error){
+            return reject(error);
+             }          
+            return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+        });
+}
+
+
+commondb.dupMobile = (mob) => {
+    return new Promise((resolve, reject)=>{
+        try{pool.query(`SELECT COUNT(mobile) AS Exist , uuid FROM user WHERE mobile LIKE ?`, [mob], (error, result)=>{
+            if(error){
+            return reject(error);
+             }          
+            return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+        });
+}
+
 module.exports = commondb
