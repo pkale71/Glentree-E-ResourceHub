@@ -1,4 +1,4 @@
-let db = require('./databaseQueryUser')
+let db = require('./databaseQuerySchool')
 let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let accessToken;
@@ -12,6 +12,7 @@ let    email;
 let    curriculumUpload;
 let    syllabusId;
 let    schoolGradeCategoryList;
+let    schoolGradeCategory;
 let    schoolGradeCategoryArray;
 let    createdOn;
 let    createdById;
@@ -22,7 +23,7 @@ let    schoolId;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-        if(req.body.uuid == undefined ){
+        if(!req.body.uuid  ){
             res.status(404)
             return res.json({
                 "status_code" : 404,
@@ -38,13 +39,13 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
         syllabusId = req.body.syllabus.id
-        schoolGradeCategoryList = req.body.gradeCategory 
-        schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
+        schoolGradeCategory = req.body.gradeCategory 
+         schoolGradeCategoryArray = schoolGradeCategory.split(',')
         schoolUuid = req.body.uuid
        // schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
         
-        if(!schoolGradeCategoryList){
+        if(!schoolGradeCategory){
             res.status(404)
             return res.json({
              "status_code" : 404,
@@ -64,18 +65,21 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 })
             }
             schoolId = schoolId[0].id
+            schoolGradeCategoryList = await db.getSchoolGradeCategoryId(schoolId)
+            return res.json({
+                "status_code" : 404,
+                "message" : schoolGradeCategoryList,
+                status_name : getCode.getStatus(404)
+               })
+
+
         }
         else{
             schoolId = null
         }
-        if(uuid.length == 0){
-            res.status(404)
-            return res.json({
-                message: "User not found",
-                "status_code" : 404,
-                status_name : getCode.getStatus(404),
-            })
-        }
+        return
+
+
          if(uuid){
                let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
                console.log("***",updateUser)

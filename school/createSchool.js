@@ -38,7 +38,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
         active = 1
         schoolUuid = createUuid.v1()
-        schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
         
         if(!schoolGradeCategoryList){
@@ -78,6 +77,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                         
                             if(schoolUserSettingList.length > 0){
                                 Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                                    schoolUserSettingUuid = createUuid.v1()
                                     let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
                                 })
                             }

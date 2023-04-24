@@ -97,6 +97,23 @@ db.getSchoolGradeCategory = (schoolId) => {
         
     });
 }
+db.getSchoolGradeCategoryId = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT   sgc.grade_category_id AS id from school_grade_category sgc  WHERE sgc.school_id = ?",[schoolId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 db.getSchoolUserSetting = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
@@ -185,11 +202,11 @@ db.insertSchoolUserSetting = (schoolUserSettingUuid,schoolId,userTypeId,canUploa
     });
 }
 
-db.selectSchool = (id) => {
+db.selectSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM school WHERE syllabus_id = ?", [id], (error, result) => 
+            pool.query("SELECT * FROM school WHERE uuid = ?", [uuid], (error, result) => 
             {
                 if(error)
                 {
