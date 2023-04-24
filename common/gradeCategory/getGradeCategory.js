@@ -12,12 +12,12 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         gradeCategory = await db.getGradeCategory()
         gradeCategoryList = [];
         if(gradeCategory.length == 0){
-            res.status(404)
+            res.status(200)
             return res.json({
-                "status_code"   :   404,
-                "data"          :   {'gradeCategory' : []},
+                "status_code"   :   200,
+                "data"          :   {'gradeCategories' : []},
                 "message"       :   'success',
-                "status_name"   :   getCode.getStatus(404),
+                "status_name"   :   getCode.getStatus(200),
             })   
         }
         await Array.from(gradeCategory).forEach(ele  =>  {
@@ -29,7 +29,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'gradeCategory' : gradeCategoryList},
+                "data"        : {'gradeCategories' : gradeCategoryList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })

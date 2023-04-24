@@ -5,7 +5,7 @@ schoolRouter.use( '/getSchools',require('../authentication/getValidateToken'),re
 schoolRouter.use( '/createSchool',require('../authentication/postValidateToken'),require('./createSchool'))
 schoolRouter.use( '/getSchoolUserSettting',require('../authentication/getValidateToken'),require('./schoolUserSetting/getSchoolUserSetting'))
 schoolRouter.use( '/getSchoolGradeCategory',require('../authentication/getValidateToken'),require('./schoolGradeCategory/getSchoolGradeCategory'))
-schoolRouter.use( '/getSchool',require('../authentication/getValidateToken'),require('./getSchool'))
+//schoolRouter.use( '/getSchool',require('../authentication/getValidateToken'),require('./getSchool'))
 
 
 module.exports = schoolRouter

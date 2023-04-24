@@ -15,7 +15,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             res.status(200)
             return res.json({
                 "status_code"   :   404,
-                "data"          :   {'school' : []},
+                "data"          :   {'schools' : []},
                 "message"       :   'success',
                 "status_name"   :   getCode.getStatus(404),
             })   
@@ -29,7 +29,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'school' : schoolList},
+                "data"        : {'schools' : schoolList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })

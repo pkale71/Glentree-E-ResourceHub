@@ -10,13 +10,14 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
         syllabus = await db.getSyllabus()
+        syllabusList = [];
         if(syllabus.length == 0){
-            res.status(404)
+            res.status(200)
             return res.json({
-                "status_code"   :   404,
-                "data"          :   {'syllabus' : []},
+                "status_code"   :   200,
+                "data"          :   {'syllabuses' : []},
                 "message"       :   'success',
-                "status_name"   :   getCode.getStatus(404),
+                "status_name"   :   getCode.getStatus(200),
             })   
         }
         await Array.from(syllabus).forEach(ele  =>  {
@@ -28,7 +29,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'syllabus' : syllabusList},
+                "data"        : {'syllabuses' : syllabusList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
