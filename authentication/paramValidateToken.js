@@ -7,8 +7,10 @@ let userId;
 let authData;
 let tokenArr;
 let email
-module.exports = require('express').Router().post('/',async (req,res,next)=>{
+
+module.exports = require('express').Router().get('/:UUID',async (req,res,next)=>{
     try {
+        console.log("PARAM")
          let token = req.headers['authorization']
          if(!token){
             res.status(401)
@@ -34,7 +36,6 @@ module.exports = require('express').Router().post('/',async (req,res,next)=>{
         }
 
         authData = await commondb.selectToken(accessToken)
-        console.log("v***",authData)
         if(authData.length == 0){
             res.status(401)
             return res.json({
@@ -62,10 +63,10 @@ module.exports = require('express').Router().post('/',async (req,res,next)=>{
             const verified = (accessToken === authData[0].authToken)
     
             if(verified){
-                console.log("3", req.baseUrl)
+                console.log("3", req.baseUrl,userTypeCode)
                 if(req.baseUrl !=  '/user/createUser'){
                     req.body.accessToken = accessToken
-                    console.log("**********************",req.method)
+                    
                     next()
                 }
                else if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  req.baseUrl ==  '/user/createUser'){
@@ -80,8 +81,8 @@ module.exports = require('express').Router().post('/',async (req,res,next)=>{
                 res.status(401)
                     return res.json({
                         'message'       :       `Token not matched`,
-                        status_name : getCode.getStatus(401),
-                        "status_code"   :       401
+                        status_name     :        getCode.getStatus(401),
+                        "status_code"   :        401
                     });
                 }
             }

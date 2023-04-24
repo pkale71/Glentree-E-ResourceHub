@@ -67,11 +67,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
               // console.log("***********",)
                let insertSchool = await db.insertSchool(schoolUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, active)
                        if(insertSchool.affectedRows > 0){
-                        console.log(insertSchool)
+                        console.log("***insertSchool ",insertSchool)
                         schoolId = insertSchool.insertId;
                         if(schoolGradeCategoryArray.length > 0){
                             Array.from(schoolGradeCategoryArray).forEach(async(ele)=>{
-                                let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,ele)
+                                let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
                             })
                         }
                         
@@ -81,11 +81,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                     let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
                                 })
                             }
-    
+                            let returnUuid = await db.selectSchoolUid(schoolId)
                             res.status(200)
                                return res.json({
                                    "status_code" : 200,
                                    "message" : "success",
+                                   "data" : returnUuid[0],
                                    status_name : getCode.getStatus(200)
                                })            
            

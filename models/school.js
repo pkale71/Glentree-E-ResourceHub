@@ -30,10 +30,12 @@ class school {
     createdOn
     createdBy
     active
+    isExist;
     schoolUserSetting
 
     // grade Category 
-
+    schoolGradeCategoryId
+    gradeCategorys
     gradeCategoryId
     gradeCategoryName
 
@@ -48,14 +50,18 @@ class school {
 
     constructor(){}
     setSchoolGradeCategory(data){
-            this.gradeCategoryId = data.gradeId
-            this.gradeCategoryName = data.gradeName
+        this.schoolGradeCategoryId = data.schoolGradeCategoryId
+        this.gradeCategorys = {
+            "id" : data.gradeId,
+            "name" : data.gradeName
+        }
+            
     }
 
     getSchoolGradeCategory(){
         return {
-            "id"     :   this.gradeCategoryId,
-            "name"   :   this.gradeCategoryName
+            "id"     :   this.schoolGradeCategoryId,
+            "gradeCategory"   :   this.gradeCategorys
         }
         
     }
@@ -98,6 +104,7 @@ class school {
                                                 "name"    :   data.createdByName.trim()
                                             }
         this.active             =           data.is_active
+        this.isExist            =           data.isExist
     }
     getDataAll(){
         return {
@@ -111,8 +118,8 @@ class school {
                         syllabus            :   this.syllabus,
                         createdOn           :   this.createdOn,
                         createdBy           :   this.createdBy,
-                        active              :   this.active
-
+                        active              :   this.active,
+                        isExist             :   this.isExist
         }
          
     }

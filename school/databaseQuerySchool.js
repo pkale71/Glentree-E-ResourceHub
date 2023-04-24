@@ -58,7 +58,6 @@ db.getSchoolError = (uuid) => {
     });
 }
 
-
 db.getSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
@@ -67,7 +66,7 @@ db.getSchool = (uuid) => {
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName FROM school s
             LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
             LEFT JOIN user u ON u.id = s.created_by_id
-             WHERE s.uuid = ? `, [uuid],(error, result) => 
+             WHERE s.uuid = ? ORDER BY s.id `, [uuid],(error, result) => 
             {
                 if(error)
                 {
@@ -84,7 +83,7 @@ db.getSchoolGradeCategory = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT  gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id WHERE sgc.school_id = ?",[schoolId],(error, result) => 
+            pool.query("SELECT sgc.id AS schoolGradeCategoryId,  gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id WHERE sgc.school_id = ?",[schoolId],(error, result) => 
             {
                 if(error)
                 {
@@ -97,23 +96,7 @@ db.getSchoolGradeCategory = (schoolId) => {
         
     });
 }
-db.getSchoolGradeCategoryId = (schoolId) => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            pool.query("SELECT   sgc.grade_category_id AS id from school_grade_category sgc  WHERE sgc.school_id = ?",[schoolId],(error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
+
 db.getSchoolUserSetting = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
@@ -219,6 +202,141 @@ db.selectSchool = (uuid) => {
         
     });
 }
+db.selectSchoolUid = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT uuid FROM school WHERE id = ?", [id], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, syllabusId) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            //console.log("p")
+            pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, syllabus_id = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, syllabusId,schoolUuid], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+               // console.log("e")
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
+db.updateSchoolUserSetting = (schoolUserSettingUuid,userTypeId,canUpload,canVerify,canPublish) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            pool.query('UPDATE school_user_setting SET user_type_id = ?,can_upload = ?, can_verify= ?, can_publish= ? WHERE uuid = ?', [ userTypeId,canUpload,canVerify,canPublish,schoolUserSettingUuid], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+db.getSchoolGradeCategorySearch = (schoolId,searchString) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT  * from school_grade_category   WHERE school_id = ? AND FIND_IN_SET(grade_category_id,?)= 0",[schoolId,searchString],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.getSchoolUserSettingUuid = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT uuid from school_user_setting  WHERE school_id = ?",[schoolId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.deleteSchoolUserSetting = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM school_user_setting WHERE uuid = ?", [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+db.getSchoolCurriculumSearch = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT * FROM curriculum_master  WHERE school_id IN (?);",[schoolId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+db.getSchoolUserSearch = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT * FROM user  WHERE school_id IN (?)",[schoolId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 
 module.exports = db
-

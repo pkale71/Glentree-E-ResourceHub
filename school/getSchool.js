@@ -32,12 +32,11 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         schoolGradeCategoryList=[]
         schoolUserSettingList=[]
         if(school.length == 0){
-            res.status(200)
+            res.status(404)
             return res.json({
-                "status_code"   :   200,
-                "data"          :   {'school' : []},
-                "message"       :   'success',
-                "status_name"   :   getCode.getStatus(200),
+                "status_code"   :   404,
+                "message"       :   'School not found',
+                "status_name"   :   getCode.getStatus(404),
             })   
         }
         schoolGradeCategory = await db.getSchoolGradeCategory(school[0].id)
@@ -54,7 +53,7 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
                 schoolUserSettingList.push(schools.getSchoolUserSetting())
             })
         }
-        school[0]['gradeCategory'] = schoolGradeCategoryList
+        school[0]['schoolGradeCategory'] = schoolGradeCategoryList
         school[0]['schoolUserSetting'] = schoolUserSettingList
         await Array.from(school).forEach(ele  =>  {
             schools.setData(ele)
@@ -65,7 +64,7 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'school' : schoolList},
+                "data"        : {'school' : schoolList[0]},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })

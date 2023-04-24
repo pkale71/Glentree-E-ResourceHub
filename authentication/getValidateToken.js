@@ -11,7 +11,7 @@ let email
 module.exports = require('express').Router().get('/',async (req,res,next)=>{
     try {
          let token = req.headers['authorization']
-         if(token.length == 0){
+         if(!token){
             res.status(401)
             return res.json({
                 message: "Provide Token",

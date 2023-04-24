@@ -5,7 +5,7 @@ userRouter.use( '/createUser',require('../authentication/postValidateToken'),req
 userRouter.use( '/deleteUser',require('../authentication/postValidateToken'),require('./deleteUser'))
 userRouter.use( '/updateUser',require('../authentication/postValidateToken'),require('./updateUser'))
 userRouter.use( '/getUsers',require('../authentication/getValidateToken'),require('./getAllUser'))
-userRouter.use( '/getUser',require('../authentication/getValidateToken'),require('./getUser'))
+userRouter.use( '/getUser',require('../authentication/paramValidateToken'),require('./getUser'))
 userRouter.use( '/checkDuplicateEmailMobile',require('../authentication/postValidateToken'),require('./duplicateEmailOrMobile'))
 
 module.exports = userRouter

@@ -1,5 +1,6 @@
 let db = require('./databaseQuerySchool')
 let errorCode = require('../common/errorCode')
+let createUuid = require('uuid')
 let getCode = new errorCode()
 let accessToken;
 let    authData;
@@ -14,12 +15,9 @@ let    syllabusId;
 let    schoolGradeCategoryList;
 let    schoolGradeCategory;
 let    schoolGradeCategoryArray;
-let    createdOn;
-let    createdById;
-let    active;
-let    schoolUserSettingUuid;
 let    schoolUserSettingList;
 let    schoolId;
+let    insertGradeCategory = [];
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
@@ -40,11 +38,11 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         curriculumUpload = req.body.curriculumUpload
         syllabusId = req.body.syllabus.id
         schoolGradeCategory = req.body.gradeCategory 
-         schoolGradeCategoryArray = schoolGradeCategory.split(',')
+        schoolGradeCategoryArray = schoolGradeCategory.split(',')
         schoolUuid = req.body.uuid
        // schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
-        
+        insertGradeCategory = []
         if(!schoolGradeCategory){
             res.status(404)
             return res.json({
@@ -54,7 +52,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
         if(schoolUuid){
-            console.log("true")
             schoolId = await db.selectSchool(schoolUuid)
             if(schoolId.length == 0){
                 res.status(404)
@@ -65,49 +62,100 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 })
             }
             schoolId = schoolId[0].id
-            schoolGradeCategoryList = await db.getSchoolGradeCategoryId(schoolId)
+            let schoolGradeCategoryMatch = await db.getSchoolGradeCategorySearch(schoolId,schoolGradeCategory)
+
+           if(schoolGradeCategoryMatch.length > 0){
+            res.status(400)
             return res.json({
-                "status_code" : 404,
-                "message" : schoolGradeCategoryList,
-                status_name : getCode.getStatus(404)
+                "status_code" : 400,
+                "message" : `School is currently on use, so grade categories cannot be deleted, only new grade categories can be added.`,
+                status_name : getCode.getStatus(400)
                })
+           }
 
+           schoolGradeCategoryList = await db.getSchoolGradeCategory(schoolId)
+           console.log("***********************",schoolGradeCategoryList)
+
+           let list = [];
+           await Array.from(schoolGradeCategoryList).forEach((ele) => {
+                            list.push(ele.gradeId.toString())
+            })
+            let flag = 1;
+
+            await Array.from(schoolGradeCategoryArray).forEach((ele) => {
+
+                let index = list.indexOf(ele)
+                if(index == -1){
+                    insertGradeCategory.push(ele)
+                }
+            })
+            if(flag){
+                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, syllabusId)
+                        if(updateSchool.affectedRows > 0){
+
+                            if(insertGradeCategory.length > 0){
+                                Array.from(insertGradeCategory).forEach(async(ele)=>{
+                                    let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
+                                })
+                            }
+                            let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
+                            let searchUserSettingUuid = []
+                            Array.from(schoolUserSettingUuidList).forEach(async(ele)=>{
+                                searchUserSettingUuid.push(ele.uuid)                       
+                            })
+                            Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                                if(ele.uuid){
+                                    let index = searchUserSettingUuid.indexOf(ele.uuid)
+                                    if(index != -1){
+                                        searchUserSettingUuid.splice(index, 1)
+                                    }
+                                }
+                                          
+                            })
+
+                            Array.from(searchUserSettingUuid).forEach(async(ele)=>{
+                                    let deleteSUSetting      = await  db.deleteSchoolUserSetting(ele);
+                            })
+                            if(schoolUserSettingList.length > 0){
+                                Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                                    if(ele.uuid){
+                                        let insertSchoolUserSetting = await db.updateSchoolUserSetting(ele.uuid,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                    }
+                                    else{
+                                        let schoolUserSettingUuid = createUuid.v1()
+                                        let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                    }
+                                    
+                                })
+                            }
+
+                         res.status(200)
+                            return res.json({
+                                "status_code" : 200,
+                                "message" : "success",
+                                status_name : getCode.getStatus(200),
+                            })            
+        
+                        }
+                        else{
+                         res.status(500)
+                            return res.json({
+                                "status_code" : 500,
+                                "message" : "School not updated",
+                                status_name : getCode.getStatus(500),
+                            }) 
+                        }
+            
+            }
 
         }
-        else{
-            schoolId = null
-        }
-        return
-
-
-         if(uuid){
-               let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
-               console.log("***",updateUser)
-                       if(updateUser.affectedRows > 0){
-                        res.status(200)
-                           return res.json({
-                               "status_code" : 200,
-                               "message" : "success",
-                               status_name : getCode.getStatus(200),
-                           })            
-       
-                       }
-                       else{
-                        res.status(500)
-                           return res.json({
-                               "status_code" : 500,
-                               "message" : "User not updated",
-                               status_name : getCode.getStatus(500),
-                           }) 
-                       }
-           
-         }
+             
          
         } catch(e){
             res.status(500)
             return res.json({
                 "status_code" : 500,
-                "message" : "User not updated",
+                "message" : "School not updated",
                 status_name : getCode.getStatus(500),
                 "error"     :      e.sqlMessage
             }) 
