@@ -34,10 +34,10 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         if(school.length == 0){
             res.status(200)
             return res.json({
-                "status_code"   :   404,
+                "status_code"   :   200,
                 "data"          :   {'school' : []},
                 "message"       :   'success',
-                "status_name"   :   getCode.getStatus(404),
+                "status_name"   :   getCode.getStatus(200),
             })   
         }
         schoolGradeCategory = await db.getSchoolGradeCategory(school[0].id)

@@ -34,12 +34,21 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
         syllabusId = req.body.syllabus.id
-        schoolGradeCategoryList = req.body.gradeCategory
+        schoolGradeCategoryList = req.body.gradeCategory 
         schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
         active = 1
         schoolUuid = createUuid.v1()
         schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
+        
+        if(!schoolGradeCategoryList){
+            res.status(404)
+            return res.json({
+             "status_code" : 404,
+             "message" : "Grade Category Missing",
+             status_name : getCode.getStatus(404)
+            })
+        }
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
          authData = await commondb.selectToken(accessToken)
          console.log(authData)

@@ -12,12 +12,12 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         userType = await db.getAllUserTypes()
         userTypeList = [];
         if(userType.length == 0){
-            res.status(404)
+            res.status(200)
             return res.json({
-                "status_code"   :   404,
+                "status_code"   :   200,
                 "data"          :   {'userTypes' : []},
                 "message"       : 'success',
-                "status_name"   :   getCode.getStatus(404),
+                "status_name"   :   getCode.getStatus(200),
             })   
         }
         await Array.from(userType).forEach(ele  =>  {
