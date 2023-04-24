@@ -132,11 +132,11 @@ db.deleteSchools = (id) => {
     });
 }
 
-db.insertSchool = (uuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, gradeCategoryId) => {
+db.insertSchool = (SchooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, schoolGradeCategoryId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, syllabus_id, created_on, created_by_id, is_active, grade_category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [uuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, gradeCategoryId], (error, result) => 
+            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, syllabus_id, created_on, created_by_id, is_active, grade_category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [SchooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, schoolGradeCategoryId], (error, result) => 
             {
                 if(error)
                 {

@@ -1,22 +1,26 @@
 let    db = require('./databaseQuerySchool')
 let    commondb = require('../common/commonDatabaseQuery')
-let    userUuid = require('uuid')
+let    createUuid = require('uuid')
 let    errorCode = require('../common/errorCode')
 let    getCode = new errorCode()
 let    accessToken;
 let    authData
-let    uuid 
+let    schoolUuid 
 let    name
 let    location
 let    contact1
 let    contact2
 let    email
 let    curriculumUpload
-let    syllabus
-let    gradeCategory
+let    syllabusId
+let    schoolGradeCategoryList
+let    schoolGradeCategoryArray
 let    createdOn
-let    createdBy
+let    createdById
 let    active
+let    schoolUserSettingUuid;
+let    schoolUserSettingList;
+let    schholId
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
@@ -29,10 +33,13 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         contact1 = req.body.contact1
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
-        syllabus = req.body.syllabus.id
-        gradeCategory = req.body.gradeCategory.id
-        active = req.body.active
-        uuid = userUuid.v1()
+        syllabusId = req.body.syllabus.id
+        schoolGradeCategoryList = req.body.gradeCategory
+        schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
+        active = 1
+        schoolUuid = createUuid.v1()
+        schoolUserSettingUuid = createUuid.v1()
+        schoolUserSettingList = req.body.schoolUserSetting;
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
             // if(req.body.role.id==2 && !req.body.school.id){
             //     return res.json({
@@ -45,11 +52,10 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 
          authData = await commondb.selectToken(accessToken)
          console.log(authData)
-         createdBy = authData[0].userId
-        if(createdBy){
+         createdById = authData[0].userId
+        if(createdById){
 
-            user = await commondb.getUserById(createdBy)
-         
+            user = await commondb.getUserById(createdById)
             if(user.length == 0){
                 res.status(401)
                return res.json({
@@ -60,8 +66,10 @@ module.exports = require('express').Router().post('/',async(req,res) =>
            }
      
               // console.log("***********",)
-               let insertSchool = await db.insertSchool(uuid, name, location, contact1, contact2, email, curriculumUpload, syllabus, createdOn, createdBy, active, gradeCategory)
+               let insertSchool = await db.insertSchool(schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, active, schoolGradeCategoryId)
                        if(insertSchool.affectedRows > 0){
+                        console.log(insertSchool)
+                        schholId = insertSchool.insertId;
                         res.status(200)
                            return res.json({
                                "status_code" : 200,

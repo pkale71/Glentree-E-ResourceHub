@@ -21,8 +21,6 @@ app.listen(8082,()=>{
 })
 
 
-
-
 async function  verifyToken  (req, res, next){
     try {
         console.log(req.body)
