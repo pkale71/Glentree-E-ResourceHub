@@ -132,11 +132,46 @@ db.deleteSchools = (id) => {
     });
 }
 
-db.insertSchool = (SchooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, schoolGradeCategoryId) => {
+db.insertSchool = (schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, syllabus_id, created_on, created_by_id, is_active, grade_category_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [SchooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive, schoolGradeCategoryId], (error, result) => 
+            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, syllabus_id, created_on, created_by_id, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.insertSchoolGradeCategory = (schoolId,gradeCategoryId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("INSERT INTO school_grade_category (school_id, grade_category_id) VALUES (?, ?)", [schoolId,gradeCategoryId], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+db.insertSchoolUserSetting = (schoolUserSettingUuid,schoolId,userTypeId,canUpload,canVerify,canPublish) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("INSERT INTO school_user_setting (uuid,school_id,user_type_id , can_upload,can_verify,can_publish) VALUES (?, ?)", [schoolUserSettingUuid,schoolId,userTypeId,canUpload,canVerify,canPublish], (error, result) => 
             {
                 if(error)
                 {

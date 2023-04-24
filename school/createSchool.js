@@ -4,23 +4,23 @@ let    createUuid = require('uuid')
 let    errorCode = require('../common/errorCode')
 let    getCode = new errorCode()
 let    accessToken;
-let    authData
-let    schoolUuid 
-let    name
-let    location
-let    contact1
-let    contact2
-let    email
-let    curriculumUpload
-let    syllabusId
-let    schoolGradeCategoryList
-let    schoolGradeCategoryArray
-let    createdOn
-let    createdById
-let    active
+let    authData;
+let    schoolUuid;
+let    name;
+let    location;
+let    contact1;
+let    contact2;
+let    email;
+let    curriculumUpload;
+let    syllabusId;
+let    schoolGradeCategoryList;
+let    schoolGradeCategoryArray;
+let    createdOn;
+let    createdById;
+let    active;
 let    schoolUserSettingUuid;
 let    schoolUserSettingList;
-let    schholId
+let    schoolId;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
@@ -66,10 +66,22 @@ module.exports = require('express').Router().post('/',async(req,res) =>
            }
      
               // console.log("***********",)
-               let insertSchool = await db.insertSchool(schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, active, schoolGradeCategoryId)
+               let insertSchool = await db.insertSchool(schoolUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, active)
                        if(insertSchool.affectedRows > 0){
                         console.log(insertSchool)
-                        schholId = insertSchool.insertId;
+                        schoolId = insertSchool.insertId;
+                        if(schoolGradeCategoryArray.length > 0){
+                            Array.from(schoolGradeCategoryArray).forEach(async(ele)=>{
+                                let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,ele)
+                            })
+                        }
+
+                        if(schoolUserSettingList.length > 0){
+                            Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                                let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                            })
+                        }
+
                         res.status(200)
                            return res.json({
                                "status_code" : 200,
@@ -90,24 +102,24 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         } catch(e){
             console.log(e)
-            let msg = e.sqlMessage.replace('_UNIQUE', '');
-            if(e.code == 'ER_DUP_ENTRY'){
-                res.status(500)
-                return res.json({
-                    "status_code"   : 500,
-                    "message"       : msg,
-                    status_name     : getCode.getStatus(500),
-                    "error"         : msg
-                }) 
-            }else{
+            // let msg = e.sqlMessage.replace('_UNIQUE', '');
+            // if(e.code == 'ER_DUP_ENTRY'){
+            //     res.status(500)
+            //     return res.json({
+            //         "status_code"   : 500,
+            //         "message"       : msg,
+            //         status_name     : getCode.getStatus(500),
+            //         "error"         : msg
+            //     }) 
+            // }else{
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
                     "message" : "School not created",
                     status_name : getCode.getStatus(500),
-                    "error"     :      e.sqlMessage
+                    "error"     :      e
                 }) 
-            }
+            // }
            
         }
 
