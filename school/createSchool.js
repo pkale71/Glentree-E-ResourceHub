@@ -41,15 +41,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-            // if(req.body.role.id==2 && !req.body.school.id){
-            //     return res.json({
-            //         "status_code" : 404,
-            //         "message" : "School Id Missing",
-            //         status_name : getCode.getStatus(404)
-            //     })
-            // }
-         //schoolId = req.body.role.id==2?req.body.school.id:null
-
          authData = await commondb.selectToken(accessToken)
          console.log(authData)
          createdById = authData[0].userId
@@ -75,20 +66,22 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                 let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,ele)
                             })
                         }
-
-                        if(schoolUserSettingList.length > 0){
-                            Array.from(schoolUserSettingList).forEach(async(ele)=>{
-                                let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
-                            })
+                        if(insertSchoolGradeCategory.affectedRows > 0){
+                            if(schoolUserSettingList.length > 0){
+                                Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                                    let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                })
+                            }
+    
+                            res.status(200)
+                               return res.json({
+                                   "status_code" : 200,
+                                   "message" : "success",
+                                   status_name : getCode.getStatus(200)
+                               })            
+           
                         }
-
-                        res.status(200)
-                           return res.json({
-                               "status_code" : 200,
-                               "message" : "success",
-                               status_name : getCode.getStatus(200)
-                           })            
-       
+                       
                        }
                        else{
                         res.status(500)
@@ -102,24 +95,25 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         } catch(e){
             console.log(e)
-            // let msg = e.sqlMessage.replace('_UNIQUE', '');
-            // if(e.code == 'ER_DUP_ENTRY'){
-            //     res.status(500)
-            //     return res.json({
-            //         "status_code"   : 500,
-            //         "message"       : msg,
-            //         status_name     : getCode.getStatus(500),
-            //         "error"         : msg
-            //     }) 
-            // }else{
+            
+            if(e.code == 'ER_DUP_ENTRY'){
+                let msg = e.sqlMessage.replace('_UNIQUE', '');
+                res.status(500)
+                return res.json({
+                    "status_code"   : 500,
+                    "message"       : msg,
+                    status_name     : getCode.getStatus(500),
+                    "error"         : msg
+                }) 
+            }else{
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
                     "message" : "School not created",
                     status_name : getCode.getStatus(500),
-                    "error"     :      e
+                    "error"     :      e.sqlMessage
                 }) 
-            // }
+            }
            
         }
 

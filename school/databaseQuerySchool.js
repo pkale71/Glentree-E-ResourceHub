@@ -171,7 +171,7 @@ db.insertSchoolUserSetting = (schoolUserSettingUuid,schoolId,userTypeId,canUploa
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO school_user_setting (uuid,school_id,user_type_id , can_upload,can_verify,can_publish) VALUES (?, ?)", [schoolUserSettingUuid,schoolId,userTypeId,canUpload,canVerify,canPublish], (error, result) => 
+            pool.query("INSERT INTO school_user_setting (uuid,school_id,user_type_id , can_upload,can_verify,can_publish) VALUES (?, ?,?,?,?,?)", [schoolUserSettingUuid,schoolId,userTypeId,canUpload,canVerify,canPublish], (error, result) => 
             {
                 if(error)
                 {
