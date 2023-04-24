@@ -124,7 +124,7 @@ class school {
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2
         this.email              =           data.email
-        this.curriculumUpload   =           data.curriculum_upload
+        this.curriculumUpload   =           data.curriculumUpload
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName,
