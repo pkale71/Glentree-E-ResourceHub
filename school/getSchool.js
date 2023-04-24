@@ -53,7 +53,7 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
                 schoolUserSettingList.push(schools.getSchoolUserSetting())
             })
         }
-        school[0]['schoolGradeCategory'] = schoolGradeCategoryList
+        school[0]['gradeCategory'] = schoolGradeCategoryList
         school[0]['schoolUserSetting'] = schoolUserSettingList
         await Array.from(school).forEach(ele  =>  {
             schools.setData(ele)
