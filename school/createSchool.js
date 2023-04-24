@@ -75,7 +75,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                 let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,ele)
                             })
                         }
-                        if(insertSchoolGradeCategory.affectedRows > 0){
+                        
                             if(schoolUserSettingList.length > 0){
                                 Array.from(schoolUserSettingList).forEach(async(ele)=>{
                                     let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
@@ -89,7 +89,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                    status_name : getCode.getStatus(200)
                                })            
            
-                        }
+                
                        
                        }
                        else{
