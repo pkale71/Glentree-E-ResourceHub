@@ -25,7 +25,6 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             let userCheck = await db.getSchoolUserSearch(ele.id)
             ele['isExist'] = (curriculumcheck.length == 0 && userCheck.length == 0) ? 0 :1
             schools.setDataAll(ele)
-            console.log(schools.getDataAll())
             schoolList.push(schools.getDataAll())
 
             if(school.length == schoolList.length){
