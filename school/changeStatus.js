@@ -1,16 +1,11 @@
 let db = require('./databaseQuerySchool')
-let schoolObj = require('../models/school')
 let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
-let schools = new schoolObj()
 let school;
 let schoolId;
 let schoolStatuschange;
 let schoolUUID;
-let schoolGradeCategory;
-let schoolGradeCategoryList = [];
-let schoolUserSetting;
-let schoolUserSettingList = [];
+
 
 module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =>  {
     try
