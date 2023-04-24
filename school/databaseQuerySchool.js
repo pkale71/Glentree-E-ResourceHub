@@ -338,5 +338,20 @@ db.getSchoolUserSearch = (schoolId) => {
         
     });
 }
-
+db.schoolStatusChange = (id) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            //console.log("p")
+            pool.query('UPDATE school set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+               // console.log("e")
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
 module.exports = db
