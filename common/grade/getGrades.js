@@ -6,27 +6,35 @@ let grades = new gradeObj()
 let grade;
 let gradeList = [];
 
-module.exports = require('express').Router().get('/:Id',async(req,res) =>  {
+module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
-    {   gradeId = req.params.Id
-        grade = await db.getGrade(gradeId)
+    {
+        grade = await db.getGrades()
+        gradeList = [];
         if(grade.length == 0){
-            res.status(404)
+            res.status(200)
             return res.json({
-                "status_code"   :   404,
-                "message"       :   'Grade not found',
-                "status_name"   :   getCode.getStatus(404),
+                "status_code"   :   200,
+                "data"          :   {'grades' : []},
+                "message"       :   'success',
+                "status_name"   :   getCode.getStatus(200),
             })   
         }
-            grades.setDataAll(grade[0])
-            
+        await Array.from(grade).forEach(ele  =>  {
+            console.log(ele)
+            grades.setDataAll(ele)
+            gradeList.push(grades.getDataAll())
+        })
+
+        if(grade.length == gradeList.length){
             res.status(200)
             return res.json({
                 "status_code" : 200,
-                "data"        : {'grade' : grades.getDataAll()},
+                "data"        : {'grades' : gradeList},
                 "message"     : 'success',
                 status_name   : getCode.getStatus(200)
             })
+        } 
     } 
     catch(e)
     {
