@@ -6,25 +6,13 @@ let getCode = new errorCode()
 let accessToken;
 let    authData;
 let    schoolUuid;
-let    name;
-let    location;
-let    contact1;
-let    contact2;
-let    email;
-let    curriculumUpload;
-let    syllabusId;
-let    schoolGradeCategoryList;
-let    schoolGradeCategory;
-let    schoolGradeCategoryArray;
-let    schoolUserSettingList;
 let    schoolId;
-let    insertGradeCategory = [];
 let    createdOn
 let    createdById
 
-module.exports = require('express').Router().post('/',async(req,res)=>{
+module.exports = require('express').Router().get('/:schoolUUID',async(req,res)=>{
     try{
-        if(!req.body.uuid  ){
+        if(!req.params.schoolUUID  ){
             res.status(404)
             return res.json({
                 "status_code" : 404,
@@ -33,7 +21,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
         accessToken = req.body.accessToken;
-        schoolUuid = req.body.uuid
+        schoolUuid = req.params.schoolUUID
         authData = await commondb.selectToken(accessToken)
         createdById = authData[0].userId
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -51,8 +39,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             let curriculumcheck = await db.getSchoolCurriculumSearch(schoolId)
             let userCheck = await db.getSchoolUserSearch(schoolId)
             let ifDelete = (curriculumcheck.length == 0 && userCheck.length == 0) ? 0 :1
+            console.log(!ifDelete,curriculumcheck,userCheck)
             let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
-            if(ifDelete){
+            if(!ifDelete){
                 let deleteschool = await db.deleteSchool(schoolUuid);
                 if(deleteschool.affectedRows > 0){
                     await Array.from(schoolUserSettingUuidList).forEach(async(ele)=>{
