@@ -80,7 +80,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
            }
 
            schoolGradeCategoryList = await db.getSchoolGradeCategory(schoolId)
-           console.log("***********************",schoolGradeCategoryList)
+           
 
            let list = [];
            await Array.from(schoolGradeCategoryList).forEach((ele) => {
@@ -122,9 +122,10 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
 
                             Array.from(searchUserSettingUuid).forEach(async(ele,i)=>{
                                     let deleteSUSetting      = await  db.deleteSchoolUserSetting(ele);
-                                    console.log(ele,schoolUserSettingUuidList[i].uuid)
-                                    // let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,schoolUserSettingUuidList[i].user_type_id,schoolUserSettingUuidList[i].can_upload,schoolUserSettingUuidList[i].can_verify,schoolUserSettingUuidList[i].can_publish, 'delete',createdOn, createdById)
+                                    //console.log("**********",ele,schoolUserSettingUuidList[i].uuid)
+                                     let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,schoolUserSettingUuidList[i].user_type_id,schoolUserSettingUuidList[i].can_upload,schoolUserSettingUuidList[i].can_verify,schoolUserSettingUuidList[i].can_publish, 'delete',createdOn, createdById)
                             })
+                            
                             if(schoolUserSettingList.length > 0){
                                 Array.from(schoolUserSettingList).forEach(async(ele)=>{
                                     if(ele.uuid){
