@@ -37,15 +37,12 @@ db.getAcademicYear = (uuid) => {
         
     });
 }
-db.getGrade = (id) => {
+
+db.getAcademicYearId = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT g.id, g.name, g.grade_category_id, 
-            gc.name AS gradeCategoryName 
-            from grade g 
-            LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
-            WHERE g.id = ?`,[id],(error, result) => 
+            pool.query(`SELECT uuid from academic_year WHERE id = ? `,[id],(error, result) => 
             {
                 if(error)
                 {
@@ -59,29 +56,11 @@ db.getGrade = (id) => {
     });
 }
 
-db.deleteGradeCategory = (id) => {
+db.insertAcademicYear = (uuid,startDate,endDate,year,isCurrent) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("DELETE FROM syllabus WHERE id = ?", [id], (error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
-
-db.insertGrade = (name, gradeCategoryId) => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            pool.query("INSERT INTO grade (name, grade_category_id) VALUES (?, ?)", [name, gradeCategoryId], (error, result) => 
+            pool.query("INSERT INTO academic_year (uuid, start_date, end_date, year, is_current) VALUES (?, ?,?,?,?)", [uuid,startDate,endDate,year,isCurrent], (error, result) => 
             {
                 if(error)
                 {
@@ -113,55 +92,8 @@ db.selectSchool = (id) => {
     });
 }
 
-db.selectUsedGrade = (id) => {
-    return new Promise((resolve, reject)=>{
-        try{pool.query(`SELECT COUNT(id) AS Exist  FROM syllabus_grade_subject WHERE id LIKE ?`, [id], (error, result)=>{
-            if(error){
-            return reject(error);
-             }          
-            return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-        });
-}
 
-db.updateGrade = (id,name, gradeCategoryId) => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            pool.query("UPDATE grade SET name = ?, grade_category_id = ? WHERE id = ?", [name, gradeCategoryId, id], (error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
 
-db.deleteGrade = (id) => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            pool.query("DELETE FROM grade WHERE id = ?", [id], (error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
 
 module.exports = db
 
