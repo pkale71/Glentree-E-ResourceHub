@@ -1,4 +1,5 @@
 let db = require('./databaseQuerySchool')
+let commondb = require('../common/commonDatabaseQuery')
 let errorCode = require('../common/errorCode')
 let createUuid = require('uuid')
 let getCode = new errorCode()
@@ -18,6 +19,8 @@ let    schoolGradeCategoryArray;
 let    schoolUserSettingList;
 let    schoolId;
 let    insertGradeCategory = [];
+let    createdOn
+let    createdById
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
@@ -42,6 +45,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         schoolUuid = req.body.uuid
        // schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
+        authData = await commondb.selectToken(accessToken)
+        createdById = authData[0].userId
+        createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         insertGradeCategory = []
         if(!schoolGradeCategory){
             res.status(404)
@@ -108,26 +114,33 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                                     let index = searchUserSettingUuid.indexOf(ele.uuid)
                                     if(index != -1){
                                         searchUserSettingUuid.splice(index, 1)
+                                        schoolUserSettingUuidList.splice(index,1)
                                     }
                                 }
                                           
                             })
 
-                            Array.from(searchUserSettingUuid).forEach(async(ele)=>{
+                            Array.from(searchUserSettingUuid).forEach(async(ele,i)=>{
                                     let deleteSUSetting      = await  db.deleteSchoolUserSetting(ele);
+                                    console.log(ele,schoolUserSettingUuidList[i].uuid)
+                                    // let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,schoolUserSettingUuidList[i].user_type_id,schoolUserSettingUuidList[i].can_upload,schoolUserSettingUuidList[i].can_verify,schoolUserSettingUuidList[i].can_publish, 'delete',createdOn, createdById)
                             })
                             if(schoolUserSettingList.length > 0){
                                 Array.from(schoolUserSettingList).forEach(async(ele)=>{
                                     if(ele.uuid){
                                         let insertSchoolUserSetting = await db.updateSchoolUserSetting(ele.uuid,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                        let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'update',createdOn, createdById)
                                     }
                                     else{
                                         let schoolUserSettingUuid = createUuid.v1()
                                         let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                        let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
                                     }
                                     
                                 })
                             }
+
+                           
 
                          res.status(200)
                             return res.json({

@@ -10,7 +10,7 @@ const mysql = require('mysql');
 }
   
 const pool = mysql.createPool(obj);
-  //  console.log(pool)
+  console.log(obj)
    
   
 // let db = {};

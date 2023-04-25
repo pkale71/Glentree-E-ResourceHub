@@ -30,11 +30,10 @@ commondb.getUserByEmail = (email) =>{
 };
  
 
-
-
 commondb.selectToken = (authToken) =>{
     return new Promise((resolve, reject)=>{
-        try{pool.query('SELECT user_id AS userId, auth_token AS authToken, auth_time AS authTime FROM auth_data WHERE auth_token = ?', [authToken], (error, result)=>{
+        try{
+            pool.query('SELECT user_id AS userId, auth_token AS authToken, auth_time AS authTime FROM glentree_eresoucehub_data.auth_data WHERE auth_token = ?', [authToken], (error, result)=>{
             if(error){
             return reject(error);
              }          

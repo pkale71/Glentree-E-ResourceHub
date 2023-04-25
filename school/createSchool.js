@@ -79,6 +79,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                 Array.from(schoolUserSettingList).forEach(async(ele)=>{
                                     schoolUserSettingUuid = createUuid.v1()
                                     let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                    let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
                                 })
                             }
                             let returnUuid = await db.selectSchoolUid(schoolId)
