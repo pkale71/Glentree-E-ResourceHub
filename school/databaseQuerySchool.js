@@ -304,6 +304,43 @@ db.deleteSchoolUserSetting = (uuid) => {
         
     });
 }
+
+db.deleteSchoolUserSettingId = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM school_user_setting WHERE school_id = ?", [schoolId], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.deleteSchoolGradeCategory = (schoolId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM school_grade_category WHERE school_id = ?", [schoolId], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.getSchoolCurriculumSearch = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
@@ -360,6 +397,24 @@ db.insertSchoolUserSettingHistory = (schoolId,userTypeId, canUpload, canVerify, 
         try
         {
             pool.query("INSERT INTO school_user_setting_history (school_id, User_type_id, can_upload, can_verify, can_publish, action, created_on, created_by_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [schoolId,userTypeId, canUpload, canVerify, canPublish, action,createdOn, createdById], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.deleteSchool = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM school WHERE uuid = ?", [uuid], (error, result) => 
             {
                 if(error)
                 {
