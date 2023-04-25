@@ -1,6 +1,6 @@
-// grade_category table columns name
+// grade table columns name
 
-// export class GradeCategory {
+// export class Grade {
 //     id?: number;
 //     name?: string;
 //      gradeCategory?: gradeCategory;
