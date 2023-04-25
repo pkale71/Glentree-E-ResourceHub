@@ -16,6 +16,8 @@ commonRoute.use( '/deleteGrade',require('../authentication/paramValidateToken'),
 commonRoute.use( '/getAcademicYears',require('../authentication/getValidateToken'),require('./academicyear/getAcademicYears'))
 commonRoute.use( '/getAcademicYear',require('../authentication/paramValidateToken'),require('./academicyear/getAcademicYear'))
 commonRoute.use( '/createAcademicYear',require('../authentication/postValidateToken'),require('./academicyear/createAcademicYear'))
+commonRoute.use( '/getGradeSections',require('../authentication/paramValidateToken'),require('./gradeSection/getGradeSections'))
+commonRoute.use( '/createGradeSection',require('../authentication/postValidateToken'),require('./gradeSection/createGradeSection'))
 
 
 module.exports = commonRoute

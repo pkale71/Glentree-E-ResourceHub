@@ -92,8 +92,5 @@ db.selectSchool = (id) => {
     });
 }
 
-
-
-
 module.exports = db
 
