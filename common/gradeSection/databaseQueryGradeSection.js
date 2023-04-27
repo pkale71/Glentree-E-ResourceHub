@@ -6,8 +6,7 @@ db.getGradeSections = (academicId,schoolId,gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-
-            pool.query(`SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,
+            pool.query(`SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
                         g.name AS gradeName, 
                         gc.id AS gradeCategoryId, gc.name AS gradeCatName
                         FROM school_grade_section sgs 
@@ -16,7 +15,7 @@ db.getGradeSections = (academicId,schoolId,gradeId) => {
                         LEFT JOIN grade g ON g.id = sgs.grade_id 
                         LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
                         WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id = ?
-                        ORDER BY sgs.id`,[academicId,schoolId,gradeId],(error, result) => 
+                        ORDER BY sgs.id, sgs.grade_id`,[academicId,schoolId,gradeId],(error, result) => 
             {
                 if(error)
                 {
@@ -52,7 +51,7 @@ db.getGradeId = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT id from grade WHERE grade_category_id = ? `,[id],(error, result) => 
+            pool.query(`SELECT * from grade WHERE grade_category_id = ? ORDER BY id `,[id],(error, result) => 
             {
                 if(error)
                 {
@@ -138,11 +137,29 @@ db.getGradeCategory = (id) => {
     });
 }
 
+db.getGradeCategorySchool = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT * from school_grade_category WHERE school_id = ? ORDER BY grade_category_id `,[id],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.getGradeSectionId = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT id from school_grade_section WHERE grade_id = ? `,[id],(error, result) => 
+            pool.query(`SELECT id from school_grade_section WHERE grade_id = ? ORDER BY id  `,[id],(error, result) => 
             {
                 if(error)
                 {

@@ -9,48 +9,124 @@ class gradeSection {
 
     setGradeSection(data){
         this.gradeSection   =   {
-                                    "id"    : data.id,
+                                    "uuid"    : data.uuid,
                                     "name"  : data.section
                                 }
     }
 
     getGradeSection(){
         return  this.gradeSection
-        
+    }
+
+    setGrade(data){
+        this.grade   =   {
+                            "id"    : data.grade_id,
+                            "name"  : data.gradeName,
+                            "section" : data.sections
+                        }
+    }
+
+    getGrade(data){
+       return this.grade  
     }
     
-    setDataAll(data)
+    setData(data)
     {
-        this.uuid           =   data.uuid
         this.academic       =   {
                                     "uuid"    :   data.acaUuid,
                                     "year"  :   data.year
                                 }
         this.school         =   {
-                                    "id"    :   data.school_id,
+                                    "uuid"    :   data.schoolUuid,
                                     "name"  :   data.schoolName
                                 }
-        this.grade         =   {
-                                    "id"    :   data.grade_id,
-                                    "name"  :   data.gradeName
-                                }
-        this.gradeCategory         =   {
+        this.gradeCategory      =   {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName
+                                    "name"  :   data.gradeCatName,
+                                    "grade" :   {
+                                                    "id"         :   data.grade_id,
+                                                    "name"       :   data.gradeName,
+                                                    "section"    :   data.gradeSection
+                                                }
                                 }
-        this.gradeSection   =   data.gradeSection
     }
 
+    getData()
+    {
+        return {
+            academic : this.academic,
+            school : this.school,
+            gradeCategory : this.gradeCategory,
+        }
+    }
+
+    setDataAll(data)
+    {
+        this.academic       =   {
+                                    "uuid"    :   data.acaUuid,
+                                    "year"  :   data.year
+                                }
+        this.school         =   {
+                                    "uuid"    :   data.schoolUuid,
+                                    "name"  :   data.schoolName
+                                }
+        this.gradeCategory  =   {
+                                    "id"    :   data.gradeCategoryId,
+                                    "name"  :   data.gradeCatName,
+                                    "grade" :   data.grade
+                                }
+    }
     getDataAll()
     {
         return {
-            uuid : this.uuid,
             academic : this.academic,
             school : this.school,
-            grade : this.grade,
-            gradeCategory : this.gradeCategory,
-            sections : this.gradeSection
+            gradeCategory : this.gradeCategory
         }
     }
+
+    setGradeCategory(data)
+    {
+       
+        this.gradeCategory  =   {
+                                    "id"    :   data.gradeCategoryId,
+                                    "name"  :   data.gradeCatName,
+                                    "grade" :   data.grade
+                                }
+    }
+
+    // setGradeCategories(data)
+    // {
+       
+    //     this.gradeCategory  =   data.gradeCategory
+    // }
+
+
+    getGradeCategory()
+    {
+        return  this.gradeCategory
+        
+    }
+    setDataAllSchool(data)
+    {
+        this.academic       =   {
+                                    "uuid"    :   data.acaUuid,
+                                    "year"  :   data.year
+                                }
+        this.school         =   {
+                                    "uuid"    :   data.schoolUuid,
+                                    "name"  :   data.schoolName
+                                }
+        this.gradeCategory  =   data.gradeCategory
+    }
+    getDataAllSchool()
+    {
+        return {
+            academic : this.academic,
+            school : this.school,
+            gradeCategories : this.gradeCategory
+        }
+    }
+
 }
 module.exports = gradeSection
