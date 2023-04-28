@@ -1,10 +1,9 @@
-let    db = require('./databaseQueryGradeSubject')
+let    db = require('./databaseQuerySubjectChapter')
 let    errorCode = require('../errorCode')
 let    createUuid = require('uuid')
 let    getCode = new errorCode()
 let    accessToken;
 let    isActive;
-let    gradeId;
 let    uuid;
 let    name;
 
@@ -12,7 +11,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.syllabus?.id ||!req.body.name || !req.body.grade?.id){
+        if(!req.body.syllabusGradeSubject?.id ||!req.body.name){
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -20,28 +19,28 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 status_name: getCode.getStatus(404)
             });
         }
-        syllabusId = req.body.syllabus?.id;
+        syllabusGradeSubjectId = req.body.syllabusGradeSubject?.id;
         name = req.body.name;
-        gradeId = req.body.grade?.id;
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        let check = await db.findSubject(name,gradeId,syllabusId)
+        let check = await db.findSubjectChapter(name,syllabusGradeSubjectId)
 
         if(check[0].Exist != 0){
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Subject name '${name}' alreay present for grade id`,
+                "message": `Chapter name '${name}' alreay present for subject`,
                 status_name: getCode.getStatus(400)
             });
         }
         else{
            
-        let insertSubject = await db.insertGradeSubject(uuid, syllabusId, gradeId, name, isActive)
+        let insertChapter = await db.insertSubjectChapter(uuid, syllabusGradeSubjectId, name, isActive)
     
-            if (insertSubject.affectedRows > 0) {
-                let returnUuid = await db.returnUuidSubject(insertSubject.insertId)
+            if (insertChapter.affectedRows > 0) {
+                let returnUuid = await db.returnUuidChapter(insertChapter.insertId)
+                let insertTopics = await db.insertChapterTopics(createUuid.v1(), insertChapter.insertId, "All-Topics", isActive)
                 res.status(200);
                 return res.json({
                     "status_code": 200,
@@ -54,7 +53,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500);
                 return res.json({
                     "status_code": 500,
-                    "message": "Grade subject not created",
+                    "message": "Chapter not created",
                     status_name: getCode.getStatus(500)
                 });
             }
@@ -75,7 +74,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Grade subject not created",
+                    "message" : "Chapter not created",
                     status_name : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 

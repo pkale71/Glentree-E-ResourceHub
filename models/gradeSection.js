@@ -19,14 +19,19 @@ class gradeSection {
     }
 
     setGrade(data){
-        this.grade   =   {
+        this.grade   =    {
                             "id"    : data.grade_id,
                             "name"  : data.gradeName,
                             "section" : data.sections
                         }
+                        // this.grade   = data?   {
+                        //     "id"    : data.grade_id,
+                        //     "name"  : data.gradeName,
+                        //     "section" : data.sections
+                        // }: {}
     }
 
-    getGrade(data){
+    getGrade(){
        return this.grade  
     }
     
@@ -70,11 +75,24 @@ class gradeSection {
                                     "uuid"    :   data.schoolUuid,
                                     "name"  :   data.schoolName
                                 }
-        this.gradeCategory  =   {
+        this.gradeCategory  =  {
                                     "id"    :   data.gradeCategoryId,
                                     "name"  :   data.gradeCatName,
                                     "grade" :   data.grade
                                 }
+        //                         this.academic       =  data ? {
+        //                             "uuid"    :   data.acaUuid,
+        //                             "year"  :   data.year
+        //                         }:{}
+        // this.school         = data ?  {
+        //                             "uuid"    :   data.schoolUuid,
+        //                             "name"  :   data.schoolName
+        //                         }:{}
+        // this.gradeCategory  = data ?  {
+        //                             "id"    :   data.gradeCategoryId,
+        //                             "name"  :   data.gradeCatName,
+        //                             "grade" :   data.grade
+        //                         }:{}
     }
     getDataAll()
     {
@@ -88,11 +106,16 @@ class gradeSection {
     setGradeCategory(data)
     {
        
-        this.gradeCategory  =   {
+        this.gradeCategory  =  {
                                     "id"    :   data.gradeCategoryId,
                                     "name"  :   data.gradeCatName,
                                     "grade" :   data.grade
                                 }
+                                // this.gradeCategory  = data?  {
+                                //     "id"    :   data.gradeCategoryId,
+                                //     "name"  :   data.gradeCatName,
+                                //     "grade" :   data.grade
+                                // }:{}
     }
 
     // setGradeCategories(data)

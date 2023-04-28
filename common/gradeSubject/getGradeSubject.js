@@ -10,7 +10,7 @@ let userId
 let subjectList = []
 let token;
 
-module.exports = require('express').Router().get('/:gradeId',async(req,res)=>{
+module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
     try{
           uuid =  req.params.uuid
           subject = await db.getGradeSubject(uuid)

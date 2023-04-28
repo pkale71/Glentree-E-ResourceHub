@@ -22,7 +22,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         accessToken = req.body.accessToken;
         let insertGrade = []
         section = await db.findLastSection(academicId,schoolId,gradeId)
-
         section = section[0]?.section ? section[0].section : 64
         console.log(insertGrade.length,section)
 

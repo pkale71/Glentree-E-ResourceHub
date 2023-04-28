@@ -8,17 +8,38 @@ class gradeSubject {
     isExist
     constructor(){}
 
-    setGradeSection(data){
+    setGradeSubject(data){
         this.gradeSubject   =   {
                                     "uuid"    : data.uuid,
-                                    "name"    : data.subject_name
+                                    "name"    : data.subject_name,
+                                    "isExist"   : data.isExist
                                 }
     }
 
-    getGradeSection(){
+    getGradeSubject(){
         return  this.gradeSubject
         
     }
+
+
+    setGrade(data){
+        this.grade   =    {
+                            "id"    : data.grade_id,
+                            "name"  : data.gradeName,
+                            "subject" : data.gradeSubject
+                        }
+                        // this.grade   = data?   {
+                        //     "id"    : data.grade_id,
+                        //     "name"  : data.gradeName,
+                        //     "section" : data.sections
+                        // }: {}
+    }
+
+    getGrade(){
+       return this.grade  
+    }
+
+
     setSchool(data){
         this.school         =   {
             "uuid"    :   data.schoolUuid,
@@ -34,7 +55,7 @@ class gradeSubject {
     {
         this.uuid           =   data.uuid
         this.syllabus       =   {
-                                    "id"    :   data.syllabusId,
+                                    "id"    :   data.syllabus_id,
                                     "name"  :   data.syllabusName
                                 }
         this.grade         =   {
@@ -43,20 +64,23 @@ class gradeSubject {
                                 }
         this.gradeCategory         =   {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName
+                                    "name"  :   data.gradeCatName,
+                                    "grade" :   data.grade
                                 }
-        this.gradeSubject   =   data.gradeSubject
+      //  this.isExist        =   data.isExist                     
+      //  this.gradeSubject   =   data.gradeSubject
     }
 
     getDataAll()
     {
         return {
             uuid : this.uuid,
-            syllabus : this.academic,
+            syllabus : this.syllabus,
             school : this.school,
-            grade : this.grade,
+          //  grade : this.grade,
             gradeCategory : this.gradeCategory,
-            subject : this.gradeSubject
+           // isExist : this.isExist,
+           // subject : this.gradeSubject
         }
     }
 }

@@ -1,21 +1,40 @@
 let pool = require('../../databaseConnection/createconnection');
 const gradeCategory = require('../../models/gradeCategory');
 let db = {};
- 
+
 db.getGradeSections = (academicId,schoolId,gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
-                        g.name AS gradeName, 
-                        gc.id AS gradeCategoryId, gc.name AS gradeCatName
-                        FROM school_grade_section sgs 
-                        LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
-                        LEFT JOIN school s ON s.id = sgs.school_id 
-                        LEFT JOIN grade g ON g.id = sgs.grade_id 
-                        LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
-                        WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id = ?
-                        ORDER BY sgs.id, sgs.grade_id`,[academicId,schoolId,gradeId],(error, result) => 
+            let sql = ``;
+            if(gradeId)
+            {
+                sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
+                g.name AS gradeName, 
+                gc.id AS gradeCategoryId, gc.name AS gradeCatName
+                FROM school_grade_section sgs 
+                LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
+                LEFT JOIN school s ON s.id = sgs.school_id 
+                LEFT JOIN grade g ON g.id = sgs.grade_id 
+                LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
+                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id = ?
+                ORDER BY sgs.id, sgs.grade_id`;
+            }
+            else 
+            {
+                sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
+                g.name AS gradeName, 
+                gc.id AS gradeCategoryId, gc.name AS gradeCatName
+                FROM school_grade_section sgs 
+                LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
+                LEFT JOIN school s ON s.id = sgs.school_id 
+                LEFT JOIN school_grade_category sgc ON sgc.school_id = s.id 
+                LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id 
+                LEFT JOIN grade g ON g.id = sgs.grade_id 
+                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? 
+                ORDER BY sgs.id, sgs.grade_id`
+            }
+            pool.query(sql,[academicId,schoolId,gradeId],(error, result) => 
             {
                 if(error)
                 {
@@ -141,7 +160,10 @@ db.getGradeCategorySchool = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from school_grade_category WHERE school_id = ? ORDER BY grade_category_id `,[id],(error, result) => 
+            pool.query(`SELECT sgc.*, gc.id AS gradeCategoryId, gc.name AS gradeCatName
+             from school_grade_category sgc
+             LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id
+              WHERE school_id = ? ORDER BY grade_category_id `,[id],(error, result) => 
             {
                 if(error)
                 {
