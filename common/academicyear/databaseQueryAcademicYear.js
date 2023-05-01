@@ -74,6 +74,24 @@ db.insertAcademicYear = (uuid,startDate,endDate,year,isCurrent) => {
     });
 }
 
+db.deleteAcademicYear = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM academic_year WHERE uuid = ?", [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.selectSchool = (id) => {
     return new Promise((resolve, reject)=>{
         try
