@@ -28,6 +28,7 @@ class academicYear {
         this.year           =   data.year
         this.startDate      =   data.start_date
         this.endDate        =   data.end_date
+        this.isCurrent      =   data.is_current
     }
 
     getDataAll()
@@ -36,7 +37,8 @@ class academicYear {
             uuid : this.uuid,
             year : this.year,
             startDate : this.startDate,
-            endDate : this.endDate
+            endDate : this.endDate,
+            isCurrent : this.isCurrent
         }
     }
 }
