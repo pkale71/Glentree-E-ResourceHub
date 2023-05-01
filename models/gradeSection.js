@@ -22,7 +22,7 @@ class gradeSection {
         this.grade   =    {
                             "id"    : data.grade_id,
                             "name"  : data.gradeName,
-                            "section" : data.sections
+                            "sections" : data.sections
                         }
                         // this.grade   = data?   {
                         //     "id"    : data.grade_id,
@@ -48,10 +48,10 @@ class gradeSection {
         this.gradeCategory      =   {
                                     "id"    :   data.gradeCategoryId,
                                     "name"  :   data.gradeCatName,
-                                    "grade" :   {
+                                    "grades" :   {
                                                     "id"         :   data.grade_id,
                                                     "name"       :   data.gradeName,
-                                                    "section"    :   data.gradeSection
+                                                    "sections"    :   data.gradeSection
                                                 }
                                 }
     }
@@ -61,7 +61,7 @@ class gradeSection {
         return {
             academic : this.academic,
             school : this.school,
-            gradeCategory : this.gradeCategory,
+            gradeCategories : this.gradeCategory,
         }
     }
 
@@ -78,7 +78,7 @@ class gradeSection {
         this.gradeCategory  =  {
                                     "id"    :   data.gradeCategoryId,
                                     "name"  :   data.gradeCatName,
-                                    "grade" :   data.grade
+                                    "grades" :   data.grade
                                 }
         //                         this.academic       =  data ? {
         //                             "uuid"    :   data.acaUuid,
@@ -99,7 +99,7 @@ class gradeSection {
         return {
             academic : this.academic,
             school : this.school,
-            gradeCategory : this.gradeCategory
+            gradeCategories : this.gradeCategory
         }
     }
 
@@ -130,26 +130,6 @@ class gradeSection {
         return  this.gradeCategory
         
     }
-    setDataAllSchool(data)
-    {
-        this.academic       =   {
-                                    "uuid"    :   data.acaUuid,
-                                    "year"  :   data.year
-                                }
-        this.school         =   {
-                                    "uuid"    :   data.schoolUuid,
-                                    "name"  :   data.schoolName
-                                }
-        this.gradeCategory  =   data.gradeCategory
-    }
-    getDataAllSchool()
-    {
-        return {
-            academic : this.academic,
-            school : this.school,
-            gradeCategories : this.gradeCategory
-        }
-    }
-
+  
 }
 module.exports = gradeSection

@@ -84,11 +84,11 @@ db.getGradeId = (id) => {
     });
 }
 
-db.getGrade = (id) => {
+db.getGrade = (id,gradeCategoryId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from grade WHERE id = ? `,[id],(error, result) => 
+            pool.query(`SELECT * from grade WHERE id = ? AND grade_category_id = ? `,[id, gradeCategoryId],(error, result) => 
             {
                 if(error)
                 {

@@ -13,37 +13,33 @@ let gradeCategoryId;
 let gradeCategoryList = []
 let gradeId;
 let grades= []
-let gradeCategories = []
 let gradeList = []
 let setSections = []
 let list = []
-let gradeIdList = []
 
 
 
-module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCategoryId?*',async(req,res) =>  {
+module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
     try
     {  
         academicId = req.params.acadmicId
         schoolId = req.params.schoolId
-        gradeCategoryId = req.params['gradeCategoryId']
-        gradeId = req.params['0']
-        gradeId = gradeId.split('/')
-        if(gradeId.length > 2){
+        gradeCategoryId = req.params.gradeCategoryId
+        gradeId = req.params['gradeId']
+      
+        if(gradeCategoryId.length == 0){
             res.status(404)
             return res.json({
                 "status_code" : 404,
-                "message"     : 'Wrong url',
+                "message"     : 'Provide grade Category id',
                 status_name   : getCode.getStatus(404)
             })
         }
-        gradeId = gradeId[1]
+       
        // console.log((!gradeId && gradeCategoryId && schoolId))
         gradeSectionList = []
         gradeCategoryList = []
-        gradeIdList = []
         sectionList = []
-        gradeCategories = []
         setSections = []
         gradeList = []
         grades = []
@@ -67,8 +63,8 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
                 status_name   : getCode.getStatus(404)
             })
         }
-        if(gradeId){
-            let grade = await db.getGrade(gradeId)
+        if(gradeId && gradeCategoryId){
+            let grade = await db.getGrade(gradeId,gradeCategoryId)
             if(grade.length == 0){
                 res.status(404)
                 return res.json({
@@ -183,96 +179,6 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
                         })
                 }
             })
-        }
-        else if(schoolId&&!gradeId && !gradeCategoryId ){
-            let gradeCategory = await db.getGradeCategorySchool(schoolId)
-            if(gradeCategory.length == 0){
-                res.status(404)
-                return res.json({
-                    "status_code" : 404,
-                    "message"     :" Grade category not found",
-                    status_name   : getCode.getStatus(404)
-                })
-            }
-           
-            Array.from(gradeCategory).forEach(async(ele) => {
-                gradeCategories.push({"gradeCategoryId": ele.gradeCategoryId, "gradeCatName" : ele.gradeCatName})
-                gradeIdList.push(await db.getGradeId(ele.grade_category_id))
-                sectionList = gradeIdList
-                
-                if(gradeCategory.length == gradeIdList.length){
-                    // console.log("ele***** ", gradeIdList)
-                    let len = 0;
-            
-                Array.from(gradeIdList).forEach(async(element,j) => {
-                    Array.from(element).forEach(async (ele,i) => {
-                        // console.log(j, "**************** ", await db.getGradeSections(academicId, schoolId, ele.id))
-                         sectionList[j][i] = (await db.getGradeSections(academicId,schoolId,ele.id))
-                         //console.log(j,sectionList[j][i].length)
-                        
-                         sectionList[j][i] = sectionList[j][i].length == 0 ? [ele] : sectionList[j][i]
-                         len = len + 1
-
-                        if (len === 14) {
-                           // console.log(sectionList.length)
-                            res.status(200)
-                            return res.json({
-                                "status_code": 200,
-                                "message": sectionList,
-                                status_name: getCode.getStatus(200)
-                            })
-                        }
-                        return
-                        res.status(200)
-                        return res.json({
-                            "status_code": 200,
-                            "message": sectionList,
-                            status_name: getCode.getStatus(200)
-                        })
-                        setSections = sectionList
-                        for (i = 0; i < sectionList.length; i++) {
-                            await Array.from(sectionList[i]).forEach((element) => {
-                                sections.setGradeSection(element)
-                                list.push(sections.getGradeSection())
-                            })
-                            setSections[i][0]['sections'] = list
-                            list = []
-                            sections.setGrade(setSections[i][0])
-                            gradeList.push(sections.getGrade())
-
-                            setSections[i][0]['grade'] = gradeList
-
-                            sections.setGradeCategory(setSections[i][0])
-                            gradeCategoryList.push(sections.getGradeCategory())
-
-                            setSections[i][0]['gradeCategory'] = gradeCategoryList
-
-                            sections.setDataAll(setSections[i][0])
-                            copySectionList.push(sections.getDataAll())
-
-                            setSections[i][0]['gradeCategory'] = copySectionList
-                        }
-                        res.status(200)
-                        return res.json({
-                            "status_code": 200,
-                            "message": copySectionList[0],
-                            status_name: getCode.getStatus(200)
-                        })
-
-                    })
-
-
-                })
-                       
-                       // console.log(setSections[j])
-                    
-                   
-                
-                }
-            })
-            
-           
-            
         }
         else{
             res.status(400)

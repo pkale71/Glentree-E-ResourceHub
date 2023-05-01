@@ -155,7 +155,7 @@ class school {
                         email               :   this.email,
                         curriculumUpload    :   this.curriculumUpload,
                         syllabus            :   this.syllabus,
-                        gradeCategory       :   this.gradeCategory,
+                        gradeCategories       :   this.gradeCategory,
                         createdOn           :   this.createdOn,
                         createdBy           :   this.createdBy,
                         active              :   this.active,
