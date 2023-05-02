@@ -12,7 +12,7 @@ commonRoute.use( '/getGrades',require('../authentication/getValidateToken'),requ
 commonRoute.use( '/getGrade',require('../authentication/paramValidateToken'),require('./grade/getGrade'))
 commonRoute.use( '/createGrade',require('../authentication/postValidateToken'),require('./grade/createGrade'))
 commonRoute.use( '/updateGrade',require('../authentication/postValidateToken'),require('./grade/updateGrade'))
-commonRoute.use( '/deleteGrade',require('../authentication/paramValidateToken'),require('./grade/deleteGrade'))
+commonRoute.use( '/deleteGrade',require('../authentication/postValidateToken'),require('./grade/deleteGrade'))
 commonRoute.use( '/getAcademicYears',require('../authentication/getValidateToken'),require('./academicyear/getAcademicYears'))
 commonRoute.use( '/getAcademicYear',require('../authentication/paramValidateToken'),require('./academicyear/getAcademicYear'))
 commonRoute.use( '/createAcademicYear',require('../authentication/postValidateToken'),require('./academicyear/createAcademicYear'))

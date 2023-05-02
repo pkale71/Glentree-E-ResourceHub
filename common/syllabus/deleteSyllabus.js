@@ -22,7 +22,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             res.status(1063)
             return res.json({
                 "status_code" : 1063,
-                "message" : "Syllabus alreay linked with some schools",
+                "message" : "Syllabus already linked with some schools",
                 status_name : getCode.getStatus(1063)
             }) 
         }

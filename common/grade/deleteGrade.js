@@ -7,19 +7,19 @@ let    gradeCategoryId
 let    id
 
 
-module.exports = require('express').Router().get('/:id',async(req,res) =>
+module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.params.id ){
+        id = req.body.id
+        if(!id ){
             res.status(404)
             return res.json({
              "status_code" : 404,
              "message" : "Grade id Missing",
              status_name : getCode.getStatus(404)
             })
-        }
-        id = req.params.id
+        }        
         let check = await db.selectUsedGrade(id)
         if(!check[0].Exist){
             let deleteGrade = await db.deleteGrade(id)
