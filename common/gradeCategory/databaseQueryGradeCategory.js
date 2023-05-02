@@ -5,7 +5,7 @@ db.getGradeCategory = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * from grade_category",(error, result) => 
+            pool.query("SELECT * from grade_category order by id",(error, result) => 
             {
                 if(error)
                 {
