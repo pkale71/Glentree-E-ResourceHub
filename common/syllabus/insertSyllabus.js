@@ -37,12 +37,23 @@ module.exports = require('express').Router().post('/',async(req,res) => {
     } 
     catch(e)
     {
-        res.status(500)
-        return res.json({
-            "status_code"   :   500,
-            "message"       :   "Syllabus not inserted",
-            "status_name"   :   getCode.getStatus(500),
-            "error"         :   e.sqlMessage
-        })     
+        if(e.code == 'ER_DUP_ENTRY'){
+            let msg = e.sqlMessage.replace('_UNIQUE', '');
+            res.status(500)
+            return res.json({
+                "status_code"   : 500,
+                "message"       : msg,
+                status_name     : getCode.getStatus(500),
+                "error"         : msg
+            }) 
+        }else{
+            res.status(500)
+            return res.json({
+                "status_code"   :   500,
+                "message"       :   "Syllabus not inserted",
+                "status_name"   :   getCode.getStatus(500),
+                "error"         :   e.sqlMessage
+            })
+        }     
     }
 })
