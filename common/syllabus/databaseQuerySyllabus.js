@@ -59,7 +59,7 @@ db.selectSchool = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM school WHERE syllabus_id = ?", [id], (error, result) => 
+            pool.query("SELECT *, COUNT(syllabus_id) AS Exist FROM school WHERE syllabus_id LIKE ?", [id], (error, result) => 
             {
                 if(error)
                 {

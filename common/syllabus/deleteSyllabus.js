@@ -18,12 +18,16 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
         isInSchool = await db.selectSchool(id)
-        if(isInSchool.length > 0){
-            res.status(1063)
+        console.log(isInSchool)
+
+        if(isInSchool[0].Exist){
+         console.log(isInSchool[0].Exist)
+
+            res.status(400)
             return res.json({
-                "status_code" : 1063,
+                "status_code" : 400,
                 "message" : "Syllabus already linked with some schools",
-                status_name : getCode.getStatus(1063)
+                status_name : getCode.getStatus(400)
             }) 
         }
         deleteSyllabus = await db.deleteSyllabus(id);

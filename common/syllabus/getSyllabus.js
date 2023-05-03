@@ -20,20 +20,24 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
                 "status_name"   :   getCode.getStatus(200),
             })   
         }
-        await Array.from(syllabus).forEach(ele  =>  {
+        await Array.from(syllabus).forEach(async(ele)  =>  {
+            console.log(ele)
+            isInSchool = await db.selectSchool(ele.id)
+            ele['isExist'] = isInSchool[0].Exist != 0 ? 1 : 0;
             syllabuses.setDataAll(ele)
             syllabusList.push(syllabuses.getDataAll())
+            if(syllabus.length == syllabusList.length){
+                res.status(200)
+                return res.json({
+                    "status_code" : 200,
+                    "data"        : {'syllabuses' : syllabusList},
+                    "message"     : 'success',
+                    status_name   : getCode.getStatus(200)
+                })
+            } 
         })
 
-        if(syllabus.length == syllabusList.length){
-            res.status(200)
-            return res.json({
-                "status_code" : 200,
-                "data"        : {'syllabuses' : syllabusList},
-                "message"     : 'success',
-                status_name   : getCode.getStatus(200)
-            })
-        } 
+       
     } 
     catch(e)
     {
