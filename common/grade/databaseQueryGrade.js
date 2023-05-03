@@ -103,7 +103,23 @@ db.selectSchool = (id) => {
 
 db.selectUsedGrade = (id) => {
     return new Promise((resolve, reject)=>{
-        try{pool.query(`SELECT COUNT(id) AS Exist  FROM syllabus_grade_subject WHERE id LIKE ?`, [id], (error, result)=>{
+        try{pool.query(`SELECT COUNT(grade_id) AS Exist  FROM syllabus_grade_subject 
+        WHERE grade_id = ?`, [id], (error, result)=>{
+            if(error){
+            return reject(error);
+             }          
+            return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+        });
+}
+
+db.selectUsedGradeSection = (id) => {
+    return new Promise((resolve, reject)=>{
+        try{pool.query(`SELECT COUNT(grade_id) AS Exist  FROM school_grade_section 
+        WHERE grade_id = ?`, [id], (error, result)=>{
             if(error){
             return reject(error);
              }          

@@ -24,7 +24,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         id = req.body.id
         gradeCategoryId = req.body.gradeCategory.id;
         let check = await db.selectUsedGrade(id)
-        if(!check[0].Exist){
+        let checkSection = await db.selectUsedGradeSection(id)
+        if(!check[0].Exist && !checkSection[0].Exist){
             let updateGrade = await db.updateGrade(id,name, gradeCategoryId)
             if(updateGrade.affectedRows > 0){
                  res.status(200)

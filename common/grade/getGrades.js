@@ -23,9 +23,10 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
      
          Array.from(grade).forEach(async(ele)  =>  {
            // console.log("24***************",ele)
-            let check = await db.selectUsedGrade(ele.id)
-            // console.log("24***************",check)
-            ele['isExist'] = check[0].Exist != 0 ? 1 : 0;
+            let checkSyllabus = await db.selectUsedGrade(ele.id)
+            let checkSection = await db.selectUsedGradeSection(ele.id)
+             console.log("24*****",ele.id, "**********",checkSyllabus[0].Exist,"***",checkSection[0].Exist)
+            ele['isExist'] = (checkSyllabus[0].Exist == 0 && checkSection[0].Exist == 0) ? 0 : 1;
             grades.setDataAll(ele)
             gradeList.push(grades.getDataAll())
             if(grade.length == gradeList.length){

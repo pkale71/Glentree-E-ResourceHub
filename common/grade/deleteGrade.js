@@ -21,7 +21,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             })
         }        
         let check = await db.selectUsedGrade(id)
-        if(!check[0].Exist){
+        let checkSection = await db.selectUsedGradeSection(id)
+        if(!check[0].Exist && !checkSection[0].Exist){
             let deleteGrade = await db.deleteGrade(id)
             if(deleteGrade.affectedRows > 0){
                  res.status(200)
