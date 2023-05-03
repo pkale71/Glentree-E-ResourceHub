@@ -146,24 +146,21 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                             sections.setGradeSection(element)
                             list.push(sections.getGradeSection())
                         })
-                        console.log("***",setSections[i][0])
-                        console.log("******",grades[i])
-                            setSections[i][0]['sections']=list
-                            finalList.push({grade:setSections[i],'sections':list})
-                      
-                             list = [] 
-                             sections.setGrade( setSections[i][0])
-                             gradeList.push(sections.getGrade())
+                        // console.log("***",setSections[i][0])
+                        // console.log("******",grades[i])
+                        setSections[i][0]['sections']=list
+                        list = [] 
+                        sections.setGrade( setSections[i][0])
+                        gradeList.push(sections.getGrade())
                            
-                                setSections[i][0]['grade']=gradeList
+                        setSections[i][0]['grade']=gradeList
                             
-                         sections.setGradeCategory( setSections[i][0])
-                         gradeCategoryList.push(sections.getGradeCategory())
+                        sections.setGradeCategory( setSections[i][0])
+                        gradeCategoryList.push(sections.getGradeCategory())
                          
-                            setSections[i][0]['gradeCategory']=gradeCategoryList
+                        setSections[i][0]['gradeCategory']=gradeCategoryList
                        
-                     
-                        finalList.push(setSections[i][0])
+                    
                      sections.setDataAll( setSections[i][0])
                      copySectionList.push(sections.getDataAll())
                     

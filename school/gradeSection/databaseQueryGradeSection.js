@@ -40,7 +40,7 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                     return reject(error);
                 } 
                 if(ele){
-                    console.log(ele)
+                   
                     if(result.length == 0){
                         result.push({"grade_id": ele.ele.id, 
                         "gradeName" : ele.ele.name,
