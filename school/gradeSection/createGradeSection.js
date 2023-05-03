@@ -5,6 +5,8 @@ let    getCode = new errorCode()
 let    accessToken;
 let    academicId;
 let    schoolId;
+let    academicUuid;
+let    schoolUuid;
 let    gradeId;
 let    uuid;
 let    section;
@@ -14,12 +16,34 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        academicId = req.body.academicYear?.id;
-        schoolId = req.body.school?.id;
+        academicUuid = req.body.academicYear?.uuid;
+        schoolUuid = req.body.school?.uuid;
         gradeId = req.body.grade?.id;
         count = req.body.count;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
+        let academic = await db.getAcademic(academicUuid)
+
+        if(academic.length == 0){
+            res.status(404)
+            return res.json({
+                "status_code" : 404,
+                "message"     : 'Academic year not found',
+                status_name   : getCode.getStatus(404)
+            })
+        }
+        academicId = academic[0].id
+
+        let school = await db.getSchool(schoolUuid)
+        if(school.length == 0){
+            res.status(404)
+            return res.json({
+                "status_code" : 404,
+                "message"     : 'School not found',
+                status_name   : getCode.getStatus(404)
+            })
+        }
+        schoolId = school[0].id
         let insertGrade = []
         section = await db.findLastSection(academicId,schoolId,gradeId)
         section = section[0]?.section ? section[0].section : 64

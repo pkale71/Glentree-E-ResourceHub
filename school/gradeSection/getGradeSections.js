@@ -101,7 +101,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 res.status(200)
                 return res.json({
                     "status_code" : 200,
-                    "data"        : {'gradeSection' : sections.getData()},
+                    "data"        : {'gradeSections' : sections.getData()},
                     "message"     : 'success',
                     status_name   : getCode.getStatus(200)
                 })
@@ -175,14 +175,13 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     }
                     else {
                         setSections[i][0]['gradeCategory']=copySectionList
-                    }
-                 
-                    
+                    }   
                     }
                         res.status(200)
                         return res.json({
                             "status_code" : 200,
-                            "message"     : copySectionList[0],
+                            "data"        : {'gradeSections' : copySectionList[0]},
+                            "message"     : "success",
                             status_name   : getCode.getStatus(200)
                         })
                 }
@@ -199,7 +198,6 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
     } 
     catch(e)
     {
-        console.log("ppppp")
         res.status(500)
         return res.json({
             "status_code"   :   500,
