@@ -83,7 +83,7 @@ db.getSchoolGradeCategory = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT sgc.id AS schoolGradeCategoryId,  gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id WHERE sgc.school_id = ?",[schoolId],(error, result) => 
+            pool.query("SELECT sgc.id AS schoolGradeCategoryId, gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id WHERE sgc.school_id = ? order by gc.id",[schoolId],(error, result) => 
             {
                 if(error)
                 {
@@ -255,7 +255,7 @@ db.getSchoolGradeCategorySearch = (schoolId,searchString) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT  * from school_grade_category   WHERE school_id = ? AND FIND_IN_SET(grade_category_id,?)= 0",[schoolId,searchString],(error, result) => 
+            pool.query("SELECT  * from school_grade_category WHERE school_id = ? AND FIND_IN_SET(grade_category_id,?)= 0",[schoolId,searchString],(error, result) => 
             {
                 if(error)
                 {
