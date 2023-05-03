@@ -99,7 +99,7 @@ class gradeSection {
         return {
             academic : this.academic,
             school : this.school,
-            gradeCategories : this.gradeCategory
+            gradeCategory : this.gradeCategory
         }
     }
 
