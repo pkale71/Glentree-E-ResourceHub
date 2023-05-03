@@ -11,7 +11,7 @@ schoolRouter.use( '/deleteSchool',require('../authentication/postValidateToken')
 schoolRouter.use( '/changeStatus',require('../authentication/paramValidateToken'),require('./changeStatus'))
 schoolRouter.use( '/getGradeSections',require('../authentication/paramValidateToken'),require('./gradeSection/getGradeSections'))
 schoolRouter.use( '/createGradeSection',require('../authentication/postValidateToken'),require('./gradeSection/createGradeSection'))
-schoolRouter.use( '/deleteGradeSection',require('../authentication/paramValidateToken'),require('./gradeSection/deleteGradeSection'))
+schoolRouter.use( '/deleteGradeSection',require('../authentication/postValidateToken'),require('./gradeSection/deleteGradeSection'))
 
 
 module.exports = schoolRouter

@@ -23,7 +23,7 @@ commonRoute.use( '/changeStatus',require('../authentication/paramValidateToken')
 commonRoute.use( '/deleteGradeSubject',require('../authentication/postValidateToken'),require('./gradeSubject/deleteGradeSubject'))
 commonRoute.use( '/getGradeSubject',require('../authentication/paramValidateToken'),require('./gradeSubject/getGradeSubject'))
 commonRoute.use( '/createSubjectChapter',require('../authentication/postValidateToken'),require('./subjectChapters/createSubjectchapter'))
-commonRoute.use( '/deleteSubjectChapter',require('../authentication/paramValidateToken'),require('./subjectChapters/deleteSubjectChapter'))
+commonRoute.use( '/deleteSubjectChapter',require('../authentication/postValidateToken'),require('./subjectChapters/deleteSubjectChapter'))
 commonRoute.use( '/updateSubjectChapter',require('../authentication/postValidateToken'),require('./subjectChapters/updateSubjectchapter'))
 
 module.exports = commonRoute
