@@ -102,11 +102,11 @@ db.getGrade = (id,gradeCategoryId) => {
     });
 }
 
-db.getAcademic = (id) => {
+db.getAcademic = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from academic_year WHERE id = ? `,[id],(error, result) => 
+            pool.query(`SELECT * from academic_year WHERE uuid = ? `,[uuid],(error, result) => 
             {
                 if(error)
                 {
@@ -120,11 +120,11 @@ db.getAcademic = (id) => {
     });
 }
 
-db.getSchool = (id) => {
+db.getSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from school WHERE id = ? `,[id],(error, result) => 
+            pool.query(`SELECT * from school WHERE uuid = ? `,[uuid],(error, result) => 
             {
                 if(error)
                 {

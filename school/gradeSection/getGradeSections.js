@@ -7,6 +7,8 @@ let section;
 let gradeSectionList = [];
 let sectionList = [];
 let copySectionList = [];
+let academicUuid;
+let schoolUuid;
 let academicId;
 let schoolId;
 let gradeCategoryId;
@@ -19,11 +21,11 @@ let list = []
 
 
 
-module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
+module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
     try
     {  
-        academicId = req.params.acadmicId
-        schoolId = req.params.schoolId
+        academicUuid = req.params.acadmicUUID
+        schoolUuid = req.params.schoolUUID
         gradeCategoryId = req.params.gradeCategoryId
         gradeId = req.params['gradeId']
       
@@ -45,7 +47,8 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
         grades = []
         copySectionList = []
         list = []
-        let academic = await db.getAcademic(academicId)
+        let academic = await db.getAcademic(academicUuid)
+
         if(academic.length == 0){
             res.status(404)
             return res.json({
@@ -54,7 +57,9 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
                 status_name   : getCode.getStatus(404)
             })
         }
-        let school = await db.getSchool(schoolId)
+        academicId = academic[0].id
+
+        let school = await db.getSchool(schoolUuid)
         if(school.length == 0){
             res.status(404)
             return res.json({
@@ -63,6 +68,7 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
                 status_name   : getCode.getStatus(404)
             })
         }
+        schoolId = school[0].id
         if(gradeId && gradeCategoryId){
             let grade = await db.getGrade(gradeId,gradeCategoryId)
             if(grade.length == 0){
@@ -74,6 +80,8 @@ module.exports = require('express').Router().get('/:acadmicId/:schoolId/:gradeCa
                 })
             }
            // console.log("***")
+        console.log(academicUuid,academicId,schoolId)
+
             section = await db.getGradeSections(academicId,schoolId,gradeId);
             if(section.length == 0){
                 res.status(404)
