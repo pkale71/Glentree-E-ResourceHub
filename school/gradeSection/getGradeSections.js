@@ -17,8 +17,10 @@ let gradeId;
 let grades= []
 let gradeList = []
 let setSections = []
+let finalList = []
 let list = []
-
+let academic;
+let school;
 
 
 module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
@@ -46,8 +48,9 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
         gradeList = []
         grades = []
         copySectionList = []
+        finalList = []
         list = []
-        let academic = await db.getAcademic(academicUuid)
+         academic = await db.getAcademic(academicUuid)
 
         if(academic.length == 0){
             res.status(404)
@@ -59,7 +62,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
         }
         academicId = academic[0].id
 
-        let school = await db.getSchool(schoolUuid)
+         school = await db.getSchool(schoolUuid)
         if(school.length == 0){
             res.status(404)
             return res.json({
@@ -82,7 +85,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
            // console.log("***")
         console.log(academicUuid,academicId,schoolId)
 
-            section = await db.getGradeSections(academicId,schoolId,gradeId);
+            section = await db.getGradeSections(academicId,schoolId,gradeId,gradeCategoryId,0);
             if(section.length == 0){
                 res.status(404)
                 return res.json({
@@ -128,55 +131,48 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             }
          
             Array.from(gradeId).forEach(async(ele) => {
+                let datas = {'ele':ele,'academic' :academic,'school' : school }
                 grades.push({"grade_id": ele.id, "gradeName" : ele.name})
-                sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id))
+                sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas))
                 gradeId.splice(gradeId.indexOf(ele),1)
                 if(gradeId.length == 0){
+                    // return res.json({
+                    //     data: sectionList
+                    // })
+                   // console.log(sectionList)
                     setSections = sectionList
                     for(i=0;i<sectionList.length;i++){
-                        await Array.from(sectionList[i]).forEach((element) =>{
+                        Array.from(sectionList[i]).forEach((element) =>{
                             sections.setGradeSection(element)
                             list.push(sections.getGradeSection())
                         })
-                       // console.log(setSections[i])
-                        if(setSections[i].length == 0){
-                            setSections[i]=[grades[i]]
+                        console.log("***",setSections[i][0])
+                        console.log("******",grades[i])
                             setSections[i][0]['sections']=list
-                        }
-                        else {
-                            setSections[i][0]['sections']=list
-                        }
-                     
-                        list = [] 
+                            finalList.push({grade:setSections[i],'sections':list})
+                      
+                             list = [] 
                              sections.setGrade( setSections[i][0])
                              gradeList.push(sections.getGrade())
-                             if(setSections[i].length == 0){
-                                setSections[i]['grade']=gradeList
-                            }
-                            else {
+                           
                                 setSections[i][0]['grade']=gradeList
-                            }
-                
-
+                            
                          sections.setGradeCategory( setSections[i][0])
                          gradeCategoryList.push(sections.getGradeCategory())
-                         if(setSections[i].length == 0){
-                            setSections[i]['gradeCategory']=gradeCategoryList
-                        }
-                        else {
+                         
                             setSections[i][0]['gradeCategory']=gradeCategoryList
-                        }
+                       
                      
-
+                        finalList.push(setSections[i][0])
                      sections.setDataAll( setSections[i][0])
                      copySectionList.push(sections.getDataAll())
-                     if(setSections[i].length == 0){
-                        setSections[i]['gradeCategory']=copySectionList
+                    
+                       // setSections[i][0]['gradeCategory']=copySectionList
+                        
                     }
-                    else {
-                        setSections[i][0]['gradeCategory']=copySectionList
-                    }   
-                    }
+                    // return res.json({
+                    //         data: finalList[finalList.length-1]
+                    //     })
                         res.status(200)
                         return res.json({
                             "status_code" : 200,

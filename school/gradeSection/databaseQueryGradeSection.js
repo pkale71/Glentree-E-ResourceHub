@@ -2,12 +2,12 @@ let pool = require('../../databaseConnection/createconnection');
 const gradeCategory = require('../../models/gradeCategory');
 let db = {};
 
-db.getGradeSections = (academicId,schoolId,gradeId) => {
+db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            let sql = ``;
-            if(gradeId)
+            let sql = '';
+            if(gradeId > 0)
             {
                 sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
                 g.name AS gradeName, 
@@ -17,30 +17,46 @@ db.getGradeSections = (academicId,schoolId,gradeId) => {
                 LEFT JOIN school s ON s.id = sgs.school_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
                 LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
-                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id = ?
-                ORDER BY sgs.id, sgs.grade_id`;
+                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?) AND sgs.grade_id = ?
+                ORDER BY g.id, sgs.grade_id, sgs.id`;
             }
-            else 
+            else
             {
                 sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
-                g.name AS gradeName, 
-                gc.id AS gradeCategoryId, gc.name AS gradeCatName
+                g.name AS gradeName
                 FROM school_grade_section sgs 
                 LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
                 LEFT JOIN school s ON s.id = sgs.school_id 
-                LEFT JOIN school_grade_category sgc ON sgc.school_id = s.id 
-                LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
-                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? 
-                ORDER BY sgs.id, sgs.grade_id`
+                WHERE  sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?)
+                ORDER BY g.id, sgs.grade_id, sgs.id`;
             }
-            pool.query(sql,[academicId,schoolId,gradeId],(error, result) => 
+                
+            
+            pool.query(sql,[academicId,schoolId,gradeCategoryId,gradeId],(error, result) => 
             {
                 if(error)
                 {
                     return reject(error);
-                }          
-                return resolve(result);
+                } 
+                if(ele){
+                    console.log(ele)
+                    if(result.length == 0){
+                        result.push({"grade_id": ele.ele.id, 
+                        "gradeName" : ele.ele.name,
+                        'acaUuid' : ele.academic[0].uuid,
+                        "year" : ele.academic[0].year, 
+                        'schoolUuid' : ele.school[0].uuid,
+                         'schoolName' : ele.school[0].name })
+                        return resolve(result);
+                    }   else{
+                        return resolve(result);
+                    } 
+                } 
+                  else {
+                    return resolve(result); 
+                  }
+                // return resolve(result); 
             });
         }
         catch(e){ console.log(e)}
@@ -138,11 +154,47 @@ db.getSchool = (uuid) => {
     });
 }
 
+db.getAcademicId = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT id AS acaUuid, year from academic_year WHERE id = ? `,[id],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+db.getSchoolId = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT uuid AS schoolUuid, name AS schoolName from school WHERE id = ? `,[id],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.getGradeCategory = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from grade_category WHERE id = ? `,[id],(error, result) => 
+            pool.query(`SELECT * from grade_category WHERE id = ? 
+            ORDER BY id`,[id],(error, result) => 
             {
                 if(error)
                 {

@@ -9,7 +9,8 @@ db.getGrades = () => {
             pool.query(`SELECT g.id, g.name, g.grade_category_id, 
             gc.name AS gradeCategoryName 
             from grade g 
-            LEFT JOIN grade_category gc ON g.grade_category_id = gc.id`,(error, result) => 
+            LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
+            ORDER BY g.grade_category_id, g.id`,(error, result) => 
             {
                 if(error)
                 {
@@ -31,7 +32,8 @@ db.getGrade = (id) => {
             gc.name AS gradeCategoryName 
             from grade g 
             LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
-            WHERE g.id = ?`,[id],(error, result) => 
+            WHERE g.id = ?
+            ORDER BY g.grade_category_id, g.id`,[id],(error, result) => 
             {
                 if(error)
                 {

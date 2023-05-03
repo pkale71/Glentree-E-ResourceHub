@@ -8,7 +8,7 @@ class gradeSection {
     constructor(){}
 
     setGradeSection(data){
-        this.gradeSection   =   {
+        this.gradeSection   =  {
                                     "uuid"    : data.uuid,
                                     "name"  : data.section
                                 }
