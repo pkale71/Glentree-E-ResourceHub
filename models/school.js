@@ -35,7 +35,7 @@ class school {
 
     // grade Category 
     schoolGradeCategoryId
-    gradeCategorys
+    gradeCategories
     gradeCategoryId
     gradeCategoryName
 
@@ -51,7 +51,7 @@ class school {
     constructor(){}
     setSchoolGradeCategory(data){
         this.schoolGradeCategoryId = data.schoolGradeCategoryId
-        this.gradeCategorys = {
+        this.gradeCategories = {
             "id" : data.gradeId,
             "name" : data.gradeName
         }
@@ -61,7 +61,7 @@ class school {
     getSchoolGradeCategory(){
         return {
             "id"     :   this.schoolGradeCategoryId,
-            "gradeCategory"   :   this.gradeCategorys
+            "gradeCategory"   :   this.gradeCategories
         }
         
     }

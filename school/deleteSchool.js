@@ -10,7 +10,7 @@ let    schoolId;
 let    createdOn
 let    createdById
 
-module.exports = require('express').Router().get('/:schoolUUID',async(req,res)=>{
+module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
         if(!req.params.schoolUUID  ){
             res.status(404)

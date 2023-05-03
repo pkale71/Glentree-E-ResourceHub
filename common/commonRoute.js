@@ -23,7 +23,7 @@ commonRoute.use( '/deleteGradeSection',require('../authentication/paramValidateT
 commonRoute.use( '/createGradeSubject',require('../authentication/postValidateToken'),require('./gradeSubject/createGradeSubject'))
 commonRoute.use( '/updateGradeSubject',require('../authentication/postValidateToken'),require('./gradeSubject/updateGradeSubject'))
 commonRoute.use( '/changeStatus',require('../authentication/paramValidateToken'),require('./gradeSubject/changeStatus'))
-commonRoute.use( '/deleteGradeSubject',require('../authentication/paramValidateToken'),require('./gradeSubject/deleteGradeSubject'))
+commonRoute.use( '/deleteGradeSubject',require('../authentication/postValidateToken'),require('./gradeSubject/deleteGradeSubject'))
 commonRoute.use( '/getGradeSubject',require('../authentication/paramValidateToken'),require('./gradeSubject/getGradeSubject'))
 commonRoute.use( '/createSubjectChapter',require('../authentication/postValidateToken'),require('./subjectChapters/createSubjectchapter'))
 commonRoute.use( '/deleteSubjectChapter',require('../authentication/paramValidateToken'),require('./subjectChapters/deleteSubjectChapter'))

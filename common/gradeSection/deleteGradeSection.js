@@ -8,11 +8,11 @@ let    section;
 let    gradeSection;
 let    authData;
 
-module.exports = require('express').Router().get('/:uuid',async(req,res) =>
+module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        uuid = req.params.uuid
+        uuid = req.body.uuid
         accessToken = req.body.accessToken;
         gradeSection = await db.getGradeSection(uuid)
         if(gradeSection.length == 0){

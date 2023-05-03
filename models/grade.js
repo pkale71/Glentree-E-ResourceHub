@@ -14,12 +14,14 @@ class grade {
     id
     name
     gradeCategory
+    isExist
     constructor(){}
     
     setDataAll(data)
     {
         this.id                 =   data.id
         this.name               =   data.name
+        this.isExist            =   data.isExist
         this.gradeCategory      =   {
                                         "id"    :   data.grade_category_id,
                                         "name"  :   data.gradeCategoryName
@@ -31,6 +33,7 @@ class grade {
         return {
             id : this.id,
             name : this.name,
+            isExist : this.isExist,
             gradeCategory : this.gradeCategory
         }
     }

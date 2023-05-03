@@ -20,21 +20,26 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
                 "status_name"   :   getCode.getStatus(200),
             })   
         }
-        await Array.from(grade).forEach(ele  =>  {
-            console.log(ele)
+     
+         Array.from(grade).forEach(async(ele)  =>  {
+           // console.log("24***************",ele)
+            let check = await db.selectUsedGrade(ele.id)
+            // console.log("24***************",check)
+            ele['isExist'] = check[0].Exist != 0 ? 1 : 0;
             grades.setDataAll(ele)
             gradeList.push(grades.getDataAll())
+            if(grade.length == gradeList.length){
+                res.status(200)
+                return res.json({
+                    "status_code" : 200,
+                    "data"        : {'grades' : gradeList},
+                    "message"     : 'success',
+                    status_name   : getCode.getStatus(200)
+                })
+            } 
         })
 
-        if(grade.length == gradeList.length){
-            res.status(200)
-            return res.json({
-                "status_code" : 200,
-                "data"        : {'grades' : gradeList},
-                "message"     : 'success',
-                status_name   : getCode.getStatus(200)
-            })
-        } 
+      
     } 
     catch(e)
     {
