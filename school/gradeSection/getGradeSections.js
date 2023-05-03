@@ -131,7 +131,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             }
          
             Array.from(gradeId).forEach(async(ele) => {
-                let datas = {'ele':ele,'academic' :academic,'school' : school }
+                let datas = {'ele':ele,'academic' :academic,'school' : school ,'gradeCategory' : gradeCategory}
                 grades.push({"grade_id": ele.id, "gradeName" : ele.name})
                 sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas))
                 gradeId.splice(gradeId.indexOf(ele),1)
@@ -147,12 +147,12 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                             list.push(sections.getGradeSection())
                         })
                         // console.log("***",setSections[i][0])
-                        // console.log("******",grades[i])
-                        setSections[i][0]['sections']=list
+                        //  console.log("******",list)
+                        setSections[i][0]['sections']=list[0].uuid ? list : []
                         list = [] 
                         sections.setGrade( setSections[i][0])
                         gradeList.push(sections.getGrade())
-                           
+                        gradeList.sort(function(a, b){return a.id-b.id})
                         setSections[i][0]['grade']=gradeList
                             
                         sections.setGradeCategory( setSections[i][0])

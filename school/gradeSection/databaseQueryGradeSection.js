@@ -47,7 +47,10 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                         'acaUuid' : ele.academic[0].uuid,
                         "year" : ele.academic[0].year, 
                         'schoolUuid' : ele.school[0].uuid,
-                         'schoolName' : ele.school[0].name })
+                        'schoolName' : ele.school[0].name,
+                        'gradeCategoryId' : ele.gradeCategory[0].id,
+                        'gradeCatName' : ele.gradeCategory[0].name,
+                         })
                         return resolve(result);
                     }   else{
                         return resolve(result);
