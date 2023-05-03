@@ -1,6 +1,6 @@
  let db = require('./databaseQueryGradeSection')
 let gradeSectionObj = require('../../models/gradeSection')
-let errorCode = require('../errorCode')
+let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
 let sections = new gradeSectionObj()
 let section;

@@ -9,6 +9,9 @@ schoolRouter.use( '/getSchool',require('../authentication/paramValidateToken'),r
 schoolRouter.use( '/updateSchool',require('../authentication/postValidateToken'),require('./updateSchool'))
 schoolRouter.use( '/deleteSchool',require('../authentication/postValidateToken'),require('./deleteSchool'))
 schoolRouter.use( '/changeStatus',require('../authentication/paramValidateToken'),require('./changeStatus'))
+schoolRouter.use( '/getGradeSections',require('../authentication/paramValidateToken'),require('./gradeSection/getGradeSections'))
+schoolRouter.use( '/createGradeSection',require('../authentication/postValidateToken'),require('./gradeSection/createGradeSection'))
+schoolRouter.use( '/deleteGradeSection',require('../authentication/paramValidateToken'),require('./gradeSection/deleteGradeSection'))
 
 
 module.exports = schoolRouter

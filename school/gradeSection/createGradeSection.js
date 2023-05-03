@@ -1,5 +1,5 @@
 let    db = require('./databaseQueryGradeSection')
-let    errorCode = require('../errorCode')
+let    errorCode = require('../../common/errorCode')
 let    createUuid = require('uuid')
 let    getCode = new errorCode()
 let    accessToken;

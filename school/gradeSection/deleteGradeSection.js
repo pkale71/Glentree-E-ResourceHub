@@ -1,6 +1,6 @@
 let    db = require('./databaseQueryGradeSection')
-let    commondb = require('../commonDatabaseQuery')
-let    errorCode = require('../errorCode')
+let    commondb = require('../../common/commonDatabaseQuery')
+let    errorCode = require('../../common/errorCode')
 let    getCode = new errorCode()
 let    accessToken;
 let    uuid;
