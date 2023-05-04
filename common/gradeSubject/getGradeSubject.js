@@ -30,8 +30,11 @@ module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
               subjects.setGradeSubject(ele)
               ele['gradeSubject'] = subjects.getGradeSubject()
-              subjects.setGrade(ele)
-              ele['grade'] = subjects.getGrade()
+              delete ele.gradeSubject.id
+            //   subjects.setGrade(ele)
+            //   ele['grade'] = subjects.getGrade()
+            // subList.sort(function(a, b){return a.id-b.id})
+            // subList.forEach(ele=>{delete ele.id;})
               subjects.setDataAll(ele)
               subjectList.push(subjects.getDataAll())
   

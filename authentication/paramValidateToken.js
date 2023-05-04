@@ -8,7 +8,29 @@ let authData;
 let tokenArr;
 let email
 
-module.exports = require('express').Router().get('/:UUID',async (req,res,next)=>{
+let app = require('express').Router();
+
+ app.get('/:UUID',async (req,res,next)=>{ 
+verifyToken(req,res,next)
+})
+
+app.get('/:UUID/:UUID',async (req,res,next)=>{
+    verifyToken(req,res,next)
+})
+
+app.get('/:UUID/:UUID/:UUID',async (req,res,next)=>{
+    verifyToken(req,res,next)
+})
+
+app.get('/:UUID/:UUID/:UUID/:UUID',async (req,res,next)=>{
+    verifyToken(req,res,next)
+})
+
+app.get('/:UUID/:UUID/:UUID/:UUID?*',async (req,res,next)=>{
+    verifyToken(req,res,next)
+})
+
+async function  verifyToken  (req, res, next){
     try {
         console.log("PARAM")
          let token = req.headers['authorization']
@@ -121,6 +143,6 @@ module.exports = require('express').Router().get('/:UUID',async (req,res,next)=>
             "error"         :       error
         });
     }
+}
 
-
-})
+module.exports = app

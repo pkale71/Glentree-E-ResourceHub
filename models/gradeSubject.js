@@ -10,6 +10,7 @@ class gradeSubject {
 
     setGradeSubject(data){
         this.gradeSubject   =   {
+                                    "id"      : data.id,
                                     "uuid"    : data.uuid,
                                     "name"    : data.subject_name,
                                     "isExist"   : data.isExist
