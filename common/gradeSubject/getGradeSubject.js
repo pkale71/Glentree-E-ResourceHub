@@ -42,7 +42,7 @@ module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
                   res.status(200)
                   return res.json({
                       "status_code" : 200,
-                      "data"        : {'gradeSubject' : subjectList},
+                      "data"        : {'gradeSubject' : subjectList[0]},
                       "message"     : 'success',
                       "status_name"   : getCode.getStatus(200)
                   })
