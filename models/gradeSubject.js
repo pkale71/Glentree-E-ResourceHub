@@ -7,6 +7,7 @@ class gradeSubject {
     grade
     gradeCategory
     isExist
+    isActive
     constructor(){}
 
     setGradeSubject(data){
@@ -59,6 +60,7 @@ class gradeSubject {
         this.uuid    = data.uuid
         this.name   = data.subject_name,
         this.isExist  = data.isExist
+        this.isActive = data.is_active
         this.syllabus       =   {
                                     "id"    :   data.syllabus_id,
                                     "name"  :   data.syllabusName
@@ -86,6 +88,7 @@ class gradeSubject {
             uuid : this.uuid,
             name : this.name,
             isExist : this.isExist,
+            isActive : this.isActive,
             syllabus : this.syllabus,
             // school : this.school,
             grade : this.grade,
