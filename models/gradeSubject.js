@@ -26,7 +26,7 @@ class gradeSubject {
         this.grade   =    {
                             "id"    : data.grade_id,
                             "name"  : data.gradeName,
-                            "subject" : data.gradeSubject
+                            "subjects" : data.gradeSubject
                         }
                         // this.grade   = data?   {
                         //     "id"    : data.grade_id,
@@ -53,7 +53,7 @@ class gradeSubject {
     
     setDataAll(data)
     {
-        this.uuid           =   data.uuid
+        this.gradeSubject =   data.gradeSubject
         this.syllabus       =   {
                                     "id"    :   data.syllabus_id,
                                     "name"  :   data.syllabusName
@@ -65,7 +65,10 @@ class gradeSubject {
         this.gradeCategory         =   {
                                     "id"    :   data.gradeCategoryId,
                                     "name"  :   data.gradeCatName,
-                                    "grade" :   data.grade
+                                    "grade" :   {
+                                                    "id"    :   data.grade_id,
+                                                    "name"  :   data.gradeName
+                                                }
                                 }
       //  this.isExist        =   data.isExist                     
       //  this.gradeSubject   =   data.gradeSubject
@@ -74,11 +77,11 @@ class gradeSubject {
     getDataAll()
     {
         return {
-            uuid : this.uuid,
+            subjects : this.gradeSubject,
             syllabus : this.syllabus,
-            school : this.school,
-          //  grade : this.grade,
-            gradeCategory : this.gradeCategory,
+            // school : this.school,
+            grade : this.grade,
+           // gradeCategory : this.gradeCategory,
            // isExist : this.isExist,
            // subject : this.gradeSubject
         }

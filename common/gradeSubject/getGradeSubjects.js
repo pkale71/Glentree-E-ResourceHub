@@ -5,21 +5,28 @@ let errorCode = require('../errorCode')
 let getCode = new errorCode()
 let subjects = new gradeSubject()
 let uuid;
+let syllabusId;
+let gradeId;
 let subject
 let userId
 let subjectList = []
+let subList = []
 let token;
 
-module.exports = require('express').Router().get('/:gradeId',async(req,res)=>{
+module.exports = require('express').Router().get('/:syllabusId/:gradeId',async(req,res)=>{
     try{
-          uuid =  req.params.uuid
-          subject = await db.getGradeSubject(uuid)
+
+        syllabusId =  req.params.syllabusId
+        gradeId =  req.params.gradeId
+        subject = await db.getGradeSubjectList(syllabusId,gradeId)
           subjectList = [];
+          subList = []
           if(subject.length == 0){
               res.status(200)
               return res.json({
                   "status_code"   :   200,
-                  "message"       :   'Grade subject not found',
+                  "message"       :   'success',
+                  "data"        : {'gradeSubjects' : []},
                   "status_name"   :   getCode.getStatus(200),
               })   
           }
@@ -27,19 +34,20 @@ module.exports = require('express').Router().get('/:gradeId',async(req,res)=>{
             let subjectCheck = await db.checkUsedSubject(ele.id)
             //   let curriculumcheck = await db.getSchoolCurriculumSearch(ele.id)
             //   let userCheck = await db.getSchoolUserSearch(ele.id)
-              ele['isExist'] = (subjectCheck.length == 0) ? 0 :1
+              ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
               subjects.setGradeSubject(ele)
-              ele['gradeSubject'] = subjects.getGradeSubject()
-              subjects.setGrade(ele)
-              ele['grade'] = subjects.getGrade()
-              subjects.setDataAll(ele)
-              subjectList.push(subjects.getDataAll())
+              subList.push(subjects.getGradeSubject()) 
   
-              if(subject.length == subjectList.length){
+              if(subject.length == subList.length){
+                ele['gradeSubject'] = subList
+                // subjects.setGrade(ele)
+                // ele['grade'] = subjects.getGrade()
+                subjects.setDataAll(ele)
+                subjectList.push(subjects.getDataAll())
                   res.status(200)
                   return res.json({
                       "status_code" : 200,
-                      "data"        : {'gradeSubject' : subjectList},
+                      "data"        : {'gradeSubjects' : subjectList[0]},
                       "message"     : 'success',
                       "status_name"   : getCode.getStatus(200)
                   })

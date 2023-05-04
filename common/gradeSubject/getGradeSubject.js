@@ -27,7 +27,7 @@ module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
             let subjectCheck = await db.checkUsedSubject(ele.id)
             //   let curriculumcheck = await db.getSchoolCurriculumSearch(ele.id)
             //   let userCheck = await db.getSchoolUserSearch(ele.id)
-              ele['isExist'] = (subjectCheck.length == 0) ? 0 :1
+              ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
               subjects.setGradeSubject(ele)
               ele['gradeSubject'] = subjects.getGradeSubject()
               subjects.setGrade(ele)

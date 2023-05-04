@@ -109,7 +109,7 @@ db.checkUsedSubject = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(syllabus_grade_subject_id) AS Exist FROM syllabus_grade_subject_chapters WHERE   syllabus_grade_subject_id LIKE ?`, [id], (error, result) => 
+            pool.query(`SELECT COUNT(syllabus_grade_subject_id) AS Exist FROM syllabus_grade_subject_chapters WHERE   syllabus_grade_subject_id = ?`, [id], (error, result) => 
             {
                 if(error)
                 {
@@ -263,6 +263,33 @@ db.getGradeSubject = (uuid) => {
                         LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
                         WHERE sgst.uuid = ? 
                         ORDER BY sgst.id`,[uuid],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.getGradeSubjectList = (syllabusId,gradeId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+
+            pool.query(`SELECT sgst.*, sy.name AS syllabusName, 
+                        g.name AS gradeName, 
+                        gc.id AS gradeCategoryId, gc.name AS gradeCatName
+                        FROM syllabus_grade_subject sgst 
+                        LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
+                        LEFT JOIN grade g ON g.id = sgst.grade_id 
+                        LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+                        WHERE sgst.syllabus_id = ? AND sgst.grade_id = ? 
+                        ORDER BY sgst.id`,[syllabusId,gradeId],(error, result) => 
             {
                 if(error)
                 {
