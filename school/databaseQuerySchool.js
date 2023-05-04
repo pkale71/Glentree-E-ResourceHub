@@ -7,7 +7,10 @@ db.getAllSchools = () => {
         {
             pool.query(`SELECT distinct s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email,  s.curriculum_upload AS curriculumUpload, s.syllabus_id AS syllabusId,
             sy.name AS syllabusName, s.created_on, s.created_by_id, 
-            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
+            (select IF((select IF(count(u.id) > 0,1,0) from user u
+            where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
+            where cm.school_id = s.id))) AS isExist
             FROM school s 
             LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
             LEFT JOIN user u ON u.id = s.created_by_id

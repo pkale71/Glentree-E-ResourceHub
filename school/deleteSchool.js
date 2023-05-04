@@ -4,11 +4,11 @@ let errorCode = require('../common/errorCode')
 let createUuid = require('uuid')
 let getCode = new errorCode()
 let accessToken;
-let    authData;
-let    schoolUuid;
-let    schoolId;
-let    createdOn
-let    createdById
+let authData;
+let schoolUuid;
+let schoolId;
+let createdOn
+let createdById
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{

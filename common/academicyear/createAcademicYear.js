@@ -33,7 +33,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         isCurrent = (new Date (startDate).getFullYear() == new Date().getFullYear())?1:0;
         let insertAcademicYear = await db.insertAcademicYear(uuid,startDate,endDate,year,isCurrent)
                        if(insertAcademicYear.affectedRows > 0){
-                        let returnUuid = await db.getAcademicYearId(insertAcademicYear.insertId)
+                        let returnUuid = await db.getAcademicYears(0,insertAcademicYear.insertId)
                             res.status(200)
                                return res.json({
                                    "status_code" : 200,

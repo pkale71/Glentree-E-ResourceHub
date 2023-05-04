@@ -36,8 +36,7 @@ module.exports = require('express').Router().get('/:syllabusId/:gradeId',async(r
           //console.log(subject)
           Array.from(subject).forEach(async( ele ) =>  {
             let subjectCheck = await db.checkUsedSubject(ele.id)
-            //   let curriculumcheck = await db.getSchoolCurriculumSearch(ele.id)
-            //   let userCheck = await db.getSchoolUserSearch(ele.id)
+          
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
               //console.log("*********",ele)
               subjects.setDataAll(ele)

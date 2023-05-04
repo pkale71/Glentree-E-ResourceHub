@@ -6,12 +6,13 @@ let    accessToken;
 let    isActive;
 let    uuid;
 let    name;
+let    syllabusGradeSubjectUuid;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.syllabusGradeSubject?.id ||!req.body.name){
+        if(!req.body.syllabusGradeSubject?.uuid ||!req.body.name){
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -19,12 +20,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 status_name: getCode.getStatus(404)
             });
         }
-        syllabusGradeSubjectId = req.body.syllabusGradeSubject?.id;
+        syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
         name = req.body.name;
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        let check = await db.findSubjectChapter(name,syllabusGradeSubjectId)
+        let check = await db.findChapter(name,syllabusGradeSubjectId)
 
         if(check[0].Exist != 0){
             res.status(400);

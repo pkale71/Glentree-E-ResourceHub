@@ -9,7 +9,7 @@ let academicYearList = [];
 module.exports = require('express').Router().get('/',async(req,res) =>  {
     try
     {
-        academicYear = await db.getAcademicYears()
+        academicYear = await db.getAcademicYears(0,0)
         academicYearList = [];
         if(academicYear.length == 0){
             res.status(200)
@@ -21,7 +21,6 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
             })   
         }
         await Array.from(academicYear).forEach(ele  =>  {
-            console.log(ele)
             academicYears.setDataAll(ele)
             academicYearList.push(academicYears.getDataAll())
         })

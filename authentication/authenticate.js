@@ -9,9 +9,6 @@ let password;
 let userId
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-
-        console.log("user[0].is_active")
-
          email = req.body.email;
          password = req.body.password;
          user = await db.getUserByEmail(email);

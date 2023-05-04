@@ -120,9 +120,9 @@ async function  verifyToken  (req, res, next){
 
 
 app.use('/authenticate',require('./authentication/authenticate'));
-app.use('/validateToken',require('./authentication/postValidateToken'));
-app.use('/logout',require('./authentication/postValidateToken'),require('./authentication/logout'));
-app.use('/changePassword',require('./authentication/postValidateToken'),require('./authentication/changePassword'));
+// app.use('/validateToken',require('./authentication/postValidateToken'));
+app.use('/logout',require('./authentication/validateToken'),require('./authentication/logout'));
+app.use('/changePassword',require('./authentication/validateToken'),require('./authentication/changePassword'));
 app.use('/user',require('./userRoute/userRoute'))
 app.use('/common',require('./common/commonRoute'))
 app.use('/school',require('./school/schoolRoute'))

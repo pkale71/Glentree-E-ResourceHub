@@ -1,23 +1,23 @@
 let pool = require('../databaseConnection/createconnection')
 let db = {};
  
-db.getUserByUuid = (uuid) =>{
-    return new Promise((resolve, reject)=>{
-        try{
-             pool.query("SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,u.role_id,r.name AS role_name, u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id WHERE u.uuid = ?", [uuid], (error, users)=>{
-            if(error){
-                return reject(error);
-            }
-            return resolve(users);
-        });}
-        catch(e)
-        {
-            console.log(e)
-        }
+// db.getUserByUuid = (uuid) =>{
+//     return new Promise((resolve, reject)=>{
+//         try{
+//              pool.query("SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,u.role_id,r.name AS role_name, u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id WHERE u.uuid = ?", [uuid], (error, users)=>{
+//             if(error){
+//                 return reject(error);
+//             }
+//             return resolve(users);
+//         });}
+//         catch(e)
+//         {
+//             console.log(e)
+//         }
 
        
-    });
-};
+//     });
+// };
 
 db.getUserByEmail = (email) =>{
     return new Promise((resolve, reject)=>{
@@ -64,7 +64,7 @@ db.insertToken = (authtoken, userId, authTime) =>{
 
            
         });
-    };
+};
 
 db.deleteToken = (token) =>{
             return new Promise((resolve, reject)=>{
@@ -80,38 +80,41 @@ db.deleteToken = (token) =>{
 
               
             });
-        };
+};
 
 
-        db.selectToken = (userId) =>{
-                return new Promise((resolve, reject)=>{
-                try{
-                    pool.query('SELECT * FROM auth_data WHERE user_id = ?', [userId], (error, result)=>{
-                        if(error){
-                            return reject(error);
-                        }
+db.selectToken = (userId) =>
+{
+    return new Promise((resolve, reject)=>
+    {
+        try{
+            pool.query('SELECT * FROM auth_data WHERE user_id = ?', [userId], (error, result)=>{
+                if(error)
+                {
+                return reject(error);
+                }
                          
-                          return resolve(result);
-                    });
-                }catch(e){ console.log(e)}
+            return resolve(result);
+            });
+        }catch(e){ console.log(e)}               
+    });
+};
 
-                  
-                });
-            };
-
-            db.updateUser = (userId,password) =>{
-                return new Promise((resolve, reject)=>{
-                try{
-                    pool.query('UPDATE user SET password = ? WHERE id = ?', [password,userId], (error, result)=>{
-                        if(error){
-                            return reject(error);
-                        }
+db.updateUser = (userId,password) =>
+{
+    return new Promise((resolve, reject)=>
+    {
+        try{
+            pool.query('UPDATE user SET password = ? WHERE id = ?', [password,userId], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
                          
-                          return resolve(result);
-                    });
-                }catch(e){ console.log(e)}
+                return resolve(result);
+            });
+        }catch(e){ console.log(e)}
                     
-                });
-            };
+    });
+};
 
 module.exports = db

@@ -18,7 +18,7 @@ module.exports = require('express').Router().get('/:uuid',async(req,res) =>  {
             })
         }
         uuid = req.params.uuid
-        academicYear = await db.getAcademicYear(uuid)
+        academicYear = await db.getAcademicYears(uuid,0)
 
         if(academicYear.length == 0){
             res.status(404)

@@ -20,6 +20,7 @@ class academicYear {
     startDate
     endDate
     isCurrent
+    isExist
     constructor(){}
     
     setDataAll(data)
@@ -29,6 +30,7 @@ class academicYear {
         this.startDate      =   data.start_date
         this.endDate        =   data.end_date
         this.isCurrent      =   data.is_current
+        this.isExist        =   data.isExist
     }
 
     getDataAll()
@@ -38,7 +40,8 @@ class academicYear {
             year : this.year,
             startDate : this.startDate,
             endDate : this.endDate,
-            isCurrent : this.isCurrent
+            isCurrent : this.isCurrent,
+            isExist : this.isExist
         }
     }
 }

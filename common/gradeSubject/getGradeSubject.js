@@ -1,14 +1,11 @@
 let db = require('./databaseQueryGradeSubject')
-let commondb = require('../commonDatabaseQuery')
 let gradeSubject = require('../../models/gradeSubject')
 let errorCode = require('../errorCode')
 let getCode = new errorCode()
 let subjects = new gradeSubject()
 let uuid;
 let subject
-let userId
 let subjectList = []
-let token;
 
 module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
     try{
@@ -25,8 +22,6 @@ module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
           }
           await Array.from(subject).forEach(async( ele ) =>  {
             let subjectCheck = await db.checkUsedSubject(ele.id)
-            //   let curriculumcheck = await db.getSchoolCurriculumSearch(ele.id)
-            //   let userCheck = await db.getSchoolUserSearch(ele.id)
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
             //   subjects.setGradeSubject(ele)
             //   ele['gradeSubject'] = subjects.getGradeSubject()

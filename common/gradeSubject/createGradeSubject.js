@@ -26,7 +26,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        let check = await db.findSubject(name,gradeId,syllabusId)
+        let check = await db.findSubject(name,gradeId,syllabusId,0)
 
         if(check[0].Exist != 0){
             res.status(400);
