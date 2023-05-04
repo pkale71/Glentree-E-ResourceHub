@@ -39,7 +39,7 @@ db.findSubject = (name,gradeId,syllabusId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(subject_name) AS Exist, grade_id FROM syllabus_grade_subject WHERE  grade_id = ? AND syllabus_id = ? AND subject_name LIKE ?`, [gradeId,syllabusId,name], (error, result) => 
+            pool.query(`SELECT COUNT(subject_name) AS Exist, grade_id FROM syllabus_grade_subject WHERE  grade_id = ? AND syllabus_id = ? AND UPPER(subject_name) LIKE UPPER(?)`, [gradeId,syllabusId,name], (error, result) => 
             {
                 if(error)
                 {
@@ -57,7 +57,7 @@ db.findSubjectChapter = (name,syllabusGradeSubjectId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(chapter_name) AS Exist FROM syllabus_grade_subject_chapters WHERE  syllabus_grade_subject_id = ? AND chapter_name LIKE ?`, [syllabusGradeSubjectId,name], (error, result) => 
+            pool.query(`SELECT COUNT(chapter_name) AS Exist FROM syllabus_grade_subject_chapters WHERE  syllabus_grade_subject_id = ? AND UPPER(chapter_name) LIKE UPPER(?)`, [syllabusGradeSubjectId,name], (error, result) => 
             {
                 if(error)
                 {

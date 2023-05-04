@@ -100,18 +100,11 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     status_name   : getCode.getStatus(404)
                 })
             }
-            await Array.from(section).forEach(async(ele) => {
-                sectionCheck = await db.findSection(academicId,authData[0].userId,gradeId,ele.id)
-                console.log("***",sectionCheck)
-                ele['isExist'] = sectionCheck[0].Exist == 0 ? 0 : 1
+            Array.from(section).forEach(async(ele) => {
                 sections.setGradeSection(ele)
                 gradeSectionList.push(sections.getGradeSection())
                 if(gradeSectionList.length == section.length ){
-                    gradeSectionList.sort(function(a, b){
-                        return a.id-b.id})
-                    gradeSectionList.forEach(ele=>{
-                        delete ele.id;
-                    })
+                    
                     section[0]['gradeSection'] = gradeSectionList
                     sections.setData(section[0])
                     res.status(200)

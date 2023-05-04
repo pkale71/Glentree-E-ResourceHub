@@ -11,7 +11,8 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
             {
                 sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
                 g.name AS gradeName, 
-                gc.id AS gradeCategoryId, gc.name AS gradeCatName
+                gc.id AS gradeCategoryId, gc.name AS gradeCatName,
+                (SELECT IF(COUNT(section_id)> 0,1,0) FROM user_teach_subject_section WHERE sgs.id = section_id) AS isExist
                 FROM school_grade_section sgs 
                 LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
                 LEFT JOIN school s ON s.id = sgs.school_id 
@@ -23,12 +24,13 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
             else
             {
                 sql = `SELECT sgs.*, ay.uuid AS acaUuid, ay.year, s.name AS schoolName ,s.uuid AS schoolUuid,
-                g.name AS gradeName
+                g.name AS gradeName,
+                (SELECT IF(COUNT(section_id)> 0,1,0) FROM user_teach_subject_section WHERE sgs.id = section_id) AS isExist
                 FROM school_grade_section sgs 
                 LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
                 LEFT JOIN school s ON s.id = sgs.school_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
-                WHERE  sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?)
+                WHERE  sgs.academic_year_id = ?  AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?)
                 ORDER BY g.id, sgs.grade_id, sgs.id`;
             }
                 
@@ -308,6 +310,24 @@ db.findSection = (academicId,userId,gradeId,id) => {
         try
         {
             pool.query(`SELECT COUNT(section_id) AS Exist FROM user_teach_subject_section WHERE academic_year_id = ? AND user_id = ? AND grade_id = ? AND section_id LIKE ?`, [academicId,userId,gradeId,id], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.findSectionId = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT COUNT(section_id) AS Exist FROM user_teach_subject_section WHERE  section_id = ?`, [id], (error, result) => 
             {
                 if(error)
                 {

@@ -9,7 +9,6 @@ class gradeSection {
 
     setGradeSection(data){
         this.gradeSection   =  {
-                                    "id" : data.id ,
                                     "uuid"    : data.uuid,
                                     "name"  : data.section,
                                     "isExist"  : data.isExist
