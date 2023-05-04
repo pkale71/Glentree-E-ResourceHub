@@ -1,4 +1,5 @@
  let db = require('./databaseQueryGradeSection')
+ let commondb = require('../../common/commonDatabaseQuery')
 let gradeSectionObj = require('../../models/gradeSection')
 let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
@@ -21,16 +22,18 @@ let finalList = []
 let list = []
 let academic;
 let school;
+let authData;
 
 
 module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
     try
     {  
-        academicUuid = req.params.acadmicUUID
-        schoolUuid = req.params.schoolUUID
+        academicUuid    = req.params.acadmicUUID
+        schoolUuid      = req.params.schoolUUID
         gradeCategoryId = req.params.gradeCategoryId
-        gradeId = req.params['gradeId']
-      
+        gradeId         = req.params['gradeId']
+        accessToken     = req.body.accessToken
+
         if(gradeCategoryId.length == 0){
             res.status(404)
             return res.json({
@@ -41,16 +44,18 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
         }
        
        // console.log((!gradeId && gradeCategoryId && schoolId))
-        gradeSectionList = []
-        gradeCategoryList = []
-        sectionList = []
-        setSections = []
-        gradeList = []
-        grades = []
-        copySectionList = []
-        finalList = []
-        list = []
-         academic = await db.getAcademic(academicUuid)
+        gradeSectionList    = []
+        gradeCategoryList   = []
+        sectionList         = []
+        setSections         = []
+        gradeList           = []
+        grades              = []
+        copySectionList     = []
+        finalList           = []
+        list                = []
+
+        authData = await commondb.selectToken(accessToken)
+        academic = await db.getAcademic(academicUuid)
 
         if(academic.length == 0){
             res.status(404)
@@ -60,9 +65,9 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 status_name   : getCode.getStatus(404)
             })
         }
-        academicId = academic[0].id
 
-         school = await db.getSchool(schoolUuid)
+        academicId = academic[0].id
+        school = await db.getSchool(schoolUuid)
         if(school.length == 0){
             res.status(404)
             return res.json({
@@ -72,6 +77,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             })
         }
         schoolId = school[0].id
+        //   console.log("***")
         if(gradeId && gradeCategoryId){
             let grade = await db.getGrade(gradeId,gradeCategoryId)
             if(grade.length == 0){
@@ -83,10 +89,10 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 })
             }
            // console.log("***")
-        console.log(academicUuid,academicId,schoolId)
-
+            console.log(academicUuid,academicId,schoolId)
             section = await db.getGradeSections(academicId,schoolId,gradeId,gradeCategoryId,0);
-            if(section.length == 0){
+            if(section.length == 0)
+            {
                 res.status(404)
                 return res.json({
                     "status_code" : 404,
@@ -95,20 +101,29 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 })
             }
             await Array.from(section).forEach(async(ele) => {
+                sectionCheck = await db.findSection(academicId,authData[0].userId,gradeId,ele.id)
+                console.log("***",sectionCheck)
+                ele['isExist'] = sectionCheck[0].Exist == 0 ? 0 : 1
                 sections.setGradeSection(ele)
                 gradeSectionList.push(sections.getGradeSection())
+                if(gradeSectionList.length == section.length ){
+                    gradeSectionList.sort(function(a, b){
+                        return a.id-b.id})
+                    gradeSectionList.forEach(ele=>{
+                        delete ele.id;
+                    })
+                    section[0]['gradeSection'] = gradeSectionList
+                    sections.setData(section[0])
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "data"        : {'gradeSections' : sections.getData()},
+                        "message"     : 'success',
+                        status_name   : getCode.getStatus(200)
+                    })
+                }
             })
-            if(gradeSectionList.length == section.length ){
-                section[0]['gradeSection'] = gradeSectionList
-                sections.setData(section[0])
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data"        : {'gradeSections' : sections.getData()},
-                    "message"     : 'success',
-                    status_name   : getCode.getStatus(200)
-                })
-            }
+           
         }
         else if(!gradeId && gradeCategoryId){
             let gradeCategory = await db.getGradeCategory(gradeCategoryId)
@@ -131,7 +146,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             }
          
             Array.from(gradeId).forEach(async(ele) => {
-                console.log("*******",gradeId)
+                // console.log("*******",gradeId)
                 let datas = {'ele':ele,'academic' :academic,'school' : school ,'gradeCategory' : gradeCategory}
                 sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas))
                 gradeId.splice(gradeId.indexOf(ele),1)
@@ -141,35 +156,33 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     // })
                    // console.log(sectionList)
                     setSections = sectionList
-                    for(i=0;i<sectionList.length;i++){
-                        Array.from(sectionList[i]).forEach((element) =>{
-                            sections.setGradeSection(element)
-                            list.push(sections.getGradeSection())
-                        })
-                        // console.log("***",setSections[i][0])
-                        //  console.log("******",list)
-                        setSections[i][0]['sections']=list[0].uuid ? list : []
-                        list = [] 
-                        sections.setGrade( setSections[i][0])
-                        gradeList.push(sections.getGrade())
-                        gradeList.sort(function(a, b){return a.id-b.id})
-                        setSections[i][0]['grade']=gradeList
-                            
-                        sections.setGradeCategory( setSections[i][0])
-                        gradeCategoryList.push(sections.getGradeCategory())
-                         
-                        setSections[i][0]['gradeCategory']=gradeCategoryList
-                       
                     
-                     sections.setDataAll( setSections[i][0])
-                     copySectionList.push(sections.getDataAll())
-                    
-                       // setSections[i][0]['gradeCategory']=copySectionList
+                        for(i=0;i<sectionList.length;i++){
+                            Array.from(sectionList[i]).forEach((element) =>{
+                                sections.setGradeSection(element)
+                                list.push(sections.getGradeSection())
+                            })
+                            // console.log("***",setSections[i][0])
+                            //  console.log("******",list)
+                            setSections[i][0]['sections']=list[0].uuid ? list : []
+                            list = [] 
+                            sections.setGrade( setSections[i][0])
+                            gradeList.push(sections.getGrade())
+                            gradeList.sort(function(a, b){return a.id-b.id})
+                            setSections[i][0]['grade']=gradeList
+                                
+                            sections.setGradeCategory( setSections[i][0])
+                            gradeCategoryList.push(sections.getGradeCategory())
+                             
+                            setSections[i][0]['gradeCategory']=gradeCategoryList
+                           
                         
-                    }
-                    // return res.json({
-                    //         data: finalList[finalList.length-1]
-                    //     })
+                            sections.setDataAll( setSections[i][0])
+                            copySectionList.push(sections.getDataAll())
+                        
+                           // setSections[i][0]['gradeCategory']=copySectionList
+                            
+                        }
                         res.status(200)
                         return res.json({
                             "status_code" : 200,
@@ -177,6 +190,12 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                             "message"     : "success",
                             status_name   : getCode.getStatus(200)
                         })
+                    
+                   
+                    // return res.json({
+                    //         data: finalList[finalList.length-1]
+                    //     })
+                   
                 }
             })
         }

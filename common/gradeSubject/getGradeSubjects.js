@@ -40,8 +40,8 @@ module.exports = require('express').Router().get('/:syllabusId/:gradeId',async(r
             //   let userCheck = await db.getSchoolUserSearch(ele.id)
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
               //console.log("*********",ele)
-              subjects.setGradeSubject(ele)
-              subList.push(subjects.getGradeSubject()) 
+              subjects.setDataAll(ele)
+              subList.push(subjects.getDataAll()) 
   
               if(subject.length == subList.length){
                 subList.sort(function(a, b){
@@ -49,15 +49,15 @@ module.exports = require('express').Router().get('/:syllabusId/:gradeId',async(r
                 subList.forEach(ele=>{
                     delete ele.id;
                 })
-                ele['gradeSubject'] = subList
-                // subjects.setGrade(ele)
-                // ele['grade'] = subjects.getGrade()
-                subjects.setDataAll(ele)
-                subjectList.push(subjects.getDataAll())
+                // ele['gradeSubject'] = subList
+                // // subjects.setGrade(ele)
+                // // ele['grade'] = subjects.getGrade()
+                // subjects.setDataAll(ele)
+                // subjectList.push(subjects.getDataAll())
                   res.status(200)
                   return res.json({
                       "status_code" : 200,
-                      "data"        : {'gradeSubjects' : subjectList[0]},
+                      "data"        : {'gradeSubjects' : subList},
                       "message"     : 'success',
                       "status_name"   : getCode.getStatus(200)
                   })

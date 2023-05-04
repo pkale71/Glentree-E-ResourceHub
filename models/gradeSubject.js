@@ -1,4 +1,5 @@
 class gradeSubject {
+    id
     uuid
     syllabus
     gradeSubject
@@ -54,7 +55,10 @@ class gradeSubject {
     
     setDataAll(data)
     {
-        this.gradeSubject =   data.gradeSubject
+        this.id     = data.id
+        this.uuid    = data.uuid
+        this.name   = data.subject_name,
+        this.isExist  = data.isExist
         this.syllabus       =   {
                                     "id"    :   data.syllabus_id,
                                     "name"  :   data.syllabusName
@@ -78,7 +82,10 @@ class gradeSubject {
     getDataAll()
     {
         return {
-            subjects : this.gradeSubject,
+            id : this.id,
+            uuid : this.uuid,
+            name : this.name,
+            isExist : this.isExist,
             syllabus : this.syllabus,
             // school : this.school,
             grade : this.grade,

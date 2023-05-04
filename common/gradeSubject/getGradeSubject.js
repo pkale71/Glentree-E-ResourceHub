@@ -28,16 +28,16 @@ module.exports = require('express').Router().get('/:uuid',async(req,res)=>{
             //   let curriculumcheck = await db.getSchoolCurriculumSearch(ele.id)
             //   let userCheck = await db.getSchoolUserSearch(ele.id)
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
-              subjects.setGradeSubject(ele)
-              ele['gradeSubject'] = subjects.getGradeSubject()
-              delete ele.gradeSubject.id
+            //   subjects.setGradeSubject(ele)
+            //   ele['gradeSubject'] = subjects.getGradeSubject()
+             
             //   subjects.setGrade(ele)
             //   ele['grade'] = subjects.getGrade()
             // subList.sort(function(a, b){return a.id-b.id})
             // subList.forEach(ele=>{delete ele.id;})
               subjects.setDataAll(ele)
               subjectList.push(subjects.getDataAll())
-  
+              delete subjectList[0].id
               if(subject.length == subjectList.length){
                   res.status(200)
                   return res.json({
