@@ -88,7 +88,7 @@ class gradeSubject {
             uuid : this.uuid,
             name : this.name,
             isExist : this.isExist,
-            isActive : this.isActive,
+            Active : this.isActive,
             syllabus : this.syllabus,
             // school : this.school,
             grade : this.grade,
