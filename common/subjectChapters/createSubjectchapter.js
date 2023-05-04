@@ -7,6 +7,8 @@ let    isActive;
 let    uuid;
 let    name;
 let    syllabusGradeSubjectUuid;
+let    syllabusGradeSubjectId;
+let    subject;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
@@ -21,10 +23,23 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
         syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
+        subject = await db.getGradeSubject(syllabusGradeSubjectUuid)
+        console.log(subject)
+        if(subject.length == 0){
+            res.status(404);
+            return res.json({
+                "status_code": 404,
+                "message": `Grade subject not found`,
+                status_name: getCode.getStatus(404)
+            });
+        }
+        syllabusGradeSubjectId = subject[0].id
         name = req.body.name;
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
+        console.log(name,syllabusGradeSubjectId)
+
         let check = await db.findChapter(name,syllabusGradeSubjectId)
 
         if(check[0].Exist != 0){

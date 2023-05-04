@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `academic_year`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `academic_year` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
-  `year` varchar(20) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `year` varchar(20) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `is_current` tinyint(1) DEFAULT NULL,
@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `grade`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `grade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE latin1_bin NOT NULL,
+  `name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `grade_category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS `grade_category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `grade_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE latin1_bin NOT NULL,
+  `name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
@@ -176,13 +176,13 @@ DROP TABLE IF EXISTS `school`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `school` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
-  `name` varchar(30) COLLATE latin1_bin NOT NULL,
-  `location` varchar(200) COLLATE latin1_bin NOT NULL,
-  `contact1` varchar(11) COLLATE latin1_bin NOT NULL,
-  `contact2` varchar(11) COLLATE latin1_bin DEFAULT NULL,
-  `email` varchar(90) COLLATE latin1_bin NOT NULL,
-  `curriculum_upload` varchar(60) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `location` varchar(200) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `contact1` varchar(11) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `contact2` varchar(11) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+  `email` varchar(90) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `curriculum_upload` varchar(60) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `syllabus_id` int(11) NOT NULL,
   `created_on` datetime NOT NULL,
   `created_by_id` int(11) NOT NULL,
@@ -236,11 +236,11 @@ DROP TABLE IF EXISTS `school_grade_section`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `school_grade_section` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `academic_year_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
-  `section` varchar(15) COLLATE latin1_bin NOT NULL,
+  `section` varchar(15) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -264,7 +264,7 @@ DROP TABLE IF EXISTS `school_user_setting`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `school_user_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `can_upload` tinyint(1) DEFAULT NULL,
   `can_verify` tinyint(1) DEFAULT NULL,
   `can_publish` tinyint(1) DEFAULT NULL,
@@ -299,7 +299,7 @@ CREATE TABLE `school_user_setting_history` (
   `can_upload` tinyint(1) DEFAULT NULL,
   `can_verify` tinyint(1) DEFAULT NULL,
   `can_publish` tinyint(1) DEFAULT NULL,
-  `action` varchar(25) COLLATE latin1_bin NOT NULL,
+  `action` varchar(25) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `created_on` datetime NOT NULL,
   `created_by_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -325,7 +325,7 @@ DROP TABLE IF EXISTS `syllabus`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `syllabus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE latin1_bin NOT NULL,
+  `name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
@@ -350,10 +350,10 @@ DROP TABLE IF EXISTS `syllabus_grade_subject`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `syllabus_grade_subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `syllabus_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
-  `subject_name` varchar(50) COLLATE latin1_bin NOT NULL,
+  `subject_name` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
@@ -370,57 +370,58 @@ INSERT INTO `syllabus_grade_subject` VALUES (1,'55b21ee1-e331-11ed-9f9d-c4346b52
 UNLOCK TABLES;
 
 --
--- Table structure for table `syllabus_grade_subject_chapter_topics`
+-- Table structure for table `syllabus_grade_subject_chapter`
 --
 
-DROP TABLE IF EXISTS `syllabus_grade_subject_chapter_topics`;
+DROP TABLE IF EXISTS `syllabus_grade_subject_chapter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `syllabus_grade_subject_chapter_topics` (
+CREATE TABLE `syllabus_grade_subject_chapter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
-  `syllabus_grade_subject_chapter_id` int(11) NOT NULL,
-  `topic_name` varchar(30) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `syllabus_grade_subject_id` int(11) NOT NULL,
+  `chapter_name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `syllabus_grade_subject_chapter_topics`
+-- Dumping data for table `syllabus_grade_subject_chapter`
 --
 
-LOCK TABLES `syllabus_grade_subject_chapter_topics` WRITE;
-/*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topics` DISABLE KEYS */;
-/*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topics` ENABLE KEYS */;
+LOCK TABLES `syllabus_grade_subject_chapter` WRITE;
+/*!40000 ALTER TABLE `syllabus_grade_subject_chapter` DISABLE KEYS */;
+INSERT INTO `syllabus_grade_subject_chapter` VALUES (1,'d2f51ba4-e422-11ed-9f9d-c4346b527e08',1,'BHUMI',1),(2,'bc97aa10-e594-11ed-b8f0-d1e7ba2bc348',1,'Anushashan',0),(4,'92cce620-e5b0-11ed-aefd-cf9006cf9581',1,'ANUSHASHAN',1),(5,'53c95e60-ea81-11ed-8444-3f213c3cd1f7',2,'EARTH',1),(6,'7f147a90-ea82-11ed-b77d-77befc8b390d',2,'EARTH2',1),(7,'82e3d210-ea82-11ed-b77d-77befc8b390d',2,'EARTH3',1),(8,'9f260330-ea82-11ed-bf59-f5ef3efb5af1',1,'EARTH',1);
+/*!40000 ALTER TABLE `syllabus_grade_subject_chapter` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `syllabus_grade_subject_chapters`
+-- Table structure for table `syllabus_grade_subject_chapter_topic`
 --
 
-DROP TABLE IF EXISTS `syllabus_grade_subject_chapters`;
+DROP TABLE IF EXISTS `syllabus_grade_subject_chapter_topic`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `syllabus_grade_subject_chapters` (
+CREATE TABLE `syllabus_grade_subject_chapter_topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
-  `syllabus_grade_subject_id` int(11) NOT NULL,
-  `chapter_name` varchar(30) COLLATE latin1_bin NOT NULL,
+  `uuid` varchar(36) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `syllabus_grade_subject_chapter_id` int(11) NOT NULL,
+  `topic_name` varchar(30) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `syllabus_grade_subject_chapters`
+-- Dumping data for table `syllabus_grade_subject_chapter_topic`
 --
 
-LOCK TABLES `syllabus_grade_subject_chapters` WRITE;
-/*!40000 ALTER TABLE `syllabus_grade_subject_chapters` DISABLE KEYS */;
-INSERT INTO `syllabus_grade_subject_chapters` VALUES (1,'d2f51ba4-e422-11ed-9f9d-c4346b527e08',1,'BHUMI',1),(2,'bc97aa10-e594-11ed-b8f0-d1e7ba2bc348',1,'Anushashan',0),(4,'92cce620-e5b0-11ed-aefd-cf9006cf9581',1,'ANUSHASHAN',1);
-/*!40000 ALTER TABLE `syllabus_grade_subject_chapters` ENABLE KEYS */;
+LOCK TABLES `syllabus_grade_subject_chapter_topic` WRITE;
+/*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topic` DISABLE KEYS */;
+INSERT INTO `syllabus_grade_subject_chapter_topic` VALUES (2,'6a18f0fc-ea79-11ed-8dfa-c4346b527e08',1,'Topic',1),(3,'7f1c69d0-ea82-11ed-b77d-77befc8b390d',6,'All-Topics',1),(4,'82e88d00-ea82-11ed-b77d-77befc8b390d',7,'All-Topics',1),(5,'9f34a930-ea82-11ed-bf59-f5ef3efb5af1',8,'All-Topics',1);
+/*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -529,4 +530,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-28 19:30:15
+-- Dump completed on 2023-05-04 19:31:08

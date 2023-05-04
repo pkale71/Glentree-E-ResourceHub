@@ -3,7 +3,7 @@ let    errorCode = require('../errorCode')
 let    getCode = new errorCode()
 let    accessToken;
 let    subject;
-let    subjectId;
+let    chapterId;
 let    uuid;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
@@ -21,9 +21,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        subjectId = subject[0].id
-        // let checkUsed = await db.checkUsedSubject(subjectId)
-        let checkUsed = [{'Exist':0}]
+        chapterId = subject[0].id
+        let checkUsed = await db.checkSubjectChapterUsed(chapterId)
         if(checkUsed[0].Exist == 0){   
         // console.log(checkUsed,checkUsed[0])
             let deleteSubject = await db.deleteSubjectChapter(uuid,0)

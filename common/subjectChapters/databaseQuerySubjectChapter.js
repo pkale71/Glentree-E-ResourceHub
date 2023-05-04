@@ -23,7 +23,7 @@ db.findChapter = (name,syllabusGradeSubjectId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(chapter_name) AS Exist FROM syllabus_grade_subject_chapter WHERE  syllabus_grade_subject_id = ? AND chapter_name LIKE ?`, [syllabusGradeSubjectId,name], (error, result) => 
+            pool.query(`SELECT COUNT(UPPER(chapter_name)) AS Exist FROM syllabus_grade_subject_chapter WHERE  syllabus_grade_subject_id = ? AND UPPER(chapter_name) LIKE UPPER(?)`, [syllabusGradeSubjectId,name], (error, result) => 
             {
                 if(error)
                 {
@@ -118,7 +118,7 @@ db.insertChapterTopics = (uuid, subjectChapterId, name, isActive) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO syllabus_grade_subject_chapter_topics (uuid, syllabus_grade_subject_chapter_id, topic_name,is_active) VALUES (?, ?,?,?)", [uuid, subjectChapterId, name, isActive], (error, result) => 
+            pool.query("INSERT INTO syllabus_grade_subject_chapter_topic (uuid, syllabus_grade_subject_chapter_id, topic_name,is_active) VALUES (?, ?,?,?)", [uuid, subjectChapterId, name, isActive], (error, result) => 
             {
                 if(error)
                 {
@@ -195,7 +195,7 @@ db.getSubjectChapters = (id,uuid) => {
             let sql = ``
             if(id){
                 sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
-                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id) AS isExist,
+                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics' ) AS isExist,
                 sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
                 sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
                 sy.name AS syllabusName, 
@@ -211,7 +211,7 @@ db.getSubjectChapters = (id,uuid) => {
             else 
             {
                 sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
-                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id) AS isExist,
+                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics') AS isExist,
                 sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
                 sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
                 sy.name AS syllabusName, 
@@ -238,6 +238,29 @@ db.getSubjectChapters = (id,uuid) => {
         
     });
 }
+
+db.checkSubjectChapterUsed = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            let sql = `SELECT IF(COUNT(sgsct.id)> 0,1,0) AS isExist FROM syllabus_grade_subject_chapter_topic sgsct 
+            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND sgsct.topic_name NOT LIKE 'All-Topics' `
+
+            pool.query(sql,[id],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
 
 
 module.exports = db
