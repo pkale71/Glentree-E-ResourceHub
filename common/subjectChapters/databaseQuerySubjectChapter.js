@@ -136,7 +136,7 @@ db.deleteSubjectChapter = (uuid, isActive) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("UPDATE syllabus_grade_subject_chapter set is_active = ? WHERE uuid = ?", [isActive,uuid], (error, result) => 
+            pool.query("DELETE FROM syllabus_grade_subject_chapter WHERE uuid = ?", [isActive,uuid], (error, result) => 
             {
                 if(error)
                 {
@@ -260,7 +260,40 @@ db.checkSubjectChapterUsed = (id) => {
     });
 }
 
+db.selectChapter = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT * FROM syllabus_grade_subject_chapter WHERE uuid = ?", [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 
+db.chapterStatusChange = (id) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            //console.log("p")
+            pool.query('UPDATE syllabus_grade_subject_chapter set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+               // console.log("e")
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
 
 
 module.exports = db

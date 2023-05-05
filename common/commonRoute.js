@@ -27,7 +27,9 @@ commonRoute.use( '/deleteSubjectChapter',require('../authentication/validateToke
 commonRoute.use( '/updateSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/updateSubjectchapter'))
 commonRoute.use( '/getSubjectChapters',require('../authentication/validateToken'),require('./subjectChapters/getSubjectChapters'))
 commonRoute.use( '/getSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/getSubjectChapter'))
+commonRoute.use( '/changeSubjectChapterStatus',require('../authentication/validateToken'),require('./subjectChapters/changeStatusChapter'))
 commonRoute.use( '/createChapterTopic',require('../authentication/validateToken'),require('./chapterTopics/createChapterTopics'))
 commonRoute.use( '/updateChapterTopic',require('../authentication/validateToken'),require('./chapterTopics/updateChapterTopic'))
+
 
 module.exports = commonRoute
