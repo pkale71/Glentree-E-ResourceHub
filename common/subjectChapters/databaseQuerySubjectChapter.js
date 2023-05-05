@@ -173,7 +173,7 @@ db.getGradeSubject = (uuid) => {
 
             pool.query(`SELECT sgst.id
                         FROM syllabus_grade_subject sgst 
-                        WHERE sgst.uuid = ? 
+                        WHERE sgst.uuid = ? AND is_active = 1
                         ORDER BY sgst.id`,[uuid],(error, result) => 
             {
                 if(error)

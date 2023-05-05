@@ -44,7 +44,7 @@ module.exports = require('express').Router().get('/:chapUuid',async(req,res)=>{
                   res.status(200)
                   return res.json({
                       "status_code" : 200,
-                      "data"        : {'subjectChapters' : chapList[0]},
+                      "data"        : {'subjectChapter' : chapList[0]},
                       "message"     : 'success',
                       "status_name"   : getCode.getStatus(200)
                   })
