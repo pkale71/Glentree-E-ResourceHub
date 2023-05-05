@@ -9,7 +9,6 @@ app.get('/:UUID/:UUID',async (req,res,next)=>{
     verifyToken(req,res,next)
 })
 
-
 app.get('/:UUID/:UUID/:UUID/:UUID?*',async (req,res,next)=>{
     verifyToken(req,res,next)
 })

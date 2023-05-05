@@ -5,7 +5,9 @@ db.getSyllabus = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * from syllabus",(error, result) => 
+            pool.query(`SELECT * ,(SELECT COUNT(s.syllabus_id) FROM school s 
+            WHERE s.syllabus_id LIKE sy.id)  AS isExist 
+            from syllabus sy`,(error, result) => 
             {
                 if(error)
                 {

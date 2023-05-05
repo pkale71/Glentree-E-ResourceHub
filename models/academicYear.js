@@ -25,11 +25,11 @@ class academicYear {
     
     setDataAll(data)
     {
-        this.uuid           =   data.uuid
-        this.year           =   data.year
+        this.uuid           =   data.uuid.trim()
+        this.year           =   data.year.trim()
         this.startDate      =   data.start_date
         this.endDate        =   data.end_date
-        this.isCurrent      =   data.is_current
+        this.isCurrent      =   data.is_current ? data.is_current : 0
         this.isExist        =   data.isExist
     }
 

@@ -14,7 +14,7 @@ class gradeSubject {
         this.gradeSubject   =   {
                                     "id"      : data.id,
                                     "uuid"    : data.uuid,
-                                    "name"    : data.subject_name,
+                                    "name"    : data.subject_name.trim(),
                                     "isExist"   : data.isExist
                                 }
     }
@@ -28,7 +28,7 @@ class gradeSubject {
     setGrade(data){
         this.grade   =    {
                             "id"    : data.grade_id,
-                            "name"  : data.gradeName,
+                            "name"  : data.gradeName.trim(),
                             "subjects" : data.gradeSubject
                         }
                         // this.grade   = data?   {
@@ -46,7 +46,7 @@ class gradeSubject {
     setSchool(data){
         this.school         =   {
             "uuid"    :   data.schoolUuid,
-            "name"  :   data.schoolName
+            "name"  :   data.schoolName.trim()
         }
     }
 
@@ -58,23 +58,23 @@ class gradeSubject {
     {
         this.id     = data.id
         this.uuid    = data.uuid
-        this.name   = data.subject_name,
+        this.name   = data.subject_name.trim(),
         this.isExist  = data.isExist
         this.isActive = data.is_active
         this.syllabus       =   {
                                     "id"    :   data.syllabus_id,
-                                    "name"  :   data.syllabusName
+                                    "name"  :   data.syllabusName.trim()
                                 }
         this.grade         =   {
                                     "id"    :   data.grade_id,
-                                    "name"  :   data.gradeName
+                                    "name"  :   data.gradeName.trim()
                                 }
         this.gradeCategory         =   {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName,
+                                    "name"  :   data.gradeCatName.trim(),
                                     "grade" :   {
                                                     "id"    :   data.grade_id,
-                                                    "name"  :   data.gradeName
+                                                    "name"  :   data.gradeName.trim()
                                                 }
                                 }
       //  this.isExist        =   data.isExist                     

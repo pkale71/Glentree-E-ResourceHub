@@ -53,7 +53,7 @@ class school {
         this.schoolGradeCategoryId = data.schoolGradeCategoryId
         this.gradeCategories = {
             "id" : data.gradeId,
-            "name" : data.gradeName
+            "name" : data.gradeName.trim()
         }
             
     }
@@ -69,7 +69,7 @@ class school {
         this.schoolUserSettingUuid = data.uuid
         this.userType = {
                                     "id" : data.user_type_id,
-                                    "name" : data.userTypeName,
+                                    "name" : data.userTypeName.trim(),
                                     "code" : data.code
                         }
         this.schoolUserSettingUpload = data.can_upload
@@ -87,16 +87,16 @@ class school {
         }
     }
     setDataAll(data){
-        this.uuid               =           data.uuid
-        this.name               =           data.name
-        this.location           =           data.location
+        this.uuid               =           data.uuid.trim()
+        this.name               =           data.name.trim()
+        this.location           =           data.location.trim()
         this.contact1           =           data.contact1
-        this.contact2           =           data.contact2
-        this.email              =           data.email
-        this.curriculumUpload   =           data.curriculumUpload
+        this.contact2           =           data.contact2.length > 0 ?  data.contact2 : null
+        this.email              =           data.email.trim()
+        this.curriculumUpload   =           data.curriculumUpload.trim()
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
-                                                "name"    :   data.syllabusName,
+                                                "name"    :   data.syllabusName.trim(),
                                             }
         this.createdOn          =           data.created_on
         this.createdBy          =           {
@@ -125,16 +125,16 @@ class school {
     }
 
      setData(data){
-        this.uuid               =           data.uuid
-        this.name               =           data.name
-        this.location           =           data.location
+        this.uuid               =           data.uuid.trim()
+        this.name               =           data.name.trim()
+        this.location           =           data.location.trim()
         this.contact1           =           data.contact1
-        this.contact2           =           data.contact2
-        this.email              =           data.email
-        this.curriculumUpload   =           data.curriculumUpload
+        this.contact2           =           data.contact2.length > 0 ?  data.contact2 : null
+        this.email              =           data.email.trim()
+        this.curriculumUpload   =           data.curriculumUpload.trim()
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
-                                                "name"    :   data.syllabusName,
+                                                "name"    :   data.syllabusName.trim(),
                                             }
         this.gradeCategory      =           data.gradeCategory
         this.createdOn          =           data.created_on

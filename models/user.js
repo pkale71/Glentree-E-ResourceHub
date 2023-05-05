@@ -51,16 +51,16 @@ class user {
         this.fullName       =   data.fullName.trim()
         this.role           =   {
                                     id     :   data.role_id,
-                                    name   :   data.role_name
+                                    name   :   data.role_name.trim()
                                 }
         this.userType       =   {
                                     id     :   data.user_type_id,
-                                    name    :   data.user_type_name,
+                                    name    :   data.user_type_name.trim(),
                                     code    :   data.user_type_code
                                 }
-        this.email          =   data.email
-        this.lastLogin      =   data.last_login
-        this.accessToken    =   data.access_token
+        this.email          =   data.email.trim()
+        this.lastLogin      =   data.last_login.trim()
+        this.accessToken    =   data.access_token.trim()
         this.mobile         =   data.mobile
     }
     getData(){
@@ -83,37 +83,37 @@ class user {
     }
 
     setDataAll(data){
-        this.uuid           =   data.uuid
+        this.uuid           =   data.uuid.trim()
         this.fullName       =   data.fullName.trim()
-        this.firstName      =   data.first_name
-        this.lastName       =   data.last_name
+        this.firstName      =   data.first_name.trim()
+        this.lastName       =   data.last_name.trim()
         this.role           =   {
                                     id     :   data.role_id,
-                                    name   :   data.role_name
+                                    name   :   data.role_name.trim()
                                 }
         this.userType       =   {
                                     id     :   data.user_type_id,
-                                    name    :   data.user_type_name,
+                                    name    :   data.user_type_name.trim(),
                                     code    :   data.user_type_code
                                 }
-        this.email          =   data.email
-        this.lastLogin      =   data.last_login
-        this.accessToken    =   data.access_token
+        this.email          =   data.email.trim()
+        this.lastLogin      =   data.last_login.trim()
+        this.accessToken    =   data.access_token.trim()
         this.mobile         =   data.mobile
         this.active       =     data.isActive
         this.createdBy      =   data.createdById == null ? null : {
                                     'uuid'    :   data.createdbyUuid,
-                                    'fullName' :  data.createdfullName
+                                    'fullName' :  data.createdfullName.trim()
                                 }
 
         this.deletedBy      =    data.deleted_by_id == null ? null : {
                                     'uuid'    :   data.deletedbyUuid,
-                                    'fullName' :  data.deletedfullName
+                                    'fullName' :  data.deletedfullName.trim()
                                 }
         this.gender         =   data.gender,
         this.school         =   {
-                                    "uuid" : data.schoolUuid,
-                                    "name" : data.schoolName 
+                                    "uuid" : data.schoolUuid.trim(),
+                                    "name" : data.schoolName.trim() 
                                 }
     }
 

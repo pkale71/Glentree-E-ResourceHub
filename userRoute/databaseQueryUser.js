@@ -101,4 +101,22 @@ db.getUser = (uuid) => {
         });
     }
 
+
+    db.getUserUuid = (id) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+                pool.query("SELECT uuid FROM user WHERE id = ?", [id], (error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
 module.exports = db

@@ -12,35 +12,23 @@ class subjectChapter {
 
     setDataAll(data)
     {
-        this.uuid  = data.uuid
-        this.name = data.chapter_name,
+        this.uuid  = data.uuid.trim()
+        this.name = data.chapter_name.trim(),
         this.isActive = data.is_active,
         this.isExist = data.isExist
         this.gradeSubject = {
-            "uuid"    : data.subUuid,
-            "name"   : data.subject_name,
-            // "isExist"  : data.subIsExist,
+            "uuid"    : data.subUuid.trim(),
+            "name"   : data.subject_name.trim(),
             "active" : data.subIsActive,
             "syllabus"      :   {
                                         "id"    :   data.syllabus_id,
-                                        "name"  :   data.syllabusName
+                                        "name"  :   data.syllabusName.trim()
                                     },
             "grade"        :  {
                                         "id"    :   data.grade_id,
-                                        "name"  :   data.gradeName
+                                        "name"  :   data.gradeName.trim()
                                     }
-            // this.gradeCategory         =   {
-            //                             "id"    :   data.gradeCategoryId,
-            //                             "name"  :   data.gradeCatName,
-            //                             "grade" :   {
-            //                                             "id"    :   data.grade_id,
-            //                                             "name"  :   data.gradeName
-            //                                         }
-            //                         }
         }
-       
-      //  this.isExist        =   data.isExist                     
-      //  this.gradeSubject   =   data.gradeSubject
     }
 
     getDataAll()
@@ -52,14 +40,6 @@ class subjectChapter {
             active : this.isActive,
             isExist : this.isExist,
             gradeSubject : this.gradeSubject
-            // isExist : this.isExist,
-            // active : this.isActive,
-            // syllabus : this.syllabus,
-            // // school : this.school,
-            // grade : this.grade,
-           // gradeCategory : this.gradeCategory,
-           // isExist : this.isExist,
-           // subject : this.gradeSubject
         }
     }
 }

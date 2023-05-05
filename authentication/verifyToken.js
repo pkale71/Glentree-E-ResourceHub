@@ -64,30 +64,39 @@ async function  verifyToken  (req, res, next){
     
             if(verified){
                 console.log("3", req.baseUrl,userTypeCode)
-                if(req.baseUrl !=  '/user/createUser'){
+                if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  (req.baseUrl ==  '/user/createUser' || req.baseUrl ==  '/user/updateUser' || req.baseUrl ==  '/user/deleteUser'||req.baseUrl ==  '/common/createGrade' || req.baseUrl ==  '/common/updateGrade' || req.baseUrl ==  '/common/deleteGrade' ||  req.baseUrl ==  '/user/checkDuplicateEmailMobile')){
+                    console.log("4")
                     req.body.accessToken = accessToken
-                    
                     next()
                 }
-               else if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  req.baseUrl ==  '/user/createUser'){
-                console.log("4")
+                else if((userTypeCode == 'SUADM') && (req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus/:uuid' || req.baseUrl ==  '/common/deleteSyllabus' || req.baseUrl ==  '/common/createSyllabus' || req.baseUrl ==  '/common/updateSyllabus' ))
+                {
+                 console.log("5")
+     
+                     console.log(userTypeCode)
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'  ))
+                {
+                 console.log("6")
+     
+                     console.log(userTypeCode)
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+               else 
+               {
+                console.log("7")
     
                     console.log(userTypeCode)
                     req.body.accessToken = accessToken
                     next()
                 }
-                else {
-                console.log("5")
-                res.status(401)
-                    return res.json({
-                        'message'       :       `Token not matched`,
-                        status_name     :        getCode.getStatus(401),
-                        "status_code"   :        401
-                    });
-                }
+               
             }
             else{
-                console.log("6")
+                console.log("8")
                 res.status(401)
                 // Access Denied
                 return res.json({
@@ -101,7 +110,7 @@ async function  verifyToken  (req, res, next){
               
         }
         else{
-            console.log("8")
+            console.log("9")
             res.status(401)
             return res.json({
                 'message'       :       `Unauthenticated User "${email}"`,
@@ -110,7 +119,7 @@ async function  verifyToken  (req, res, next){
             });
         }
     } catch (error) {
-        console.log("9****", req.method)
+        console.log("10****", req.method)
 
         // Access Denied
         res.status(401)

@@ -15,14 +15,14 @@ class role {
     setDataAll(data)
     {
         this.id     =   data.id
-        this.name   =   data.name
+        this.name   =   data.name.trim()
     }
 
     getDataAll()
     {
         return {
             id : this.id,
-            name : this.name
+            name : this.name.trim()
         }
     }
 }

@@ -87,7 +87,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                return res.json({
                                    "status_code" : 200,
                                    "message" : "success",
-                                   "data" : returnUuid[0],
+                                   "data" : { "uuid" : returnUuid[0].uuid},
                                    status_name : getCode.getStatus(200)
                                })            
            
