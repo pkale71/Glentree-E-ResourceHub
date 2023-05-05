@@ -52,7 +52,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(400);
                 return res.json({
                     "status_code": 400,
-                    "message": `Subject name '${name}' already present for grade id`,
+                    "message": `Subject name already present for grade id`,
                     status_name: getCode.getStatus(400)
                 });
             }
@@ -82,7 +82,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Subject name '${name}' is in use`,
+                "message": `Subject name is in use`,
                 status_name: getCode.getStatus(400)
             });
         }

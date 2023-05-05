@@ -3,28 +3,27 @@ let errorCode = require('../errorCode')
 let getCode = new errorCode()
 let topic;
 let topicId;
-let chapterStatusChange;
+let topicStatusChange;
 let topicUUID;
-
 
 module.exports = require('express').Router().get('/:topicUUID',async(req,res) =>  {
     try
     {
         topicUUID = req.params.topicUUID.trim()
         
-        topic = await db.selectChapter(topicUUID)
+        topic = await db.selectTopic(topicUUID)
         if(topic.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "message"       :   'Chapter not found',
+                "message"       :   'Topic not found',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
         topicId = topic[0].id
-        chapterStatusChange = await db.chapterStatusChange(chapterId)
-        console.log(chapterStatusChange)
-        if(chapterStatusChange.affectedRows > 0){
+        topicStatusChange = await db.chapterStatusChange(chapterId)
+        console.log(topicStatusChange)
+        if(topicStatusChange.affectedRows > 0){
             res.status(200)
             return res.json({
                 "status_code" : 200,

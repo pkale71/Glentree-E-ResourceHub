@@ -49,7 +49,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Topic name '${topic[0].topic_name}' is in use`,
+                "message": `Topic name is in use`,
                 status_name: getCode.getStatus(400)
             });
         }

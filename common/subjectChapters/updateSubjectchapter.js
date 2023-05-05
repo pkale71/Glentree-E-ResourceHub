@@ -55,14 +55,16 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         chapterId = chapter[0].id
         let checkUsed = await db.checkSubjectChapterUsed(chapterId)
-        if(checkUsed[0].isExist == 0){
+        console.log(checkUsed)
+
+        if(checkUsed[0].isExist == 0 && checkUsed[0].Exist == 0){
             let check = await db.findChapter(name,syllabusGradeSubjectId ,uuid)
             console.log(check)
             if(check[0].Exist != 0){
                 res.status(400);
                 return res.json({
                     "status_code": 400,
-                    "message": `Chapter name '${name}' already present for subject`,
+                    "message": `Chapter name  already present for subject`,
                     status_name: getCode.getStatus(400)
                 });
             }
@@ -92,7 +94,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Chapter name '${name}' is in use`,
+                "message": `Chapter name is in use`,
                 status_name: getCode.getStatus(400)
             });
         }

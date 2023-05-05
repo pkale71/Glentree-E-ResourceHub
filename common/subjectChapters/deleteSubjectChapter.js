@@ -22,8 +22,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             })   
         }
         chapterId = chapter[0].id
+        console.log(chapterId)
+
         let checkUsed = await db.checkSubjectChapterUsed(chapterId)
-        if(checkUsed[0].isExist == 0){   
+        console.log(checkUsed)
+        if(checkUsed[0].isExist == 0 && checkUsed[0].Exist == 0){   
         console.log(uuid)
             let deleteSubject = await db.deleteSubjectChapter(uuid)
         
@@ -49,7 +52,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Chapter name '${chapter[0].chapter_name}' is in use`,
+                "message": `Chapter name is in use`,
                 status_name: getCode.getStatus(400)
             });
         }

@@ -243,10 +243,12 @@ db.checkSubjectChapterUsed = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            let sql = `SELECT IF(COUNT(sgsct.id)> 0,1,0) AS isExist FROM syllabus_grade_subject_chapter_topic sgsct 
-            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND sgsct.topic_name NOT LIKE 'All-Topics' `
+            let sql = `SELECT IF(COUNT(sgsct.id)> 0,1,0) AS isExist, (SELECT IF(COUNT(chapter_id) > 0 ,1,0)  FROM curriculum_master 
+            WHERE chapter_id = ?) AS Exist
+            FROM syllabus_grade_subject_chapter_topic sgsct 
+            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND sgsct.topic_name NOT LIKE 'All-Topics'  `
 
-            pool.query(sql,[id],(error, result) => 
+            pool.query(sql,[id,id],(error, result) => 
             {
                 if(error)
                 {
