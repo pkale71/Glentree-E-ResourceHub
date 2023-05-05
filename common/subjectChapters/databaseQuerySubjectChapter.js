@@ -132,11 +132,11 @@ db.insertChapterTopics = (uuid, subjectChapterId, name, isActive) => {
     });
 }
 
-db.deleteSubjectChapter = (uuid, isActive) => {
+db.deleteSubjectChapter = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("DELETE FROM syllabus_grade_subject_chapter WHERE uuid = ?", [isActive,uuid], (error, result) => 
+            pool.query("DELETE FROM syllabus_grade_subject_chapter WHERE uuid = ?", [uuid], (error, result) => 
             {
                 if(error)
                 {

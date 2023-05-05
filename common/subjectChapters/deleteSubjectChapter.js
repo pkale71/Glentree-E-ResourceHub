@@ -2,7 +2,7 @@ let    db = require('./databaseQuerySubjectChapter')
 let    errorCode = require('../errorCode')
 let    getCode = new errorCode()
 let    accessToken;
-let    subject;
+let    chapter;
 let    chapterId;
 let    uuid;
 
@@ -24,8 +24,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         chapterId = chapter[0].id
         let checkUsed = await db.checkSubjectChapterUsed(chapterId)
         if(checkUsed[0].isExist == 0){   
-        // console.log(checkUsed,checkUsed[0])
-            let deleteSubject = await db.deleteSubjectChapter(uuid,0)
+        console.log(uuid)
+            let deleteSubject = await db.deleteSubjectChapter(uuid)
         
                 if (deleteSubject.affectedRows > 0) {
                     res.status(200);

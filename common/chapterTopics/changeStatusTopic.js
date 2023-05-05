@@ -1,19 +1,19 @@
-let db = require('./databaseQuerySubjectChapter')
+let db = require('./databaseQueryChapterTopic')
 let errorCode = require('../errorCode')
 let getCode = new errorCode()
-let chapter;
-let chapterId;
+let topic;
+let topicId;
 let chapterStatusChange;
-let chapterUUID;
+let topicUUID;
 
 
-module.exports = require('express').Router().get('/:chapterUUID',async(req,res) =>  {
+module.exports = require('express').Router().get('/:topicUUID',async(req,res) =>  {
     try
     {
-        chapterUUID = req.params.chapterUUID.trim()
+        topicUUID = req.params.topicUUID.trim()
         
-        chapter = await db.selectChapter(chapterUUID)
-        if(chapter.length == 0){
+        topic = await db.selectChapter(topicUUID)
+        if(topic.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
@@ -21,7 +21,7 @@ module.exports = require('express').Router().get('/:chapterUUID',async(req,res) 
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        chapterId = chapter[0].id
+        topicId = topic[0].id
         chapterStatusChange = await db.chapterStatusChange(chapterId)
         console.log(chapterStatusChange)
         if(chapterStatusChange.affectedRows > 0){
