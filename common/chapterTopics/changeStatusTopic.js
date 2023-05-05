@@ -21,7 +21,7 @@ module.exports = require('express').Router().get('/:topicUUID',async(req,res) =>
             })   
         }
         topicId = topic[0].id
-        topicStatusChange = await db.chapterStatusChange(chapterId)
+        topicStatusChange = await db.topicStatusChange(topicId)
         console.log(topicStatusChange)
         if(topicStatusChange.affectedRows > 0){
             res.status(200)
