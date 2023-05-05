@@ -25,7 +25,7 @@ module.exports = require('express').Router().get('/:subUuid',async(req,res)=>{
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "message"       :   'Subject chapter not found',
+                "message"       :   'Grade subject not found',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
