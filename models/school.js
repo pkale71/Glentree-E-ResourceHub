@@ -87,13 +87,13 @@ class school {
         }
     }
     setDataAll(data){
-        this.uuid               =           data.uuid.trim()
+        this.uuid               =           data.uuid
         this.name               =           data.name.trim()
-        this.location           =           data.location.trim()
+        this.location           =           data.location
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2.length > 0 ?  data.contact2 : null
-        this.email              =           data.email.trim()
-        this.curriculumUpload   =           data.curriculumUpload.trim()
+        this.email              =           data.email
+        this.curriculumUpload   =           data.curriculumUpload
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName.trim(),
@@ -125,13 +125,13 @@ class school {
     }
 
      setData(data){
-        this.uuid               =           data.uuid.trim()
+        this.uuid               =           data.uuid
         this.name               =           data.name.trim()
-        this.location           =           data.location.trim()
+        this.location           =           data.location
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2.length > 0 ?  data.contact2 : null
-        this.email              =           data.email.trim()
-        this.curriculumUpload   =           data.curriculumUpload.trim()
+        this.email              =           data.email
+        this.curriculumUpload   =           data.curriculumUpload
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName.trim(),

@@ -12,12 +12,12 @@ class subjectChapter {
 
     setDataAll(data)
     {
-        this.uuid  = data.uuid.trim()
+        this.uuid  = data.uuid
         this.name = data.chapter_name.trim(),
         this.isActive = data.is_active,
         this.isExist = data.isExist
         this.gradeSubject = {
-            "uuid"    : data.subUuid.trim(),
+            "uuid"    : data.subUuid,
             "name"   : data.subject_name.trim(),
             "active" : data.subIsActive,
             "syllabus"      :   {

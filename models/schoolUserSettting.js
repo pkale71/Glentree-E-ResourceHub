@@ -19,7 +19,7 @@ class schoolUserSetting {
     
     setDataAll(data)
     {
-        this.uuid       =   data.uuid.trim()
+        this.uuid       =   data.uuid
         this.canPublish =   data.can_publish
         this.canUpload  =   data.can_upload
         this.canVerify  =   data.can_verify
