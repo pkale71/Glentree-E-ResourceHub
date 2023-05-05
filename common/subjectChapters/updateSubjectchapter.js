@@ -1,8 +1,8 @@
 let    db = require('./databaseQuerySubjectChapter')
 let    errorCode = require('../errorCode')
 let    getCode = new errorCode()
-let    subject;
-let    subjectId;
+let    chapter;
+let    chapterId;
 let    gradeId;
 let    uuid;
 let    name;
@@ -44,7 +44,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })
         }
-        subject = await db.selectChapter(uuid)
+        chapter = await db.selectChapter(uuid)
         if(subject.length == 0){
             res.status(404)
             return res.json({
@@ -53,9 +53,9 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        subjectId = subject[0].id
-        let checkUsed = await db.checkSubjectChapterUsed(subjectId)
-        if(checkUsed[0].Exist == 0){
+        chapterId = subject[0].id
+        let checkUsed = await db.checkSubjectChapterUsed(chapterId)
+        if(checkUsed[0].isExist == 0){
             let check = await db.findChapter(name,syllabusGradeSubjectId)
             console.log(check)
             if(check[0].Exist != 0){
