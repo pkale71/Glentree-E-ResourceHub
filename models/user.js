@@ -58,9 +58,9 @@ class user {
                                     name    :   data.user_type_name.trim(),
                                     code    :   data.user_type_code
                                 }
-        this.email          =   data.email.trim()
-        this.lastLogin      =   data.last_login.trim()
-        this.accessToken    =   data.access_token.trim()
+        this.email          =   data.email
+        this.lastLogin      =   data.last_login
+        this.accessToken    =   data.access_token
         this.mobile         =   data.mobile
     }
     getData(){
@@ -83,7 +83,7 @@ class user {
     }
 
     setDataAll(data){
-        this.uuid           =   data.uuid.trim()
+        this.uuid           =   data.uuid
         this.fullName       =   data.fullName.trim()
         this.firstName      =   data.first_name.trim()
         this.lastName       =   data.last_name.trim()
@@ -96,9 +96,9 @@ class user {
                                     name    :   data.user_type_name.trim(),
                                     code    :   data.user_type_code
                                 }
-        this.email          =   data.email.trim()
-        this.lastLogin      =   data.last_login.trim()
-        this.accessToken    =   data.access_token.trim()
+        this.email          =   data.email
+        this.lastLogin      =   data.last_login
+        this.accessToken    =   data.access_token
         this.mobile         =   data.mobile
         this.active       =     data.isActive
         this.createdBy      =   data.createdById == null ? null : {
@@ -112,7 +112,7 @@ class user {
                                 }
         this.gender         =   data.gender,
         this.school         =   {
-                                    "uuid" : data.schoolUuid.trim(),
+                                    "uuid" : data.schoolUuid,
                                     "name" : data.schoolName.trim() 
                                 }
     }

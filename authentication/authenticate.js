@@ -32,7 +32,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             if(jsontoken != null || jsontoken != undefined){
                 user[0]['access_token']=jsontoken
                 let insertToken = await db.insertToken(jsontoken, userId, mysqlDatetime)
+                console.log(insertToken)
                 let insert_lastLogin = await db.insertLastLogin(userId,mysqlDatetime)
+                console.log(user[0])
                 useUser.setData(user[0])
                 res.status(200)
                 return res.json(useUser.getData())

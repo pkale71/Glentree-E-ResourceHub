@@ -50,7 +50,7 @@ async function  verifyToken  (req, res, next){
             user = await commondb.getUserById(userId);
             email = user[0].email
             if(user.length == 0){
-                console.log("1")
+                console.log("1****")
                 res.status(401)
                 return res.json({
                     message: "Invalid Token",
@@ -77,7 +77,7 @@ async function  verifyToken  (req, res, next){
                      req.body.accessToken = accessToken
                      next()
                  }
-                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'  ))
+                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/createSubjectChapter' || req.baseUrl ==  '/common/deleteSubjectChapter' || req.baseUrl ==  '/common/updateSubjectChapter' || req.baseUrl ==  '/common/changeSubjectChapterStatus/:uuid' || req.baseUrl ==  '/common/createChapterTopic' || req.baseUrl ==  '/common/updateChapterTopic' || req.baseUrl ==  '/common/deleteChapterTopic' || req.baseUrl ==  '/common/changeChapterTopicStatus/:uuid'  ))
                 {
                  console.log("6")
      
@@ -87,7 +87,7 @@ async function  verifyToken  (req, res, next){
                  }
                else 
                {
-                console.log("7")
+                
     
                     console.log(userTypeCode)
                     req.body.accessToken = accessToken
