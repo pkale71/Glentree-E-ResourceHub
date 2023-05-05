@@ -2,11 +2,11 @@ let pool = require('../../databaseConnection/createconnection');
 let db = {};
  
 
-db.insertSubjectChapter = (uuid, syllabusGradeSubjectId, name, isActive) => {
+db.insertChapterTopic = (uuid, chapterId, name, isActive) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO syllabus_grade_subject_chapter (uuid, syllabus_grade_subject_id,  chapter_name,is_active) VALUES (?, ?,?,?)", [uuid, syllabusGradeSubjectId, name, isActive], (error, result) => 
+            pool.query("INSERT INTO syllabus_grade_subject_chapter_topic (uuid, syllabus_grade_subject_chapter_id,  topic_name,is_active) VALUES (?, ?,?,?)", [uuid, chapterId, name, isActive], (error, result) => 
             {
                 if(error)
                 {
@@ -38,11 +38,11 @@ db.findTopic = (name,chapterId) => {
 }
 
 
-db.selectChapter = (uuid) => {
+db.selectTopic = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM syllabus_grade_subject_chapter WHERE uuid = ?", [uuid], (error, result) => 
+            pool.query("SELECT * FROM syllabus_grade_subject_chapter_topic WHERE uuid = ?", [uuid], (error, result) => 
             {
                 if(error)
                 {
@@ -75,14 +75,14 @@ db.checkUsedSubject = (id) => {
 }
 
 
-db.getSubjectChapterDetails = (uuid , syllabusGradeSubjectId) => {
+db.getChapterTopicDetails = (uuid , chapterId) => {
     return new Promise((resolve, reject)=>{
         try
         {
             pool.query(`SELECT *
-                        FROM syllabus_grade_subject_chapter 
-                        WHERE syllabus_grade_subject_id = ? AND uuid = ?
-                        `,[syllabusGradeSubjectId,uuid],(error, result) => 
+                        FROM syllabus_grade_subject_chapter_topic 
+                        WHERE syllabus_grade_subject_chapter_id = ? AND uuid = ?
+                        `,[chapterId,uuid],(error, result) => 
             {
                 if(error)
                 {
@@ -96,11 +96,11 @@ db.getSubjectChapterDetails = (uuid , syllabusGradeSubjectId) => {
     });
 }
 // here
-db.returnUuidChapter = (id) => {
+db.returnUuidTopic = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT uuid FROM syllabus_grade_subject_chapter WHERE  id = ? `, [id], (error, result) => 
+            pool.query(`SELECT uuid FROM syllabus_grade_subject_chapter_topic WHERE  id = ? `, [id], (error, result) => 
             {
                 if(error)
                 {
@@ -150,10 +150,10 @@ db.deleteSubjectChapter = (uuid, isActive) => {
     });
 }
 
-db.updateSubjectChapter = (uuid,syllabusGradeSubjectId, name) => {
+db.updateChapterTopic = (name,uuid, chapterId) => {
     return new Promise((resolve, reject)=>{
         try{
-            pool.query('UPDATE syllabus_grade_subject_chapter SET chapter_name = ? WHERE uuid = ?  AND syllabus_grade_subject_id = ?', [name,uuid, syllabusGradeSubjectId], (error, result)=>{
+            pool.query('UPDATE syllabus_grade_subject_chapter_topic SET topic_name = ? WHERE uuid = ?  AND syllabus_grade_subject_chapter_id = ?', [name,uuid, chapterId], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
@@ -173,7 +173,7 @@ db.getSubjectChapter = (uuid) => {
 
             pool.query(`SELECT sgsc.id
                         FROM syllabus_grade_subject_chapter sgsc 
-                        WHERE sgsc.uuid = ? 
+                        WHERE sgsc.uuid = ? AND is_active = 1
                         ORDER BY sgsc.id`,[uuid],(error, result) => 
             {
                 if(error)
@@ -239,13 +239,12 @@ db.getSubjectChapters = (id,uuid) => {
     });
 }
 
-db.checkSubjectChapterUsed = (id) => {
+db.checkChapterTopicUsed = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            let sql = `SELECT IF(COUNT(sgsct.id)> 0,1,0) AS isExist FROM syllabus_grade_subject_chapter_topic sgsct 
-            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND sgsct.topic_name NOT LIKE 'All-Topics' `
-
+            let sql = `SELECT IF(COUNT(cm.id)> 0,1,0) AS isExist FROM curriculum_master cm 
+            WHERE cm.topic_id = ? `
             pool.query(sql,[id],(error, result) => 
             {
                 if(error)

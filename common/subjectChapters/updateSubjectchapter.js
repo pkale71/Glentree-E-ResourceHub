@@ -62,7 +62,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(400);
                 return res.json({
                     "status_code": 400,
-                    "message": `Chapter name '${name}' alreay present for subject`,
+                    "message": `Chapter name '${name}' already present for subject`,
                     status_name: getCode.getStatus(400)
                 });
             }

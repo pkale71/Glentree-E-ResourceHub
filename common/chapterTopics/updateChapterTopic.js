@@ -1,18 +1,18 @@
-let    db = require('./databaseQueryGradeSubject')
+let    db = require('./databaseQueryChapterTopic')
 let    errorCode = require('../errorCode')
 let    getCode = new errorCode()
-let    accessToken;
-let    subject;
-let    subjectId;
-let    gradeId;
+let    topic;
+let    chapterId;
+let    topicId;
 let    uuid;
 let    name;
+let    chapterUuid;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.syllabus?.id ||!req.body.name || !req.body.grade?.id || !req.body.uuid){
+        if(!req.body.subjectChapter?.uuid || !req.body.name || !req.body.uuid){
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -20,12 +20,23 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 status_name: getCode.getStatus(404)
             });
         }
-        syllabusId = req.body.syllabus?.id;
+        chapterUuid = req.body.subjectChapter?.uuid;
+        chapterData = await db.getSubjectChapter(chapterUuid)
+        console.log(chapterData)
+        if(chapterData.length == 0){
+            res.status(404);
+            return res.json({
+                "status_code": 404,
+                "message": `Chapter not found`,
+                status_name: getCode.getStatus(404)
+            });
+        }
+        chapterId = chapterData[0].id
         name = req.body.name.trim();
-        gradeId = req.body.grade?.id;
+        isActive = 1;
         uuid = req.body.uuid
         accessToken = req.body.accessToken;
-        let checkValid = await db.getGradeSubjectDetails(uuid , syllabusId,gradeId)
+        let checkValid = await db.getChapterTopicDetails(uuid , chapterId)
         if(checkValid.length == 0){
             res.status(404)
             return res.json({
@@ -34,33 +45,33 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })
         }
-        subject = await db.selectSubject(uuid)
-        if(subject.length == 0){
+        topic = await db.selectTopic(uuid)
+        if(topic.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
-                "message"       :   'Grade subject not found',
+                "message"       :   'Chapter topic not found',
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        subjectId = subject[0].id
-        let checkUsed = await db.checkUsedSubject(subjectId)
+        topicId = topic[0].id
+        let checkUsed = await db.checkChapterTopicUsed(topicId)
         if(checkUsed[0].Exist == 0){
-            let check = await db.findSubject(name,gradeId,syllabusId,uuid)
+            let check = await db.findTopic(name,topicId)
             console.log(check)
-            if(check[0].Exist != 0 && check[0].grade_id){
+            if(check[0].Exist != 0){
                 res.status(400);
                 return res.json({
                     "status_code": 400,
-                    "message": `Subject name '${name}' already present for grade id`,
+                    "message": `Topic name '${name}' already present for chapter`,
                     status_name: getCode.getStatus(400)
                 });
             }
             else{
                
-            let updateSubject = await db.updateGradeSubject(uuid, name)
+            let updateTopic = await db.updateChapterTopic(name,uuid, chapterId)
         
-                if (updateSubject.affectedRows > 0) {
+                if (updateTopic.affectedRows > 0) {
                     res.status(200);
                     return res.json({
                         "status_code": 200,
@@ -72,7 +83,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     res.status(500);
                     return res.json({
                         "status_code": 500,
-                        "message": "Grade subject not updated",
+                        "message": "Chapter topic not updated",
                         status_name: getCode.getStatus(500)
                     });
                 }
@@ -82,7 +93,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Subject name '${name}' is in use`,
+                "message": `Topic name '${name}' is in use`,
                 status_name: getCode.getStatus(400)
             });
         }
@@ -103,7 +114,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Grade subject not updated",
+                    "message" : "Chapter topic not updated",
                     status_name : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 

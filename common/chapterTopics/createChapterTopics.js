@@ -52,11 +52,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         else{
            
-        let insertTopic = await db.insertChapterTopic(uuid, syllabusGradeSubjectId, name, isActive)
+        let insertTopic = await db.insertChapterTopic(uuid, chapterId, name, isActive)
     
-            if (insertChapter.affectedRows > 0) {
-                let returnUuid = await db.returnUuidChapter(insertChapter.insertId)
-                let insertTopics = await db.insertChapterTopics(createUuid.v1(), insertChapter.insertId, "All-Topics", isActive)
+            if (insertTopic.affectedRows > 0) {
+                let returnUuid = await db.returnUuidTopic(insertTopic.insertId)
+                // let insertTopics = await db.insertChapterTopics(createUuid.v1(), insertChapter.insertId, "All-Topics", isActive)
                 res.status(200);
                 return res.json({
                     "status_code": 200,
@@ -69,7 +69,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500);
                 return res.json({
                     "status_code": 500,
-                    "message": "Chapter not created",
+                    "message": "Topic not created",
                     status_name: getCode.getStatus(500)
                 });
             }
@@ -90,7 +90,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Chapter not created",
+                    "message" : "Topic not created",
                     status_name : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
