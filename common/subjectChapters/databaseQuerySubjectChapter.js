@@ -149,6 +149,23 @@ db.deleteSubjectChapter = (uuid) => {
         
     });
 }
+db.deleteTopic = (id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM syllabus_grade_subject_chapter_topic WHERE id = ?", [id], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 
 db.updateSubjectChapter = (uuid,syllabusGradeSubjectId, name) => {
     return new Promise((resolve, reject)=>{

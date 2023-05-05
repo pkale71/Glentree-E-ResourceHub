@@ -31,6 +31,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             let deleteSubject = await db.deleteSubjectChapter(uuid)
         
                 if (deleteSubject.affectedRows > 0) {
+                    let deleteTopic = db.deleteTopic(chapterId)
+                    console.log(deleteTopic)
                     res.status(200);
                     return res.json({
                         "status_code": 200,
