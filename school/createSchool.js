@@ -26,19 +26,19 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        email = req.body.email;
-        name = req.body.name;
+        email = req.body.email.trim();
+        name = req.body.name.trim();
         accessToken = req.body.accessToken;
-        location = req.body.location
-        contact1 = req.body.contact1
-        contact2 = req.body.contact2 == ""?null : req.body.contact2
-        curriculumUpload = req.body.curriculumUpload
+        location = req.body.location.trim()
+        contact1 = req.body.contact1.trim()
+        contact2 = req.body.contact2 == ""?null : req.body.contact2.trim()
+        curriculumUpload = req.body.curriculumUpload.trim()
         syllabusId = req.body.syllabus.id
-        schoolGradeCategoryList = req.body.gradeCategory 
+        schoolGradeCategoryList = req.body.gradeCategory.trim()
         schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
         active = 1
         schoolUuid = createUuid.v1()
-        schoolUserSettingList = req.body.schoolUserSetting;
+        schoolUserSettingList = req.body.schoolUserSetting.trim();
         
         if(!schoolGradeCategoryList){
             res.status(404)

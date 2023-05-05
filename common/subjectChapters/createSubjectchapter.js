@@ -22,7 +22,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 status_name: getCode.getStatus(404)
             });
         }
-        syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
+        syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid.trim();
         subject = await db.getGradeSubject(syllabusGradeSubjectUuid)
         console.log(subject)
         if(subject.length == 0){
@@ -34,7 +34,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
         syllabusGradeSubjectId = subject[0].id
-        name = req.body.name;
+        name = req.body.name.trim();
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;

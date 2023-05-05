@@ -11,7 +11,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.syllabusGradeSubject?.id || !req.body.name || !req.body.uuid){
+        if(!req.body.syllabusGradeSubject?.uuid || !req.body.name || !req.body.uuid){
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -19,8 +19,19 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 status_name: getCode.getStatus(404)
             });
         }
-        syllabusGradeSubjectId = req.body.syllabusGradeSubject?.id;
-        name = req.body.name;
+        syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
+        subjectData = await db.getGradeSubject(syllabusGradeSubjectUuid)
+        console.log(subjectData)
+        if(subjectData.length == 0){
+            res.status(404);
+            return res.json({
+                "status_code": 404,
+                "message": `Grade subject not found`,
+                status_name: getCode.getStatus(404)
+            });
+        }
+        syllabusGradeSubjectId = subjectData[0].id
+        name = req.body.name.trim();
         isActive = 1;
         uuid = req.body.uuid
         accessToken = req.body.accessToken;

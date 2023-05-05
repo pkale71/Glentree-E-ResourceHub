@@ -9,7 +9,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        name = req.body.name;
+        name = req.body.name.trim();
         accessToken = req.body.accessToken;
 
         
@@ -21,7 +21,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
              status_name : getCode.getStatus(404)
             })
         }
-        gradeCategoryId = req.body.gradeCategory.id;
+        gradeCategoryId = req.body.gradeCategory.id.trim();
 
                let insertGrade = await db.insertGrade(name, gradeCategoryId)
                        if(insertGrade.affectedRows > 0){

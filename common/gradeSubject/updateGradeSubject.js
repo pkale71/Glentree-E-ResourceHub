@@ -21,7 +21,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
         syllabusId = req.body.syllabus?.id;
-        name = req.body.name;
+        name = req.body.name.trim();
         gradeId = req.body.grade?.id;
         uuid = req.body.uuid
         accessToken = req.body.accessToken;

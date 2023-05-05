@@ -23,13 +23,13 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
          accessToken = req.body.accessToken;
-         firstName = req.body.firstName 
-         lastName = req.body.lastName 
+         firstName = req.body.firstName.trim() 
+         lastName = req.body.lastName.trim() 
          userTypeId = req.body.userType.id
-         gender = req.body.gender
-         uuid   =   req.body.uuid
-         email = req.body.email
-         mobile = req.body.mobile
+         gender = req.body.gender.trim()
+         uuid   =   req.body.uuid.trim()
+         email = req.body.email.trim()
+         mobile = req.body.mobile.trim()
             if(req.body.role.id==2 && !req.body.school.uuid){
                 res.status(404)
                 return res.json({

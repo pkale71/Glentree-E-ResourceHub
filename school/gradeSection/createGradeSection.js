@@ -16,8 +16,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        academicUuid = req.body.academicYear?.uuid;
-        schoolUuid = req.body.school?.uuid;
+        academicUuid = req.body.academicYear?.uuid.trim();
+        schoolUuid = req.body.school?.uuid.trim();
         gradeId = req.body.grade?.id;
         count = req.body.count;
         uuid = createUuid.v1()

@@ -7,7 +7,7 @@ let name;
 module.exports = require('express').Router().post('/',async(req,res) => {
     try
     {
-        name = req.body.name
+        name = req.body.name.trim()
         if(!req.body.name){
             res.status(404)
             return res.json({

@@ -12,7 +12,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        uuid = req.body.uuid
+        uuid = req.body.uuid.trim()
         accessToken = req.body.accessToken;
         gradeSection = await db.getGradeSection(uuid)
         if(gradeSection.length == 0){

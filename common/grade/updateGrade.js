@@ -11,7 +11,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        name = req.body.name;
+        name = req.body.name.trim();
         accessToken = req.body.accessToken;
         if(!req.body.id ){
             res.status(404)

@@ -11,7 +11,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>
 {
     try
     {
-        uuid = req.body.uuid;
+        uuid = req.body.uuid.trim();
         if(!uuid){
             res.status(404)
             return res.json({

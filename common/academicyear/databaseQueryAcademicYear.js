@@ -11,9 +11,10 @@ db.getAcademicYears = (uuid,id) => {
             if(uuid?.length > 0){
                 sql = `SELECT ay.*,
                 (select IF((select IF(count(sgs.id) > 0,1,0) from school_grade_section sgs
-                where sgs.academic_year_id = ay.id) > 0, 1, (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
+                where sgs.academic_year_id = ay.id) > 0, 1,
+                (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
                 where utss.academic_year_id = ay.id))) AS isExist
-                 from academic_year ay WHERE ay.uuid = ?`;
+                from academic_year ay WHERE ay.uuid = ?`;
             }
             else if(id){
                 sql = `SELECT ay.uuid 
@@ -22,7 +23,8 @@ db.getAcademicYears = (uuid,id) => {
             else{
                 sql = `SELECT ay.*,
                 (select IF((select IF(count(sgs.id) > 0,1,0) from school_grade_section sgs
-                where sgs.academic_year_id = ay.id) > 0, 1, (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
+                where sgs.academic_year_id = ay.id) > 0, 1, 
+                (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
                 where utss.academic_year_id = ay.id))) AS isExist
                 FROM academic_year ay  `;
             }

@@ -12,7 +12,7 @@ let deletedOn;
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
          accessToken = req.body.accessToken;
-         uuid = req.body.uuid;
+         uuid = req.body.uuid.trim();
          if(req.body.uuid == undefined){
             res.status(404)
             return res.json({

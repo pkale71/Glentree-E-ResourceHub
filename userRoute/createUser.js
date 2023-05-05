@@ -31,15 +31,15 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 status_name : getCode.getStatus(404)
             })
         }
-         email = req.body.email;
-         password = req.body.password;
+         email = req.body.email.trim();
+         password = req.body.password.trim();
          accessToken = req.body.accessToken;
-         firstName = req.body.firstName;
-         lastName = req.body.lastName == '' ? null : req.body.lastName;
+         firstName = req.body.firstName.trim();
+         lastName = req.body.lastName == '' ? null : req.body.lastName.trim();
          roleId = req.body.role.id
-         mobile = req.body.mobile
+         mobile = req.body.mobile.trim()
          userTypeId = req.body.userType.id
-         gender = req.body.gender
+         gender = req.body.gender.trim()
          userUUid = userUuid.v1()
          createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         

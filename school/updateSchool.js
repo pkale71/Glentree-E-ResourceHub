@@ -24,7 +24,7 @@ let    createdById
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-        if(!req.body.uuid  ){
+        if(!req.body.uuid.trim()  ){
             res.status(404)
             return res.json({
                 "status_code" : 404,
@@ -32,17 +32,17 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 status_name : getCode.getStatus(404)
             })
         }
-        email = req.body.email;
-        name = req.body.name;
+        email = req.body.email.trim();
+        name = req.body.name.trim();
         accessToken = req.body.accessToken;
-        location = req.body.location
-        contact1 = req.body.contact1
-        contact2 = req.body.contact2 == ""?null : req.body.contact2
-        curriculumUpload = req.body.curriculumUpload
+        location = req.body.location.trim()
+        contact1 = req.body.contact1.trim()
+        contact2 = req.body.contact2 == ""?null : req.body.contact2.trim()
+        curriculumUpload = req.body.curriculumUpload.trim()
         syllabusId = req.body.syllabus.id
-        schoolGradeCategory = req.body.gradeCategory 
+        schoolGradeCategory = req.body.gradeCategory.trim() 
         schoolGradeCategoryArray = schoolGradeCategory.split(',')
-        schoolUuid = req.body.uuid
+        schoolUuid = req.body.uuid.trim()
        // schoolUserSettingUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting;
         authData = await commondb.selectToken(accessToken)
