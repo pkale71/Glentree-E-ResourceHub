@@ -24,12 +24,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         chapterUuid = req.body.subjectChapter?.uuid;
         chapter = await db.getSubjectChapter(chapterUuid)
-        console.log(subject)
+        console.log(chapter)
         if(chapter.length == 0){
             res.status(404);
             return res.json({
                 "status_code": 404,
-                "message": `Grade subject not found`,
+                "message": `Chapter not found`,
                 status_name: getCode.getStatus(404)
             });
         }
@@ -38,21 +38,21 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        console.log(name,syllabusGradeSubjectId)
+        console.log(name,chapterId)
 
-        let check = await db.findChapter(name,syllabusGradeSubjectId)
+        let check = await db.findTopic(name,chapterId)
 
         if(check[0].Exist != 0){
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Chapter name '${name}' already present for subject`,
+                "message": `Topic name '${name}' already present for chapter`,
                 status_name: getCode.getStatus(400)
             });
         }
         else{
            
-        let insertChapter = await db.insertSubjectChapter(uuid, syllabusGradeSubjectId, name, isActive)
+        let insertTopic = await db.insertChapterTopic(uuid, syllabusGradeSubjectId, name, isActive)
     
             if (insertChapter.affectedRows > 0) {
                 let returnUuid = await db.returnUuidChapter(insertChapter.insertId)

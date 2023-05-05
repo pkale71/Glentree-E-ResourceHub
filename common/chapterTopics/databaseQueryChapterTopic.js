@@ -19,11 +19,11 @@ db.insertSubjectChapter = (uuid, syllabusGradeSubjectId, name, isActive) => {
         
     });
 }
-db.findChapter = (name,syllabusGradeSubjectId) => {
+db.findTopic = (name,chapterId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(UPPER(chapter_name)) AS Exist FROM syllabus_grade_subject_chapter WHERE  syllabus_grade_subject_id = ? AND UPPER(chapter_name) LIKE UPPER(?)`, [syllabusGradeSubjectId,name], (error, result) => 
+            pool.query(`SELECT COUNT(UPPER(topic_name)) AS Exist FROM syllabus_grade_subject_chapter_topic WHERE  syllabus_grade_subject_chapter_id = ? AND UPPER(topic_name) LIKE UPPER(?)`, [chapterId,name], (error, result) => 
             {
                 if(error)
                 {
