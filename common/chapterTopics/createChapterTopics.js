@@ -40,7 +40,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         accessToken = req.body.accessToken;
         console.log(name,chapterId)
 
-        let check = await db.findTopic(name,chapterId)
+        let check = await db.findTopic(name,chapterId,0)
 
         if(check[0].Exist != 0){
             res.status(400);
