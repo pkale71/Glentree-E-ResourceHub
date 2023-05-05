@@ -45,7 +45,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             })
         }
         chapter = await db.selectChapter(uuid)
-        if(subject.length == 0){
+        if(chapter.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
@@ -53,7 +53,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        chapterId = subject[0].id
+        chapterId = chapter[0].id
         let checkUsed = await db.checkSubjectChapterUsed(chapterId)
         if(checkUsed[0].isExist == 0){
             let check = await db.findChapter(name,syllabusGradeSubjectId)

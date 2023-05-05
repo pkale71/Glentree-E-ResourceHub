@@ -12,8 +12,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
     {
         uuid = req.body.uuid
         accessToken = req.body.accessToken;
-        subject = await db.selectChapter(uuid)
-        if(subject.length == 0){
+        chapter = await db.selectChapter(uuid)
+        if(chapter.length == 0){
             res.status(404)
             return res.json({
                 "status_code"   :   404,
@@ -21,9 +21,9 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        chapterId = subject[0].id
+        chapterId = chapter[0].id
         let checkUsed = await db.checkSubjectChapterUsed(chapterId)
-        if(checkUsed[0].Exist == 0){   
+        if(checkUsed[0].isExist == 0){   
         // console.log(checkUsed,checkUsed[0])
             let deleteSubject = await db.deleteSubjectChapter(uuid,0)
         
