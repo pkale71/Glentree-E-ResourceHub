@@ -54,7 +54,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             })   
         }
         subjectId = subject[0].id
-        let checkUsed = await db.checkSubjectChapterUsed(chapterId)
+        let checkUsed = await db.checkSubjectChapterUsed(subjectId)
         if(checkUsed[0].Exist == 0){
             let check = await db.findChapter(name,syllabusGradeSubjectId)
             console.log(check)

@@ -57,7 +57,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         topicId = topic[0].id
         let checkUsed = await db.checkChapterTopicUsed(topicId)
         if(checkUsed[0].isExist == 0){
-            let check = await db.findTopic(name,topicId)
+            let check = await db.findTopic(name,chapterId)
             console.log(check)
             if(check[0].Exist != 0){
                 res.status(400);
@@ -68,7 +68,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 });
             }
             else{
-               
             let updateTopic = await db.updateChapterTopic(name,uuid, chapterId)
         
                 if (updateTopic.affectedRows > 0) {
