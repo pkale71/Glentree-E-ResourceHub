@@ -291,7 +291,7 @@ db.findDuplicateSection = (academicId,schoolId,gradeId,section) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT COUNT(section) AS Exist FROM school_grade_section WHERE academic_year_id = ? AND school_id = ? AND grade_id = ? AND section LIKE ?`, [academicId,schoolId,gradeId,section], (error, result) => 
+            pool.query(`SELECT COUNT(section) AS Exist FROM school_grade_section WHERE academic_year_id = ? AND school_id = ? AND grade_id = ? AND UPPER(section) LIKE UPPER(?)`, [academicId,schoolId,gradeId,section], (error, result) => 
             {
                 if(error)
                 {

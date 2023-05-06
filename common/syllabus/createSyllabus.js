@@ -7,13 +7,13 @@ let name;
 module.exports = require('express').Router().post('/',async(req,res) => {
     try
     {
-        name = req.body.name.trim()
+        name = req.body.name?.trim()
         if(!req.body.name){
             res.status(404)
             return res.json({
                 "status_code" : 404,
                 "message" : "Provide data to insert",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             })
         }
         insertSyllabus = await db.insertSyllabus(name);
@@ -23,7 +23,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
                 "status_code" : 200,
                 "message" : "success",
                 "data" : {"id" : insertSyllabus.insertId},
-                status_name : getCode.getStatus(200)
+                'status_name' : getCode.getStatus(200)
             })            
 
         }
@@ -32,7 +32,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
             return res.json({
                 "status_code" : 404,
                 "message"     : "Syllabus not inserted",
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             }) 
         }
     } 
@@ -44,7 +44,7 @@ module.exports = require('express').Router().post('/',async(req,res) => {
             return res.json({
                 "status_code"   : 500,
                 "message"       : msg,
-                status_name     : getCode.getStatus(500),
+                "status_name"     : getCode.getStatus(500),
                 "error"         : msg
             }) 
         }else{

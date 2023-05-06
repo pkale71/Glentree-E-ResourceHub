@@ -15,9 +15,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         if(user.length == 0){
             res.status(401)
             return res.json({
-                status_code : 401,
-                message: "Invalid email or password",
-                status_name : getCode.getStatus(401)
+                "status_code" : 401,
+                "message": "Invalid email or password",
+                "status_name" : getCode.getStatus(401)
             })
         }
         user[0]['time'] = Date()
@@ -43,19 +43,19 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }  else{
             res.status(401)
             return res.json({
-                status_code : 401,
-                message: "Invalid email or password",
-                status_name : getCode.getStatus(401)
+                "status_code" : 401,
+                "message": "Invalid email or password",
+                "status_name" : getCode.getStatus(401)
             });
         } 
      
         } catch(e){
             res.status(401)
             return res.json({
-                status_code : 401,
-                message: "Invalid email or password",
-                status_name : getCode.getStatus(401),
-                errror : e.sqlMessage
+                "status_code" : 401,
+                "message": "Invalid email or password",
+                "status_name" : getCode.getStatus(401),
+                "errror" : e.sqlMessage
             });
         }
 

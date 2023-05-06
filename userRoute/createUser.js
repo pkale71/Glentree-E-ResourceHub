@@ -28,18 +28,18 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "Provide all values",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             })
         }
-         email = req.body.email.trim();
-         password = req.body.password.trim();
+         email = req.body.email;
+         password = req.body.password;
          accessToken = req.body.accessToken;
-         firstName = req.body.firstName.trim();
-         lastName = req.body.lastName == '' ? null : req.body.lastName.trim();
+         firstName = req.body.firstName?.trim();
+         lastName = req.body.lastName == '' ? null : req.body.lastName?.trim();
          roleId = req.body.role.id
-         mobile = req.body.mobile.trim()
+         mobile = req.body.mobile
          userTypeId = req.body.userType.id
-         gender = req.body.gender.trim()
+         gender = req.body.gender?.trim()
          userUUid = userUuid.v1()
          createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         
@@ -48,7 +48,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 404,
                     "message" : "School Uuid Missing",
-                    status_name : getCode.getStatus(404)
+                    "status_name" : getCode.getStatus(404)
                 })
             }
          schoolUuid = req.body.role.id==2?req.body.school.uuid:null
@@ -71,7 +71,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                    return res.json({
                     "status_code" : 401,
                     "message" : "Invalid token",
-                    status_name : getCode.getStatus(401)
+                    "status_name" : getCode.getStatus(401)
                    })
                }
          
@@ -85,7 +85,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                                    "status_code" : 200,
                                    "message" : "success",
                                    "data" : { "uuid" : returnUuid[0].uuid},
-                                   status_name : getCode.getStatus(200)
+                                   "status_name" : getCode.getStatus(200)
                                })            
            
                            }
@@ -94,7 +94,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                                return res.json({
                                    "status_code" : 500,
                                    "message" : "Insertion Failed",
-                                   status_name : getCode.getStatus(500)
+                                   "status_name" : getCode.getStatus(500)
                                }) 
                            }
                
@@ -109,7 +109,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : msg,
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :    msg
                 }) 
             }else{
@@ -117,7 +117,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : "User not created",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

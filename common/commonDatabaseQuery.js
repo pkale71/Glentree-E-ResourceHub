@@ -47,7 +47,7 @@ commondb.selectToken = (authToken) =>{
 
 commondb.dupEmail = (email) => {
     return new Promise((resolve, reject)=>{
-        try{pool.query(`SELECT COUNT(email) AS Exist , uuid FROM user WHERE email LIKE ?`, [email], (error, result)=>{
+        try{pool.query(`SELECT COUNT(email) AS Exist , uuid FROM user WHERE UPPER(email) LIKE UPPER(?)`, [email], (error, result)=>{
             if(error){
             return reject(error);
              }          

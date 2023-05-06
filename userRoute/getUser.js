@@ -22,7 +22,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
             res.status(401)
            return res.json({
                message: "Invalid token provided",
-               status_name : getCode.getStatus(401),
+               "status_name" : getCode.getStatus(401),
                "status_code"  :       401
            })
        }     
@@ -32,7 +32,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
             return res.json({
                 "status_code" : 401,
                 "message" : "Invalid token",
-                status_name : getCode.getStatus(401),
+                "status_name" : getCode.getStatus(401),
                 }) 
          }
          userUUID = req.params.userUUID
@@ -41,7 +41,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "User not found",
-                status_name : getCode.getStatus(404)
+                'status_name' : getCode.getStatus(404)
             })
          }
          userId = authData[0].userId
@@ -53,7 +53,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
                 return res.json({
                     "status_code" : 404,
                     "message" : "User not found",
-                    status_name : getCode.getStatus(404)
+                    "status_name" : getCode.getStatus(404)
                 })
             }
                 useUser.setDataAll(user[0])
@@ -62,7 +62,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
                     "status_code" : 200,
                     "data" :{ user : useUser.getDataAll()},
                     "message" : 'success',
-                    status_name : getCode.getStatus(200)
+                    "status_name" : getCode.getStatus(200)
                 })
                
         }
@@ -72,7 +72,7 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res)=>{
                 return res.json({
                     "status_code" : 500,
                     "message" : "User not found",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
            

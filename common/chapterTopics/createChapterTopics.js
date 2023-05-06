@@ -19,7 +19,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": `Provide all values`,
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
         chapterUuid = req.body.subjectChapter?.uuid;
@@ -30,11 +30,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": `Chapter not found`,
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
         chapterId = chapter[0].id
-        name = req.body.name;
+        name = req.body.name?.trim();
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
@@ -47,7 +47,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 400,
                 "message": `Topic name '${name}' already present for chapter`,
-                status_name: getCode.getStatus(400)
+                "status_name": getCode.getStatus(400)
             });
         }
         else{
@@ -62,7 +62,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_code": 200,
                     "message": "success",
                     "data" :{ "uuid" : returnUuid[0].uuid},
-                    status_name: getCode.getStatus(200)
+                    "status_name": getCode.getStatus(200)
                 });
             }
             else{
@@ -70,7 +70,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code": 500,
                     "message": "Topic not created",
-                    status_name: getCode.getStatus(500)
+                    "status_name": getCode.getStatus(500)
                 });
             }
         }
@@ -83,7 +83,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -91,7 +91,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "Topic not created",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

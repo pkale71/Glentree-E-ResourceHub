@@ -1,9 +1,11 @@
 const express =require('express');
 const commonRoute = express.Router();
+let    errorCode = require('./errorCode')
+let    getCode = new errorCode()
 
 commonRoute.use( '/getSyllabuses',require('../authentication/validateToken'),require('./syllabus/getSyllabus'))
 commonRoute.use( '/deleteSyllabus',require('../authentication/validateToken'),require('./syllabus/deleteSyllabus'))
-commonRoute.use( '/createSyllabus',require('../authentication/validateToken'),require('./syllabus/insertSyllabus'))
+commonRoute.use( '/createSyllabus',require('../authentication/validateToken'),require('./syllabus/createSyllabus'))
 commonRoute.use( '/getGradeCategories',require('../authentication/validateToken'),require('./gradeCategory/getGradeCategory'))
 commonRoute.use( '/getRoles',require('../authentication/validateToken'),require('./role/getRoles'))
 commonRoute.use( '/getUserTypes',require('../authentication/validateToken'),require('./userType/getUserTypes'))
@@ -22,9 +24,9 @@ commonRoute.use( '/changeGradeSubjectStatus',require('../authentication/validate
 commonRoute.use( '/deleteGradeSubject',require('../authentication/validateToken'),require('./gradeSubject/deleteGradeSubject'))
 commonRoute.use( '/getGradeSubject',require('../authentication/validateToken'),require('./gradeSubject/getGradeSubject'))
 commonRoute.use( '/getGradeSubjects',require('../authentication/validateToken'),require('./gradeSubject/getGradeSubjects'))
-commonRoute.use( '/createSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/createSubjectchapter'))
+commonRoute.use( '/createSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/createSubjectChapter'))
 commonRoute.use( '/deleteSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/deleteSubjectChapter'))
-commonRoute.use( '/updateSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/updateSubjectchapter'))
+commonRoute.use( '/updateSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/updateSubjectChapter'))
 commonRoute.use( '/getSubjectChapters',require('../authentication/validateToken'),require('./subjectChapters/getSubjectChapters'))
 commonRoute.use( '/getSubjectChapter',require('../authentication/validateToken'),require('./subjectChapters/getSubjectChapter'))
 commonRoute.use( '/changeSubjectChapterStatus',require('../authentication/validateToken'),require('./subjectChapters/changeStatusChapter'))
@@ -34,5 +36,16 @@ commonRoute.use( '/deleteChapterTopic',require('../authentication/validateToken'
 commonRoute.use( '/changeChapterTopicStatus',require('../authentication/validateToken'),require('./chapterTopics/changeStatusTopic'))
 commonRoute.use( '/getChapterTopic',require('../authentication/validateToken'),require('./chapterTopics/getChapterTopic'))
 commonRoute.use( '/getChapterTopics',require('../authentication/validateToken'),require('./chapterTopics/getChapterTopics'))
+
+
+commonRoute.use('/',(req,res,next)=>{
+    console.log(req.baseUrl,next())
+    return res.status(400).json({
+        "status_code" : 400,
+        "message" : "Something went wrong",
+        "status_name" : getCode.getStatus(400)
+    }) 
+})
+
 
 module.exports = commonRoute

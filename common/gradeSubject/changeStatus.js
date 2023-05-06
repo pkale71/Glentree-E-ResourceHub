@@ -10,7 +10,7 @@ let subjectUUID;
 module.exports = require('express').Router().get('/:subjectUUID',async(req,res) =>  {
     try
     {
-        subjectUUID = req.params.subjectUUID.trim()
+        subjectUUID = req.params.subjectUUID
         
         subject = await db.selectSubject(subjectUUID)
         if(subject.length == 0){
@@ -29,7 +29,7 @@ module.exports = require('express').Router().get('/:subjectUUID',async(req,res) 
             return res.json({
                 "status_code" : 200,
                 "message"     : 'success',
-                status_name   : getCode.getStatus(200)
+                "status_name"   : getCode.getStatus(200)
             })
         } 
     } 

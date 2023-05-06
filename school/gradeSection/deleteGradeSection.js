@@ -12,7 +12,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        uuid = req.body.uuid.trim()
+        uuid = req.body.uuid
         accessToken = req.body.accessToken;
         gradeSection = await db.getGradeSection(uuid)
         if(gradeSection.length == 0){
@@ -20,7 +20,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": "Grade section not present",
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
 
@@ -34,7 +34,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code": 200,
                     "message": "success",
-                    status_name: getCode.getStatus(200)
+                    "status_name": getCode.getStatus(200)
                 });
             }
             else{
@@ -42,16 +42,16 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code": 500,
                     "message": "Grade section not deleted",
-                    status_name: getCode.getStatus(500)
+                    "status_name": getCode.getStatus(500)
                 });
             }
         }
         else{
-            res.status(500);
+            res.status(400);
             return res.json({
-                "status_code": 500,
-                "message": "Grade section is in use.",
-                status_name: getCode.getStatus(500)
+                "status_code": 400,
+                "message": "Grade section is already in use.",
+                "status_name": getCode.getStatus(400)
             });
         }
       
@@ -64,7 +64,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -72,7 +72,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "Grade section not deleted",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

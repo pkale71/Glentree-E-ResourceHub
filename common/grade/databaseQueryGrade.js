@@ -7,10 +7,13 @@ db.getGrades = () => {
         try
         {
             pool.query(`SELECT g.id, g.name, g.grade_category_id, 
-            gc.name AS gradeCategoryName 
+            gc.name AS gradeCategoryName ,
+             (SELECT COUNT(sgs.grade_id)  FROM syllabus_grade_subject  sgs
+			WHERE grade_id = g.id)  AS Exist, (SELECT COUNT(sgc.grade_id)   FROM  school_grade_section sgc
+			WHERE grade_id = g.id) AS isExist
             from grade g 
             LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
-            ORDER BY g.grade_category_id, g.id`,(error, result) => 
+            ORDER BY  g.id`,(error, result) => 
             {
                 if(error)
                 {
@@ -29,11 +32,14 @@ db.getGrade = (id) => {
         try
         {
             pool.query(`SELECT g.id, g.name, g.grade_category_id, 
-            gc.name AS gradeCategoryName 
+            gc.name AS gradeCategoryName,
+            (SELECT COUNT(sgs.grade_id)  FROM syllabus_grade_subject  sgs
+			WHERE grade_id = g.id)  AS Exist, (SELECT COUNT(sgc.grade_id)   FROM  school_grade_section sgc
+			WHERE grade_id = g.id) AS isExist
             from grade g 
             LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
             WHERE g.id = ?
-            ORDER BY g.grade_category_id, g.id`,[id],(error, result) => 
+            ORDER BY g.id`,[id],(error, result) => 
             {
                 if(error)
                 {
@@ -101,10 +107,11 @@ db.selectSchool = (id) => {
     });
 }
 
-db.selectUsedGrade = (id) => {
+db.checkGradeUsed = (id) => {
     return new Promise((resolve, reject)=>{
-        try{pool.query(`SELECT COUNT(grade_id) AS Exist  FROM syllabus_grade_subject 
-        WHERE grade_id = ?`, [id], (error, result)=>{
+        try{pool.query(`SELECT (SELECT COUNT(grade_id)  FROM syllabus_grade_subject 
+        WHERE grade_id = ?)  AS Exist,  COUNT(grade_id) AS isExist  FROM  school_grade_section 
+        WHERE grade_id = ?`, [id,id], (error, result)=>{
             if(error){
             return reject(error);
              }          
@@ -116,20 +123,20 @@ db.selectUsedGrade = (id) => {
         });
 }
 
-db.selectUsedGradeSection = (id) => {
-    return new Promise((resolve, reject)=>{
-        try{pool.query(`SELECT COUNT(grade_id) AS Exist  FROM school_grade_section 
-        WHERE grade_id = ?`, [id], (error, result)=>{
-            if(error){
-            return reject(error);
-             }          
-            return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
+// db.selectUsedGradeSection = (id) => {
+//     return new Promise((resolve, reject)=>{
+//         try{pool.query(`SELECT COUNT(grade_id) AS Exist  FROM school_grade_section 
+//         WHERE grade_id = ?`, [id], (error, result)=>{
+//             if(error){
+//             return reject(error);
+//              }          
+//             return resolve(result);
+//             });
+//         }
+//         catch(e){ console.log(e)}
         
-        });
-}
+//         });
+// }
 
 db.updateGrade = (id,name, gradeCategoryId) => {
     return new Promise((resolve, reject)=>{

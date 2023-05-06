@@ -20,11 +20,11 @@ class grade {
     setDataAll(data)
     {
         this.id                 =   data.id
-        this.name               =   data.name.trim()
-        this.isExist            =   data.isExist
+        this.name               =   data.name?.trim()
+        this.isExist            =   (data.isExist == 0 && data.Exist == 0) ? 0 : 1
         this.gradeCategory      =   {
                                         "id"    :   data.grade_category_id,
-                                        "name"  :   data.gradeCategoryName.trim()
+                                        "name"  :   data.gradeCategoryName?.trim()
                                     }
     }
 

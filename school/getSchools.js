@@ -33,7 +33,7 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
                     "status_code" : 200,
                     "data"        : {'schools' : schoolList},
                     "message"     : 'success',
-                    status_name   : getCode.getStatus(200)
+                    "status_name"   : getCode.getStatus(200)
                 })
             } 
         })

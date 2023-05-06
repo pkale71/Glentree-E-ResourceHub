@@ -18,7 +18,7 @@ class userType {
     setData(data)
     {
         this.id     =   data.id
-        this.name   =   data.name.trim()
+        this.name   =   data.name?.trim()
         this.code   =   data.code
         
     }
@@ -27,7 +27,7 @@ class userType {
     {
         return {
             id      :      this.id,
-            name    :      this.name.trim(),
+            name    :      this.name?.trim(),
             code    :      this.code
         }
     }
@@ -35,7 +35,7 @@ class userType {
     setDataAll(data)
     {
         this.id     =   data.id
-        this.name   =   data.name.trim()
+        this.name   =   data.name?.trim()
         this.code   =   data.code
         this.role   =   {
                             id     :   data.role_id,

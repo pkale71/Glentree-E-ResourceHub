@@ -39,7 +39,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             return res.json({
                 "status_code" : 404,
                 "message"     : 'Provide grade Category id',
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             })
         }
        
@@ -62,7 +62,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             return res.json({
                 "status_code" : 404,
                 "message"     : 'Academic year not found',
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             })
         }
 
@@ -73,7 +73,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
             return res.json({
                 "status_code" : 404,
                 "message"     : 'School not found',
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             })
         }
         schoolId = school[0].id
@@ -85,7 +85,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 return res.json({
                     "status_code" : 404,
                     "message"     : 'Grade not found',
-                    status_name   : getCode.getStatus(404)
+                    "status_name"   : getCode.getStatus(404)
                 })
             }
            // console.log("***")
@@ -97,7 +97,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 return res.json({
                     "status_code" : 404,
                     "message"     : 'Grade section not found',
-                    status_name   : getCode.getStatus(404)
+                    "status_name"   : getCode.getStatus(404)
                 })
             }
             Array.from(section).forEach(async(ele) => {
@@ -112,7 +112,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                         "status_code" : 200,
                         "data"        : {'gradeSections' : sections.getData()},
                         "message"     : 'success',
-                        status_name   : getCode.getStatus(200)
+                        "status_name"   : getCode.getStatus(200)
                     })
                 }
             })
@@ -125,7 +125,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 return res.json({
                     "status_code" : 404,
                     "message"     : 'Grade Category not found',
-                    status_name   : getCode.getStatus(404)
+                    'status_name'   : getCode.getStatus(404)
                 })
             }
             gradeId = await db.getGradeId(gradeCategoryId)
@@ -134,7 +134,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 return res.json({
                     "status_code" : 404,
                     "message"     : 'Grade section not found',
-                    status_name   : getCode.getStatus(404)
+                    "status_name"   : getCode.getStatus(404)
                 })
             }
          
@@ -181,7 +181,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                             "status_code" : 200,
                             "data"        : {'gradeSections' : copySectionList[0]},
                             "message"     : "success",
-                            status_name   : getCode.getStatus(200)
+                            "status_name"   : getCode.getStatus(200)
                         })
                     
                    

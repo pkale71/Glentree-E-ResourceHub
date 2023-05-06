@@ -14,24 +14,24 @@ class chapterTopic {
     setDataAll(data)
     {
         this.uuid  = data.uuid
-        this.name = data.topic_name.trim(),
+        this.name = data.topic_name?.trim(),
         this.isActive = data.is_active,
         this.isExist = data.isExist
         this.subjectChapter = {
         "uuid"  : data.chapterUuid,
-        "name" : data.chapter_name.trim(),
+        "name" : data.chapter_name?.trim(),
         "active" : data.chapterIsActive,
         "gradeSubject" : {
             "uuid"    : data.subUuid,
-            "name"   : data.subject_name.trim(),
+            "name"   : data.subject_name?.trim(),
             "active" : data.subIsActive,
             "syllabus"      :   {
                                         "id"    :   data.syllabus_id,
-                                        "name"  :   data.syllabusName.trim()
+                                        "name"  :   data.syllabusName?.trim()
                                     },
             "grade"        :  {
                                         "id"    :   data.grade_id,
-                                        "name"  :   data.gradeName.trim()
+                                        "name"  :   data.gradeName?.trim()
                                     }
         }
         }

@@ -3,6 +3,8 @@ let dotenv = require('dotenv')
 let cors = require('cors')
 let bodyparser = require('body-parser')
 let jwt = require('jsonwebtoken')
+let    errorCode = require('./common/errorCode')
+let    getCode = new errorCode()
 
 let app = express()
 app.use(cors())
@@ -126,3 +128,14 @@ app.use('/changePassword',require('./authentication/validateToken'),require('./a
 app.use('/user',require('./userRoute/userRoute'))
 app.use('/common',require('./common/commonRoute'))
 app.use('/school',require('./school/schoolRoute'))
+
+
+
+app.use('/',(req,res,next)=>{
+    console.log(req.baseUrl,next())
+    return res.status(400).json({
+        "status_code" : 400,
+        "message" : "Something went wrong",
+        "status_name" : getCode.getStatus(400)
+    }) 
+})

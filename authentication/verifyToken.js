@@ -15,8 +15,8 @@ async function  verifyToken  (req, res, next){
          if(!token){
             res.status(401)
             return res.json({
-                message: "Provide Token",
-                status_name : getCode.getStatus(401),
+                "message": "Provide Token",
+                "status_name" : getCode.getStatus(401),
                 "status_code"   :  401
             })
          }
@@ -29,8 +29,8 @@ async function  verifyToken  (req, res, next){
          if(accessToken.length == 0){
             res.status(401)
             return res.json({
-                message: "Invalid Token",
-                status_name : getCode.getStatus(401),
+                "message": "Invalid Token",
+                "status_name" : getCode.getStatus(401),
                 "status_code"   :  401
             })
         }
@@ -39,8 +39,8 @@ async function  verifyToken  (req, res, next){
         if(authData.length == 0){
             res.status(401)
             return res.json({
-                message: "Invalid Token",
-                status_name : getCode.getStatus(401),
+                "message": "Invalid Token",
+                "status_name" : getCode.getStatus(401),
                 "status_code"   :  401
             })
         }
@@ -53,8 +53,8 @@ async function  verifyToken  (req, res, next){
                 console.log("1****")
                 res.status(401)
                 return res.json({
-                    message: "Invalid Token",
-                    status_name : getCode.getStatus(401),
+                    "message": "Invalid Token",
+                    "status_name" : getCode.getStatus(401),
                     "status_code"   :  401
                 })
             }
@@ -101,7 +101,7 @@ async function  verifyToken  (req, res, next){
                 // Access Denied
                 return res.json({
                     'message'       :       `Unauthenticated User "${email}"`,
-                    status_name : getCode.getStatus(401),
+                    "status_name" : getCode.getStatus(401),
                     "status_code"   :       401
                 });
             }
@@ -114,7 +114,7 @@ async function  verifyToken  (req, res, next){
             res.status(401)
             return res.json({
                 'message'       :       `Unauthenticated User "${email}"`,
-                status_name : getCode.getStatus(401),
+                "status_name" : getCode.getStatus(401),
                 "status_code"   :       401
             });
         }
@@ -125,7 +125,7 @@ async function  verifyToken  (req, res, next){
         res.status(401)
         return res.json({
             'message'       :       `Unauthoried User "${email}"`,
-            status_name     :       getCode.getStatus(401),
+            "status_name"     :       getCode.getStatus(401),
             "status_code"   :       401,
             "error"         :       error
         });

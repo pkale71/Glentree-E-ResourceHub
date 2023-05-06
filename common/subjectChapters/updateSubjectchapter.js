@@ -16,7 +16,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": `Provide all values`,
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
         syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
@@ -27,11 +27,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": `Grade subject not found`,
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
         syllabusGradeSubjectId = subjectData[0].id
-        name = req.body.name.trim();
+        name = req.body.name?.trim();
         isActive = 1;
         uuid = req.body.uuid
         accessToken = req.body.accessToken;
@@ -65,7 +65,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code": 400,
                     "message": `Chapter name  already present for subject`,
-                    status_name: getCode.getStatus(400)
+                    "status_name": getCode.getStatus(400)
                 });
             }
             else{
@@ -77,7 +77,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     return res.json({
                         "status_code": 200,
                         "message": "success",
-                        status_name: getCode.getStatus(200)
+                        "status_name": getCode.getStatus(200)
                     });
                 }
                 else{
@@ -85,7 +85,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     return res.json({
                         "status_code": 500,
                         "message": "Chapter not updated",
-                        status_name: getCode.getStatus(500)
+                        "status_name": getCode.getStatus(500)
                     });
                 }
             }
@@ -94,8 +94,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Chapter name is in use`,
-                status_name: getCode.getStatus(400)
+                "message": `Chapter name is already in use`,
+                "status_name": getCode.getStatus(400)
             });
         }
         
@@ -108,7 +108,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -116,7 +116,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "Chapter not updated",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

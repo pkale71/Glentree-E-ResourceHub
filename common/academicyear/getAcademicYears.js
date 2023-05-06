@@ -11,7 +11,8 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
     {
         academicYear = await db.getAcademicYears(0,0)
         academicYearList = [];
-        if(academicYear.length == 0){
+        if(academicYear.length == 0)
+        {
             res.status(200)
             return res.json({
                 "status_code"   :   200,
@@ -20,18 +21,19 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
                 "status_name"   :   getCode.getStatus(200),
             })   
         }
-        await Array.from(academicYear).forEach(ele  =>  {
+        Array.from(academicYear).forEach(ele  =>  {
             academicYears.setDataAll(ele)
             academicYearList.push(academicYears.getDataAll())
         })
 
-        if(academicYear.length == academicYearList.length){
+        if(academicYear.length == academicYearList.length)
+        {
             res.status(200)
             return res.json({
                 "status_code" : 200,
                 "data"        : {'academicYears' : academicYearList},
                 "message"     : 'success',
-                status_name   : getCode.getStatus(200)
+                "status_name"   : getCode.getStatus(200)
             })
         } 
     } 

@@ -17,11 +17,11 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 404,
                 "message": `Provide all values`,
-                status_name: getCode.getStatus(404)
+                "status_name": getCode.getStatus(404)
             });
         }
         syllabusId = req.body.syllabus?.id;
-        name = req.body.name.trim();
+        name = req.body.name?.trim();
         gradeId = req.body.grade?.id;
         isActive = 1;
         uuid = createUuid.v1()
@@ -33,7 +33,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 400,
                 "message": `Subject name '${name}' already present for grade`,
-                status_name: getCode.getStatus(400)
+                "status_name": getCode.getStatus(400)
             });
         }
         else{
@@ -47,7 +47,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_code": 200,
                     "message": "success",
                     "data" :{ "uuid" : returnUuid[0].uuid},
-                    status_name: getCode.getStatus(200)
+                    "status_name": getCode.getStatus(200)
                 });
             }
             else{
@@ -55,7 +55,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code": 500,
                     "message": "Grade subject not created",
-                    status_name: getCode.getStatus(500)
+                    "status_name": getCode.getStatus(500)
                 });
             }
         }
@@ -68,7 +68,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -76,7 +76,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "Grade subject not created",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

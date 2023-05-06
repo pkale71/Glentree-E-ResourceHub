@@ -14,7 +14,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "Id not given",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             })
         }
         isInSchool = await db.selectSchool(id)
@@ -27,7 +27,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 400,
                 "message" : "Syllabus already linked with some schools",
-                status_name : getCode.getStatus(400)
+                "status_name" : getCode.getStatus(400)
             }) 
         }
         deleteSyllabus = await db.deleteSyllabus(id);
@@ -36,7 +36,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 200,
                 "message" : "success",
-                status_name : getCode.getStatus(200)
+                "status_name" : getCode.getStatus(200)
             })            
 
         }
@@ -45,7 +45,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "Syllabus not deleted",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             }) 
         } 
     

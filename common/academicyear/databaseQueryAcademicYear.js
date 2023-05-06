@@ -2,6 +2,18 @@ let pool = require('../../databaseConnection/createconnection');
 const gradeCategory = require('../../models/gradeCategory');
 let db = {};
  
+
+// For dependent queries
+// var pool = require('mysql').createPool(opts);
+
+// pool.getConnection(function(err, conn) {
+//     conn.query('select 1+1', function(err, res) {
+//         conn.release();
+//     });
+// });
+
+
+
 db.getAcademicYears = (uuid,id) => {
     return new Promise((resolve, reject)=>{
         try
@@ -115,11 +127,12 @@ db.deleteAcademicYear = (uuid) => {
     });
 }
 
-db.selectSchool = (id) => {
+db.checkAcademicYearUsed = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM school WHERE syllabus_id = ?", [id], (error, result) => 
+            pool.query(`SELECT IF(count(utss.id) > 0,1,0) AS Exist FROM user_teach_subject_section utss
+            where utss.academic_year_id = (select ay.id from academic_year ay where uuid = ?)`, [uuid], (error, result) => 
             {
                 if(error)
                 {

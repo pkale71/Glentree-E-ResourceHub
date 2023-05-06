@@ -15,11 +15,11 @@ class schoolGradeCategory {
     {
         this.school             =   {
                                         "uuid"    : data.schoolUuid,
-                                        "name"  : data.schoolName.trim()
+                                        "name"  : data.schoolName?.trim()
                                     }
         this.gradeCategory      =   {
                                         "id" : data.gradeId,
-                                        "name" : data.gradeName.trim()
+                                        "name" : data.gradeName?.trim()
                                     }
     }
 

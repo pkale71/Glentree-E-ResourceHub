@@ -22,7 +22,7 @@ class gradeSection {
     setGrade(data){
         this.grade   =    {
                             "id"    : data.grade_id,
-                            "name"  : data.gradeName.trim(),
+                            "name"  : data.gradeName?.trim(),
                             "sections" : data.sections
                         }
                         // this.grade   = data?   {
@@ -44,14 +44,14 @@ class gradeSection {
                                 }
         this.school         =   {
                                     "uuid"    :   data.schoolUuid,
-                                    "name"  :   data.schoolName.trim()
+                                    "name"  :   data.schoolName?.trim()
                                 }
         this.gradeCategory      =   {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName.trim(),
+                                    "name"  :   data.gradeCatName?.trim(),
                                     "grades" :   {
                                                     "id"         :   data.grade_id,
-                                                    "name"       :   data.gradeName.trim(),
+                                                    "name"       :   data.gradeName?.trim(),
                                                     "sections"    :   data.gradeSection
                                                 }
                                 }
@@ -74,11 +74,11 @@ class gradeSection {
                                 }
         this.school         =   {
                                     "uuid"    :   data.schoolUuid,
-                                    "name"  :   data.schoolName.trim()
+                                    "name"  :   data.schoolName?.trim()
                                 }
         this.gradeCategory  =  {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName.trim(),
+                                    "name"  :   data.gradeCatName?.trim(),
                                     "grades" :   data.grade
                                 }
         //                         this.academic       =  data ? {
@@ -109,7 +109,7 @@ class gradeSection {
        
         this.gradeCategory  =  {
                                     "id"    :   data.gradeCategoryId,
-                                    "name"  :   data.gradeCatName.trim(),
+                                    "name"  :   data.gradeCatName?.trim(),
                                     "grade" :   data.grade
                                 }
                                 // this.gradeCategory  = data?  {

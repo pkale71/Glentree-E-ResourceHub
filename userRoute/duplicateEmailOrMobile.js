@@ -19,7 +19,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : `Duplicate ${checkFor}`,
-                status_name : getCode.getStatus(500)
+                "status_name" : getCode.getStatus(500)
             })            
 
         }
@@ -28,7 +28,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 200,
                 "message" : "success",
-                status_name : getCode.getStatus(200)
+                "status_name" : getCode.getStatus(200)
             }) 
         } 
     

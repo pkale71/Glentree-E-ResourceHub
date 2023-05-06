@@ -16,8 +16,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        academicUuid = req.body.academicYear?.uuid.trim();
-        schoolUuid = req.body.school?.uuid.trim();
+        academicUuid = req.body.academicYear?.uuid
+        schoolUuid = req.body.school?.uuid
         gradeId = req.body.grade?.id;
         count = req.body.count;
         uuid = createUuid.v1()
@@ -29,7 +29,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code" : 404,
                 "message"     : 'Academic year not found',
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             })
         }
         academicId = academic[0].id
@@ -40,7 +40,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code" : 404,
                 "message"     : 'School not found',
-                status_name   : getCode.getStatus(404)
+                "status_name"   : getCode.getStatus(404)
             })
         }
         schoolId = school[0].id
@@ -59,7 +59,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             return res.json({
                 "status_code": 200,
                 "message": "success",
-                status_name: getCode.getStatus(200)
+                "status_name": getCode.getStatus(200)
             });
         }
         } catch(e){
@@ -71,7 +71,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -79,7 +79,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "Grade section not created",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }

@@ -16,7 +16,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             res.status(401)
             return res.json({
                 message: "Invalid token provided",
-                status_name : getCode.getStatus(401),
+                "status_name" : getCode.getStatus(401),
                 "status_code"  :       401
             })
         }        
@@ -36,7 +36,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
                     return res.json({
                         "status_code" : 404,
                         "message" : "Logout Failed, user not found",
-                        status_name : getCode.getStatus(404)
+                        "status_name" : getCode.getStatus(404)
                     }) 
                 }   
         } catch(e){
@@ -44,7 +44,7 @@ module.exports = require('express').Router().get('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : "Logout Failed",
-                 status_name : getCode.getStatus(500),
+                 "status_name" : getCode.getStatus(500),
                 "error"     : e.sqlMessage
             }) 
         }

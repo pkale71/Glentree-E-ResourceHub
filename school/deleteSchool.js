@@ -17,11 +17,11 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "Missing values",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             })
         }
         accessToken = req.body.accessToken;
-        schoolUuid = req.params.schoolUUID.trim()
+        schoolUuid = req.params.schoolUUID
         authData = await commondb.selectToken(accessToken)
         createdById = authData[0].userId
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -32,7 +32,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 404,
                     "message" : "Provide valid school uuid number",
-                    status_name : getCode.getStatus(404),
+                    "status_name" : getCode.getStatus(404),
                 })
             }
             schoolId = school[0].id
@@ -54,7 +54,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     return res.json({
                         "status_code" : 200,
                         "message" : `success`,
-                        status_name : getCode.getStatus(200)
+                        "status_name" : getCode.getStatus(200)
                        })
                 }
                 else{
@@ -62,7 +62,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     return res.json({
                         "status_code" : 500,
                         "message" : `School not deleted.`,
-                        status_name : getCode.getStatus(500)
+                        "status_name" : getCode.getStatus(500)
                        })
                 }
             }
@@ -71,7 +71,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 400,
                     "message" : `School is currently on use, so cannot be deleted.`,
-                    status_name : getCode.getStatus(400)
+                    "status_name" : getCode.getStatus(400)
                    })
             }
         }   
@@ -80,7 +80,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : "School not deleted",
-                status_name : getCode.getStatus(500),
+                'status_name' : getCode.getStatus(500),
                 "error"     :      e.sqlMessage
             }) 
         }

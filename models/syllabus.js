@@ -17,7 +17,7 @@ class syllabus {
     setDataAll(data)
     {
         this.id     =   data.id
-        this.name   =   data.name.trim()
+        this.name   =   data.name?.trim()
         this.isExist    = data.isExist
     }
 

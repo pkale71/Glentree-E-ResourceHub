@@ -17,7 +17,7 @@ class gradeCategory {
     setDataAll(data)
     {
         this.id     =   data.id
-        this.name   =   data.name.trim()
+        this.name   =   data.name?.trim()
     }
 
     getDataAll()

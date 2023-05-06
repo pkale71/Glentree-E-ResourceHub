@@ -48,14 +48,14 @@ class user {
 
     setData(data){
         this.uuid           =   data.uuid
-        this.fullName       =   data.fullName.trim()
+        this.fullName       =   data.fullName?.trim()
         this.role           =   {
                                     id     :   data.role_id,
-                                    name   :   data.role_name.trim()
+                                    name   :   data.role_name?.trim()
                                 }
         this.userType       =   {
                                     id     :   data.user_type_id,
-                                    name    :   data.user_type_name.trim(),
+                                    name    :   data.user_type_name?.trim(),
                                     code    :   data.user_type_code
                                 }
         this.email          =   data.email
@@ -84,16 +84,16 @@ class user {
 
     setDataAll(data){
         this.uuid           =   data.uuid
-        this.fullName       =   data.fullName.trim()
-        this.firstName      =   data.first_name.trim()
-        this.lastName       =   data.last_name.trim()
+        this.fullName       =   data.fullName?.trim()
+        this.firstName      =   data.first_name?.trim()
+        this.lastName       =   data.last_name?.trim()
         this.role           =   {
                                     id     :   data.role_id,
-                                    name   :   data.role_name.trim()
+                                    name   :   data.role_name?.trim()
                                 }
         this.userType       =   {
                                     id     :   data.user_type_id,
-                                    name    :   data.user_type_name.trim(),
+                                    name    :   data.user_type_name?.trim(),
                                     code    :   data.user_type_code
                                 }
         this.email          =   data.email
@@ -103,17 +103,17 @@ class user {
         this.active       =     data.isActive
         this.createdBy      =   data.createdById == null ? null : {
                                     'uuid'    :   data.createdbyUuid,
-                                    'fullName' :  data.createdfullName.trim()
+                                    'fullName' :  data.createdfullName?.trim()
                                 }
 
         this.deletedBy      =    data.deleted_by_id == null ? null : {
                                     'uuid'    :   data.deletedbyUuid,
-                                    'fullName' :  data.deletedfullName.trim()
+                                    'fullName' :  data.deletedfullName?.trim()
                                 }
         this.gender         =   data.gender,
         this.school         =   {
                                     "uuid" : data.schoolUuid,
-                                    "name" : data.schoolName.trim() 
+                                    "name" : data.schoolName?.trim() 
                                 }
     }
 

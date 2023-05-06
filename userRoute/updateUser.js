@@ -19,23 +19,23 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 404,
                 "message" : "Missing values",
-                status_name : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(404)
             })
         }
          accessToken = req.body.accessToken;
-         firstName = req.body.firstName.trim() 
-         lastName = req.body.lastName.trim() 
+         firstName = req.body.firstName?.trim() 
+         lastName = req.body.lastName?.trim() 
          userTypeId = req.body.userType.id
-         gender = req.body.gender.trim()
-         uuid   =   req.body.uuid.trim()
-         email = req.body.email.trim()
-         mobile = req.body.mobile.trim()
+         gender = req.body.gender?.trim()
+         uuid   =   req.body.uuid
+         email = req.body.email
+         mobile = req.body.mobile
             if(req.body.role.id==2 && !req.body.school.uuid){
                 res.status(404)
                 return res.json({
                     "status_code" : 404,
                     "message" : "School uuid Missing",
-                    status_name : getCode.getStatus(404),
+                    "status_name" : getCode.getStatus(404),
                 })
             }
          schoolUuid = req.body.role.id==2?req.body.school.uuid:null
@@ -47,7 +47,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 return res.json({
                     "status_code" : 404,
                     "message" : "Provide valid school uuid number",
-                    status_name : getCode.getStatus(404),
+                    "status_name" : getCode.getStatus(404),
                 })
             }
             schoolId = schoolId[0].id
@@ -60,7 +60,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 message: "User not found",
                 "status_code" : 404,
-                status_name : getCode.getStatus(404),
+                "status_name" : getCode.getStatus(404),
             })
         }
          if(uuid){
@@ -71,7 +71,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                            return res.json({
                                "status_code" : 200,
                                "message" : "success",
-                               status_name : getCode.getStatus(200),
+                               "status_name" : getCode.getStatus(200),
                            })            
        
                        }
@@ -80,7 +80,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                            return res.json({
                                "status_code" : 500,
                                "message" : "User not updated",
-                               status_name : getCode.getStatus(500),
+                               "status_name" : getCode.getStatus(500),
                            }) 
                        }
            
@@ -91,7 +91,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             return res.json({
                 "status_code" : 500,
                 "message" : "User not updated",
-                status_name : getCode.getStatus(500),
+                "status_name" : getCode.getStatus(500),
                 "error"     :      e.sqlMessage
             }) 
         }

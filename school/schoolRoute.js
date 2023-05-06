@@ -1,5 +1,7 @@
 const express =require('express');
 const schoolRouter = express.Router();
+let    errorCode = require('../common/errorCode')
+let    getCode = new errorCode()
 
 schoolRouter.use( '/getSchools',require('../authentication/validateToken'),require('./getSchools'))
 schoolRouter.use( '/createSchool',require('../authentication/validateToken'),require('./createSchool'))
@@ -12,6 +14,19 @@ schoolRouter.use( '/changeStatus',require('../authentication/validateToken'),req
 schoolRouter.use( '/getGradeSections',require('../authentication/validateToken'),require('./gradeSection/getGradeSections'))
 schoolRouter.use( '/createGradeSection',require('../authentication/validateToken'),require('./gradeSection/createGradeSection'))
 schoolRouter.use( '/deleteGradeSection',require('../authentication/validateToken'),require('./gradeSection/deleteGradeSection'))
+
+
+
+schoolRouter.use('/',(req,res,next)=>{
+    console.log(req.baseUrl,next())
+    return res.status(400).json({
+        "status_code" : 400,
+        "message" : "Something went wrong",
+        "status_name" : getCode.getStatus(400)
+    }) 
+})
+
+
 
 
 module.exports = schoolRouter

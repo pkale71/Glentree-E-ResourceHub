@@ -26,26 +26,26 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        email = req.body.email.trim();
-        name = req.body.name.trim();
+        email = req.body.email;
+        name = req.body.name?.trim();
         accessToken = req.body.accessToken;
-        location = req.body.location.trim()
-        contact1 = req.body.contact1.trim()
-        contact2 = req.body.contact2 == ""?null : req.body.contact2.trim()
-        curriculumUpload = req.body.curriculumUpload.trim()
+        location = req.body.location
+        contact1 = req.body.contact1
+        contact2 = req.body.contact2 == ""?null : req.body.contact2
+        curriculumUpload = req.body.curriculumUpload
         syllabusId = req.body.syllabus.id
-        schoolGradeCategoryList = req.body.gradeCategory.trim()
+        schoolGradeCategoryList = req.body.gradeCategory
         schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
         active = 1
         schoolUuid = createUuid.v1()
-        schoolUserSettingList = req.body.schoolUserSetting.trim();
+        schoolUserSettingList = req.body.schoolUserSetting
         
         if(!schoolGradeCategoryList){
             res.status(404)
             return res.json({
              "status_code" : 404,
              "message" : "Grade Category Missing",
-             status_name : getCode.getStatus(404)
+             "status_name" : getCode.getStatus(404)
             })
         }
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -60,7 +60,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                return res.json({
                 "status_code" : 401,
                 "message" : "Invalid token",
-                status_name : getCode.getStatus(401)
+                "status_name" : getCode.getStatus(401)
                })
            }
      
@@ -88,7 +88,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                    "status_code" : 200,
                                    "message" : "success",
                                    "data" : { "uuid" : returnUuid[0].uuid},
-                                   status_name : getCode.getStatus(200)
+                                   "status_name" : getCode.getStatus(200)
                                })            
            
                 
@@ -99,7 +99,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                            return res.json({
                                "status_code" : 500,
                                "message" : "School not created",
-                               status_name : getCode.getStatus(500)
+                               "status_name" : getCode.getStatus(500)
                            }) 
                        }
            
@@ -113,7 +113,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code"   : 500,
                     "message"       : msg,
-                    status_name     : getCode.getStatus(500),
+                    "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
             }else{
@@ -121,7 +121,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 return res.json({
                     "status_code" : 500,
                     "message" : "School not created",
-                    status_name : getCode.getStatus(500),
+                    "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 
             }
