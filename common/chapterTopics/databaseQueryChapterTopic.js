@@ -207,7 +207,7 @@ db.getChapterTopics = (id,uuid) => {
                                LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
                                LEFT JOIN grade g ON g.id = sgst.grade_id 
                                LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
-                               where sgsct.syllabus_grade_subject_chapter_id = ?
+                               where sgsct.syllabus_grade_subject_chapter_id = ?  AND sgsct.topic_name NOT LIKE 'All-Topics'
                                ORDER BY sgsct.id`
             }
             else 
@@ -225,7 +225,7 @@ db.getChapterTopics = (id,uuid) => {
                                LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
                                LEFT JOIN grade g ON g.id = sgst.grade_id 
                                LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
-                               where sgsct.uuid = ?
+                               where sgsct.uuid = ?  AND sgsct.topic_name NOT LIKE 'All-Topics'
                                ORDER BY sgsct.id`
             }
             let chapterId = id ? id : uuid

@@ -66,7 +66,7 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
                 "status_code" : 200,
                 "data"        : {'school' : schoolList[0]},
                 "message"     : 'success',
-                status_name   : getCode.getStatus(200)
+                "status_name"   : getCode.getStatus(200)
             })
         } 
     } 
