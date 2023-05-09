@@ -91,7 +91,7 @@ class school {
         this.name               =           data.name?.trim()
         this.location           =           data.location
         this.contact1           =           data.contact1
-        this.contact2           =           data.contact2.length > 0 ?  data.contact2 : null
+        this.contact2           =           data.contact2?.length > 0 ?  data.contact2 : null
         this.email              =           data.email
         this.curriculumUpload   =           data.curriculumUpload
         this.syllabus           =           {

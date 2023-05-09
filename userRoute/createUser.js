@@ -79,7 +79,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                    let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,schoolId,createdOn)
                    console.log(insertUser)
                            if(insertUser.affectedRows > 0){
-                            let returnUuid = db.getUserUuid(insertUser.insertId) 
+                            let returnUuid = await db.getUserUuid(insertUser.insertId) 
                             res.status(200)
                                return res.json({
                                    "status_code" : 200,
