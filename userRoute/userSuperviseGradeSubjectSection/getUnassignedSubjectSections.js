@@ -33,6 +33,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                 })
             }
             else{
+                sectionList = []
                 Array.from(sections).forEach(async( ele ) =>  {
                     gradeSubjectSection.setDataAll(ele)
                     sectionList.push(gradeSubjectSection.getDataAll()) 

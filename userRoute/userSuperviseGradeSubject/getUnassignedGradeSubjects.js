@@ -28,6 +28,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:schoolUuid
                 })
             }
             else{
+                subjectList = []
                 Array.from(subjects).forEach(async( ele ) =>  {
                     gradeSubject.setDataAll(ele)
                     subjectList.push(gradeSubject.getDataAll()) 

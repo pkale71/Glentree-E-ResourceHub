@@ -55,6 +55,36 @@ db.getAcademicYears = (uuid,id) => {
     });
 }
 
+
+db.getCurrentAcademicYears = () => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            
+            
+            
+              let  sql = `SELECT ay.*,
+                (select IF((select IF(count(sgs.id) > 0,1,0) from school_grade_section sgs
+                where sgs.academic_year_id = ay.id) > 0, 1,
+                (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
+                where utss.academic_year_id = ay.id))) AS isExist
+                from academic_year ay WHERE ay.is_current = 1`;
+            
+            
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 // db.getAcademicYear = (uuid) => {
 //     return new Promise((resolve, reject)=>{
 //         try
