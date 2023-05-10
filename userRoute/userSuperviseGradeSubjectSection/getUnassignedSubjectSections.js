@@ -1,44 +1,46 @@
 let db = require('./databaseQueryGradeSubjectSection')
-let unassignedGradeSubject = require('../../models/unassignedGradeSubject')
+let unassignedGradeSubjectSection = require('../../models/unassignedGradeSubjectSection')
 let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
-let gradeSubject = new unassignedGradeSubject()
-let topUuid;
-let chapter
-let subjects;
+let gradeSubjectSection = new unassignedGradeSubjectSection()
+let sections;
 let schoolUuid;
 let acaUuid;
-let gradeCategoryId
+let gradeId
 let ids
-let subjectList = []
+let sectionList = []
+let subjectUuid
+let subjectId
 
-module.exports = require('express').Router().get('/:acaUuid/:gradeId/:schoolUuid',async(req,res)=>{
+module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUuid/:schoolUuid',async(req,res)=>{
     try{
         acaUuid =  req.params.acaUuid
         schoolUuid = req.params.schoolUuid
         gradeId = req.params.gradeId
+        subjectUuid = req.params.subjectUuid
         ids = await db.findSchoolAndAcaId(acaUuid,schoolUuid)
         if(ids.length > 0){
             acaId = ids[0]['acaId']
             schoolId = ids[0]['schoolId']
-            subjects = await db.findUnAssignedGradeSubjects(acaId,schoolId,gradeId)
-            if(subjects.length == 0){
+            subjectId = ids[0]['subjectId']
+            sections = await db.findUnAssignedGradeSubjects(acaId,schoolId,gradeId,subjectId)
+            if(sections.length == 0){
                 res.status(400)
                 return res.json({
                     "status_code" : 400,
-                    "message"     : 'No unassigned grade subject found',
+                    "message"     : 'No unassigned grade subject section found',
                     "status_name"   : getCode.getStatus(400)
                 })
             }
             else{
-                Array.from(subjects).forEach(async( ele ) =>  {
-                    gradeSubject.setDataAll(ele)
-                    subjectList.push(gradeSubject.getDataAll()) 
-                      if(subjectList.length == subjects.length){
+                Array.from(sections).forEach(async( ele ) =>  {
+                    gradeSubjectSection.setDataAll(ele)
+                    sectionList.push(gradeSubjectSection.getDataAll()) 
+                      if(sectionList.length == sections.length){
                           res.status(200)
                           return res.json({
                               "status_code" : 200,
-                              "data"        : {'unassignedGradeSubjects' : subjectList},
+                              "data"        : {'unassignedGradeSubjectSections' : sectionList},
                               "message"     : 'success',
                               "status_name"   : getCode.getStatus(200)
                           })
@@ -51,32 +53,10 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:schoolUuid
             res.status(500)
             return res.json({
                 "status_code"   : 500,
-                "message"       : "Unassigned grade subject not found",
+                "message"       : "Unassigned grade subject section not found",
                 "status_name"   : getCode.getStatus(500)
             }) 
         }
-       
-        
-        // topicList = [];
-        // topList = []
-        // if(chapter.length == 0){
-        //     res.status(404)
-        //     return res.json({
-        //         "status_code"   :   404,
-        //         "message"       :   'Chapter not found',
-        //         "status_name"   :   getCode.getStatus(404),
-        //     })   
-        // }
-        // topics = await db.getChapterTopics(chapter[0].id,0)
-        // if(topics.length == 0){
-        //     res.status(200)
-        //     return res.json({
-        //         "status_code" : 200,
-        //         "data"        : {'chapterTopics' : []},
-        //         "message"     : 'success',
-        //         "status_name"   : getCode.getStatus(200)
-        //     })
-        // }
           
         } 
         catch(e)
@@ -85,7 +65,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:schoolUuid
             res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Unassigned grade subject not found",
+                    "message" : "Unassigned grade subject section not found",
                     "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 

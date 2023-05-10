@@ -282,13 +282,15 @@ db.topicStatusChange = (id) => {
 };
 
 
-db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId) => {
+db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId,subjectId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT sgs.id , sgs.subject_name AS name FROM syllabus_grade_subject sgs
-            WHERE sgs.grade_id = ?
-            AND sgs.id NOT IN (SELECT subject_id FROM user_supervise_grade_subject WHERE school_id = ? AND academic_year_id = ? )`, [gradeId,schoolId,acaId], (error, result) => 
+            pool.query(`SELECT sgs.uuid, sgs.section FROM school_grade_section sgs
+            WHERE sgs.school_id = ? AND sgs.academic_year_id = ? AND sgs.grade_id = ?
+            AND sgs.id 
+            NOT IN (SELECT section_id FROM user_teach_subject_section WHERE school_id = ? AND academic_year_id = ?
+            AND grade_id = ? AND subject_id = ?)`, [schoolId,acaId,gradeId,schoolId,acaId,gradeId,subjectId], (error, result) => 
             {
                 if(error)
                 {
@@ -303,13 +305,33 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId) => {
 }
 
 
-db.findSchoolAndAcaId = (acaUuid,schoolUuid) => {
+db.findSchoolAndAcaId = (acaUuid,schoolUuid,subjectUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
             pool.query(`SELECT s.id AS schoolId,
-            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId
-            FROM school s where s.uuid = ?  ;`, [acaUuid,schoolUuid], (error, result) => 
+            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+            (select sgs.id from syllabus_grade_subject sgs where sgs.uuid = ?) AS subjectId
+            FROM school s where s.uuid = ?`, [acaUuid,subjectUuid,schoolUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
+db.findSubject = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT id FROM syllabus_grade_subject WHERE  uuid = ? `, [uuid], (error, result) => 
             {
                 if(error)
                 {

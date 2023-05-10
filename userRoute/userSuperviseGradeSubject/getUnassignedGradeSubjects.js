@@ -3,12 +3,9 @@ let unassignedGradeSubject = require('../../models/unassignedGradeSubject')
 let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
 let gradeSubject = new unassignedGradeSubject()
-let topUuid;
-let chapter
 let subjects;
 let schoolUuid;
 let acaUuid;
-let gradeCategoryId
 let ids
 let subjectList = []
 
