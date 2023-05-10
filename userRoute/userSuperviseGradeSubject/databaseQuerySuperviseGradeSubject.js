@@ -323,5 +323,24 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid) => {
     });
 }
 
+
+db.getSubjectId = (searchString) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT id from syllabus_grade_subject WHERE  FIND_IN_SET(uuid,?)",[searchString],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db
 

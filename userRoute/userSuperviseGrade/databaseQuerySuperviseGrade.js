@@ -305,14 +305,50 @@ db.findUnAssignedGrade = (acaId,schoolId,gradeCategoryId) => {
 }
 
 
+db.findSchoolGradeCategory = (userUuid,acaUuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT distinct usg.uuid, ay.uuid AS acaUuid, ay.year, gc.id AS gradeCategoryId, gc.name AS gradeCategoryName,
+            s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
+           FROM user_supervise_grade usg
+           LEFT JOIN school s ON s.id = usg.school_id
+           LEFT JOIN academic_year ay ON ay.id = usg.academic_year_id
+           LEFT JOIN school_grade_category sgc ON sgc.school_id = s.id
+           INNER JOIN grade g ON g.id = usg.grade_id
+           LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+           LEFT JOIN user u ON u.id = usg.user_id
+           WHERE u.uuid = ? AND ay.uuid = ?`, [userUuid,acaUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT s.id AS schoolId,
+            let sql = ``
+          
+            sql = `SELECT s.id AS schoolId,
             (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
-            (select u.id from user u where u.uuid = ?) AS userId
-            FROM school s where s.uuid = ?`, [acaUuid,userUuid,schoolUuid], (error, result) => 
+            (select u.id, u.school_id from user u where u.uuid = ?) AS userId
+            FROM school s where s.uuid = ?`
+          
+         
+               
+            
+            
+            pool.query(sql, [acaUuid,userUuid,schoolUuid], (error, result) => 
             {
                 if(error)
                 {

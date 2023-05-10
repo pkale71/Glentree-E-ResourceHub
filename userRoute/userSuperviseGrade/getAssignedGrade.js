@@ -13,16 +13,22 @@ let gradeCategoryId
 let ids
 let gradeList = []
 
-module.exports = require('express').Router().get('/:acaUuid/:schoolUuid/:gradeCategoryId',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
     try{
         acaUuid =  req.params.acaUuid
-        schoolUuid = req.params.schoolUuid
-        gradeCategoryId = req.params.gradeCategoryId
-        ids = await db.findSchoolAndAcaId(acaUuid,schoolUuid)
-        if(ids.length > 0){
-            acaId = ids[0]['acaId']
-            schoolId = ids[0]['schoolId']
-            grades = await db.findUnAssignedGrade(acaId,schoolId,gradeCategoryId)
+        userUuid = req.params.userUuid
+        
+       // ids = await db.findSchoolAndAcaId(acaUuid,0,userUuid)
+       
+       console.log(acaUuid,userUuid)
+        
+            // acaId = ids[0]['acaId']
+            // schoolId = ids[0]['schoolId']
+            // userId = ids[0]['userId']
+            // userName = ids[0]['userName']
+            AssignGrade = await db.findSchoolGradeCategory(userUuid,acaUuid)
+            console.log(AssignGrade)
+            return
             if(grades.length == 0){
                 res.status(400)
                 return res.json({
@@ -32,6 +38,7 @@ module.exports = require('express').Router().get('/:acaUuid/:schoolUuid/:gradeCa
                 })
             }
             else{
+                gradeList = []
                 Array.from(grades).forEach(async( ele ) =>  {
                     grade.setDataAll(ele)
                     gradeList.push(grade.getDataAll()) 
@@ -46,16 +53,8 @@ module.exports = require('express').Router().get('/:acaUuid/:schoolUuid/:gradeCa
                       } 
                   })
             }
-        }
-        else 
-        {
-            res.status(500)
-            return res.json({
-                "status_code"   : 500,
-                "message"       : "Unassigned grade not found",
-                "status_name"   : getCode.getStatus(500)
-            }) 
-        }
+        
+       
        
         
         // topicList = [];
