@@ -31,6 +31,8 @@ class school {
     createdBy
     active
     isExist;
+    curriculumExist;
+    syllabusExist;
     schoolUserSetting
 
     // grade Category 

@@ -9,6 +9,7 @@ userRouter.use( '/updateUser',require('../authentication/validateToken'),require
 userRouter.use( '/getUsers',require('../authentication/validateToken'),require('./getAllUser'))
 userRouter.use( '/getUser',require('../authentication/validateToken'),require('./getUser'))
 userRouter.use( '/checkDuplicateEmailMobile',require('../authentication/validateToken'),require('./duplicateEmailOrMobile'))
+userRouter.use( '/getUnassignedGrades',require('../authentication/validateToken'),require('./userSuperviseGrade/getUnassignedGrades'))
 
 
 userRouter.use('/',(req,res,next)=>{
