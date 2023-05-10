@@ -12,14 +12,16 @@ userRouter.use( '/checkDuplicateEmailMobile',require('../authentication/validate
 userRouter.use( '/getUnassignedGrades',require('../authentication/validateToken'),require('./userSuperviseGrade/getUnassignedGrades'))
 userRouter.use( '/getUnassignedGradeSubjects',require('../authentication/validateToken'),require('./userSuperviseGradeSubject/getUnassignedGradeSubjects'))
 userRouter.use( '/getUnassignedGradeSubjectSections',require('../authentication/validateToken'),require('./userSuperviseGradeSubjectSection/getUnassignedSubjectSections'))
+userRouter.use( '/saveAssignedGrades',require('../authentication/validateToken'),require('./userSuperviseGrade/saveAssignedGrades'))
 
 
-userRouter.use('/',(req,res,next)=>{
-    console.log(req.baseUrl,next())
+userRouter.use('/',(req,res,error)=>{
+    console.log(req.errored,req.method)
     return res.status(400).json({
         "status_code" : 400,
         "message" : "Something went wrong",
-        "status_name" : getCode.getStatus(400)
+        "status_name" : getCode.getStatus(400),
+        "error"     : "Wrong method or api"
     }) 
 })
 

@@ -305,13 +305,32 @@ db.findUnAssignedGrade = (acaId,schoolId,gradeCategoryId) => {
 }
 
 
-db.findSchoolAndAcaId = (acaUuid,schoolUuid) => {
+db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
             pool.query(`SELECT s.id AS schoolId,
-            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId
-            FROM school s where s.uuid = ?  ;`, [acaUuid,schoolUuid], (error, result) => 
+            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+            (select u.id from user u where u.uuid = ?) AS userId
+            FROM school s where s.uuid = ?`, [acaUuid,userUuid,schoolUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.insertAssignedGrade = (sql) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(sql, (error, result) => 
             {
                 if(error)
                 {
