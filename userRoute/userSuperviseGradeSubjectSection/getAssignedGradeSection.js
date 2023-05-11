@@ -56,7 +56,9 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                 if(gradeList[j].length > 0){
                     gradeList[j][0]['userAssignedSections'] = assignGradeList
                     assignedSection.setGrade(gradeList[j][0])
-                    assignList.push(assignedSection.getGrade())
+                    gradeList[j][0]['grade'] = assignedSection.getGrade()
+                    assignedSection.setData(gradeList[j][0])
+                    assignList.push(assignedSection.getData())
                 }
                 assignGradeList = []
             })

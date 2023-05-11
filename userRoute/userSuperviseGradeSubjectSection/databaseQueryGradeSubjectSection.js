@@ -432,7 +432,7 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct utss.uuid, ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
+            pool.query(`SELECT distinct utss.uuid, utss.subject_id AS id, sgs.subject_name AS name, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
             s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
            FROM user_teach_subject_section utss
@@ -441,6 +441,7 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
            LEFT JOIN school_grade_category sgc ON utss.school_id = s.id
            INNER JOIN grade g ON g.id = utss.grade_id
            LEFT JOIN syllabus_grade_subject sgs ON sgs.id = utss.subject_id
+           LEFT JOIN school_grade_section ss ON ss.id = utss.section_id
            LEFT JOIN user u ON u.id = utss.user_id
            WHERE u.uuid = ? AND ay.uuid = ?
            ORDER BY sgs.id`, [userUuid,acaUuid], (error, result) => 

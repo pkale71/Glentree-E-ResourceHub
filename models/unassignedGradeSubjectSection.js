@@ -1,19 +1,19 @@
 class unassignedGradeSubject {
     uuid
-    section
+    name
     constructor(){}
     
     setDataAll(data)
     {
         this.uuid     =   data.uuid
-        this.section   =   data.section?.trim()
+        this.name   =   data.section?.trim()
     }
 
     getDataAll()
     {
         return {
             uuid : this.uuid,
-            section : this.section
+            name : this.name
         }
     }
 }

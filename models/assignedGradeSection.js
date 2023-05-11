@@ -14,9 +14,9 @@ class assignedSection {
                 "uuid" : data.userUuid,
                 "name" : data.userName.trim()
             },
-            "assignedGrade" : {
-                "id" : data.gradeId,
-                "name" : data.gradeName
+            "assignedSection" : {
+                "uuid" : data.sectionUuid,
+                "section" : data.section
             },
             "school" : {
                 "uuid" : data.schoolUuid,
@@ -35,24 +35,22 @@ class assignedSection {
     
     setGrade(data)
     {
-        this.id     =   data.id
-        this.name   =   data.name?.trim()
-        this.userAssignedSections = data.userAssignedSections
+       this.grade = {
+        "id"     :   data.gradeId,
+        "name"   :   data.gradeName?.trim(),
+        "userAssignedSections" : data.userAssignedSections
+       } 
     }
 
     getGrade()
     {
-        return {
-            id : this.id,
-            name : this.name,
-            userAssignedSections: this.userAssignedSections
-        }
+        return this.grade
     }
 
     setData(data)
     {
-        this.id     =   data.gradeCategoryId
-        this.name   =   data.gradeCategoryName?.trim()
+        this.id     =   data.id
+        this.name   =   data.name?.trim()
         this.grade  =   data.grade
     }
 
