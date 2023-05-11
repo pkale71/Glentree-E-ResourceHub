@@ -409,12 +409,12 @@ db.findGrade = (userUuid,acaUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct  utss.grade_id AS gradeId
+            pool.query(`SELECT distinct  utss.grade_id AS gradeId, utss.subject_id AS id
             FROM user_teach_subject_section utss
-            LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
             LEFT JOIN user u ON u.id = utss.user_id
+            LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
             WHERE u.uuid = ?  AND ay.uuid = ?
-            ORDER BY utss.grade_id`, [userUuid,acaUuid], (error, result) => 
+			ORDER BY  utss.subject_id`, [userUuid,acaUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -427,6 +427,7 @@ db.findGrade = (userUuid,acaUuid) => {
         
     });
 }
+
 
 db.findSubjectGradeSection = (userUuid,acaUuid) => {
     return new Promise((resolve, reject)=>{

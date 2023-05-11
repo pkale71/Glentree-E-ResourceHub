@@ -16,7 +16,7 @@ class assignedSection {
             },
             "assignedSection" : {
                 "uuid" : data.sectionUuid,
-                "section" : data.section
+                "name" : data.section
             },
             "school" : {
                 "uuid" : data.schoolUuid,
