@@ -405,5 +405,57 @@ db.deleteAssignedGradeSection = (uuid) => {
     });
 }
 
+db.findGrade = (userUuid,acaUuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT distinct  utss.grade_id AS gradeId
+            FROM user_teach_subject_section utss
+            LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
+            LEFT JOIN user u ON u.id = utss.user_id
+            WHERE u.uuid = ?  AND ay.uuid = ?
+            ORDER BY utss.grade_id`, [userUuid,acaUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.findSubjectGradeSection = (userUuid,acaUuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT distinct utss.uuid, ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
+            s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
+           FROM user_teach_subject_section utss
+           LEFT JOIN school s ON s.id = utss.school_id
+           LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
+           LEFT JOIN school_grade_category sgc ON utss.school_id = s.id
+           INNER JOIN grade g ON g.id = utss.grade_id
+           LEFT JOIN syllabus_grade_subject sgs ON sgs.id = utss.subject_id
+           LEFT JOIN user u ON u.id = utss.user_id
+           WHERE u.uuid = ? AND ay.uuid = ?
+           ORDER BY sgs.id`, [userUuid,acaUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db
 

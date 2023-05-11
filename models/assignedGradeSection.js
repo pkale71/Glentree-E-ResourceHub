@@ -1,13 +1,14 @@
-class assignedGrade {
+class assignedSection {
     id
     name
-    userSuperviseGrades
+    grade
+    userAssignedSections
 
 
     constructor(){}
 
-    setSuperviseGrade(data){
-        this.userSuperviseGrades = {
+    setAssignedSection(data){
+        this.userAssignedSections = {
             "uuid" : data.uuid,
             "user" : {
                 "uuid" : data.userUuid,
@@ -28,21 +29,23 @@ class assignedGrade {
         }
     }
 
-    getSuperviseGrade(){
-        return this.userSuperviseGrades
+    getAssignedSection(){
+        return this.userAssignedSections
     }
     
-    setDataAll(data)
+    setGrade(data)
     {
         this.id     =   data.id
         this.name   =   data.name?.trim()
+        this.userAssignedSections = data.userAssignedSections
     }
 
-    getDataAll()
+    getGrade()
     {
         return {
             id : this.id,
-            name : this.name
+            name : this.name,
+            userAssignedSections: this.userAssignedSections
         }
     }
 
@@ -50,7 +53,7 @@ class assignedGrade {
     {
         this.id     =   data.gradeCategoryId
         this.name   =   data.gradeCategoryName?.trim()
-        this.userSuperviseGrades = data.userSuperviseGrades
+        this.grade  =   data.grade
     }
 
     getData()
@@ -58,8 +61,8 @@ class assignedGrade {
         return {
             id : this.id,
             name : this.name,
-            userSuperviseGrades : this.userSuperviseGrades
+            grade : this.grade
         }
     }
 }
-module.exports = assignedGrade
+module.exports = assignedSection
