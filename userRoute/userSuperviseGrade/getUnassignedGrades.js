@@ -18,7 +18,7 @@ module.exports = require('express').Router().get('/:acaUuid/:schoolUuid/:gradeCa
         acaUuid =  req.params.acaUuid
         schoolUuid = req.params.schoolUuid
         gradeCategoryId = req.params.gradeCategoryId
-        ids = await db.findSchoolAndAcaId(acaUuid,schoolUuid)
+        ids = await db.findSchoolAndAcaId(acaUuid,schoolUuid,0)
         if(ids.length > 0){
             acaId = ids[0]['acaId']
             schoolId = ids[0]['schoolId']

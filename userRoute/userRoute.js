@@ -14,6 +14,7 @@ userRouter.use( '/getAssignedGrades',require('../authentication/validateToken'),
 userRouter.use( '/getUnassignedGradeSubjects',require('../authentication/validateToken'),require('./userSuperviseGradeSubject/getUnassignedGradeSubjects'))
 userRouter.use( '/getUnassignedGradeSubjectSections',require('../authentication/validateToken'),require('./userSuperviseGradeSubjectSection/getUnassignedSubjectSections'))
 userRouter.use( '/saveAssignedGrades',require('../authentication/validateToken'),require('./userSuperviseGrade/saveAssignedGrades'))
+userRouter.use( '/deleteAssignedGrades',require('../authentication/validateToken'),require('./userSuperviseGrade/deleteAssignedGrades'))
 userRouter.use( '/saveAssignedGradeSubjects',require('../authentication/validateToken'),require('./userSuperviseGradeSubject/saveAssignedGradeSubject'))
 
 

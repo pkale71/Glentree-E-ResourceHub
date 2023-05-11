@@ -319,7 +319,8 @@ db.findSchoolGradeCategory = (userUuid,acaUuid) => {
            INNER JOIN grade g ON g.id = usg.grade_id
            LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
            LEFT JOIN user u ON u.id = usg.user_id
-           WHERE u.uuid = ? AND ay.uuid = ?`, [userUuid,acaUuid], (error, result) => 
+           WHERE u.uuid = ? AND ay.uuid = ?
+           ORDER BY gc.id`, [userUuid,acaUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -344,7 +345,8 @@ db.findSchoolGradeCategoryId = (userUuid) => {
             LEFT JOIN school_grade_category sgc ON u.school_id = sgc.school_id
             LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id
            
-            WHERE u.uuid = ?`, [userUuid], (error, result) => 
+            WHERE u.uuid = ?
+            ORDER BY gc.id`, [userUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -367,11 +369,21 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
         {
             let sql = ``
           
-            sql = `SELECT s.id AS schoolId,
-            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
-            (select u.id, u.school_id from user u where u.uuid = ?) AS userId
-            FROM school s where s.uuid = ?`
+           
           
+            if(userUuid){
+                sql = `SELECT s.id AS schoolId,
+                (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+                (select u.id, u.school_id from user u where u.uuid = ?) AS userId
+                FROM school s where s.uuid = ?`
+            }
+            else{
+                sql = `SELECT s.id AS schoolId,
+                (select ay.id from academic_year ay where ay.uuid = ?) AS acaId
+    
+                FROM school s where s.uuid = ?`
+                userUuid = schoolUuid
+            }
          
                
             
@@ -412,7 +424,8 @@ db.deleteAssignedGrade = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("DELETE FROM academic_year WHERE uuid = ?", [uuid], (error, result) => 
+            pool.query(`DELETE FROM user_supervise_grade 
+            WHERE uuid = ? ;`, [uuid], (error, result) => 
             {
                 if(error)
                 {
