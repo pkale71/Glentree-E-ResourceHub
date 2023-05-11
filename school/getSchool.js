@@ -42,20 +42,21 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         schoolGradeCategory = await db.getSchoolGradeCategory(school[0].id)
         schoolUserSetting = await db.getSchoolUserSetting(school[0].id)
         if(schoolGradeCategory.length>0){
-            await Array.from(schoolGradeCategory).forEach(ele  =>  {
+           Array.from(schoolGradeCategory).forEach(ele  =>  {
                 schools.setSchoolGradeCategory(ele)
                 schoolGradeCategoryList.push(schools.getSchoolGradeCategory())
             })
         }
+
         if(schoolUserSetting.length>0){
-            await Array.from(schoolUserSetting).forEach(ele  =>  {
+             Array.from(schoolUserSetting).forEach(ele  =>  {
                 schools.setSchoolUserSetting(ele)
                 schoolUserSettingList.push(schools.getSchoolUserSetting())
             })
         }
         school[0]['gradeCategory'] = schoolGradeCategoryList
         school[0]['schoolUserSetting'] = schoolUserSettingList
-        await Array.from(school).forEach(ele  =>  {
+        Array.from(school).forEach(ele  =>  {
             schools.setData(ele)
             schoolList.push(schools.getData())
         })

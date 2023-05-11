@@ -65,11 +65,19 @@ db.getSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId, s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName,
-            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName FROM school s
+            // GROUP BY s.id
+            // ORDER BY s.id
+            pool.query(`SELECT distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
+            s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName,
+             IF(COUNT(cm.id)> 0,1,0) AS curriculumExist,
+            IF(COUNT(cm.subject_id)> 0,1,0) AS syllabusExist,
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName 
+            FROM school s
+            LEFT JOIN syllabus_grade_subject sgs ON sgs.syllabus_id = s.id
             LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
+            LEFT JOIN curriculum_master cm ON cm.school_id = s.id
             LEFT JOIN user u ON u.id = s.created_by_id
-             WHERE s.uuid = ? ORDER BY s.id `, [uuid],(error, result) => 
+            WHERE s.uuid = ?`, [uuid],(error, result) => 
             {
                 if(error)
                 {

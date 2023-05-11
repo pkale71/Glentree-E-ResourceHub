@@ -134,6 +134,8 @@ class school {
         this.contact2           =           data.contact2 ? data.contact2 : null
         this.email              =           data.email
         this.curriculumUpload   =           data.curriculumUpload
+        this.curriculumExist    =           data.curriculumExist
+        this.syllabusExist      =           data.syllabusExist
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName?.trim(),
@@ -156,8 +158,10 @@ class school {
                         contact2            :   this.contact2,
                         email               :   this.email,
                         curriculumUpload    :   this.curriculumUpload,
+                        curriculumExist     :   this.curriculumExist,
+                        syllabusExist       :   this.syllabusExist,
                         syllabus            :   this.syllabus,
-                        gradeCategories       :   this.gradeCategory,
+                        gradeCategories     :   this.gradeCategory,
                         createdOn           :   this.createdOn,
                         createdBy           :   this.createdBy,
                         active              :   this.active,
