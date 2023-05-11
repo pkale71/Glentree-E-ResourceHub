@@ -333,6 +333,34 @@ db.findSchoolGradeCategory = (userUuid,acaUuid) => {
     });
 }
 
+
+db.findSchoolGradeCategoryId = (userUuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT distinct  gc.id AS gradeCategoryId, gc.name AS gradeCategoryName
+            
+            FROM user u
+            LEFT JOIN school_grade_category sgc ON u.school_id = sgc.school_id
+            LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id
+           
+            WHERE u.uuid = ?`, [userUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
+
+
 db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
     return new Promise((resolve, reject)=>{
         try
@@ -379,6 +407,27 @@ db.insertAssignedGrade = (sql) => {
         
     });
 }
+
+db.deleteAssignedGrade = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("DELETE FROM academic_year WHERE uuid = ?", [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
+
 
 module.exports = db
 

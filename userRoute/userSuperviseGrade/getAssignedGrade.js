@@ -14,6 +14,16 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
     try{
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
+        assignGradeCategory = await db.findSchoolGradeCategoryId(userUuid)
+        if(assignGradeCategory.length == 0)
+        {
+            res.status(400)
+            return res.json({
+                "status_code" : 400,
+                "message"     : 'No assigned grade found',
+                "status_name"   : getCode.getStatus(400)
+            })
+        }
         AssignGrade = await db.findSchoolGradeCategory(userUuid,acaUuid)
         if(AssignGrade.length == 0)
         {
@@ -28,15 +38,23 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
         {
             assignGradeList = []
             assignList = []
-            Array.from(AssignGrade).forEach(( ele ) =>  
-            {
-                assignGrade.setSuperviseGrade(ele)
-                assignGradeList.push(assignGrade.getSuperviseGrade())   
+            gradeCateroryList = []
+            Array.from(assignGradeCategory).forEach((element,i)=>{
+                gradeCateroryList.push(AssignGrade.filter(ele => ele.gradeCategoryId == element.gradeCategoryId))
             })
-            
-            AssignGrade[0]['userSuperviseGrades'] = assignGradeList
-            assignGrade.setData(AssignGrade[0])
-            assignList.push(assignGrade.getData())
+            Array.from(gradeCateroryList).forEach(( ele, j ) =>  
+            {
+                Array.from(ele).forEach(element => {
+                    assignGrade.setSuperviseGrade(element)
+                    assignGradeList.push(assignGrade.getSuperviseGrade()) 
+                })
+                if(gradeCateroryList[j].length > 0){
+                    gradeCateroryList[j][0]['userSuperviseGrades'] = assignGradeList
+                    assignGrade.setData(gradeCateroryList[j][0])
+                    assignList.push(assignGrade.getData())
+                }
+                assignGradeList = []
+            })
             res.status(200)
             return res.json({
                 "status_code" : 200,
