@@ -370,11 +370,11 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
             let sql = ``
           
            
-          
-            if(userUuid){
+          console.log(userUuid.length)
+            if(userUuid.length > 0){
                 sql = `SELECT s.id AS schoolId,
                 (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
-                (select u.id, u.school_id from user u where u.uuid = ?) AS userId
+                (select u.id from user u where u.uuid = ?) AS userId
                 FROM school s where s.uuid = ?`
             }
             else{

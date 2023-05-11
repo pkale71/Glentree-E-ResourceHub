@@ -15,7 +15,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
     try
     {
 
-        if(!req.body.academicYear?.uuid ||!req.body.user?.uuid || !req.body.school?.uuid || !req.body.grade?.trim())
+        if(!req.body.academicYear?.uuid ||!req.body.user?.uuid || !req.body.school?.uuid || !req.body.gradeSubject?.uuid || !req.body.grade?.id || !req.body.sections?.trim())
         {
             res.status(404);
             return res.json({
@@ -43,10 +43,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     sql = sql+`,`
                 }
             });
-            
 
             let insertGrade = await db.insertAssignedGrade(sql)
-            
             if (insertGrade.affectedRows > 0)
              {
                 // let returnUuid = await db.returnUuidTopic(insertTopic.insertId)
