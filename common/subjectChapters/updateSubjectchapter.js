@@ -11,7 +11,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.syllabusGradeSubject?.uuid || !req.body.name || !req.body.uuid){
+        if(!req.body.syllabusGradeSubject?.uuid || !req.body.name || !req.body.uuid)
+        {
             res.status(404);
             return res.json({
                 "status_code": 404,
