@@ -47,6 +47,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
             Array.from(assignGrade).forEach((element,i)=>{
                 gradeList.push(AssignGrade.filter(ele => (ele.gradeId == element.gradeId && ele.id == element.id)))
             })
+           
             Array.from(gradeList).forEach(( ele, j ) =>  
             {
                 Array.from(ele).forEach(element => {

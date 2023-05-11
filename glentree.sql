@@ -96,7 +96,7 @@ CREATE TABLE `curriculum_master` (
 
 LOCK TABLES `curriculum_master` WRITE;
 /*!40000 ALTER TABLE `curriculum_master` DISABLE KEYS */;
-INSERT INTO `curriculum_master` VALUES (1,'',1,8,0,0,1,2,'0000-00-00 00:00:00',0),(2,'',0,1,0,0,6,0,'0000-00-00 00:00:00',0);
+INSERT INTO `curriculum_master` VALUES (1,'',1,8,0,0,1,2,'0000-00-00 00:00:00',0),(2,'',0,1,0,1,6,0,'0000-00-00 00:00:00',0);
 /*!40000 ALTER TABLE `curriculum_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +250,7 @@ CREATE TABLE `school_grade_section` (
   `grade_id` int(11) NOT NULL,
   `section` varchar(15) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +259,7 @@ CREATE TABLE `school_grade_section` (
 
 LOCK TABLES `school_grade_section` WRITE;
 /*!40000 ALTER TABLE `school_grade_section` DISABLE KEYS */;
-INSERT INTO `school_grade_section` VALUES (4,'f1517610-e3ef-11ed-afd6-f95405450ee2',1,1,2,'D'),(5,'1b36ce70-e3f6-11ed-957b-b1bccacf4680',1,1,2,'E'),(6,'1b3c4cb0-e3f6-11ed-957b-b1bccacf4680',1,1,2,'F'),(7,'1b3d8530-e3f6-11ed-957b-b1bccacf4680',1,1,2,'G'),(9,'1ea56850-e3f6-11ed-957b-b1bccacf4680',1,1,1,'A'),(10,'1ea7d950-e3f6-11ed-957b-b1bccacf4680',1,1,1,'B'),(11,'1ea8c3b0-e3f6-11ed-957b-b1bccacf4680',1,1,1,'C'),(12,'1ea98700-e3f6-11ed-957b-b1bccacf4680',1,1,1,'D'),(13,'24760e10-e3f6-11ed-957b-b1bccacf4680',1,2,1,'A'),(14,'2477e2d0-e3f6-11ed-957b-b1bccacf4680',1,2,1,'B'),(15,'2812bcd0-e3f6-11ed-957b-b1bccacf4680',2,2,1,'A'),(16,'281554e0-e3f6-11ed-957b-b1bccacf4680',2,2,1,'B'),(17,'2c99f2a0-e3f6-11ed-957b-b1bccacf4680',2,2,2,'A'),(18,'2c9e3860-e3f6-11ed-957b-b1bccacf4680',2,2,2,'B'),(19,'2f079740-e3f6-11ed-957b-b1bccacf4680',2,1,2,'A'),(20,'2f08f6d0-e3f6-11ed-957b-b1bccacf4680',2,1,2,'B'),(21,'5d10c030-e432-11ed-a3aa-af64e797d635',1,1,4,'A'),(22,'5d1701c0-e432-11ed-a3aa-af64e797d635',1,1,4,'B'),(23,'5d194bb0-e432-11ed-a3aa-af64e797d635',1,1,4,'C'),(24,'5fd49b20-e432-11ed-a3aa-af64e797d635',1,1,5,'A'),(25,'5fd58580-e432-11ed-a3aa-af64e797d635',1,1,5,'B'),(26,'5fd648d0-e432-11ed-a3aa-af64e797d635',1,1,5,'C');
+INSERT INTO `school_grade_section` VALUES (1,'bce33d20-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'A'),(2,'bcebc8a0-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'B');
 /*!40000 ALTER TABLE `school_grade_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +364,7 @@ CREATE TABLE `syllabus_grade_subject` (
   `subject_name` varchar(50) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,7 +373,7 @@ CREATE TABLE `syllabus_grade_subject` (
 
 LOCK TABLES `syllabus_grade_subject` WRITE;
 /*!40000 ALTER TABLE `syllabus_grade_subject` DISABLE KEYS */;
-INSERT INTO `syllabus_grade_subject` VALUES (1,'55b21ee1-e331-11ed-9f9d-c4346b527e08',1,1,'Hindi',1),(2,'aa3f0170-e417-11ed-b74b-6f7650aff17f',1,1,'Science',1);
+INSERT INTO `syllabus_grade_subject` VALUES (1,'55b21ee1-e331-11ed-9f9d-c4346b527e08',1,1,'Hindi',1),(2,'aa3f0170-e417-11ed-b74b-6f7650aff17f',1,1,'Science',1),(4,'gdgdfg',1,1,'EVS',1);
 /*!40000 ALTER TABLE `syllabus_grade_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,7 +470,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'607d4f61-ddc3-11ed-a14c-54ee753f9eea','Admin','',1,1,'9874563210','testoauth80@gmail.com','Male',NULL,'admin',1,'2023-04-18 14:01:10',NULL,NULL,NULL,'2023-05-06 07:43:00'),(2,'4c7f1510-de1d-11ed-a234-c4346b527e08','rani','singh',1,3,'1236549870','rani8014@gmail.com','female',NULL,'admin',1,'2023-04-19 13:10:12',1,NULL,NULL,'2023-04-19 07:42:18'),(6,'839b4c80-dea0-11ed-8bc6-d7814a68136d','test','user',1,6,'9512633789','test@gmail.com','Male',NULL,'admin',1,'2023-04-19 10:54:10',1,NULL,NULL,NULL),(7,'ec5fa7f0-dea7-11ed-b84a-e1cb5546788f','test','test',1,1,'9512635789','test1@gmail.com','Male',NULL,'admin',1,'2023-04-19 11:47:12',1,NULL,NULL,NULL),(15,'18a77280-e03c-11ed-a24a-1384e27579ac','test','test',2,1,'6512635789','test52@gmail.com','Male',8,'admin',0,'2023-04-21 12:00:23',1,'2023-04-21 12:26:49',1,NULL),(16,'747c5790-e043-11ed-a39b-d53fbb8e0b8f','test','test',1,1,'9658685','test2@gmail.com','Male',3,'admin',1,'2023-04-21 12:53:04',1,NULL,NULL,'2023-04-22 11:01:11');
+INSERT INTO `user` VALUES (1,'607d4f61-ddc3-11ed-a14c-54ee753f9eea','Admin','',1,1,'9874563210','testoauth80@gmail.com','Male',NULL,'admin',1,'2023-04-18 14:01:10',NULL,NULL,NULL,'2023-05-06 07:43:00'),(2,'4c7f1510-de1d-11ed-a234-c4346b527e08','rani','singh',1,3,'1236549870','rani8014@gmail.com','female',1,'admin',1,'2023-04-19 13:10:12',1,NULL,NULL,'2023-04-19 07:42:18'),(6,'839b4c80-dea0-11ed-8bc6-d7814a68136d','test','user',1,6,'9512633789','test@gmail.com','Male',NULL,'admin',1,'2023-04-19 10:54:10',1,NULL,NULL,NULL),(7,'ec5fa7f0-dea7-11ed-b84a-e1cb5546788f','test','test',1,1,'9512635789','test1@gmail.com','Male',NULL,'admin',1,'2023-04-19 11:47:12',1,NULL,NULL,NULL),(15,'18a77280-e03c-11ed-a24a-1384e27579ac','test','test',2,1,'6512635789','test52@gmail.com','Male',8,'admin',0,'2023-04-21 12:00:23',1,'2023-04-21 12:26:49',1,NULL),(16,'747c5790-e043-11ed-a39b-d53fbb8e0b8f','test','test',1,1,'9658685','test2@gmail.com','Male',3,'admin',1,'2023-04-21 12:53:04',1,NULL,NULL,'2023-04-22 11:01:11');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -483,12 +483,14 @@ DROP TABLE IF EXISTS `user_supervise_grade`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_supervise_grade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
   `user_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
   `academic_year_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,7 +499,7 @@ CREATE TABLE `user_supervise_grade` (
 
 LOCK TABLES `user_supervise_grade` WRITE;
 /*!40000 ALTER TABLE `user_supervise_grade` DISABLE KEYS */;
-INSERT INTO `user_supervise_grade` VALUES (1,6,4,1,1);
+INSERT INTO `user_supervise_grade` VALUES (1,'',6,4,1,1),(3,'b1d51c11-ef27-11ed-b615-45bb28cf1c48',2,4,1,1),(4,'b1d51c12-ef27-11ed-b615-45bb28cf1c48',2,5,1,1),(5,'df9e2600-ef27-11ed-a22a-49c6206f9fe1',2,1,1,1),(6,'df9e2601-ef27-11ed-a22a-49c6206f9fe1',2,4,1,1),(7,'df9e2602-ef27-11ed-a22a-49c6206f9fe1',2,5,1,1),(8,'26344210-ef29-11ed-8fe6-19b4120cd381',2,1,1,1),(9,'26344211-ef29-11ed-8fe6-19b4120cd381',2,4,1,1),(10,'26344212-ef29-11ed-8fe6-19b4120cd381',2,5,1,1),(11,'4055dd20-ef29-11ed-b7bb-8f613bf4e0ca',2,1,1,1),(12,'4055dd21-ef29-11ed-b7bb-8f613bf4e0ca',2,4,1,1),(14,'579156b0-efc2-11ed-b92b-fbb9af9df228',2,1,1,1),(15,'579156b1-efc2-11ed-b92b-fbb9af9df228',2,4,1,1),(16,'579156b2-efc2-11ed-b92b-fbb9af9df228',2,5,1,1),(17,'583d7530-efc2-11ed-b92b-fbb9af9df228',2,1,1,1),(18,'583d7531-efc2-11ed-b92b-fbb9af9df228',2,4,1,1),(19,'583d7532-efc2-11ed-b92b-fbb9af9df228',2,5,1,1),(20,'58d0b480-efc2-11ed-b92b-fbb9af9df228',2,1,1,1),(21,'58d0b481-efc2-11ed-b92b-fbb9af9df228',2,4,1,1),(22,'58d0b482-efc2-11ed-b92b-fbb9af9df228',2,5,1,1),(23,'597cd300-efc2-11ed-b92b-fbb9af9df228',2,1,1,1),(24,'597cd301-efc2-11ed-b92b-fbb9af9df228',2,4,1,1),(26,'6e4ac080-efc2-11ed-b92b-fbb9af9df228',2,2,1,1);
 /*!40000 ALTER TABLE `user_supervise_grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,13 +512,15 @@ DROP TABLE IF EXISTS `user_supervise_grade_subject`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_supervise_grade_subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
   `user_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `academic_year_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -525,7 +529,7 @@ CREATE TABLE `user_supervise_grade_subject` (
 
 LOCK TABLES `user_supervise_grade_subject` WRITE;
 /*!40000 ALTER TABLE `user_supervise_grade_subject` DISABLE KEYS */;
-INSERT INTO `user_supervise_grade_subject` VALUES (1,6,1,1,1,1);
+INSERT INTO `user_supervise_grade_subject` VALUES (1,'',6,1,1,1,1),(2,'8e7b2680-efe8-11ed-b224-798abc670b20',2,1,1,1,1),(3,'8e7b2681-efe8-11ed-b224-798abc670b20',2,1,2,1,1),(4,'a0118fb0-efe8-11ed-b224-798abc670b20',2,1,1,1,1),(5,'a0118fb1-efe8-11ed-b224-798abc670b20',2,1,2,1,1),(6,'a092f4b0-efe8-11ed-b224-798abc670b20',2,1,1,1,1),(8,'fbbhfgh',1,1,1,1,1),(9,'dcfgfhgfh',2,2,2,1,1),(10,'335d3ac0-eff4-11ed-a42b-ff5844742f3c',2,1,1,1,1),(12,'34aa7b40-eff4-11ed-a42b-ff5844742f3c',2,1,1,1,1),(13,'34aa7b41-eff4-11ed-a42b-ff5844742f3c',2,1,2,1,1);
 /*!40000 ALTER TABLE `user_supervise_grade_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -538,14 +542,16 @@ DROP TABLE IF EXISTS `user_teach_subject_section`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_teach_subject_section` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
   `user_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `academic_year_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -554,7 +560,7 @@ CREATE TABLE `user_teach_subject_section` (
 
 LOCK TABLES `user_teach_subject_section` WRITE;
 /*!40000 ALTER TABLE `user_teach_subject_section` DISABLE KEYS */;
-INSERT INTO `user_teach_subject_section` VALUES (1,1,1,4,1,2,0);
+INSERT INTO `user_teach_subject_section` VALUES (1,'08c50cf0-efc9-11ed-b5d4-13be946f0e1f',2,1,1,1,1,1),(2,'71744170-efca-11ed-80d0-2b06499d2cc5',2,1,1,1,1,1),(3,'720b2a40-efca-11ed-80d0-2b06499d2cc5',2,1,1,1,1,1),(4,'72ac7350-efca-11ed-80d0-2b06499d2cc5',2,1,1,1,1,1),(5,'b0848320-efca-11ed-80d0-2b06499d2cc5',2,1,1,1,1,1),(7,'fghfh',2,2,1,1,1,1),(8,'fbbvghng',1,2,1,1,1,1),(9,'sdfdgd',2,1,1,1,2,1),(10,'ghjgjghj',2,2,1,1,1,1),(11,'22f0b3f0-efe6-11ed-8f74-e74d2466fd0e',2,1,1,1,1,1),(12,'24c302f0-efe6-11ed-8f74-e74d2466fd0e',2,1,1,1,1,1);
 /*!40000 ALTER TABLE `user_teach_subject_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,4 +600,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-10 14:20:17
+-- Dump completed on 2023-05-11 19:35:38

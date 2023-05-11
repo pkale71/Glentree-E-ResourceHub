@@ -1,0 +1,2151 @@
+{
+	"info": {
+		"_postman_id": "84b96023-f82a-4c3a-a46f-9e0d0ae10099",
+		"name": "glentree",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26940450"
+	},
+	"item": [
+		{
+			"name": "common",
+			"item": [
+				{
+					"name": "academic year",
+					"item": [
+						{
+							"name": "getAcademicYears",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getAcademicYears",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getAcademicYears"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createAcademicYears",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"year\" : \"2021-2022\",\r\n    \"startDate\": \"2021-01-25\",\r\n    \"endDate\":\"2022-04-25\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/createAcademicYear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"createAcademicYear"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAcademicYear",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getAcademicYear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getAcademicYear"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getCurrentAcademicYear",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getCurrentAcademicYear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getCurrentAcademicYear"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GradeSection",
+					"item": [
+						{
+							"name": "getGradeSections",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/school/getGradeSections/56ffab7b-e33b-11ed-9f9d-c4346b527e08/04a14e9f-dfb5-11ed-a234-c4346b527e08/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"school",
+										"getGradeSections",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+										"04a14e9f-dfb5-11ed-a234-c4346b527e08",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createGradeSections",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n     \"academicYear\" : {\r\n        \"uuid\" : \"56ffab7b-e33b-11ed-9f9d-c4346b527e08\"\r\n    },\r\n    \"school\" : {\r\n        \"uuid\" : \"04a14e9f-dfb5-11ed-a234-c4346b527e08\"\r\n    },\r\n    \"grade\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"count\" : 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/school/createGradeSection",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"school",
+										"createGradeSection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGradeSection",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/deleteGradeSection/1b3e96a0-e3f6-11ed-957b-b1bccacf4680",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"deleteGradeSection",
+										"1b3e96a0-e3f6-11ed-957b-b1bccacf4680"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GradeSubject",
+					"item": [
+						{
+							"name": "createGradeSubject",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : 1,\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 2\r\n    },\r\n    \"name\" : \"English\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/createGradeSubject",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"createGradeSubject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "changeStatus",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : 1,\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 2\r\n    },\r\n    \"name\" : \"English\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/changeGradeSubjectStatus/55b21ee1-e331-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"changeGradeSubjectStatus",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateGradeSubject",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"aa3f0170-e417-11ed-b74b-6f7650aff17f\",\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"Science\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/updateGradeSubject",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"updateGradeSubject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGradeSubject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"aa3f0170-e417-11ed-b74b-6f7650aff17f\",\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 2\r\n    },\r\n    \"name\" : \"Hindi\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/deleteGradeSubject/55b21ee1-e331-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"deleteGradeSubject",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getGradeSubject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"Anushashan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getGradeSubject/55b21ee1-e331-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getGradeSubject",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getGradeSubjects",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"Anushashan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getGradeSubjects/1/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getGradeSubjects",
+										"1",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SubjectChapter",
+					"item": [
+						{
+							"name": "createSubjectChapter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : 2,\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"BHUMI\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/createSubjectChapter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"createSubjectChapter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteSubjectChapter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" :\"82e3d210-ea82-11ed-b77d-77befc8b390d\",\r\n  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/deleteSubjectChapter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"deleteSubjectChapter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateSubjectChapter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"53c95e60-ea81-11ed-8444-3f213c3cd1f7\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"uuid\" : \"aa3f0170-e417-11ed-b74b-6f7650aff17f\"\r\n    },\r\n    \"name\" : \"DISHa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/updateSubjectChapter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"updateSubjectChapter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getSubjectChapters",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"DISHA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getSubjectChapters/55b21ee1-e331-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getSubjectChapters",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getSubjectChapter",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"DISHA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getSubjectChapter/d2f51ba4-e422-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getSubjectChapter",
+										"d2f51ba4-e422-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "changeStatus",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : 1,\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 2\r\n    },\r\n    \"name\" : \"English\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/changeSubjectChapterStatus/55b21ee1-e331-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"changeSubjectChapterStatus",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ChapterTopic",
+					"item": [
+						{
+							"name": "createChapterTopic",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subjectChapter\" : {\r\n        \"uuid\" : \"53c95e60-ea81-11ed-8444-3f213c3cd1f7\"\r\n    },\r\n    \"name\" : \"KAVITA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/createChapterTopic",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"createChapterTopic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateChapterTopic",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"subjectChapter\" : {\r\n        \"uuid\" : \"92cce620-e5b0-11ed-aefd-cf9006cf9581\"\r\n    },\r\n    \"name\" : \"KAVITA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/updateChapterTopic",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"updateChapterTopic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteChapterTopic",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"subjectChapter\" : {\r\n        \"uuid\" : \"92cce620-e5b0-11ed-aefd-cf9006cf9581\"\r\n    },\r\n    \"name\" : \"KAVITA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/deleteChapterTopic",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"deleteChapterTopic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "changeChapterTopicStatus",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : 1,\r\n    \"syllabus\" : {\"id\":1},\r\n    \"grade\" : {\r\n        \"id\" : 2\r\n    },\r\n    \"name\" : \"English\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/changeChapterTopicStatus/7f1c69d0-ea82-11ed-b77d-77befc8b390d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"changeChapterTopicStatus",
+										"7f1c69d0-ea82-11ed-b77d-77befc8b390d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getChapterTopics",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"DISHA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getChapterTopics/d2f51ba4-e422-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getChapterTopics",
+										"d2f51ba4-e422-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getChapterTopic",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"bc97aa10-e594-11ed-b8f0-d1e7ba2bc348\",\r\n    \"syllabusGradeSubject\" : {\r\n        \"id\" : 1\r\n    },\r\n    \"name\" : \"DISHA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/getChapterTopic/6a18f0fc-ea79-11ed-8dfa-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getChapterTopic",
+										"6a18f0fc-ea79-11ed-8dfa-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Grade",
+					"item": [
+						{
+							"name": "getGrade",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/common/getGrade/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getGrade",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createGrade",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"class 5\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 2\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/createGrade",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"createGrade"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateGrade",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"class 10\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/updateGrade",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"updateGrade"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteGrade",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/common/deleteGrade/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"deleteGrade",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getGrades",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/common/getGrades/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"common",
+										"getGrades",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "unassignedGrade",
+					"item": [
+						{
+							"name": "getUnassignedGrades",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getUnassignedGrades/56ffab7b-e33b-11ed-9f9d-c4346b527e08/04a14e9f-dfb5-11ed-a234-c4346b527e08/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getUnassignedGrades",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+										"04a14e9f-dfb5-11ed-a234-c4346b527e08",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "saveAssignedGrades",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"user\" : {\"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"},\r\n    \"academicYear\" : {\"uuid\" : \"56ffab7b-e33b-11ed-9f9d-c4346b527e08\"},\r\n    \"school\" : {\"uuid\" : \"04a14e9f-dfb5-11ed-a234-c4346b527e08\"},\r\n    \"grade\" : \"2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/saveAssignedGrades",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"saveAssignedGrades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAssignedGrades",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getAssignedGrades/4c7f1510-de1d-11ed-a234-c4346b527e08/56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getAssignedGrades",
+										"4c7f1510-de1d-11ed-a234-c4346b527e08",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteAssignedGrades",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"4055dd22-ef29-11ed-b7bb-8f613bf4e0ca\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/deleteAssignedGrades",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"deleteAssignedGrades"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "unassignedSection",
+					"item": [
+						{
+							"name": "getUnassignedGradeSubjectSections",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getUnassignedGradeSubjectSections/56ffab7b-e33b-11ed-9f9d-c4346b527e08/1/55b21ee1-e331-11ed-9f9d-c4346b527e08/04a14e9f-dfb5-11ed-a234-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getUnassignedGradeSubjectSections",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+										"1",
+										"55b21ee1-e331-11ed-9f9d-c4346b527e08",
+										"04a14e9f-dfb5-11ed-a234-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "saveAssignedGradeSections",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"user\" : {\"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"},\r\n    \"academicYear\" : {\"uuid\" : \"56ffab7b-e33b-11ed-9f9d-c4346b527e08\"},\r\n    \"school\" : {\"uuid\" : \"04a14e9f-dfb5-11ed-a234-c4346b527e08\"},\r\n    \"sections\" : \"bce33d20-efc8-11ed-b5d4-13be946f0e1f\",\r\n    \"grade\" : {\"id\" : \"1\"},\r\n    \"gradeSubject\" : {\"uuid\" : \"55b21ee1-e331-11ed-9f9d-c4346b527e08\"}\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/saveAssignedGradeSections",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"saveAssignedGradeSections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteAssignedGradeSections",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"b1091c70-efca-11ed-80d0-2b06499d2cc5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/deleteAssignedGradeSections",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"deleteAssignedGradeSections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAssignedGradeSections",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getAssignedGradeSections/4c7f1510-de1d-11ed-a234-c4346b527e08/56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getAssignedGradeSections",
+										"4c7f1510-de1d-11ed-a234-c4346b527e08",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "unassignedSubject",
+					"item": [
+						{
+							"name": "saveAssignedGradeSubjects",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"user\" : {\"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"},\r\n    \"academicYear\" : {\"uuid\" : \"56ffab7b-e33b-11ed-9f9d-c4346b527e08\"},\r\n    \"school\" : {\"uuid\" : \"04a14e9f-dfb5-11ed-a234-c4346b527e08\"},\r\n    \"grade\" : {\"id\" : \"1\"},\r\n    \"gradeSubject\" : \"55b21ee1-e331-11ed-9f9d-c4346b527e08,aa3f0170-e417-11ed-b74b-6f7650aff17f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/saveAssignedGradeSubjects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"saveAssignedGradeSubjects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUnassignedGradeSubject",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getUnassignedGradeSubjects/56ffab7b-e33b-11ed-9f9d-c4346b527e08/1/04a14e9f-dfb5-11ed-a234-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getUnassignedGradeSubjects",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+										"1",
+										"04a14e9f-dfb5-11ed-a234-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAssignedGradeSubjects",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/getAssignedGradeSubjects/4c7f1510-de1d-11ed-a234-c4346b527e08/56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"getAssignedGradeSubjects",
+										"4c7f1510-de1d-11ed-a234-c4346b527e08",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteAssignedGradeSubjects",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uuid\" : \"335d3ac1-eff4-11ed-a42b-ff5844742f3c\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/user/deleteAssignedGradeSubjects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"user",
+										"deleteAssignedGradeSubjects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "checkDuplicateEmailMobile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkFor\" : \"Email\",\r\n    \"value\" : \"\",\r\n    \"uuid\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/common/checkDuplicateEmailMobile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"common",
+								"checkDuplicateEmailMobile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkFor\" : \"Email\",\r\n    \"value\" : \"testoau80@gmail.com\",\r\n    \"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/user/getUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"user",
+								"getUsers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "school",
+			"item": [
+				{
+					"name": "createSchool",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"name\" : \"kv\",\r\n    \"location\" : \"bhili\",\r\n    \"email\":\"school1@gmail.com\",\r\n    \"contact1\":\"9512634870\",\r\n    \"contact2\" : \"\",\r\n    \"syllabus\"    :   {\"id\" : \"2\"},\r\n    \"gradeCategory\"    :   \"2,1,3\",\r\n    \"curriculumUpload\":\"Topic-wise\",\r\n    \"schoolUserSetting\" : [\r\n                {\r\n                        \"uuid\" : \"\",\r\n                        \"userType\" : {\"id\" : \"3\"},\r\n                        \"canUpload\" : \"1\",\r\n                        \"canVerify\" : \"1\",\r\n                        \"canPublish\" : \"1\"\r\n                },\r\n                 {\r\n                        \"uuid\" : \"\",\r\n                        \"userType\" : {\"id\" : \"1\"},\r\n                        \"canUpload\" : \"0\",\r\n                        \"canVerify\" : \"1\",\r\n                        \"canPublish\" : \"1\"\r\n                }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/createSchool",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"createSchool"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/deleteSchool",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\" : \"68d4f590-e288-11ed-b0ef-6fe4aaf80693\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/deleteSchool/9b73e500-e02c-11ed-b4ea-152937a68db1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"deleteSchool",
+								"9b73e500-e02c-11ed-b4ea-152937a68db1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSchool",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\" : \"68d4f590-e288-11ed-b0ef-6fe4aaf80693\",\r\n    \"name\" : \"kv4\",\r\n    \"location\" : \"raipur\",\r\n    \"email\":\"school1@gmail.com\",\r\n    \"contact1\":\"9512634870\",\r\n    \"contact2\" : \"9563425123\",\r\n    \"syllabus\"    :   {\"id\" : \"2\"},\r\n    \"gradeCategory\"    :   \"5,1,4,3,2\",\r\n    \"curriculumUpload\":\"Chapter-wise\",\r\n    \"schoolUserSetting\" : [\r\n                {\r\n                        \"uuid\" : \"68db5e30-e288-11ed-b0ef-6fe4aaf80693\",\r\n                        \"userType\" : {\"id\" : \"2\"},\r\n                        \"canUpload\" : \"1\",\r\n                        \"canVerify\" : \"0\",\r\n                        \"canPublish\" : \"1\"\r\n                },\r\n                 {\r\n                        \"uuid\" : \"\",\r\n                        \"userType\" : {\"id\" : 1},\r\n                        \"canUpload\" : \"0\",\r\n                        \"canVerify\" : \"1\",\r\n                        \"canPublish\" : \"0\"\r\n                }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/updateSchool",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"updateSchool"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeStatus",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/changeStatus/68d4f590-e288-11ed-b0ef-6fe4aaf80693",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"changeStatus",
+								"68d4f590-e288-11ed-b0ef-6fe4aaf80693"
+							],
+							"query": [
+								{
+									"key": "UserUuid",
+									"value": "4c7f1510-de1d-11ed-a234-c4346b527e08",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSchool",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/getSchool/04a14e9f-dfb5-11ed-a234-c4346b527e08",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"getSchool",
+								"04a14e9f-dfb5-11ed-a234-c4346b527e08"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oPJpNliuwhT8ho29qSvRZVhkc0rGTnqherf0zI4gFPbUcCZlXoV1URlW",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "password",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiTW9uIEFwciAxNyAyMDIzIDA1OjQ5OjE0IEdNVCswNTMwIChJbmRpYSBTdGFuZGFyZCBUaW1lKSIsInVzZXJJZCI6MTIsImlhdCI6MTY4MTY5MDc1NCwiZXhwIjoxNjgxNjkyNTU0fQ.NIiBZTcHYDxV2v5hujxVlgZsrE00sw7Jl8fSstmlHTE",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8082/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authenticate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test52@gmail.com\",\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
