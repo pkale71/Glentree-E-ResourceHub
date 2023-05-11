@@ -303,13 +303,14 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId) => {
 }
 
 
-db.findSchoolAndAcaId = (acaUuid,schoolUuid) => {
+db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
             pool.query(`SELECT s.id AS schoolId,
-            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId
-            FROM school s where s.uuid = ?  ;`, [acaUuid,schoolUuid], (error, result) => 
+            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+            (select u.id from user u where u.uuid = ?) AS userId
+            FROM school s where s.uuid = ?  ;`, [acaUuid,userUuid,schoolUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -329,6 +330,43 @@ db.getSubjectId = (searchString) => {
         try
         {
             pool.query("SELECT id from syllabus_grade_subject WHERE  FIND_IN_SET(uuid,?)",[searchString],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.insertAssignedSubject = (sql) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(sql, (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.deleteAssignedGradeSubject = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`DELETE FROM user_supervise_grade_subject 
+            WHERE uuid = ? ;`, [uuid], (error, result) => 
             {
                 if(error)
                 {

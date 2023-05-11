@@ -1,5 +1,5 @@
 class assignedSection {
-    id
+    uuid
     name
     grade
     userAssignedSections
@@ -49,15 +49,15 @@ class assignedSection {
 
     setData(data)
     {
-        this.id     =   data.id
-        this.name   =   data.name?.trim()
+        this.uuid     =   data.subjectUuid
+        this.name   =   data.subjectName?.trim()
         this.grade  =   data.grade
     }
 
     getData()
     {
         return {
-            id : this.id,
+            uuid : this.uuid,
             name : this.name,
             grade : this.grade
         }

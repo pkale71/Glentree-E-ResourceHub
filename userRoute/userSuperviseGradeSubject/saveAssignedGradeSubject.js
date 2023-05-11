@@ -34,20 +34,16 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             schoolId = ids[0]['schoolId']
             userId = ids[0]['userId']
 
-            console.log(subjectIds)
-
-            return
-
             let sql = `INSERT INTO user_supervise_grade_subject (uuid, user_id,  academic_year_id, school_id, grade_id,subject_id)  VALUES  `
-            grade.forEach((element,i) => {
-                sql = sql + `("${createUuid.v1()}",${userId},${acaId},${schoolId},${element})` 
-                if(grade.length != i+1){
+            subjectIds.forEach((element,i) => {
+                sql = sql + `("${createUuid.v1()}",${userId},${acaId},${schoolId},${gradeId},${element.id})` 
+                if(subjectIds.length != i+1){
                     sql = sql+`,`
                 }
             });
             
 
-            let insertGrade = await db.insertAssignedGrade(sql)
+            let insertGrade = await db.insertAssignedSubject(sql)
             
             if (insertGrade.affectedRows > 0)
              {
@@ -66,7 +62,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500);
                 return res.json({
                     "status_code": 500,
-                    "message": "Grade not assigned",
+                    "message": "Grade subject not found",
                     "status_name": getCode.getStatus(500)
                 });
             }
@@ -76,7 +72,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(500)
             return res.json({
                 "status_code"   : 500,
-                "message"       : "Grade not assigned",
+                "message"       : "Grade subject not assigned",
                 "status_name"   : getCode.getStatus(500)
             }) 
         }
@@ -102,7 +98,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
-                    "message" : "Grade not assigned",
+                    "message" : "Grade subject not assigned",
                     "status_name" : getCode.getStatus(500),
                     "error"     :      e.sqlMessage
                 }) 

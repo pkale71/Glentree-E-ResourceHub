@@ -433,7 +433,7 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct utss.uuid, utss.subject_id AS id, sgs.subject_name AS name, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
+            pool.query(`SELECT distinct utss.uuid, utss.subject_id AS id, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
             s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
            FROM user_teach_subject_section utss
