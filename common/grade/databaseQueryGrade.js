@@ -2,18 +2,36 @@ let pool = require('../../databaseConnection/createconnection');
 const gradeCategory = require('../../models/gradeCategory');
 let db = {};
  
-db.getGrades = () => {
+db.getGrades = (gradeCategoryId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT g.id, g.name, g.grade_category_id, 
-            gc.name AS gradeCategoryName ,
-             (SELECT COUNT(sgs.grade_id)  FROM syllabus_grade_subject  sgs
-			WHERE grade_id = g.id)  AS Exist, (SELECT COUNT(sgc.grade_id)   FROM  school_grade_section sgc
-			WHERE grade_id = g.id) AS isExist
-            from grade g 
-            LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
-            ORDER BY  g.id`,(error, result) => 
+            let sql = ``
+            if(gradeCategoryId)
+            {
+                sql = `SELECT g.id, g.name, g.grade_category_id, 
+                gc.name AS gradeCategoryName ,
+                 (SELECT COUNT(sgs.grade_id)  FROM syllabus_grade_subject  sgs
+                WHERE grade_id = g.id)  AS Exist, 
+                (SELECT COUNT(sgc.grade_id)   FROM  school_grade_section sgc
+                WHERE grade_id = g.id) AS isExist
+                from grade g 
+                LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
+                WHERE g.grade_category_id = ?
+                ORDER BY  g.id`
+            }
+            else
+            {
+                sql = `SELECT g.id, g.name, g.grade_category_id, 
+                gc.name AS gradeCategoryName ,
+                 (SELECT COUNT(sgs.grade_id)  FROM syllabus_grade_subject  sgs
+                WHERE grade_id = g.id)  AS Exist, (SELECT COUNT(sgc.grade_id)   FROM  school_grade_section sgc
+                WHERE grade_id = g.id) AS isExist
+                from grade g 
+                LEFT JOIN grade_category gc ON g.grade_category_id = gc.id
+                ORDER BY  g.id`
+            }
+            pool.query(sql,[gradeCategoryId],(error, result) => 
             {
                 if(error)
                 {

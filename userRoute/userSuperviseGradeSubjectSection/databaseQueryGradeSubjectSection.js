@@ -286,6 +286,8 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId,subjectId) => {
     return new Promise((resolve, reject)=>{
         try
         {
+            console.log(acaId,schoolId,gradeId,subjectId)
+
             pool.query(`SELECT sgs.uuid, sgs.section FROM school_grade_section sgs
             WHERE sgs.school_id = ? AND sgs.academic_year_id = ? AND sgs.grade_id = ?
             AND sgs.id 
@@ -305,14 +307,15 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId,subjectId) => {
 }
 
 
-db.findSchoolAndAcaId = (acaUuid,schoolUuid,subjectUuid) => {
+db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid,subjectUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
             pool.query(`SELECT s.id AS schoolId,
             (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+            (select u.id from user u where u.uuid = ?) AS userId,
             (select sgs.id from syllabus_grade_subject sgs where sgs.uuid = ?) AS subjectId
-            FROM school s where s.uuid = ?`, [acaUuid,subjectUuid,schoolUuid], (error, result) => 
+            FROM school s where s.uuid = ?`, [acaUuid,userUuid,subjectUuid,schoolUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -332,6 +335,63 @@ db.findSubject = (uuid) => {
         try
         {
             pool.query(`SELECT id FROM syllabus_grade_subject WHERE  uuid = ? `, [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
+db.getSectionId = (searchString) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT id from school_grade_section WHERE  FIND_IN_SET(uuid,?)",[searchString],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.insertAssignedSection = (sql) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(sql, (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
+db.deleteAssignedGradeSection = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`DELETE FROM user_teach_subject_section 
+            WHERE uuid = ? ;`, [uuid], (error, result) => 
             {
                 if(error)
                 {

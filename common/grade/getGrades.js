@@ -6,36 +6,71 @@ let grade = new gradeObj()
 let grades;
 let gradeList = [];
 
-module.exports = require('express').Router().get('/',async(req,res) =>  {
+module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req,res) =>  {
     try
     {
-        grades = await db.getGrades()
-        gradeList = [];
-        if(grades.length == 0)
+        gradeCategoryId = req.params['gradeCategoryId']
+        if(gradeCategoryId)
         {
-            res.status(200)
-            return res.json({
-                "status_code"   :   200,
-                "data"          :   {'grades' : [] },
-                "message"       :   'success',
-                "status_name"   :   getCode.getStatus(200),
-            })   
-        }
-        Array.from(grades).forEach(async(ele)  =>  
-        {
-            grade.setDataAll(ele)
-            gradeList.push(grade.getDataAll())
-            if(grades.length == gradeList.length)
+            grades = await db.getGrades(gradeCategoryId)
+            gradeList = [];
+            if(grades.length == 0)
             {
                 res.status(200)
                 return res.json({
-                    "status_code" : 200,
-                    "data"        : {'grades' : gradeList},
-                    "message"     : 'success',
-                    "status_name"   : getCode.getStatus(200)
-                })
-            } 
-        })
+                    "status_code"   :   200,
+                    "data"          :   {'grades' : [] },
+                    "message"       :   'success',
+                    "status_name"   :   getCode.getStatus(200),
+                })   
+            }
+            Array.from(grades).forEach(async(ele)  =>  
+            {
+                grade.setDataAll(ele)
+                gradeList.push(grade.getDataAll())
+                if(grades.length == gradeList.length)
+                {
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "data"        : {'grades' : gradeList},
+                        "message"     : 'success',
+                        "status_name"   : getCode.getStatus(200)
+                    })
+                } 
+            })
+        }
+        else
+        {
+            grades = await db.getGrades(0)
+            gradeList = [];
+            if(grades.length == 0)
+            {
+                res.status(200)
+                return res.json({
+                    "status_code"   :   200,
+                    "data"          :   {'grades' : [] },
+                    "message"       :   'success',
+                    "status_name"   :   getCode.getStatus(200),
+                })   
+            }
+            Array.from(grades).forEach(async(ele)  =>  
+            {
+                grade.setDataAll(ele)
+                gradeList.push(grade.getDataAll())
+                if(grades.length == gradeList.length)
+                {
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "data"        : {'grades' : gradeList},
+                        "message"     : 'success',
+                        "status_name"   : getCode.getStatus(200)
+                    })
+                } 
+            })
+        }
+        
 
       
     } 
