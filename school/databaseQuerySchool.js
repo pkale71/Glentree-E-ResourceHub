@@ -444,7 +444,7 @@ db.getGradeCategory = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT sgc.*, gc.name
+            pool.query(`SELECT gc.id, gc.name
             from school s
             left join school_grade_category sgc ON sgc.school_id = s.id
             left join grade_category gc ON gc.id = sgc.grade_category_id
