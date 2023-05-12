@@ -448,7 +448,7 @@ db.getGradeCategory = (uuid) => {
             from school s
             left join school_grade_category sgc ON sgc.school_id = s.id
             left join grade_category gc ON gc.id = sgc.grade_category_id
-            where s.uuid = '04a14e9f-dfb5-11ed-a234-c4346b527e08'
+            where s.uuid = ?
             order by gc.id`,[uuid],(error, result) => 
             {
                 if(error)
