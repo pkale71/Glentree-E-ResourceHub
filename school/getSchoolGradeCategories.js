@@ -11,7 +11,7 @@ module.exports = require('express').Router().get('/:uuid',async(req,res) =>  {
     try
     {
         uuid = req.params.uuid
-        gradeCategory = await db.getGradeCategory()
+        gradeCategory = await db.getGradeCategory(uuid)
         gradeCategoryList = [];
         if(gradeCategory.length == 0){
             res.status(200)
