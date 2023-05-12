@@ -439,4 +439,29 @@ db.deleteSchool = (uuid) => {
     });
 }
 
+
+db.getGradeCategory = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT sgc.*, gc.name
+            from school s
+            left join school_grade_category sgc ON sgc.school_id = s.id
+            left join grade_category gc ON gc.id = sgc.grade_category_id
+            where s.uuid = '04a14e9f-dfb5-11ed-a234-c4346b527e08'
+            order by gc.id`,[uuid],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
 module.exports = db
