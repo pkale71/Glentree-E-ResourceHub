@@ -69,26 +69,20 @@ db.getSchool = (uuid,acaId) => {
         {
             // GROUP BY s.id
             // ORDER BY s.id
-            pool.query(`SELECT distinct distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
+            pool.query(`SELECT distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
             s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName, 
-            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
-            (SELECT IF(COUNT(cm.school_id)> 0,1,0) FROM curriculum_master cm
-                WHERE cm.school_id = s.id AND cm.academic_year_id = ? ) AS curriculumExist,
-            (SELECT IF(COUNT(cm.subject_id)> 0,1,0) 
-                FROM curriculum_master cm
-                WHERE cm.school_id = s.id AND cm.academic_year_id = ? AND cm.subject_id = sgs.id
-                OR usg.school_id = s.id
-                OR usgs.school_id = s.id
-                OR utss.school_id = s.id) AS syllabusExist
-            FROM school s 
-            LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
-            LEFT JOIN syllabus_grade_subject sgs ON sgs.syllabus_id = s.syllabus_id
-            LEFT JOIN user u ON u.id = s.created_by_id
-            LEFT JOIN user_supervise_grade usg ON usg.school_id = s.id
-            LEFT JOIN user_supervise_grade_subject usgs ON usgs.school_id = s.id
-            LEFT JOIN user_teach_subject_section utss ON utss.school_id = s.id
-            where s.uuid = ?
-            group by s.id,sy.id`, [acaId,acaId,uuid],(error, result) => 
+                        CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
+                       (SELECT IF(COUNT(cm.school_id)> 0,1,0) FROM curriculum_master cm
+                           WHERE cm.school_id = s.id AND cm.academic_year_id = ? ) AS curriculumExist,
+                        (select IF((select IF(count(u.id) > 0,1,0) from user u
+                        where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
+                        where cm.school_id = s.id))) AS isExist
+                        FROM school s 
+                        LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
+                        LEFT JOIN user u ON u.id = s.created_by_id
+                        where s.uuid = ?
+                        order by s.id
+                `, [acaId,uuid],(error, result) => 
             {
                 if(error)
                 {
