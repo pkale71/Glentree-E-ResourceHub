@@ -49,6 +49,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                     assignGradeList.push(assignGrade.getSuperviseGrade()) 
                 })
                 if(gradeCateroryList[j].length > 0){
+                    
                     gradeCateroryList[j][0]['userSuperviseGrades'] = assignGradeList
                     assignGrade.setData(gradeCateroryList[j][0])
                     assignList.push(assignGrade.getData())

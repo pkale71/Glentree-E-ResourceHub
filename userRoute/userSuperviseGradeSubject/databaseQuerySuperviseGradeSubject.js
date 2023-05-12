@@ -286,7 +286,7 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT sgs.id , sgs.subject_name AS name FROM syllabus_grade_subject sgs
+            pool.query(`SELECT sgs.uuid, sgs.subject_name AS name FROM syllabus_grade_subject sgs
             WHERE sgs.grade_id = ?
             AND sgs.id NOT IN (SELECT subject_id FROM user_supervise_grade_subject WHERE school_id = ? AND academic_year_id = ? )`, [gradeId,schoolId,acaId], (error, result) => 
             {
