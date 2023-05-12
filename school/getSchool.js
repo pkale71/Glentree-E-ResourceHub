@@ -15,6 +15,15 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
     try
     {
         schoolUUID = req.params.schoolUUID
+        acaId = await db.getCurrentAcademicYear()
+        if(acaId.length == 0){
+            res.status(404)
+            return res.json({
+                "status_code"   :   404,
+                "message"       :   'Current academic year not found',
+                "status_name"   :   getCode.getStatus(404),
+            })  
+        }
         console.log(schoolUUID)
         // school = await db.getSchoolError(schoolUUID)
         //  await Object.keys(school[0]).forEach(function(key) {
@@ -27,7 +36,7 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         //     "message"       :   'success',
         //     "status_name"   :   getCode.getStatus(404),
         // })  
-        school = await db.getSchool(schoolUUID)
+        school = await db.getSchool(schoolUUID,acaId[0].id)
         schoolList = [];
         schoolGradeCategoryList=[]
         schoolUserSettingList=[]

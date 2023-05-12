@@ -35,8 +35,10 @@ db.getSchoolError = (uuid) => {
             pool.query(`SELECT JSON_OBJECT('id',s.id,'uuid',s.uuid , 'name', s.name, 'location', s.location, 'contact1', s.contact1, 'contact2', s.contact2, 
             'email', s.email, 'curriculumUpload', s.curriculum_upload, 
             'syllabus', JSON_OBJECT('id', s.syllabus_id, 'name', sy.name), 
-            'gradeCategory',( SELECT JSON_ARRAYAGG(JSON_OBJECT('id', sgc.grade_category_id, 'name', gc.name))), 
-            'schoolUserSetting',( SELECT JSON_ARRAYAGG(JSON_OBJECT('uuid', su.uuid, 'userType', JSON_OBJECT('id',su.user_type_id,
+            'gradeCategory',
+            ( SELECT JSON_ARRAYAGG(JSON_OBJECT('id', sgc.grade_category_id, 'name', gc.name))), 
+            'schoolUserSetting',
+            ( SELECT JSON_ARRAYAGG(JSON_OBJECT('uuid', su.uuid, 'userType', JSON_OBJECT('id',su.user_type_id,
             'name', ut.name , 'code',ut.code),'canUpload',su.can_upload,'canVerify',su.can_verify,'canPublish',su.can_publish))),
             'createdOn', s.created_on, 'createdBy', JSON_OBJECT('id',s.created_by_id,
             'fullName', CONCAT(u.first_name,' ',IFNULL(u.last_name,''))), 'active', s.is_active)
@@ -61,23 +63,32 @@ db.getSchoolError = (uuid) => {
     });
 }
 
-db.getSchool = (uuid) => {
+db.getSchool = (uuid,acaId) => {
     return new Promise((resolve, reject)=>{
         try
         {
             // GROUP BY s.id
             // ORDER BY s.id
-            pool.query(`SELECT distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
-            s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName,
-             IF(COUNT(cm.id)> 0,1,0) AS curriculumExist,
-            IF(COUNT(cm.subject_id)> 0,1,0) AS syllabusExist,
-            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName 
-            FROM school s
-            LEFT JOIN syllabus_grade_subject sgs ON sgs.syllabus_id = s.id
-            LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
-            LEFT JOIN curriculum_master cm ON cm.school_id = s.id
+            pool.query(`SELECT distinct distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
+            s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName, 
+            CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
+            (SELECT IF(COUNT(cm.school_id)> 0,1,0) FROM curriculum_master cm
+                WHERE cm.school_id = s.id AND cm.academic_year_id = ? ) AS curriculumExist,
+            (SELECT IF(COUNT(cm.subject_id)> 0,1,0) 
+                FROM curriculum_master cm
+                WHERE cm.school_id = s.id AND cm.academic_year_id = ? AND cm.subject_id = sgs.id
+                OR usg.school_id = s.id
+                OR usgs.school_id = s.id
+                OR utss.school_id = s.id) AS syllabusExist
+            FROM school s 
+            LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
+            LEFT JOIN syllabus_grade_subject sgs ON sgs.syllabus_id = s.syllabus_id
             LEFT JOIN user u ON u.id = s.created_by_id
-            WHERE s.uuid = ?`, [uuid],(error, result) => 
+            LEFT JOIN user_supervise_grade usg ON usg.school_id = s.id
+            LEFT JOIN user_supervise_grade_subject usgs ON usgs.school_id = s.id
+            LEFT JOIN user_teach_subject_section utss ON utss.school_id = s.id
+            where s.uuid = ?
+            group by s.id,sy.id`, [acaId,acaId,uuid],(error, result) => 
             {
                 if(error)
                 {
@@ -94,7 +105,12 @@ db.getSchoolGradeCategory = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT sgc.id AS schoolGradeCategoryId, gc.name AS gradeName, gc.id AS gradeId from school_grade_category sgc LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id WHERE sgc.school_id = ? order by gc.id",[schoolId],(error, result) => 
+            pool.query(`SELECT sgc.id AS schoolGradeCategoryId, gc.name AS gradeName, 
+            gc.id AS gradeId 
+            from school_grade_category sgc 
+            LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id 
+            WHERE sgc.school_id = ? 
+            order by gc.id`,[schoolId],(error, result) => 
             {
                 if(error)
                 {
@@ -112,7 +128,10 @@ db.getSchoolUserSetting = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT *, ut.name AS userTypeName, ut.code from school_user_setting su LEFT JOIN user_type ut ON ut.id = su.user_type_id WHERE su.school_id = ?",[schoolId],(error, result) => 
+            pool.query(`SELECT *, ut.name AS userTypeName, ut.code
+             from school_user_setting su 
+             LEFT JOIN user_type ut ON ut.id = su.user_type_id 
+             WHERE su.school_id = ?`,[schoolId],(error, result) => 
             {
                 if(error)
                 {
@@ -463,5 +482,25 @@ db.getGradeCategory = (uuid) => {
     });
 }
 
+
+db.getCurrentAcademicYear = () => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+              let  sql = `SELECT ay.id
+                from academic_year ay WHERE ay.is_current = 1`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 
 module.exports = db
