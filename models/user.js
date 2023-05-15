@@ -58,6 +58,10 @@ class user {
                                     name    :   data.user_type_name?.trim(),
                                     code    :   data.user_type_code
                                 }
+        this.school         =   data.schoolUuid?.length > 0 ?{
+                                    "uuid" : data.schoolUuid,
+                                    "name" : data.schoolName?.trim() 
+                                }:null
         this.email          =   data.email
         this.lastLogin      =   data.last_login
         this.accessToken    =   data.access_token
@@ -73,6 +77,7 @@ class user {
                         mobile         :   this.mobile,
                         email          :   this.email,
                         lastLogin      :   this.lastLogin,
+                        school         :   this.school,
                         accessToken    :   this.accessToken
                     },
         "status_code" : 200,

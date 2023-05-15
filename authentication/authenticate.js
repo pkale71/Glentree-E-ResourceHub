@@ -22,19 +22,19 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }
         user[0]['time'] = Date()
         userId = user[0].id
-        console.log(user[0].is_active)
+        //console.log(user[0].is_active)
         let isValidPassword = user[0].password == password
         if(isValidPassword && user[0].is_active == 1){
             user.password = undefined;
             let mysqlDatetime = new Date(user[0].time).toISOString().slice(0, 19).replace('T', ' ');
             const jsontoken = generate_token(56)
-            console.log(jsontoken)
+           // console.log(jsontoken)
             if(jsontoken != null || jsontoken != undefined){
                 user[0]['access_token']=jsontoken
                 let insertToken = await db.insertToken(jsontoken, userId, mysqlDatetime)
-                console.log(insertToken)
+               // console.log(insertToken)
                 let insert_lastLogin = await db.insertLastLogin(userId,mysqlDatetime)
-                console.log(user[0])
+               // console.log(user[0])
                 useUser.setData(user[0])
                 res.status(200)
                 return res.json(useUser.getData())
