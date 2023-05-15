@@ -18,21 +18,19 @@ module.exports = require('express').Router().get('/:subUuid',async(req,res)=>{
     try{
 
         subUuid =  req.params.subUuid
-        subject = await db.getGradeSubject(subUuid)
+       // subject = await db.getGradeSubject(subUuid)
         chapterList = [];
         chapList = []
-        if(subject.length == 0){
-            res.status(404)
-            return res.json({
-                "status_code"   :   404,
-                "message"       :   'Grade subject not found',
-                "status_name"   :   getCode.getStatus(404),
-            })   
-        }
+        // if(subject.length == 0){
+        //     res.status(404)
+        //     return res.json({
+        //         "status_code"   :   404,
+        //         "message"       :   'Grade subject not found',
+        //         "status_name"   :   getCode.getStatus(404),
+        //     })   
+        // }
 
-        isUserSubject = await db.getUserSubject()
-
-        chapters = await db.getSubjectChapters(subject[0].id,0)
+        chapters = await db.getSubjectChapters(subUuid)
         if(chapters.length == 0){
             res.status(200)
             return res.json({

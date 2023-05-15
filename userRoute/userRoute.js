@@ -21,6 +21,7 @@ userRouter.use( '/deleteAssignedGradeSections',require('../authentication/valida
 userRouter.use( '/getAssignedGradeSections',require('../authentication/validateToken'),require('./userSuperviseGradeSubjectSection/getAssignedGradeSection'))
 userRouter.use( '/deleteAssignedGradeSubjects',require('../authentication/validateToken'),require('./userSuperviseGradeSubject/deleteAssignedGradeSubject'))
 userRouter.use( '/getAssignedGradeSubjects',require('../authentication/validateToken'),require('./userSuperviseGradeSubject/getAssignedGradeSubject'))
+userRouter.use( '/getAssignedChapters',require('../authentication/validateToken'),require('./getAssignedChapters'))
 
 
 userRouter.use('/',(req,res,error)=>{
