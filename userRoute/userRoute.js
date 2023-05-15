@@ -24,6 +24,7 @@ userRouter.use( '/getAssignedGradeSubjects',require('../authentication/validateT
 userRouter.use( '/getAssignedChapters',require('../authentication/validateToken'),require('./getAssignedChapters'))
 userRouter.use( '/getAssignedTopics',require('../authentication/validateToken'),require('./getAssignedTopics'))
 userRouter.use( '/getTeachGrades',require('../authentication/validateToken'),require('./userTeachGradeSubject/getTeachGrades'))
+userRouter.use( '/getTeachSubjects',require('../authentication/validateToken'),require('./userTeachGradeSubject/getTeachSubjects'))
 
 
 userRouter.use('/',(req,res,error)=>{

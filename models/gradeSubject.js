@@ -97,5 +97,22 @@ class gradeSubject {
            // subject : this.gradeSubject
         }
     }
+
+    setData(data)
+    {
+        
+        this.uuid    = data.uuid
+        this.name   = data.subject_name?.trim()
+        
+    }
+
+    getData()
+    {
+        return {
+           
+            uuid : this.uuid,
+            name : this.name
+        }
+    }
 }
 module.exports = gradeSubject
