@@ -235,5 +235,41 @@ db.getUser = (uuid) => {
         });
     }
 
+    db.getChapterTopics = (uuid) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+                let sql = `select sgsct.*, sgsc.uuid AS chapterUuid, sgsc.chapter_name, sgsc.is_active AS chapterIsActive,
+                (SELECT IF(COUNT(cm.id)> 0,1,0) FROM curriculum_master cm
+               WHERE cm.topic_id = sgsct.id ) AS isExist,
+            sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
+            sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
+            sy.name AS syllabusName, 
+            g.name AS gradeName
+            from syllabus_grade_subject_chapter_topic sgsct
+            LEFT JOIN syllabus_grade_subject_chapter sgsc ON sgsc.id = sgsct.syllabus_grade_subject_chapter_id
+            LEFT JOIN syllabus_grade_subject sgst ON sgsc.syllabus_grade_subject_id = sgst.id
+            LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
+            LEFT JOIN grade g ON g.id = sgst.grade_id 
+            LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+            where sgsct.syllabus_grade_subject_chapter_id = (SELECT sgsc.id
+                    FROM syllabus_grade_subject_chapter sgsc 
+                    WHERE sgsc.uuid = ? )
+            AND sgsct.is_active = 1  AND sgsct.topic_name NOT LIKE 'All-Topics'
+            ORDER BY sgsct.id`
+             
+                pool.query(sql,[uuid],(error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
 
 module.exports = db
