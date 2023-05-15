@@ -6,7 +6,8 @@ db.getUserByEmail = (email) =>{
         try{
             pool.query(`SELECT u.uuid,TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName, 
             u.role_id,TRIM(r.name) AS role_name, u.user_type_id, u.last_login,u.password,u.id, u.is_active ,
-            ut.name AS user_type_name,ut.code AS user_type_code, u.school_id , s.uuid AS schoolUuid, s.name AS schoolName
+            ut.name AS user_type_name,ut.code AS user_type_code, u.school_id , s.uuid AS schoolUuid, s.name AS schoolName,
+            s.curriculum_upload, s.email AS schoolEmail , s.contact1
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id 

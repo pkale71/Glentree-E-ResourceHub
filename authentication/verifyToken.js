@@ -100,7 +100,7 @@ async function  verifyToken  (req, res, next){
                 res.status(401)
                 // Access Denied
                 return res.json({
-                    'message'       :       `Unauthenticated User "${email}"`,
+                    'message'       :       `Invalid user`,
                     "status_name" : getCode.getStatus(401),
                     "status_code"   :       401
                 });
