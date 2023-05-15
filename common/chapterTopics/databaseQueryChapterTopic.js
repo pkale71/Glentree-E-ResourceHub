@@ -173,7 +173,7 @@ db.getSubjectChapter = (uuid) => {
 
             pool.query(`SELECT sgsc.id
                         FROM syllabus_grade_subject_chapter sgsc 
-                        WHERE sgsc.uuid = ? AND is_active = 1
+                        WHERE sgsc.uuid = ? 
                         ORDER BY sgsc.id`,[uuid],(error, result) => 
             {
                 if(error)

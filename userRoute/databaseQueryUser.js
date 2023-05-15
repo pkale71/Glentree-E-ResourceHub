@@ -172,4 +172,80 @@ db.getUser = (uuid) => {
             
         });
     }
+
+
+    db.getGradeSubject = (uuid) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+    
+                pool.query(`SELECT sgst.id
+                            FROM syllabus_grade_subject sgst 
+                            WHERE sgst.uuid = ? AND is_active = 1
+                            ORDER BY sgst.id`,[uuid],(error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
+
+    db.getSubjectChapters = (id,uuid) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+                let sql = ``
+                if(id){
+                    sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
+                    WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics' ) AS isExist,
+                    sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
+                    sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
+                    sy.name AS syllabusName, 
+                    g.name AS gradeName
+                    from syllabus_grade_subject_chapter sgsc
+                    LEFT JOIN syllabus_grade_subject sgst ON sgsc.syllabus_grade_subject_id = sgst.id
+                    LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
+                    LEFT JOIN grade g ON g.id = sgst.grade_id 
+                    LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+                    where sgsc.syllabus_grade_subject_id = ?
+                    ORDER BY sgsc.id`
+                }
+                else 
+                {
+                    sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
+                    WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics') AS isExist,
+                    sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
+                    sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
+                    sy.name AS syllabusName, 
+                    g.name AS gradeName
+                    from syllabus_grade_subject_chapter sgsc
+                    LEFT JOIN syllabus_grade_subject sgst ON sgsc.syllabus_grade_subject_id = sgst.id
+                    LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
+                    LEFT JOIN grade g ON g.id = sgst.grade_id 
+                    LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+                    where sgsc.uuid = ?
+                    ORDER BY sgsc.id`
+                }
+                let chapterId = id ? id : uuid
+                pool.query(sql,[chapterId],(error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
+
+
 module.exports = db
