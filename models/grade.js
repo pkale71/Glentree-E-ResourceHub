@@ -37,5 +37,19 @@ class grade {
             gradeCategory : this.gradeCategory
         }
     }
+
+    setData(data)
+    {
+        this.id                 =   data.id
+        this.name               =   data.name?.trim()
+    }
+
+    getData()
+    {
+        return {
+            id : this.id,
+            name : this.name
+        }
+    }
 }
 module.exports = grade

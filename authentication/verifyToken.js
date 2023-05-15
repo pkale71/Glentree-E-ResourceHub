@@ -88,8 +88,8 @@ async function  verifyToken  (req, res, next){
                else 
                {
                 
-    
-                    console.log(userTypeCode)
+                console.log("7")
+                    console.log(userTypeCode,req.params)
                     req.body.accessToken = accessToken
                     next()
                 }
