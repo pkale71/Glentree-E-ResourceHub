@@ -57,5 +57,30 @@ db.getGradeSubjectList = (userUuid,gradeId) =>
 }
 
 
+db.getGradeSection = (userUuid,gradeId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT sgs.uuid, sgs.section
+            from user_teach_subject_section utss 
+            LEFT JOIN school_grade_section sgs ON sgs.id = utss.section_id
+            WHERE utss.grade_id = ?
+            AND utss.user_id = (SELECT id FROM user WHERE uuid = ?)
+            AND utss.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)
+            ORDER BY  sgs.id `,[gradeId,userUuid],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+
 module.exports = db
 

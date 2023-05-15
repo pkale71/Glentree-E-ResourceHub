@@ -1,5 +1,6 @@
 class gradeSection {
     uuid
+    name
     academic
     school
     gradeSection
@@ -132,5 +133,24 @@ class gradeSection {
         
     }
   
+
+    setTeachSection(data)
+    {
+        this.uuid = data.uuid
+        this.name = data.section
+
+    }
+
+    getTeachSection()
+    {
+        return {
+            "uuid" : this.uuid,
+            "name" : this.name
+        }
+       
+    }
+
+
+
 }
 module.exports = gradeSection
