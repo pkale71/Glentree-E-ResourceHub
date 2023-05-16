@@ -403,32 +403,12 @@ db.findGrade = (userUuid,acaUuid) => {
     });
 }
 
-db.findSubjectGradeSubject = (userUuid,acaUuid, gradeId) => {
+db.findSubjectGradeSubject = (userUuid,acaUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
             let sql = ``
-            if(gradeId)
-            {
-                sql = `SELECT distinct usgs.uuid, ay.uuid AS acaUuid,
-                ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
-                           s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, 
-                           u.uuid AS userUuid,
-                           CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
-                          FROM user_supervise_grade_subject usgs
-                          LEFT JOIN school s ON s.id = usgs.school_id
-                          LEFT JOIN academic_year ay ON ay.id = usgs.academic_year_id
-                          LEFT JOIN school_grade_category sgc ON usgs.school_id = s.id
-                          INNER JOIN grade g ON g.id = usgs.grade_id
-                          LEFT JOIN syllabus_grade_subject sgs ON sgs.id = usgs.subject_id
-                          LEFT JOIN user u ON u.id = usgs.user_id
-                          WHERE u.uuid = ? 
-                          AND ay.uuid = ?
-                          AND g.id = ?
-                          ORDER BY g.id`
-            }
-            else
-            {
+          
                 sql =   `SELECT distinct usgs.uuid, ay.uuid AS acaUuid,
                 ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
                            s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
@@ -442,8 +422,8 @@ db.findSubjectGradeSubject = (userUuid,acaUuid, gradeId) => {
                           LEFT JOIN user u ON u.id = usgs.user_id
                           WHERE u.uuid = ? AND ay.uuid = ?
                           ORDER BY g.id`
-            }
-            pool.query(sql, [userUuid,acaUuid,gradeId], (error, result) => 
+            
+            pool.query(sql, [userUuid,acaUuid], (error, result) => 
             {
                 if(error)
                 {

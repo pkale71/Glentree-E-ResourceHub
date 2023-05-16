@@ -11,13 +11,12 @@ let assignList = []
 let assignGrade;
 let gradeId;
 
-module.exports = require('express').Router().get('/:userUuid/:acaUuid/:gradeId?*',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
     try{
+        console.log(req.params)
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
-        gradeId = req.params['gradeId']
-        if(gradeId)
-        {
+        
             assignGrade = await db.findGrade(userUuid,acaUuid)
             if(assignGrade.length == 0)
             {
@@ -28,7 +27,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid/:gradeId?*
                     "status_name"   : getCode.getStatus(400)
                 })
             }
-            AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid,gradeId)
+            AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid)
             // return res.json({
             //     "status_code" : 400,
             //     "message"     : AssignSubject,
@@ -72,64 +71,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid/:gradeId?*
                     "status_name"   : getCode.getStatus(200)
                 })
                 }
-        }
-        else
-        {
-            assignGrade = await db.findGrade(userUuid,acaUuid)
-            if(assignGrade.length == 0)
-            {
-                res.status(400)
-                return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No assigned subject found',
-                    "status_name"   : getCode.getStatus(400)
-                })
-            }
-            AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid,0)
-            // return res.json({
-            //     "status_code" : 400,
-            //     "message"     : AssignSubject,
-            //     "status_name"   : getCode.getStatus(400)
-            // })
-            if(AssignSubject.length == 0)
-            {
-                res.status(400)
-                return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No assigned subject found',
-                    "status_name"   : getCode.getStatus(400)
-                })
-            }
-            else
-            {
-                assignGradeList = []
-                assignList = []
-                gradeList = []
-                Array.from(assignGrade).forEach((element,i)=>{
-                    gradeList.push(AssignSubject.filter(ele => (ele.gradeId == element.gradeId)))
-                })
-                Array.from(gradeList).forEach(( ele, j ) =>  
-                {
-                    Array.from(ele).forEach(element => {
-                        assignedSubjects.setAssignedSubjects(element)
-                        assignGradeList.push(assignedSubjects.getAssignedSubjects()) 
-                    })
-                    if(gradeList[j].length > 0){
-                        gradeList[j][0]['userAssignedSubjects'] = assignGradeList
-                        assignedSubjects.setData(gradeList[j][0])
-                        assignList.push(assignedSubjects.getData())
-                    }
-                    assignGradeList = []
-                })
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data"        : {'assignedSubjects' : assignList},
-                    "message"     : 'success',
-                    "status_name"   : getCode.getStatus(200)
-                })
-                }
-        }
+        
         
         } 
         catch(e)

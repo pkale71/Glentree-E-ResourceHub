@@ -69,7 +69,7 @@ async function  verifyToken  (req, res, next){
                     req.body.accessToken = accessToken
                     next()
                 }
-                else if((userTypeCode == 'SUADM') && (req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus/:uuid' || req.baseUrl ==  '/common/deleteSyllabus' || req.baseUrl ==  '/common/createSyllabus' || req.baseUrl ==  '/common/updateSyllabus' ))
+                else if((userTypeCode == 'SUADM') && (req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus' || req.baseUrl ==  '/common/deleteSyllabus' || req.baseUrl ==  '/common/createSyllabus' || req.baseUrl ==  '/common/updateSyllabus' ))
                 {
                  console.log("5")
      
@@ -77,7 +77,7 @@ async function  verifyToken  (req, res, next){
                      req.body.accessToken = accessToken
                      next()
                  }
-                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/createSubjectChapter' || req.baseUrl ==  '/common/deleteSubjectChapter' || req.baseUrl ==  '/common/updateSubjectChapter' || req.baseUrl ==  '/common/changeSubjectChapterStatus/:uuid' || req.baseUrl ==  '/common/createChapterTopic' || req.baseUrl ==  '/common/updateChapterTopic' || req.baseUrl ==  '/common/deleteChapterTopic' || req.baseUrl ==  '/common/changeChapterTopicStatus/:uuid' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection'  ))
+                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/createSubjectChapter' || req.baseUrl ==  '/common/deleteSubjectChapter' || req.baseUrl ==  '/common/updateSubjectChapter' || req.baseUrl ==  '/common/changeSubjectChapterStatus' || req.baseUrl ==  '/common/createChapterTopic' || req.baseUrl ==  '/common/updateChapterTopic' || req.baseUrl ==  '/common/deleteChapterTopic' || req.baseUrl ==  '/common/changeChapterTopicStatus' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection' || req.baseUrl ==  '/school/getAssignedChapters' || req.baseUrl ==  '/school/getAssignedTopics' || req.baseUrl ==  '/school/getAssignedTopics'  ))
                 {
                  console.log("6")
      
@@ -85,18 +85,58 @@ async function  verifyToken  (req, res, next){
                      req.body.accessToken = accessToken
                      next()
                  }
-               else 
-               {
-                
-                console.log("7")
-                    console.log(userTypeCode,req.params)
+                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus'   ))
+                {
+                 console.log("7")
+     
+                     console.log(userTypeCode)
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+                 else if((userTypeCode == 'SCHCD' ) && (req.baseUrl ==  '/user/saveAssignedGrades' || req.baseUrl ==  '/user/deleteAssignedGrades'  ))
+                {
+                 console.log("7")
+     
+                     console.log(userTypeCode)
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+                 else if((userTypeCode == 'SUBHD') && (req.baseUrl ==  '/user/saveAssignedGradeSubjects'  || req.baseUrl ==  '/user/deleteAssignedGradeSubjects' ))
+                {
+                 console.log("7")
+     
+                     console.log(userTypeCode)
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+                 else if (req.method == 'GET' && (req.baseUrl.includes('get') || req.baseUrl ==  '/logout' ))
+                 {
+                    console.log(userTypeCode)
                     req.body.accessToken = accessToken
                     next()
+                 }
+                 else if (req.method == 'POST' && (req.baseUrl ==  '/authenticate' || req.baseUrl ==  '/changePassword'))
+                 {
+                    console.log(userTypeCode)
+                    req.body.accessToken = accessToken
+                    next()
+                 }
+               else 
+               {
+                console.log(userTypeCode,req.method)
+                res.status(401)
+                // Access Denied
+                return res.json({
+                    'message'       :       `Invalid user`,
+                    "status_name" : getCode.getStatus(401),
+                    "status_code"   :       401
+                });
+
                 }
                
             }
             else{
-                console.log("8")
+                console.log("9")
                 res.status(401)
                 // Access Denied
                 return res.json({
@@ -110,7 +150,7 @@ async function  verifyToken  (req, res, next){
               
         }
         else{
-            console.log("9")
+            console.log("10")
             res.status(401)
             return res.json({
                 'message'       :       `Unauthenticated User "${email}"`,
@@ -119,7 +159,7 @@ async function  verifyToken  (req, res, next){
             });
         }
     } catch (error) {
-        console.log("10****", req.method)
+        console.log("11****", req.method)
 
         // Access Denied
         res.status(401)

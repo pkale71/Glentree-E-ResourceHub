@@ -46,55 +46,28 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         authData = await commondb.selectToken(accessToken)
         completedBy = authData[0].userId
 
-        currentAca = await db.checkCurrentAcademicYear(acaUuid)
-        console.log(currentAca)
-        if(currentAca.length == 0)
-        {
-                res.status(400);
-                return res.json({
-                    "status_code": 400,
-                    "message": `Academic year passed`,
-                    "status_name": getCode.getStatus(400)
-                });
-        }
 
-        checkExist = await db.checkCompleteStatusExist(acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid)
-        console.log(checkExist)
-        if(checkExist.length > 0)
-        {
-                res.status(400);
-                return res.json({
-                    "status_code": 400,
-                    "message": `Complete status already exist.`,
-                    "status_name": getCode.getStatus(400)
-                });
-        }
-        else
-        {
-            saveStatus = await db.saveUserChapterCompleteStatus(uuid,acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid,completedOn,completedBy,createdOn,isCompleted)
-            console.log(saveStatus)
-                if (saveStatus.affectedRows > 0) {
-                    let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
-                   
-                    res.status(200);
-                    return res.json({
-                        "status_code": 200,
-                        "message": "success",
-                        "data" :{ "uuid" : returnUuid[0].uuid},
-                        "status_name": getCode.getStatus(200)
-                    });
-                }
-                else{
-                    res.status(500);
-                    return res.json({
-                        "status_code": 500,
-                        "message": "Complete status not saved",
-                        "status_name": getCode.getStatus(500)
-                    });
-                }
-        }
+        saveStatus = await db.updateUserChapterCompleteStatus(uuid,acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid,completedOn,completedBy,createdOn,isCompleted)
+        console.log(saveStatus)
 
-       
+            if (saveStatus.affectedRows > 0) {
+                let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
+                res.status(200);
+                return res.json({
+                    "status_code": 200,
+                    "message": "success",
+                    "data" :{ "uuid" : returnUuid[0].uuid},
+                    "status_name": getCode.getStatus(200)
+                });
+            }
+            else{
+                res.status(500);
+                return res.json({
+                    "status_code": 500,
+                    "message": "Complete status not saved",
+                    "status_name": getCode.getStatus(500)
+                });
+            }
         } 
         catch(e)
         {
