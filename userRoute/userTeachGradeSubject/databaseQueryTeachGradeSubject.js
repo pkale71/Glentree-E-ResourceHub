@@ -57,7 +57,7 @@ db.getGradeSubjectList = (userUuid,gradeId) =>
 }
 
 
-db.getGradeSection = (userUuid,gradeId) => {
+db.getGradeSection = (userUuid,gradeId,subjectUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -67,7 +67,8 @@ db.getGradeSection = (userUuid,gradeId) => {
             WHERE utss.grade_id = ?
             AND utss.user_id = (SELECT id FROM user WHERE uuid = ?)
             AND utss.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)
-            ORDER BY  sgs.id `,[gradeId,userUuid],(error, result) => 
+            AND utss.subject_id = (SELECT id FROM syllabus_grade_subject WHERE uuid = ?)
+            ORDER BY  sgs.id `,[gradeId,userUuid,subjectUuid],(error, result) => 
             {
                 if(error)
                 {
