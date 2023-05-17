@@ -27,6 +27,8 @@ userRouter.use( '/getTeachGrades',require('../authentication/validateToken'),req
 userRouter.use( '/getTeachSubjects',require('../authentication/validateToken'),require('./userTeachGradeSubject/getTeachSubjects'))
 userRouter.use( '/getTeachGradeSections',require('../authentication/validateToken'),require('./userTeachGradeSubject/getTeachGradeSections'))
 userRouter.use( '/saveUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/saveUserChapterCompleteStatus'))
+userRouter.use( '/updateUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/updateUserChapterCompleteStatus'))
+userRouter.use( '/deleteUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/deleteUserChapterCompleteStatus'))
 
 
 userRouter.use('/',(req,res,error)=>{

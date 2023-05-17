@@ -80,10 +80,27 @@ db.returnUuidUserChapterCompleteStatus = (id) =>
 }
 
 
+
 db.updateUserChapterCompleteStatus = (uuid,completedOn) =>{
     return new Promise((resolve, reject)=>{
         try{
             pool.query(`UPDATE user_chapter_complete_status SET completed_on = ? WHERE uuid = ?`, [completedOn,uuid], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+                 
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
+db.deleteUserChapterCompleteStatus = (uuid) =>{
+    return new Promise((resolve, reject)=>{
+        try{
+            pool.query(`DELETE FROM user_chapter_complete_status  WHERE uuid = ?`, [uuid], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
@@ -152,6 +169,32 @@ db.checkCurrentAcademicYear = (acaUuid) => {
             
             
             pool.query(sql, [acaUuid], (error, result)=>
+            {
+                if(error)
+                {
+                    return reject(error);
+                }
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
+db.checkCurrentAcademicYearUpdate = (uuid) => {
+    return new Promise((resolve, reject)=>
+    {
+        try
+        {
+            let sql = ``
+           
+                sql = `SELECT IF (COUNT(id) > 0,1,0) AS Exist FROM academic_year WHERE id = (SELECT academic_year_id FROM user_chapter_complete_status 
+                    WHERE uuid = ?)
+                    AND is_current = 1`
+            
+            
+            pool.query(sql, [uuid], (error, result)=>
             {
                 if(error)
                 {

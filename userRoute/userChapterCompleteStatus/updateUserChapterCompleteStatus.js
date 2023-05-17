@@ -1,20 +1,9 @@
 let    db = require('./databaseQueryChapterComplete')
-let commondb = require('../../common/commonDatabaseQuery')
 let    errorCode = require('../../common/errorCode')
-let    createUuid = require('uuid')
 let    getCode = new errorCode()
-let    accessToken;
 let    uuid;
-let    gradeId;
-let    chapterUuid;
-let    subjectUuid;
-let    sectionUuid;
-let    topicUuid;
-let    acaUuid;
 let    completedOn;
-let    completedBy;
-let    createdOn;
-let    isCompleted;
+
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
@@ -29,33 +18,44 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
 
-        uuid = createUuid.v1();
+        uuid = req.body.uuid
         completedOn = req.body.completedOn
-        
-        saveStatus = await db.updateUserChapterCompleteStatus(uuid,completedOn)
-        if (saveStatus.affectedRows > 0) {
-            let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
-            res.status(200);
-            return res.json({
-                "status_code":  200,
-                "message"   :   "success",
-                "data"      :   { 
-                                    "uuid" : returnUuid[0].uuid
-                                },
-                "status_name": getCode.getStatus(200)
-            });
-            }
-            else{
-                res.status(500);
+        let currentAcaYear = await db.checkCurrentAcademicYearUpdate(uuid)
+        if(currentAcaYear[0]?.Exist == 0)
+        {
+            res.status(400);
                 return res.json({
-                    "status_code": 500,
-                    "message": "Complete status not saved",
-                    "status_name": getCode.getStatus(500)
+                    "status_code": 400,
+                    "message": `Academic year completed`,
+                    "status_name": getCode.getStatus(400)
                 });
-            }
+        }
+        else
+        {
+            saveStatus = await db.updateUserChapterCompleteStatus(uuid,completedOn)
+            if (saveStatus.affectedRows > 0) {
+                
+                res.status(200);
+                return res.json({
+                    "status_code":  200,
+                    "message"   :   "success",
+                    "status_name": getCode.getStatus(200)
+                });
+                }
+                else{
+                    res.status(500);
+                    return res.json({
+                        "status_code": 500,
+                        "message": "Complete status not updated",
+                        "status_name": getCode.getStatus(500)
+                    });
+                }  
+        }
+        
         } 
         catch(e)
         {
+            console.log(e)
             if(e.code == 'ER_DUP_ENTRY')
             {
                 let msg = e.sqlMessage.replace('_UNIQUE', '');
@@ -72,7 +72,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(500)
                 return res.json({
                     "status_code"   : 500,
-                    "message"       : "Complete status not saved",
+                    "message"       : "Complete status not updated",
                     "status_name"   : getCode.getStatus(500),
                     "error"         : e.sqlMessage
                 }) 

@@ -85,7 +85,7 @@ async function  verifyToken  (req, res, next){
                      req.body.accessToken = accessToken
                      next()
                  }
-                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus'   ))
+                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus' || req.baseUrl ==  '/user/deleteUserChapterCompleteStatus'   ))
                 {
                  console.log("7")
      
