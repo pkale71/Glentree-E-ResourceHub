@@ -7,7 +7,7 @@ db.getGrades = (uuid) =>
     {
         try
         {
-            pool.query(`SELECT g.id, g.name
+            pool.query(`SELECT distinct g.id, g.name
             from user_teach_subject_section utss 
             LEFT JOIN grade g ON g.id = utss.grade_id
             WHERE utss.user_id = (SELECT id FROM user WHERE uuid = ?) 
@@ -36,7 +36,7 @@ db.getGradeSubjectList = (userUuid,gradeId) =>
         try
         {
 
-            pool.query(`SELECT sgs.uuid, sgs.subject_name
+            pool.query(`SELECT distinct sgs.uuid, sgs.subject_name
             from user_teach_subject_section utss 
             LEFT JOIN syllabus_grade_subject sgs ON sgs.id = utss.subject_id
             WHERE utss.grade_id = ?
@@ -61,7 +61,7 @@ db.getGradeSection = (userUuid,gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT sgs.uuid, sgs.section
+            pool.query(`SELECT distinct sgs.uuid, sgs.section
             from user_teach_subject_section utss 
             LEFT JOIN school_grade_section sgs ON sgs.id = utss.section_id
             WHERE utss.grade_id = ?

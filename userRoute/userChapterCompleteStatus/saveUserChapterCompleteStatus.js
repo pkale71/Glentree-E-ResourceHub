@@ -53,7 +53,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 res.status(400);
                 return res.json({
                     "status_code": 400,
-                    "message": `Academic year passed`,
+                    "message": `Academic year completed`,
                     "status_name": getCode.getStatus(400)
                 });
         }

@@ -4,7 +4,6 @@ let    errorCode = require('../../common/errorCode')
 let    createUuid = require('uuid')
 let    getCode = new errorCode()
 let    accessToken;
-let    isActive;
 let    uuid;
 let    gradeId;
 let    chapterUuid;
@@ -15,15 +14,13 @@ let    acaUuid;
 let    completedOn;
 let    completedBy;
 let    createdOn;
-let    chapterId;
-let    chapter;
 let    isCompleted;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.subject?.uuid ||!req.body.grade?.id || !req.body.academicYear?.uuid || !req.body.section?.uuid || !req.body.chapter?.uuid || !req.body.completedOn){
+        if(!req.body.uuid || !req.body.completedOn){
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -33,32 +30,20 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
 
         uuid = createUuid.v1();
-        acaUuid = req.body.academicYear?.uuid
-        gradeId = req.body.grade?.id
-        sectionUuid = req.body.section?.uuid
-        subjectUuid = req.body.subject?.uuid
-        chapterUuid = req.body.chapter?.uuid;
-        topicUuid = req.body.topic?.uuid
         completedOn = req.body.completedOn
-        createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-        isCompleted = 1
-        accessToken = req.body.accessToken
-        authData = await commondb.selectToken(accessToken)
-        completedBy = authData[0].userId
-
-
-        saveStatus = await db.updateUserChapterCompleteStatus(uuid,acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid,completedOn,completedBy,createdOn,isCompleted)
-        console.log(saveStatus)
-
-            if (saveStatus.affectedRows > 0) {
-                let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
-                res.status(200);
-                return res.json({
-                    "status_code": 200,
-                    "message": "success",
-                    "data" :{ "uuid" : returnUuid[0].uuid},
-                    "status_name": getCode.getStatus(200)
-                });
+        
+        saveStatus = await db.updateUserChapterCompleteStatus(uuid,completedOn)
+        if (saveStatus.affectedRows > 0) {
+            let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
+            res.status(200);
+            return res.json({
+                "status_code":  200,
+                "message"   :   "success",
+                "data"      :   { 
+                                    "uuid" : returnUuid[0].uuid
+                                },
+                "status_name": getCode.getStatus(200)
+            });
             }
             else{
                 res.status(500);

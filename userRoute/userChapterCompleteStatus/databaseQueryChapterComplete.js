@@ -80,10 +80,10 @@ db.returnUuidUserChapterCompleteStatus = (id) =>
 }
 
 
-db.updateUserChapterCompleteStatus = (uuid,acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid,completedOn,completedBy,createdOn,isCompleted) =>{
+db.updateUserChapterCompleteStatus = (uuid,completedOn) =>{
     return new Promise((resolve, reject)=>{
         try{
-            pool.query(`UPDATE user_chapter_complete_status SET academic_year_id = ?,grade_id = ?, section_id= ?, subject_id= ?, chapter_id=?, topic_id = ?, completed_on = ?, completed_by = ?, created_on = ?, is_completed = ? WHERE uuid = ?`, [firstName,lastName,userTypeId,gender,schoolId, email, mobile,uuid], (error, result)=>{
+            pool.query(`UPDATE user_chapter_complete_status SET completed_on = ? WHERE uuid = ?`, [completedOn,uuid], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
