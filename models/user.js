@@ -63,7 +63,7 @@ class user {
                                     "name" : data.schoolName?.trim(),
                                     "email" : data.schoolEmail,
                                     "contact1" : data.contact1,
-                                    "curriculum_upload" : data.curriculum_upload
+                                    "curriculumUpload" : data.curriculum_upload
                                 }:null
         this.email          =   data.email
         this.lastLogin      =   data.last_login
