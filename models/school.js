@@ -9,6 +9,7 @@
 //     contact2?: string;
 //     email?: string;
 //     curriculumUpload?: string;
+//     curriculumComplete?: string;
 //     syllabus?: Syllabus;
 //     gradeCategory?: SchoolGradeCategory[];
 //     createdOn?: Date;
@@ -25,6 +26,7 @@ class school {
     contact2
     email
     curriculumUpload
+    curriculumComplete
     syllabus
     gradeCategory
     createdOn
@@ -32,6 +34,7 @@ class school {
     active
     isExist;
     curriculumExist;
+    curriculumCompleteExist;
     syllabusExist;
     schoolUserSetting
 
@@ -96,6 +99,7 @@ class school {
         this.contact2           =           data.contact2?.length > 0 ?  data.contact2 : null
         this.email              =           data.email
         this.curriculumUpload   =           data.curriculumUpload
+        this.curriculumComplete =           data.curriculumComplete
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
                                                 "name"    :   data.syllabusName?.trim(),
@@ -117,6 +121,7 @@ class school {
                         contact2            :   this.contact2,
                         email               :   this.email,
                         curriculumUpload    :   this.curriculumUpload,
+                        curriculumComplete  :   this.curriculumComplete,
                         syllabus            :   this.syllabus,
                         createdOn           :   this.createdOn,
                         createdBy           :   this.createdBy,
@@ -134,7 +139,9 @@ class school {
         this.contact2           =           data.contact2 ? data.contact2 : null
         this.email              =           data.email
         this.curriculumUpload   =           data.curriculumUpload
+        this.curriculumComplete =           data.curriculumComplete
         this.curriculumExist    =           data.curriculumExist
+        this.curriculumCompleteExist    =   data.curriculumCompleteExist
         this.isExist            =           data.isExist
         this.syllabus           =           {
                                                 "id"     :   data.syllabusId,
@@ -158,7 +165,9 @@ class school {
                         contact2            :   this.contact2,
                         email               :   this.email,
                         curriculumUpload    :   this.curriculumUpload,
+                        curriculumComplete  :   this.curriculumComplete,
                         curriculumExist     :   this.curriculumExist,
+                        curriculumCompleteExist  :   this.curriculumCompleteExist,
                         isExist             :   this.isExist,
                         syllabus            :   this.syllabus,
                         gradeCategories     :   this.gradeCategory,

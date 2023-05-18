@@ -12,6 +12,7 @@ let    contact1;
 let    contact2;
 let    email;
 let    curriculumUpload;
+let    curriculumComplete;
 let    syllabusId;
 let    schoolGradeCategoryList;
 let    schoolGradeCategory;
@@ -39,6 +40,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         contact1 = req.body.contact1
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
+        curriculumComplete = req.body.curriculumComplete
         syllabusId = req.body.syllabus.id
         schoolGradeCategory = req.body.gradeCategory
         schoolGradeCategoryArray = schoolGradeCategory.split(',')
@@ -96,7 +98,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 }
             })
             if(flag){
-                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, syllabusId)
+                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId)
                         if(updateSchool.affectedRows > 0){
 
                             if(insertGradeCategory.length > 0){
