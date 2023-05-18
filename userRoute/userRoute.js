@@ -29,7 +29,7 @@ userRouter.use( '/getTeachGradeSections',require('../authentication/validateToke
 userRouter.use( '/saveUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/saveUserChapterCompleteStatus'))
 userRouter.use( '/updateUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/updateUserChapterCompleteStatus'))
 userRouter.use( '/deleteUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/deleteUserChapterCompleteStatus'))
-userRouter.use( '/getUserChapterCompleteStatus',require('../authentication/validateToken'),require('./userChapterCompleteStatus/getUserChapterCompleteStatus'))
+userRouter.use( '/getUserChapterCompleteStatuses',require('../authentication/validateToken'),require('./userChapterCompleteStatus/getUserChapterCompleteStatus'))
 
 
 
