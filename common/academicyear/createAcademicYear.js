@@ -30,7 +30,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         endDate     = req.body.endDate;
         accessToken = req.body.accessToken;
         uuid        = createUuid.v1()
-        isCurrent   = (new Date (startDate).getFullYear() == new Date().getFullYear()) ? 1 : 0;
+        isCurrent   = (new Date (startDate).getFullYear() === new Date().getFullYear()) ? 1 : 0;
 
         let insertAcademicYear = await db.insertAcademicYear(uuid, startDate, endDate, year, isCurrent)
         if(insertAcademicYear.affectedRows > 0)

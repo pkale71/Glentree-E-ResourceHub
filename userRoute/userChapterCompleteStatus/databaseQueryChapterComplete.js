@@ -209,7 +209,7 @@ db.checkCurrentAcademicYearUpdate = (uuid) => {
 };
 
 
-db.checkCurrentAcademicYearUpdate = (acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid) => {
+db.getUserChapterCompleteStatus = (acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid) => {
     return new Promise((resolve, reject)=>
     {
         try

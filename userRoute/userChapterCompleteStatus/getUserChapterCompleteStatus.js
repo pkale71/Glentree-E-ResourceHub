@@ -47,7 +47,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
 
         if(chapterUuid)
         {
-            chapterStatus = await db.checkCurrentAcademicYearUpdate(acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid)
+            chapterStatus = await db.getUserChapterCompleteStatus(acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid)
 
             completeChapterStatusList = [];
             if(chapterStatus.length == 0)
@@ -79,7 +79,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
         else
         {
            
-        chapterStatus = await db.checkCurrentAcademicYearUpdate(acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid)
+        chapterStatus = await db.getUserChapterCompleteStatus(acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid)
 
             completeChapterStatusList = [];
             if(chapterStatus.length == 0)
