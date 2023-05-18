@@ -12,6 +12,8 @@ async function  verifyToken  (req, res, next){
     try {
         console.log("PARAM")
          let token = req.headers['authorization']
+        console.log("PARAM",token)
+
          if(!token){
             res.status(401)
             return res.json({
@@ -73,7 +75,6 @@ async function  verifyToken  (req, res, next){
                 {
                  console.log("5")
      
-                     console.log(userTypeCode)
                      req.body.accessToken = accessToken
                      next()
                  }
@@ -81,15 +82,14 @@ async function  verifyToken  (req, res, next){
                 {
                  console.log("6")
      
-                     console.log(userTypeCode)
+                 
                      req.body.accessToken = accessToken
                      next()
                  }
-                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus' || req.baseUrl ==  '/user/deleteUserChapterCompleteStatus'   ))
+                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus' || req.baseUrl ==  '/user/deleteUserChapterCompleteStatus' ))
                 {
                  console.log("7")
      
-                     console.log(userTypeCode)
                      req.body.accessToken = accessToken
                      next()
                  }
@@ -97,7 +97,7 @@ async function  verifyToken  (req, res, next){
                 {
                  console.log("7")
      
-                     console.log(userTypeCode)
+            
                      req.body.accessToken = accessToken
                      next()
                  }
@@ -105,19 +105,19 @@ async function  verifyToken  (req, res, next){
                 {
                  console.log("7")
      
-                     console.log(userTypeCode)
+                     
                      req.body.accessToken = accessToken
                      next()
                  }
                  else if (req.method == 'GET' && (req.baseUrl.includes('get') || req.baseUrl ==  '/logout' ))
                  {
-                    console.log(userTypeCode)
+                  
                     req.body.accessToken = accessToken
                     next()
                  }
                  else if (req.method == 'POST' && (req.baseUrl ==  '/authenticate' || req.baseUrl ==  '/changePassword'))
                  {
-                    console.log(userTypeCode)
+                  
                     req.body.accessToken = accessToken
                     next()
                  }

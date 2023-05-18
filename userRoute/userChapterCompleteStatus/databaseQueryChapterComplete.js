@@ -209,5 +209,74 @@ db.checkCurrentAcademicYearUpdate = (uuid) => {
 };
 
 
+db.checkCurrentAcademicYearUpdate = (acaUuid,userUuid,gradeId,subjectUuid,sectionUuid,chapterUuid) => {
+    return new Promise((resolve, reject)=>
+    {
+        try
+        {
+            let sql = ``
+           if(chapterUuid)
+           {
+            sql = `SELECT distinct uccs.uuid,uccs.completed_on,uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
+            sgs.uuid AS sectionUuid, sgs.section AS sectionName, sygs.uuid AS subjectUuid, 
+            sygs.subject_name AS subjectName, sgsc.chapter_name AS chapterName, sgsc.uuid AS chapterUuid,
+            sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName,
+            u.uuid AS userUuid, TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName
+                        from user_chapter_complete_status uccs 
+                        LEFT JOIN academic_year ay ON ay.id = uccs.academic_year_id
+                        LEFT JOIN grade g ON g.id = uccs.grade_id
+                        LEFT JOIN school_grade_section sgs ON sgs.id = uccs.section_id
+                        LEFT JOIN syllabus_grade_subject sygs ON sygs.id = uccs.subject_id
+                        LEFT JOIN syllabus_grade_subject_chapter sgsc ON sgsc.id = uccs.chapter_id
+                        LEFT JOIN syllabus_grade_subject_chapter_topic sgsct ON sgsct.id = uccs.topic_id
+                        LEFT JOIN user u ON u.id = uccs.completed_by
+                        WHERE uccs.grade_id = ?
+                        AND uccs.academic_year_id = (SELECT id FROM academic_year WHERE uuid = ?)
+                        AND uccs.completed_by = (SELECT id FROM user WHERE uuid = ?)
+                        AND uccs.subject_id = (SELECT id FROM syllabus_grade_subject WHERE uuid = ?)
+                        AND uccs.section_id = (SELECT id FROM school_grade_section WHERE uuid = ?)
+                        AND uccs.chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?)
+                        ORDER BY  uccs.id`
+           }
+           else
+           {
+            sql = `SELECT distinct uccs.uuid,uccs.completed_on,uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
+            sgs.uuid AS sectionUuid, sgs.section AS sectionName, sygs.uuid AS subjectUuid, 
+            sygs.subject_name AS subjectName, sgsc.chapter_name AS chapterName, sgsc.uuid AS chapterUuid,
+            sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName,
+            u.uuid AS userUuid, TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName
+                        from user_chapter_complete_status uccs 
+                        LEFT JOIN academic_year ay ON ay.id = uccs.academic_year_id
+                        LEFT JOIN grade g ON g.id = uccs.grade_id
+                        LEFT JOIN school_grade_section sgs ON sgs.id = uccs.section_id
+                        LEFT JOIN syllabus_grade_subject sygs ON sygs.id = uccs.subject_id
+                        LEFT JOIN syllabus_grade_subject_chapter sgsc ON sgsc.id = uccs.chapter_id
+                        LEFT JOIN syllabus_grade_subject_chapter_topic sgsct ON sgsct.id = uccs.topic_id
+                        LEFT JOIN user u ON u.id = uccs.completed_by
+                        WHERE uccs.grade_id = ?
+                        AND uccs.academic_year_id = (SELECT id FROM academic_year WHERE uuid = ?)
+                        AND uccs.completed_by = (SELECT id FROM user WHERE uuid = ?)
+                        AND uccs.subject_id = (SELECT id FROM syllabus_grade_subject WHERE uuid = ?)
+                        AND uccs.section_id = (SELECT id FROM school_grade_section WHERE uuid = ?)
+                        AND uccs.chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?)
+                        ORDER BY  uccs.id`
+           }
+               
+            
+            
+            pool.query(sql, [gradeId,acaUuid,userUuid,subjectUuid,sectionUuid,chapterUuid], (error, result)=>
+            {
+                if(error)
+                {
+                    return reject(error);
+                }
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
 module.exports = db
 
