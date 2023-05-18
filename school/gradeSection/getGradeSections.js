@@ -28,6 +28,7 @@ let authData;
 module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gradeCategoryId/:gradeId?*',async(req,res) =>  {
     try
     {  
+        console.log(req.params)
         academicUuid    = req.params.acadmicUUID
         schoolUuid      = req.params.schoolUUID
         gradeCategoryId = req.params.gradeCategoryId

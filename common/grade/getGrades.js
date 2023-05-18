@@ -9,6 +9,7 @@ let gradeList = [];
 module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req,res) =>  {
     try
     {
+        console.log(req.params)
         gradeCategoryId = req.params['gradeCategoryId']
         if(gradeCategoryId)
         {
