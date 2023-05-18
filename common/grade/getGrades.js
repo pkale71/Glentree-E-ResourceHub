@@ -10,7 +10,24 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
     try
     {
         console.log(req.params)
-        gradeCategoryId = req.params['gradeCategoryId']
+        if(req.params['0'].length > 0 &&  req.params['0'] != '/')
+        {
+            let a = req.params['0'].split('/')
+            if(a.length > 1)
+            {
+                gradeCategoryId = req.params['gradeCategoryId'] + a[0]
+            }
+            else if(a.length == 1) 
+            {
+                gradeCategoryId = req.params['gradeCategoryId'] + a[0]
+            }
+        }
+        else
+        {
+            gradeCategoryId = req.params['gradeCategoryId']
+        }
+        console.log(gradeCategoryId)
+       // gradeCategoryId = req.params['gradeCategoryId']
         if(gradeCategoryId)
         {
             grades = await db.getGrades(gradeCategoryId)

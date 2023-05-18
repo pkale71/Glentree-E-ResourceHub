@@ -15,7 +15,7 @@ let chapterUuid;
 module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:subjectUuid/:sectionUuid/:chapterUuid?*',async(req,res) =>  {
     try
     {
-        if(req.params['0'].length > 0)
+        if(req.params['0'].length > 0 &&  req.params['0'] != '/')
         {
             let a = req.params['0'].split('/')
             if(a.length > 1)
@@ -32,8 +32,9 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
         else
         {
             sectionUuid = req.params.sectionUuid
-            chapterUuid = req.params.chapterUuid
+            chapterUuid = req.params['chapterUuid']
         }
+        console.log(sectionUuid,chapterUuid)
          console.log(req.params)
         acaUuid = req.params.acaUuid
         userUuid = req.params.userUuid
@@ -107,9 +108,6 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
                 } 
             })
         }
-        
-
-      
     } 
     catch(e)
     {

@@ -29,10 +29,30 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
     try
     {  
         console.log(req.params)
+        if(req.params['0'].length > 0 &&  req.params['0'] != '/')
+        {
+            let a = req.params['0'].split('/')
+            if(a.length > 1)
+            {
+                gradeCategoryId = req.params.gradeCategoryId + a[0]
+                gradeId = a[1]
+            }
+            else if(a.length == 1) 
+            {
+                gradeCategoryId = req.params.gradeCategoryId + a[0]
+                gradeId = 0
+            }
+        }
+        else
+        {
+            gradeCategoryId = req.params.gradeCategoryId
+            gradeId = req.params['gradeId']
+        }
+        console.log(gradeCategoryId,gradeId)
         academicUuid    = req.params.acadmicUUID
         schoolUuid      = req.params.schoolUUID
-        gradeCategoryId = req.params.gradeCategoryId
-        gradeId         = req.params['gradeId']
+        // gradeCategoryId = req.params.gradeCategoryId
+        // gradeId         = req.params['gradeId']
         accessToken     = req.body.accessToken
 
         if(gradeCategoryId.length == 0){

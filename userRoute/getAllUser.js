@@ -15,8 +15,25 @@ let usertypeId;
 module.exports = require('express').Router().get('/:roleId?*',async(req,res)=>{
     try
     {
+        if(req.params['0'].length > 0 &&  req.params['0'] != '/')
+        {
+            let a = req.params['0'].split('/')
+            if(a.length > 1)
+            {
+                roleId = req.params['roleId'] + a[0]
+            }
+            else if(a.length == 1) 
+            {
+                roleId = req.params['roleId'] + a[0]
+            }
+        }
+        else
+        {
+            roleId = req.params['roleId']
+        }
+        console.log(roleId)
         token = req.body.access_token;
-        roleId = req.params['roleId'];
+        // roleId = req.params['roleId'];
         let param = req.params['0']
         let paramArr = param.split('/')
         usertypeId = paramArr[1];
