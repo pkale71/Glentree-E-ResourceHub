@@ -5,8 +5,8 @@ db.getAllSchools = () => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email,  s.curriculum_upload AS curriculumUpload, s.syllabus_id AS syllabusId,
-            sy.name AS syllabusName, s.created_on, s.created_by_id, 
+            pool.query(`SELECT distinct s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email, s.curriculum_upload AS curriculumUpload, s.curriculum_complete AS curriculumComplete,
+            s.syllabus_id AS syllabusId, sy.name AS syllabusName, s.created_on, s.created_by_id, 
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
             (select IF((select IF(count(u.id) > 0,1,0) from user u
             where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
@@ -33,7 +33,7 @@ db.getSchoolError = (uuid) => {
         try
         {
             pool.query(`SELECT JSON_OBJECT('id',s.id,'uuid',s.uuid , 'name', s.name, 'location', s.location, 'contact1', s.contact1, 'contact2', s.contact2, 
-            'email', s.email, 'curriculumUpload', s.curriculum_upload, 
+            'email', s.email, 'curriculumUpload', s.curriculum_upload, s.curriculum_complete, 
             'syllabus', JSON_OBJECT('id', s.syllabus_id, 'name', sy.name), 
             'gradeCategory',
             ( SELECT JSON_ARRAYAGG(JSON_OBJECT('id', sgc.grade_category_id, 'name', gc.name))), 
@@ -70,10 +70,13 @@ db.getSchool = (uuid,acaId) => {
             // GROUP BY s.id
             // ORDER BY s.id
             pool.query(`SELECT distinct s.id, s.uuid, s.name ,s.location, s.contact1, s.contact2, s.email ,s.syllabus_id AS syllabusId,
-            s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.is_active, sy.name AS syllabusName, 
+            s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.curriculum_complete AS curriculumComplete, s.is_active, sy.name AS syllabusName, 
                         CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
                        (SELECT IF(COUNT(cm.school_id)> 0,1,0) FROM curriculum_master cm
-                           WHERE cm.school_id = s.id AND cm.academic_year_id = ? ) AS curriculumExist,
+                           WHERE cm.school_id = s.id AND cm.academic_year_id = ?) AS curriculumExist,
+                        (SELECT IF(COUNT(ccm.id)> 0,1,0) FROM user_chapter_complete_status ccm
+						   LEFT JOIN school_grade_section sgs ON sgs.id = ccm.section_id
+                           WHERE sgs.school_id = s.id AND ccm.academic_year_id = ?) AS curriculumCompleteExist,
                         (select IF((select IF(count(u.id) > 0,1,0) from user u
                         where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
                         where cm.school_id = s.id))) AS isExist
@@ -82,7 +85,7 @@ db.getSchool = (uuid,acaId) => {
                         LEFT JOIN user u ON u.id = s.created_by_id
                         where s.uuid = ?
                         order by s.id
-                `, [acaId,uuid],(error, result) => 
+                `, [acaId,acaId,uuid],(error, result) => 
             {
                 if(error)
                 {
@@ -156,11 +159,11 @@ db.deleteSchools = (id) => {
     });
 }
 
-db.insertSchool = (schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive) => {
+db.insertSchool = (schooUuid, name, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId, createdOn, createdById, isActive) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, syllabus_id, created_on, created_by_id, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [schooUuid, name, location, contact1, contact2, email, curriculumUpload, syllabusId, createdOn, createdById, isActive], (error, result) => 
+            pool.query("INSERT INTO school (uuid, name, location, contact1, contact2, email, curriculum_upload, curriculum_complete, syllabus_id, created_on, created_by_id, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [schooUuid, name, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId, createdOn, createdById, isActive], (error, result) => 
             {
                 if(error)
                 {
@@ -244,11 +247,11 @@ db.selectSchoolUid = (id) => {
     });
 }
 
-db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, syllabusId) => {
+db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId) => {
     return new Promise((resolve, reject)=>{
         try{
             //console.log("p")
-            pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, syllabus_id = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, syllabusId,schoolUuid], (error, result)=>{
+            pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, curriculum_complete=?, syllabus_id = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,schoolUuid], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
