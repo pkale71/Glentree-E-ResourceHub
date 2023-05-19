@@ -70,7 +70,7 @@ db.getUsers = (roleId,userTypeId) =>{
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
             LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id != 1 AND u.is_active = 1 AND u.role_id = ? AND u.user_type_id = ?
+            WHERE u.id != 1 AND u.role_id = ? AND u.user_type_id = ?
             ORDER BY u.id`
         }
         else if(roleId)
@@ -88,7 +88,7 @@ db.getUsers = (roleId,userTypeId) =>{
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
             LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id != 1 AND u.is_active = 1 AND u.role_id = ?
+            WHERE u.id != 1 AND u.role_id = ?
             ORDER BY u.id`
         }
         else{
@@ -105,7 +105,7 @@ db.getUsers = (roleId,userTypeId) =>{
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
             LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id != 1 AND u.is_active = 1
+            WHERE u.id != 1 
             ORDER BY u.id`
         }
         try{pool.query(sql,[roleId, userTypeId], (error, result)=>{
