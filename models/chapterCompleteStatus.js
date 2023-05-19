@@ -1,5 +1,7 @@
 // academic_year table columns name
 
+const commonFunction = require("../common/commonFunction")
+
 // export class academicYear {
 //     id?: number;
 //     uuid?: string;
@@ -10,9 +12,6 @@
 //   }
   
   
-
-
-
 class userChapterCompleteStatus {
     uuid
     academicYear
@@ -28,6 +27,7 @@ class userChapterCompleteStatus {
     
     setDataAll(data)
     {
+console.log(data.completed_on)
         this.uuid           =   data.uuid
         this.academicYear   =   {
                                     "uuid" : data.acaUuid,
@@ -53,7 +53,7 @@ class userChapterCompleteStatus {
             "uuid" : data.topicUuid,
             "name" : data.topicName.trim()
         }
-        this.completedOn        =   data.completed_on
+        this.completedOn        =   commonFunction.changeDateToSqlDate(data.completed_on)
         this.isCompleted        =   data.is_completed
         this.completedBy        =    {
             "uuid" : data.userUuid,
