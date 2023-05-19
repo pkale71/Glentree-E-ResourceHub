@@ -124,7 +124,14 @@ db.getUsers = (roleId,userTypeId) =>{
 db.getUser = (uuid) => {
         return new Promise((resolve, reject) => {
             try{
-                pool.query("SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name, u.last_name,u.gender, u.role_id,r.name AS role_name, u.user_type_id,u.email,u.mobile,  u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code, u.is_active AS isActive, u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid, s.name AS schoolName  FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id  LEFT JOIN user uc ON (u.created_by_id = uc.id) LEFT JOIN user ud ON (u.deleted_by_id = ud.id) LEFT JOIN school s ON (s.id = u.school_id) WHERE u.id !=1 AND u.uuid = ?",[uuid] ,(error, result)=>{
+                pool.query(`SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name, u.last_name,u.gender, u.role_id,r.name AS role_name, u.user_type_id,u.email,u.mobile,  u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code, u.is_active AS isActive, u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid, s.name AS schoolName  
+                FROM user u 
+                LEFT JOIN role r ON u.role_id = r.id 
+                LEFT JOIN user_type ut ON ut.id = u.user_type_id  
+                LEFT JOIN user uc ON (u.created_by_id = uc.id) 
+                LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
+                LEFT JOIN school s ON (s.id = u.school_id) 
+                WHERE u.id !=1 AND u.uuid = ?`,[uuid] ,(error, result)=>{
                 if(error){
                 return reject(error);
                  }          
@@ -135,6 +142,23 @@ db.getUser = (uuid) => {
             
         });
     }; 
+
+    db.userStatusChange = (uuid) => {
+        return new Promise((resolve, reject)=>{
+            try{
+                //console.log("p")
+                pool.query('UPDATE user set is_active = IF(is_active = 1,0,1) WHERE uuid = ?', [uuid], (error, result)=>{
+                    if(error){
+                        return reject(error);
+                    }
+                   // console.log("e")
+                      return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+           
+        });
+    };
 
     db.selectSchool = (uuid) => {
         return new Promise((resolve, reject)=>{
