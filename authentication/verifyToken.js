@@ -75,19 +75,19 @@ async function  verifyToken  (req, res, next){
     
             if(verified){
                 console.log("3", req.baseUrl,userTypeCode)
-                if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  (req.baseUrl ==  '/user/createUser' || req.baseUrl ==  '/user/updateUser' || req.baseUrl ==  '/user/deleteUser'|| req.baseUrl ==  '/user/changeStatus'||req.baseUrl ==  '/common/createGrade' || req.baseUrl ==  '/common/updateGrade' || req.baseUrl ==  '/common/deleteGrade' ||  req.baseUrl ==  '/user/checkDuplicateEmailMobile')){
+                if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  (req.baseUrl ==  '/user/createUser' || req.baseUrl ==  '/user/updateUser' || req.baseUrl ==  '/user/deleteUser'|| req.baseUrl ==  '/user/changeStatus'||req.baseUrl ==  '/common/createGrade' || req.baseUrl ==  '/common/updateGrade' || req.baseUrl ==  '/common/deleteGrade' ||  req.baseUrl ==  '/user/checkDuplicateEmailMobile' ||req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection')){
                     console.log("4")
                     req.body.accessToken = accessToken
                     next()
                 }
-                else if((userTypeCode == 'SUADM') && (req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus' || req.baseUrl ==  '/common/deleteSyllabus' || req.baseUrl ==  '/common/createSyllabus' || req.baseUrl ==  '/common/updateSyllabus' ))
+                else if((userTypeCode == 'SUADM') && ( req.baseUrl ==  '/common/deleteSyllabus' || req.baseUrl ==  '/common/createSyllabus' || req.baseUrl ==  '/common/updateSyllabus' ))
                 {
                  console.log("5")
      
                      req.body.accessToken = accessToken
                      next()
                  }
-                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/createSubjectChapter' || req.baseUrl ==  '/common/deleteSubjectChapter' || req.baseUrl ==  '/common/updateSubjectChapter' || req.baseUrl ==  '/common/changeSubjectChapterStatus' || req.baseUrl ==  '/common/createChapterTopic' || req.baseUrl ==  '/common/updateChapterTopic' || req.baseUrl ==  '/common/deleteChapterTopic' || req.baseUrl ==  '/common/changeChapterTopicStatus' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection' || req.baseUrl ==  '/school/getAssignedChapters' || req.baseUrl ==  '/school/getAssignedTopics' || req.baseUrl ==  '/school/getAssignedTopics'  ))
+                 else if((userTypeCode == 'HDOFA') && (req.baseUrl ==  '/common/createAcademicYear' ||req.baseUrl ==  '/common/updateAcademicYear' ||req.baseUrl ==  '/common/deleteAcademicYear' || req.baseUrl ==  '/common/createGradeSubject' || req.baseUrl ==  '/common/updateGradeSubject' || req.baseUrl ==  '/common/deleteGradeSubject' || req.baseUrl ==  '/common/changeGradeSubjectStatus/:uuid'   || req.baseUrl ==  '/common/createSubjectChapter' || req.baseUrl ==  '/common/deleteSubjectChapter' || req.baseUrl ==  '/common/updateSubjectChapter' || req.baseUrl ==  '/common/changeSubjectChapterStatus' || req.baseUrl ==  '/common/createChapterTopic' || req.baseUrl ==  '/common/updateChapterTopic' || req.baseUrl ==  '/common/deleteChapterTopic' || req.baseUrl ==  '/common/changeChapterTopicStatus'    ))
                 {
                  console.log("6")
      
