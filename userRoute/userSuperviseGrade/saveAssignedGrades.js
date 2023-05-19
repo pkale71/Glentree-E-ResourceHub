@@ -30,6 +30,41 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         uuid = createUuid.v1()
         grade = req.body.grade;
         grade = grade.split(",")
+
+
+        let user = await db.getUserType(userUuid);
+        if(user.length == 0)
+        {
+            res.status(404);
+            return res.json({
+                "status_code": 404,
+                "message": "User not found",
+                "status_name": getCode.getStatus(404)
+            });
+        }
+
+        if(user[0].roleId != 2)
+        {
+            res.status(400);
+            return res.json({
+                "status_code": 400,
+                "message": "Not a school user",
+                "status_name": getCode.getStatus(400)
+            });
+        }
+
+        if(user[0].roleId == 2 && user[0].userTypeId != 6)
+        {
+            res.status(400);
+            return res.json({
+                "status_code": 400,
+                "message": "User is not coordinator",
+                "status_name": getCode.getStatus(400)
+            });
+        }
+
+
+
         ids = await db.findSchoolAndAcaId(academicYearUuid,schoolUuid,userUuid)
         if(ids.length > 0){
             acaId = ids[0]['acaId']

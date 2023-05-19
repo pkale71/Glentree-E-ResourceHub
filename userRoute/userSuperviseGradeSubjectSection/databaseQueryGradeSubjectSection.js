@@ -459,5 +459,23 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
     });
 }
 
+db.getUserType = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT user_type_id AS userTypeId, role_id AS roleId FROM user WHERE uuid = ?`, [uuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db
 
