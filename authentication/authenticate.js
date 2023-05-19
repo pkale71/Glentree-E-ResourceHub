@@ -7,6 +7,7 @@ let useUser = new users()
 let email;
 let password;
 let userId
+let user
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
          email = req.body.email;
@@ -18,6 +19,14 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 "status_code" : 401,
                 "message": "Invalid email or password",
                 "status_name" : getCode.getStatus(401)
+            })
+        }
+        if(user[0].role_id == 2 && user[0].schoolActive == 0){
+            res.status(401)
+            return res.json({
+                "message": "School is not active",
+                "status_name" : getCode.getStatus(401),
+                "status_code"   :  401
             })
         }
         user[0]['time'] = Date()

@@ -55,7 +55,16 @@ async function  verifyToken  (req, res, next){
                 console.log("1****")
                 res.status(401)
                 return res.json({
-                    "message": "Invalid Token",
+                    "message": "User not active",
+                    "status_name" : getCode.getStatus(401),
+                    "status_code"   :  401
+                })
+            }
+            if(user[0].role_id == 2 && user[0].schoolActive == 0){
+                console.log("1****")
+                res.status(401)
+                return res.json({
+                    "message": "School is not active",
                     "status_name" : getCode.getStatus(401),
                     "status_code"   :  401
                 })

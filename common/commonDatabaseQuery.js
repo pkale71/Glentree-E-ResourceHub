@@ -4,7 +4,14 @@ let commondb = {};
 commondb.getUserById = (userId) =>{
     return new Promise((resolve, reject)=>{
         try{
-            pool.query("SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,u.role_id,r.name AS role_name, u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id WHERE u.id = ? AND u.is_active = 1", [userId], (error, users)=>{
+            pool.query(`SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,u.role_id,r.name AS role_name,
+            u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code,
+            s.uuid AS schoolUuid, s.is_active AS schoolActive
+                       FROM user u 
+                       LEFT JOIN role r ON u.role_id = r.id 
+                       LEFT JOIN user_type ut ON ut.id = u.user_type_id
+                       LEFT JOIN school s ON s.id = u.school_id
+                       WHERE u.id = ? AND u.is_active = 1`, [userId], (error, users)=>{
                 if(error){
                     return reject(error);
                 }
@@ -15,20 +22,6 @@ commondb.getUserById = (userId) =>{
     });
 };
 
-commondb.getUserByEmail = (email) =>{
-    return new Promise((resolve, reject)=>{
-        try{
-            pool.query("SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,u.role_id,r.name AS role_name, u.user_type_id, u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code FROM user u LEFT JOIN role r ON u.role_id = r.id LEFT JOIN user_type ut ON ut.id = u.user_type_id WHERE u.email = ? AND is_active =1", [email], (error, users)=>{
-                if(error){
-                    return reject(error);
-                }
-                return resolve(users);
-            });
-        }catch(e){ console.log(e)}
-       
-    });
-};
- 
 
 commondb.selectToken = (authToken) =>{
     return new Promise((resolve, reject)=>{
