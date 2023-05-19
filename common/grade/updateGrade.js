@@ -26,6 +26,16 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         let check = await db.checkGradeUsed(id)
         if(!check[0].Exist && !check[0].isExist)
         {
+            let checkGradeExist = await db.checkGradeExist(name,gradeCategoryId,id)
+        if(checkGradeExist[0].Exist > 0)
+        {
+            res.status(400)
+            return res.json({
+             "status_code" : 400,
+             "message"     : "Grade already exist",
+             "status_name" : getCode.getStatus(400)
+            })
+        }
             let updateGrade = await db.updateGrade(id,name, gradeCategoryId)
             if(updateGrade.affectedRows > 0){
                  res.status(200)

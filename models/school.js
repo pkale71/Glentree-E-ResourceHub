@@ -75,7 +75,7 @@ class school {
         this.userType = {
                                     "id" : data.user_type_id,
                                     "name" : data.userTypeName?.trim(),
-                                    "code" : data.code
+                                    "code" : data.code?.trim()
                         }
         this.schoolUserSettingUpload = data.can_upload
         this.schoolUserSettingVerify = data.can_verify
@@ -94,10 +94,10 @@ class school {
     setDataAll(data){
         this.uuid               =           data.uuid
         this.name               =           data.name?.trim()
-        this.location           =           data.location
+        this.location           =           data.location?.trim()
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2?.length > 0 ?  data.contact2 : null
-        this.email              =           data.email
+        this.email              =           data.email?.trim()
         this.curriculumUpload   =           data.curriculumUpload
         this.curriculumComplete =           data.curriculumComplete
         this.syllabus           =           {
@@ -134,10 +134,10 @@ class school {
      setData(data){
         this.uuid               =           data.uuid
         this.name               =           data.name?.trim()
-        this.location           =           data.location
+        this.location           =           data.location?.trim()
         this.contact1           =           data.contact1
         this.contact2           =           data.contact2 ? data.contact2 : null
-        this.email              =           data.email
+        this.email              =           data.email?.trim()
         this.curriculumUpload   =           data.curriculumUpload
         this.curriculumComplete =           data.curriculumComplete
         this.curriculumExist    =           data.curriculumExist

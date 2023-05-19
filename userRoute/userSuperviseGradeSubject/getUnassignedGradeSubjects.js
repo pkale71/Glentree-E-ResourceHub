@@ -6,6 +6,8 @@ let gradeSubject = new unassignedGradeSubject()
 let subjects;
 let schoolUuid;
 let acaUuid;
+let acaId;
+let schoolId;
 let ids
 let subjectList = []
 
@@ -20,11 +22,12 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:schoolUuid
             schoolId = ids[0]['schoolId']
             subjects = await db.findUnAssignedGradeSubjects(acaId,schoolId,gradeId)
             if(subjects.length == 0){
-                res.status(400)
+                res.status(200)
                 return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No unassigned grade subject found',
-                    "status_name"   : getCode.getStatus(400)
+                    "status_code" : 200,
+                    "message"     : 'success',
+                    "data"        : {'unassignedGradeSubjects' : []},
+                    "status_name"   : getCode.getStatus(200)
                 })
             }
             else{

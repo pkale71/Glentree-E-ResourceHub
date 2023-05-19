@@ -445,6 +445,8 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
             LEFT JOIN school_grade_section ss ON ss.id = utss.section_id
             LEFT JOIN user u ON u.id = utss.user_id
             WHERE u.uuid = ? AND ay.uuid = ?
+            AND sgs.uuid IS NOT null
+            AND ss.uuid IS NOT null
             ORDER BY sgs.id`, [userUuid,acaUuid], (error, result) => 
             {
                 if(error)
@@ -466,7 +468,7 @@ db.getUserType = (uuid) => {
             pool.query(`SELECT user_type_id AS userTypeId, u.role_id AS roleId, ut.code 
             FROM user u
             LEFT JOIN user_type ut ON ut.id = u.user_type_id
-            WHERE uuid = ?`, [uuid], (error, result) => 
+            WHERE u.uuid = ?`, [uuid], (error, result) => 
             {
                 if(error)
                 {

@@ -12,7 +12,7 @@ let createdById
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-        if(!req.params.schoolUUID  ){
+        if(!req.body.uuid  ){
             res.status(404)
             return res.json({
                 "status_code" : 404,
@@ -21,7 +21,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
         accessToken = req.body.accessToken;
-        schoolUuid = req.params.schoolUUID
+        schoolUuid = req.body.uuid
         authData = await commondb.selectToken(accessToken)
         createdById = authData[0].userId
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')

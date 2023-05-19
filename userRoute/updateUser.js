@@ -14,12 +14,13 @@ let mobile
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
-        if(req.body.uuid == undefined || (req.body.role.id==2 && req.body.school == undefined)){
-            res.status(404)
+        
+        if(!req.body.email  || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school)){
+            res.status(400)
             return res.json({
-                "status_code" : 404,
-                "message" : "Missing values",
-                "status_name" : getCode.getStatus(404)
+                "status_code" : 400,
+                "message" : "Provide all values",
+                "status_name" : getCode.getStatus(400)
             })
         }
          accessToken = req.body.accessToken;

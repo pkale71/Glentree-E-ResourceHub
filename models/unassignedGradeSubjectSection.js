@@ -6,7 +6,7 @@ class unassignedGradeSubject {
     setDataAll(data)
     {
         this.uuid     =   data.uuid
-        this.name   =   data.section?.trim()
+        this.name   =   data.section
     }
 
     getDataAll()

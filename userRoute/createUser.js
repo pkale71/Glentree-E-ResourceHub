@@ -23,12 +23,12 @@ let userId
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
         console.log(req.body.email)
-        if(req.body.email == undefined || req.body.password == undefined || req.body.firstName == undefined  || req.body.role.id == undefined || req.body.mobile == undefined || req.body.userType.id == undefined || req.body.gender == undefined || (req.body.role.id==2 && req.body.school == undefined)){
-            res.status(404)
+        if(!req.body.email  || !req.body.password || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school)){
+            res.status(400)
             return res.json({
-                "status_code" : 404,
+                "status_code" : 400,
                 "message" : "Provide all values",
-                "status_name" : getCode.getStatus(404)
+                "status_name" : getCode.getStatus(400)
             })
         }
          email = req.body.email;
@@ -43,7 +43,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
          userUUid = userUuid.v1()
          createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         
-         if(req.body.role.id==2 && !req.body.school.uuid){
+         if(req.body.role?.id==2 && !req.body.school?.uuid){
             res.status(404)
                 return res.json({
                     "status_code" : 404,
@@ -51,7 +51,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     "status_name" : getCode.getStatus(404)
                 })
             }
-         schoolUuid = req.body.role.id==2?req.body.school.uuid:null
+         schoolUuid = req.body.role?.id==2?req.body.school?.uuid:null
         if(schoolUuid){
             schoolId = await db.selectSchool(schoolUuid)
             console.log(schoolId)

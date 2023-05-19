@@ -13,7 +13,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
          accessToken = req.body.accessToken;
          uuid = req.body.uuid;
-         if(req.body.uuid == undefined){
+         if(!req.body.uuid){
             res.status(404)
             return res.json({
                 "status_code" : 404,

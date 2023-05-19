@@ -247,11 +247,11 @@ db.selectSchoolUid = (id) => {
     });
 }
 
-db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId) => {
+db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name) => {
     return new Promise((resolve, reject)=>{
         try{
             //console.log("p")
-            pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, curriculum_complete=?, syllabus_id = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,schoolUuid], (error, result)=>{
+            pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, curriculum_complete=?, syllabus_id = ?, name = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,schoolUuid], (error, result)=>{
                 if(error){
                     return reject(error);
                 }

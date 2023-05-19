@@ -12,7 +12,7 @@ class assignedSection {
             "uuid" : data.uuid,
             "user" : {
                 "uuid" : data.userUuid,
-                "name" : data.userName.trim()
+                "name" : data.userName?.trim()
             },
             "assignedSection" : {
                 "uuid" : data.sectionUuid,
@@ -20,7 +20,7 @@ class assignedSection {
             },
             "school" : {
                 "uuid" : data.schoolUuid,
-                "name" : data.schoolName
+                "name" : data.schoolName?.trim()
             },
             "academicYear" : {
                 "uuid" : data.acaUuid,

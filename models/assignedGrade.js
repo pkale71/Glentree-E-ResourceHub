@@ -11,15 +11,15 @@ class assignedGrade {
             "uuid" : data.uuid,
             "user" : {
                 "uuid" : data.userUuid,
-                "name" : data.userName.trim()
+                "name" : data.userName?.trim()
             },
             "assignedGrade" : {
                 "id" : data.gradeId,
-                "name" : data.gradeName
+                "name" : data.gradeName?.trim()
             },
             "school" : {
                 "uuid" : data.schoolUuid,
-                "name" : data.schoolName
+                "name" : data.schoolName?.trim()
             },
             "academicYear" : {
                 "uuid" : data.acaUuid,

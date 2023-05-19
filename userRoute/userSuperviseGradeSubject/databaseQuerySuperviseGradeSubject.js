@@ -421,6 +421,7 @@ db.findSubjectGradeSubject = (userUuid,acaUuid) => {
                           LEFT JOIN syllabus_grade_subject sgs ON sgs.id = usgs.subject_id
                           LEFT JOIN user u ON u.id = usgs.user_id
                           WHERE u.uuid = ? AND ay.uuid = ?
+                          AND sgs.uuid IS NOT null
                           ORDER BY g.id`
             
             pool.query(sql, [userUuid,acaUuid], (error, result) => 
@@ -445,7 +446,7 @@ db.getUserType = (uuid) => {
             pool.query(`SELECT user_type_id AS userTypeId, u.role_id AS roleId, ut.code 
             FROM user u
             LEFT JOIN user_type ut ON ut.id = u.user_type_id
-            WHERE uuid = ?`, [uuid], (error, result) => 
+            WHERE u.uuid = ?`, [uuid], (error, result) => 
             {
                 if(error)
                 {

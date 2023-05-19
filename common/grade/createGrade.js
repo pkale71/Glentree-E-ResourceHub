@@ -11,17 +11,29 @@ module.exports = require('express').Router().post('/',async(req,res) =>
     {
         name = req.body.name?.trim();
         accessToken = req.body.accessToken;
-
         if(!req.body.gradeCategory)
         {
-            res.status(404)
+            res.status(400)
             return res.json({
-             "status_code" : 404,
+             "status_code" : 400,
              "message"     : "Grade Category not given",
-             "status_name" : getCode.getStatus(404)
+             "status_name" : getCode.getStatus(400)
             })
         }
         gradeCategoryId = req.body.gradeCategory.id;
+        let checkGradeExist = await db.checkGradeExist(name,gradeCategoryId)
+        if(checkGradeExist[0].Exist > 0)
+        {
+            res.status(400)
+            return res.json({
+             "status_code" : 400,
+             "message"     : "Grade already exist",
+             "status_name" : getCode.getStatus(400)
+            })
+        }
+
+       
+        
         let insertGrade = await db.insertGrade(name, gradeCategoryId)
         if(insertGrade.affectedRows > 0)
         {

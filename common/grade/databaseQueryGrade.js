@@ -192,5 +192,32 @@ db.deleteGrade = (id) => {
     });
 }
 
+db.checkGradeExist = (name,gradeCategoryId,id) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            let sql = ``
+            if(id)
+            {
+                sql = `SELECT COUNT(id) AS Exist FROM grade WHERE grade_category_id = ? AND UPPER(name) LIKE UPPER(?) AND id != ?`
+            }
+            else
+            {
+                sql = `SELECT COUNT(id) AS Exist FROM grade WHERE grade_category_id = ? AND UPPER(name) LIKE UPPER(?)`
+            }
+            pool.query(sql, [gradeCategoryId,name,id], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db
 

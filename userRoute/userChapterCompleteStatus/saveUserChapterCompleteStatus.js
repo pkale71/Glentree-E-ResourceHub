@@ -1,5 +1,5 @@
 let    db = require('./databaseQueryChapterComplete')
-let commondb = require('../../common/commonDatabaseQuery')
+let    commondb = require('../../common/commonDatabaseQuery')
 let    errorCode = require('../../common/errorCode')
 let    createUuid = require('uuid')
 let    getCode = new errorCode()
@@ -46,8 +46,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         authData = await commondb.selectToken(accessToken)
         completedBy = authData[0].userId
 
-
-        let user = await db.getUserType(id);
+        let user = await db.getUserType(authData[0].userId);
         if(user.length == 0)
         {
             res.status(404);
@@ -67,8 +66,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name": getCode.getStatus(400)
             });
         }
-
-        if(user[0].roleId == 2 &&( user[0].userTypeId != 'SCHCD' ||  user[0].userTypeId != 'SUBHD' ||  user[0].userTypeId != 'TECHR'))
+        if(user[0].roleId == 2 && user[0].code != 'SCHCD' &&  user[0].code != 'SUBHD' &&  user[0].code != 'TECHR')
         {
             res.status(400);
             return res.json({

@@ -17,11 +17,12 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
         assignGrade = await db.findGrade(userUuid,acaUuid)
         if(assignGrade.length == 0)
         {
-            res.status(400)
+            res.status(200)
             return res.json({
-                "status_code" : 400,
-                "message"     : 'No assigned section found',
-                "status_name"   : getCode.getStatus(400)
+                "status_code" : 200,
+                "message"     : 'success',
+                "data"      :   {'assignedSections' : []},
+                "status_name"   : getCode.getStatus(200)
             })
         }
         AssignGrade = await db.findSubjectGradeSection(userUuid,acaUuid)
@@ -32,11 +33,12 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
         // })
         if(AssignGrade.length == 0)
         {
-            res.status(400)
+            res.status(200)
             return res.json({
-                "status_code" : 400,
-                "message"     : 'No assigned section found',
-                "status_name"   : getCode.getStatus(400)
+                "status_code" : 200,
+                "message"     : 'success',
+                "data"      :   {'assignedSections' : []},
+                "status_name"   : getCode.getStatus(200)
             })
         }
         else
@@ -44,9 +46,16 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
             assignGradeList = []
             assignList = []
             gradeList = []
+        
             Array.from(assignGrade).forEach((element,i)=>{
                 gradeList.push(AssignGrade.filter(ele => (ele.gradeId == element.gradeId && ele.id == element.id)))
             })
+            
+          gradeList.forEach( (ele)=>{
+                ele.sort(function(a, b){
+                    return a.sectionId-b.sectionId})
+            })
+            
            
             Array.from(gradeList).forEach(( ele, j ) =>  
             {

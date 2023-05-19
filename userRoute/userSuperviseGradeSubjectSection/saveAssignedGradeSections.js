@@ -53,8 +53,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name": getCode.getStatus(400)
             });
         }
-
-        if(user[0].roleId == 2 &&( user[0].code != 'SCHCD' ||  user[0].code != 'SUBHD' ||  user[0].code != 'TECHR'))
+        if(user[0].roleId == 2 && user[0].code != 'SCHCD' &&  user[0].code != 'SUBHD' &&  user[0].code != 'TECHR')
         {
             res.status(400);
             return res.json({
