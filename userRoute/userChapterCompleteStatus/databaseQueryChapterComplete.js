@@ -139,7 +139,7 @@ db.checkCompleteStatusExist = (acaUuid,gradeId,sectionUuid,subjectUuid,chapterUu
                 AND subject_id = (SELECT id FROM syllabus_grade_subject WHERE uuid = ?)
                 AND chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?)
                 AND topic_id = (SELECT id FROM syllabus_grade_subject_chapter_topic 
-                    WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?))`
+                    WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?) AND UPPER(topic_name) = UPPER('All-Topics'))`
                 
                 topicUuid = chapterUuid
             }
