@@ -46,6 +46,40 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         authData = await commondb.selectToken(accessToken)
         completedBy = authData[0].userId
 
+
+        let user = await db.getUserType(id);
+        if(user.length == 0)
+        {
+            res.status(404);
+            return res.json({
+                "status_code": 404,
+                "message": "User not found",
+                "status_name": getCode.getStatus(404)
+            });
+        }
+
+        if(user[0].roleId != 2)
+        {
+            res.status(400);
+            return res.json({
+                "status_code": 400,
+                "message": "Not a school user",
+                "status_name": getCode.getStatus(400)
+            });
+        }
+
+        if(user[0].roleId == 2 &&( user[0].userTypeId != 6 ||  user[0].userTypeId != 7 ||  user[0].userTypeId != 8))
+        {
+            res.status(400);
+            return res.json({
+                "status_code": 400,
+                "message": "User is not coordinator or teacher or subject head.",
+                "status_name": getCode.getStatus(400)
+            });
+        }
+
+
+
         currentAca = await db.checkCurrentAcademicYear(acaUuid)
         console.log(currentAca)
         if(currentAca.length == 0)

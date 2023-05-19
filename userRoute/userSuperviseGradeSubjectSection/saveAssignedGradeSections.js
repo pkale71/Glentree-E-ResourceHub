@@ -54,12 +54,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
 
-        if(user[0].roleId == 2 && user[0].userTypeId != 6)
+        if(user[0].roleId == 2 &&( user[0].userTypeId != 6 ||  user[0].userTypeId != 7 ||  user[0].userTypeId != 8))
         {
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": "User is not coordinator",
+                "message": "User is not coordinator or teacher or subject head.",
                 "status_name": getCode.getStatus(400)
             });
         }

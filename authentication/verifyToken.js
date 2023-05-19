@@ -75,7 +75,7 @@ async function  verifyToken  (req, res, next){
     
             if(verified){
                 console.log("3", req.baseUrl,userTypeCode)
-                if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  (req.baseUrl ==  '/user/createUser' || req.baseUrl ==  '/user/updateUser' || req.baseUrl ==  '/user/deleteUser'|| req.baseUrl ==  '/user/changeStatus'||req.baseUrl ==  '/common/createGrade' || req.baseUrl ==  '/common/updateGrade' || req.baseUrl ==  '/common/deleteGrade' ||  req.baseUrl ==  '/user/checkDuplicateEmailMobile' ||req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection' || req.baseUrl ==  '/user/saveAssignedGradeSubjects'  || req.baseUrl ==  '/user/deleteAssignedGradeSubjects' || req.baseUrl ==  '/user/saveAssignedGrades' || req.baseUrl ==  '/user/deleteAssignedGrades' ||req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections' || req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus' || req.baseUrl ==  '/user/deleteUserChapterCompleteStatus')){
+                if((userTypeCode == 'SUADM'||userTypeCode == 'HDOFA') &&  (req.baseUrl ==  '/user/createUser' || req.baseUrl ==  '/user/updateUser' || req.baseUrl ==  '/user/deleteUser'|| req.baseUrl ==  '/user/changeStatus'||req.baseUrl ==  '/common/createGrade' || req.baseUrl ==  '/common/updateGrade' || req.baseUrl ==  '/common/deleteGrade' ||  req.baseUrl ==  '/user/checkDuplicateEmailMobile' ||req.baseUrl ==  '/school/createSchool' ||req.baseUrl ==  '/school/updateSchool' || req.baseUrl ==  '/school/deleteSchool' || req.baseUrl ==  '/school/changeStatus' || req.baseUrl ==  '/school/deleteGradeSection' || req.baseUrl ==  '/school/createGradeSection' || req.baseUrl ==  '/user/saveAssignedGradeSubjects'  || req.baseUrl ==  '/user/deleteAssignedGradeSubjects' || req.baseUrl ==  '/user/saveAssignedGrades' || req.baseUrl ==  '/user/deleteAssignedGrades'|| req.baseUrl ==  '/user/saveAssignedGradeSections' || req.baseUrl ==  '/user/deleteAssignedGradeSections'  )){
                     console.log("4")
                     req.body.accessToken = accessToken
                     next()
@@ -92,6 +92,13 @@ async function  verifyToken  (req, res, next){
                  console.log("6")
      
                  
+                     req.body.accessToken = accessToken
+                     next()
+                 }
+                 else if((userTypeCode == 'SCHCD' || userTypeCode == 'SUBHD' || userTypeCode == 'TECHR' ) && (req.baseUrl ==  '/user/saveUserChapterCompleteStatus' || req.baseUrl ==  '/user/updateUserChapterCompleteStatus' || req.baseUrl ==  '/user/deleteUserChapterCompleteStatus'))
+                {
+                 console.log("7")
+     
                      req.body.accessToken = accessToken
                      next()
                  }
