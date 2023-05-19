@@ -442,7 +442,10 @@ db.getUserType = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT user_type_id AS userTypeId, role_id AS roleId FROM user WHERE uuid = ?`, [uuid], (error, result) => 
+            pool.query(`SELECT user_type_id AS userTypeId, u.role_id AS roleId, ut.code 
+            FROM user u
+            LEFT JOIN user_type ut ON ut.id = u.user_type_id
+            WHERE uuid = ?`, [uuid], (error, result) => 
             {
                 if(error)
                 {

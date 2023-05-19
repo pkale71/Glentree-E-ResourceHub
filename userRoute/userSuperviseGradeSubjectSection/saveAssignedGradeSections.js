@@ -54,7 +54,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             });
         }
 
-        if(user[0].roleId == 2 &&( user[0].userTypeId != 6 ||  user[0].userTypeId != 7 ||  user[0].userTypeId != 8))
+        if(user[0].roleId == 2 &&( user[0].code != 'SCHCD' ||  user[0].code != 'SUBHD' ||  user[0].code != 'TECHR'))
         {
             res.status(400);
             return res.json({
