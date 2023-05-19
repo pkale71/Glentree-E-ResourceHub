@@ -28,6 +28,7 @@ class userChapterCompleteStatus {
     
     setDataAll(data)
     {
+        console.log(data.completed_on)
         this.uuid           =   data.uuid
         this.academicYear   =   {
                                     "uuid" : data.acaUuid,
