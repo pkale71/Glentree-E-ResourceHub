@@ -55,7 +55,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
                 res.status(200)
                 return res.json({
                     "status_code"   :   200,
-                    "data"          :   {'userChapterConpleteStatuses' : [] },
+                    "data"          :   {'userChapterCompleteStatuses' : [] },
                     "message"       :   'success',
                     "status_name"   :   getCode.getStatus(200),
                 })   
@@ -69,7 +69,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
                     res.status(200)
                     return res.json({
                         "status_code" : 200,
-                        "data"        : {'userChapterConpleteStatuses' : completeChapterStatusList},
+                        "data"        : {'userChapterCompleteStatuses' : completeChapterStatusList},
                         "message"     : 'success',
                         "status_name"   : getCode.getStatus(200)
                     })
@@ -87,7 +87,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
                 res.status(200)
                 return res.json({
                     "status_code"   :   200,
-                    "data"          :   {'userChapterConpleteStatuses' : [] },
+                    "data"          :   {'userChapterCompleteStatuses' : [] },
                     "message"       :   'success',
                     "status_name"   :   getCode.getStatus(200),
                 })   
@@ -101,7 +101,7 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
                     res.status(200)
                     return res.json({
                         "status_code" : 200,
-                        "data"        : {'userChapterConpleteStatuses' : completeChapterStatusList},
+                        "data"        : {'userChapterCompleteStatuses' : completeChapterStatusList},
                         "message"     : 'success',
                         "status_name"   : getCode.getStatus(200)
                     })
