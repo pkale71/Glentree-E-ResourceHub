@@ -39,7 +39,8 @@ db.saveUserChapterCompleteStatus = (uuid,acaUuid,gradeId,sectionUuid,subjectUuid
                 ?,
                 ?,
                 (SELECT id FROM syllabus_grade_subject_chapter_topic 
-                WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?)))`
+                WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?) 
+                AND UPPER(topic_name) = UPPER('All-Topics')))`
                 topicUuid = chapterUuid
             }
             
