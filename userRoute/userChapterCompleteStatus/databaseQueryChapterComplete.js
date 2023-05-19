@@ -259,7 +259,6 @@ db.getUserChapterCompleteStatus = (acaUuid,userUuid,gradeId,subjectUuid,sectionU
                         AND uccs.completed_by = (SELECT id FROM user WHERE uuid = ?)
                         AND uccs.subject_id = (SELECT id FROM syllabus_grade_subject WHERE uuid = ?)
                         AND uccs.section_id = (SELECT id FROM school_grade_section WHERE uuid = ?)
-                        AND uccs.chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = ?)
                         ORDER BY  uccs.id`
            }
                
