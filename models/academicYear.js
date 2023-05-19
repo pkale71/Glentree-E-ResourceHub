@@ -1,5 +1,7 @@
 // academic_year table columns name
 
+const commonFunction = require("../common/commonFunction")
+
 // export class academicYear {
 //     id?: number;
 //     uuid?: string;
@@ -9,7 +11,7 @@
 //      isCurrent: Date
 //   }
   
-  
+
 
 
 
@@ -27,8 +29,8 @@ class academicYear {
     {
         this.uuid           =   data.uuid
         this.year           =   data.year
-        this.startDate      =   data.start_date
-        this.endDate        =   data.end_date
+        this.startDate      =   commonFunction.changeDateToSqlDate(data.start_date) 
+        this.endDate        =   commonFunction.changeDateToSqlDate(data.end_date)
         this.isCurrent      =   data.is_current ? data.is_current : 0
         this.isExist        =   data.isExist
     }
