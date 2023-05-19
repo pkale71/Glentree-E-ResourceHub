@@ -63,7 +63,7 @@ db.getCurrentAcademicYears = () => {
             
             
             
-              let  sql = `SELECT ay.*,
+              let  sql = `SELECT ay.id,ay.uuid,ay.year,DATE_FORMAT(ay.start_date, '%m-%d-%Y') AS start_date,DATE_FORMAT(ay.end_date, '%m-%d-%Y') AS end_date,ay.is_current,
                 (select IF((select IF(count(sgs.id) > 0,1,0) from school_grade_section sgs
                 where sgs.academic_year_id = ay.id) > 0, 1,
                 (SELECT IF(count(utss.id) > 0,1,0) FROM user_teach_subject_section utss
