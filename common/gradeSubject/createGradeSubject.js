@@ -32,7 +32,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             res.status(400);
             return res.json({
                 "status_code": 400,
-                "message": `Subject name '${name}' already present for grade`,
+                "message": `Subject name already present for grade`,
                 "status_name": getCode.getStatus(400)
             });
         }

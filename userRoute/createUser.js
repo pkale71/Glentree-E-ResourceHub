@@ -23,7 +23,7 @@ let userId
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
         console.log(req.body.email)
-        if(!req.body.email  || !req.body.password || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school)){
+        if(!req.body.email  || !req.body.password || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school?.uuid)){
             res.status(400)
             return res.json({
                 "status_code" : 400,

@@ -32,6 +32,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
         if(req.params['0'].length > 0 &&  req.params['0'] != '/')
         {
             let a = req.params['0'].split('/')
+            console.log(a)
             if(a.length > 1)
             {
                 gradeCategoryId = req.params.gradeCategoryId + a[0]
@@ -150,6 +151,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                 })
             }
             gradeId = await db.getGradeId(gradeCategoryId)
+            console.log(gradeId)
             if(gradeId.length == 0){
                 res.status(404)
                 return res.json({
@@ -158,7 +160,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     "status_name"   : getCode.getStatus(404)
                 })
             }
-         
+            console.log(gradeId)
             Array.from(gradeId).forEach(async(ele) => {
                 // console.log("*******",gradeId)
                 let datas = {'ele':ele,'academic' :academic,'school' : school ,'gradeCategory' : gradeCategory}
