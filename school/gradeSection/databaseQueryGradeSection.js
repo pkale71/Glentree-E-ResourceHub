@@ -18,7 +18,9 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                 LEFT JOIN school s ON s.id = sgs.school_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
                 LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
-                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?) AND sgs.grade_id = ?
+                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? 
+                AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?) 
+                AND sgs.grade_id = ?
                 ORDER BY g.id, sgs.grade_id, sgs.id`;
             }
             else
@@ -30,7 +32,9 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                 LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
                 LEFT JOIN school s ON s.id = sgs.school_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
-                WHERE  sgs.academic_year_id = ?  AND sgs.school_id = ? AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?)
+                WHERE  sgs.academic_year_id = ?  
+                AND sgs.school_id = ? 
+                AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?)
                 ORDER BY g.id, sgs.grade_id, sgs.id`;
             }
                 
@@ -41,26 +45,27 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                 {
                     return reject(error);
                 } 
-                if(ele){
-                    if(result.length == 0){
-                        result.push({"grade_id": ele.ele.id, 
-                        "gradeName" : ele.ele.name,
-                        'acaUuid' : ele.academic[0].uuid,
-                        "year" : ele.academic[0].year, 
-                        'schoolUuid' : ele.school[0].uuid,
-                        'schoolName' : ele.school[0].name,
-                        'gradeCategoryId' : ele.gradeCategory[0].id,
-                        'gradeCatName' : ele.gradeCategory[0].name,
-                         })
-                        return resolve(result);
-                    }   else{
-                        return resolve(result);
-                    } 
-                } 
-                  else {
-                    return resolve(result); 
-                  }
+                // if(ele){
+                //     if(result.length == 0){
+                //         result.push({"grade_id": ele.ele.id, 
+                //         "gradeName" : ele.ele.name,
+                //         'acaUuid' : ele.academic[0].uuid,
+                //         "year" : ele.academic[0].year, 
+                //         'schoolUuid' : ele.school[0].uuid,
+                //         'schoolName' : ele.school[0].name,
+                //         'gradeCategoryId' : ele.gradeCategory[0].id,
+                //         'gradeCatName' : ele.gradeCategory[0].name,
+                //          })
+                //         return resolve(result);
+                //     }   else{
+                //         return resolve(result);
+                //     } 
+                // } 
+                //   else {
+                //     return resolve(result); 
+                //   }
                 // return resolve(result); 
+                return resolve(result)
             });
         }
         catch(e){ console.log(e)}
@@ -86,11 +91,36 @@ db.getGradeSection = (uuid) => {
     });
 }
 
-db.getGradeId = (id) => {
+db.getGradeId = (acaId, schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT * from grade WHERE grade_category_id = ? ORDER BY id `,[id],(error, result) => 
+            pool.query(`SELECT distinct grade_id from school_grade_section 
+            WHERE academic_year_id = ? AND school_id = ?
+            ORDER BY id `,[acaId, schoolId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.getGradeNotIn = (acaId,schoolId,gradeCategoryId) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT g.id, g.name AS gradeName
+            FROM grade g
+            WHERE g.grade_category_id = ? AND g.id NOT IN (SELECT sgs.grade_id from school_grade_section sgs WHERE sgs.academic_year_id = ?  
+                            AND sgs.school_id = ? 
+                            AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?))
+            ORDER BY g.id `,[gradeCategoryId,acaId,schoolId,gradeCategoryId],(error, result) => 
             {
                 if(error)
                 {
