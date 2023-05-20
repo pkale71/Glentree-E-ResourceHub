@@ -160,59 +160,107 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     "status_name"   : getCode.getStatus(404)
                 })
             }
+            let  l = []
             console.log(gradeId)
             Array.from(gradeId).forEach(async(ele) => {
                 // console.log("*******",gradeId)
                 let datas = {'ele':ele,'academic' :academic,'school' : school ,'gradeCategory' : gradeCategory}
-                sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas))
-                gradeId.splice(gradeId.indexOf(ele),1)
-                if(gradeId.length == 0){
-                    // return res.json({
-                    //     data: sectionList
-                    // })
-                   // console.log(sectionList)
-                    setSections = sectionList
+                db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas).then((res1) => {
+                    sectionList.push(res1)
+                    l.push(ele)
+                    if(l.length == gradeId.length)
+                    {
+                        setSections = sectionList
                     
-                        for(i=0;i<sectionList.length;i++){
-                            Array.from(sectionList[i]).forEach((element) =>{
-                                sections.setGradeSection(element)
-                                list.push(sections.getGradeSection())
-                            })
-                            // console.log("***",setSections[i][0])
-                            //  console.log("******",list)
-                            setSections[i][0]['sections']=list[0].uuid ? list : []
-                            list = [] 
-                            sections.setGrade( setSections[i][0])
-                            gradeList.push(sections.getGrade())
-                            gradeList.sort(function(a, b){return a.id-b.id})
-                            setSections[i][0]['grade']=gradeList
+                                for(i=0;i<sectionList.length;i++){
+                                    Array.from(sectionList[i]).forEach((element) =>{
+                                        sections.setGradeSection(element)
+                                        list.push(sections.getGradeSection())
+                                    })
+                                    // console.log("***",setSections[i][0])
+                                    //  console.log("******",list)
+                                    setSections[i][0]['sections']=list[0].uuid ? list : []
+                                    list = [] 
+                                    sections.setGrade( setSections[i][0])
+                                    gradeList.push(sections.getGrade())
+                                    gradeList.sort(function(a, b){return a.id-b.id})
+                                    setSections[i][0]['grade']=gradeList
+                                        
+                                    sections.setGradeCategory( setSections[i][0])
+                                    gradeCategoryList.push(sections.getGradeCategory())
+                                     
+                                    setSections[i][0]['gradeCategory']=gradeCategoryList
+                                   
                                 
-                            sections.setGradeCategory( setSections[i][0])
-                            gradeCategoryList.push(sections.getGradeCategory())
+                                    sections.setDataAll( setSections[i][0])
+                                    copySectionList.push(sections.getDataAll())
+                                
+                                   // setSections[i][0]['gradeCategory']=copySectionList
+                                    
+                                }
+                                res.status(200)
+                                return res.json({
+                                    "status_code" : 200,
+                                    "data"        : {'gradeSections' : copySectionList[0]},
+                                    "message"     : "success",
+                                    "status_name"   : getCode.getStatus(200)
+                                })
+                            
+                           
+                            // return res.json({
+                            //         data: finalList[finalList.length-1]
+                            //     })
+                    }
+                })
+                // sectionList.push(await db.getGradeSections(academicId,schoolId,ele.id,ele.grade_category_id,datas))
+                // gradeId.splice(gradeId.indexOf(ele),1)
+                // if(gradeId.length == 0){
+                //     // return res.json({
+                //     //     data: sectionList
+                //     // })
+                //    // console.log(sectionList)
+                //     setSections = sectionList
+                    
+                //         for(i=0;i<sectionList.length;i++){
+                //             Array.from(sectionList[i]).forEach((element) =>{
+                //                 sections.setGradeSection(element)
+                //                 list.push(sections.getGradeSection())
+                //             })
+                //             // console.log("***",setSections[i][0])
+                //             //  console.log("******",list)
+                //             setSections[i][0]['sections']=list[0].uuid ? list : []
+                //             list = [] 
+                //             sections.setGrade( setSections[i][0])
+                //             gradeList.push(sections.getGrade())
+                //             gradeList.sort(function(a, b){return a.id-b.id})
+                //             setSections[i][0]['grade']=gradeList
+                                
+                //             sections.setGradeCategory( setSections[i][0])
+                //             gradeCategoryList.push(sections.getGradeCategory())
                              
-                            setSections[i][0]['gradeCategory']=gradeCategoryList
+                //             setSections[i][0]['gradeCategory']=gradeCategoryList
                            
                         
-                            sections.setDataAll( setSections[i][0])
-                            copySectionList.push(sections.getDataAll())
+                //             sections.setDataAll( setSections[i][0])
+                //             copySectionList.push(sections.getDataAll())
                         
-                           // setSections[i][0]['gradeCategory']=copySectionList
+                //            // setSections[i][0]['gradeCategory']=copySectionList
                             
-                        }
-                        res.status(200)
-                        return res.json({
-                            "status_code" : 200,
-                            "data"        : {'gradeSections' : copySectionList[0]},
-                            "message"     : "success",
-                            "status_name"   : getCode.getStatus(200)
-                        })
+                //         }
+                //         res.status(200)
+                //         return res.json({
+                //             "status_code" : 200,
+                //             "data"        : {'gradeSections' : copySectionList[0]},
+                //             "message"     : "success",
+                //             "status_name"   : getCode.getStatus(200)
+                //         })
                     
                    
-                    // return res.json({
-                    //         data: finalList[finalList.length-1]
-                    //     })
+                //     // return res.json({
+                //     //         data: finalList[finalList.length-1]
+                //     //     })
                    
-                }
+                // }
             })
         }
         else{
