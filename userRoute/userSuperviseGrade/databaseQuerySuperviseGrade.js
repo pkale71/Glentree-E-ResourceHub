@@ -320,7 +320,7 @@ db.findSchoolGradeCategory = (userUuid,acaUuid) => {
            LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
            LEFT JOIN user u ON u.id = usg.user_id
            WHERE u.uuid = ? AND ay.uuid = ?
-           AND sgs.uuid IS NOT null
+           AND g.id IS NOT null
            ORDER BY gc.id`, [userUuid,acaUuid], (error, result) => 
             {
                 if(error)
@@ -372,7 +372,7 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
           
            
           console.log(userUuid.length)
-            if(userUuid.length > 0){
+            if(userUuid){
                 sql = `SELECT s.id AS schoolId,
                 (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
                 (select u.id from user u where u.uuid = ?) AS userId
@@ -381,15 +381,10 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
             else{
                 sql = `SELECT s.id AS schoolId,
                 (select ay.id from academic_year ay where ay.uuid = ?) AS acaId
-    
                 FROM school s where s.uuid = ?`
                 userUuid = schoolUuid
             }
-         
-               
-            
-            
-            pool.query(sql, [acaUuid,userUuid,schoolUuid], (error, result) => 
+           pool.query(sql, [acaUuid,userUuid,schoolUuid], (error, result) => 
             {
                 if(error)
                 {

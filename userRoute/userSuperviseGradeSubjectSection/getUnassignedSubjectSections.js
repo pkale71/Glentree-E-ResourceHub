@@ -26,11 +26,12 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
             console.log(acaId,schoolId,gradeId,subjectId)
             sections = await db.findUnAssignedGradeSubjects(acaId,schoolId,gradeId,subjectId)
             if(sections.length == 0){
-                res.status(400)
+                res.status(200)
                 return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No unassigned grade subject section found',
-                    "status_name"   : getCode.getStatus(400)
+                    "status_code" : 200,
+                    "data"        : {'unassignedGradeSubjectSections' : []},
+                    "message"     : 'success',
+                    "status_name"   : getCode.getStatus(200)
                 })
             }
             else{

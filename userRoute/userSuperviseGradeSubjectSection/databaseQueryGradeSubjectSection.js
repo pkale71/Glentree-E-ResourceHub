@@ -311,11 +311,24 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid,subjectUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT s.id AS schoolId,
-            (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
-            (select u.id from user u where u.uuid = ?) AS userId,
-            (select sgs.id from syllabus_grade_subject sgs where sgs.uuid = ?) AS subjectId
-            FROM school s where s.uuid = ?`, [acaUuid,userUuid,subjectUuid,schoolUuid], (error, result) => 
+            let sql = ``
+            if(userUuid)
+            {
+                sql = `SELECT s.id AS schoolId,
+                (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+                (select sgs.id from syllabus_grade_subject sgs where sgs.uuid = ?) AS subjectId,
+                (select u.id from user u where u.uuid = ?) AS userId
+                FROM school s where s.uuid = ?`
+            }
+            else
+            {
+                sql = `SELECT s.id AS schoolId,
+                (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,
+                (select sgs.id from syllabus_grade_subject sgs where sgs.uuid = ?) AS subjectId
+                FROM school s where s.uuid = ?`
+                userUuid = schoolUuid
+            }
+            pool.query(sql, [acaUuid,subjectUuid,userUuid,schoolUuid], (error, result) => 
             {
                 if(error)
                 {
