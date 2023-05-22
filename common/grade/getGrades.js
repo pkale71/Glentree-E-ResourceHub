@@ -9,7 +9,6 @@ let gradeList = [];
 module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req,res) =>  {
     try
     {
-        console.log(req.params)
         if(req.params['0'].length > 0 &&  req.params['0'] != '/')
         {
             let a = req.params['0'].split('/')
@@ -26,8 +25,6 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
         {
             gradeCategoryId = req.params['gradeCategoryId']
         }
-        console.log(gradeCategoryId)
-       // gradeCategoryId = req.params['gradeCategoryId']
         if(gradeCategoryId)
         {
             grades = await db.getGrades(gradeCategoryId)
@@ -42,9 +39,25 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
                     "status_name"   :   getCode.getStatus(200),
                 })   
             }
-            Array.from(grades).forEach(async(ele)  =>  
+            // Array.from(grades).forEach((ele)  =>  
+            // {
+            //     grade.setDataAll(ele)
+            //     gradeList.push(grade.getDataAll())
+            //     if(grades.length == gradeList.length)
+            //     {
+            //         res.status(200)
+            //         return res.json({
+            //             "status_code" : 200,
+            //             "data"        : {'grades' : gradeList},
+            //             "message"     : 'success',
+            //             "status_name"   : getCode.getStatus(200)
+            //         })
+            //     } 
+            // })
+
+            for(let i = 0; i < grades.length; i++)
             {
-                grade.setDataAll(ele)
+                grade.setDataAll(grades[i])
                 gradeList.push(grade.getDataAll())
                 if(grades.length == gradeList.length)
                 {
@@ -56,7 +69,7 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
                         "status_name"   : getCode.getStatus(200)
                     })
                 } 
-            })
+            }
         }
         else
         {
@@ -72,7 +85,7 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
                     "status_name"   :   getCode.getStatus(200),
                 })   
             }
-            Array.from(grades).forEach(async(ele)  =>  
+            Array.from(grades).forEach((ele)  =>  
             {
                 grade.setDataAll(ele)
                 gradeList.push(grade.getDataAll())
@@ -88,9 +101,6 @@ module.exports = require('express').Router().get('/:gradeCategoryId?*',async(req
                 } 
             })
         }
-        
-
-      
     } 
     catch(e)
     {

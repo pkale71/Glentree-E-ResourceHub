@@ -22,6 +22,7 @@ app.listen(8082,()=>{
 })
 
 
+
 // async function  verifyToken  (req, res, next){
 //     try {
 //         console.log(req.body)
@@ -127,8 +128,6 @@ app.use('/changePassword',require('./authentication/validateToken'),require('./a
 app.use('/user',require('./userRoute/userRoute'))
 app.use('/common',require('./common/commonRoute'))
 app.use('/school',require('./school/schoolRoute'))
-
-
 
 app.use('/',(req,res,next)=>{
     console.log(req.baseUrl)

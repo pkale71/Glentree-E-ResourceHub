@@ -24,12 +24,13 @@ module.exports = require('express').Router().get('/:acaUuid/:schoolUuid/:gradeCa
             schoolId = ids[0]['schoolId']
             grades = await db.findUnAssignedGrade(acaId,schoolId,gradeCategoryId)
             if(grades.length == 0){
-                res.status(400)
-                return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No unassigned grade found',
-                    "status_name"   : getCode.getStatus(400)
-                })
+                res.status(200)
+                          return res.json({
+                              "status_code" : 200,
+                              "data"        : {'unassignedGrades' : []},
+                              "message"     : 'success',
+                              "status_name"   : getCode.getStatus(200)
+                          })
             }
             else{
                 gradeList = []

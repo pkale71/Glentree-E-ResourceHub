@@ -17,21 +17,23 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
         assignGradeCategory = await db.findSchoolGradeCategoryId(userUuid)
         if(assignGradeCategory.length == 0)
         {
-            res.status(400)
+            res.status(200)
             return res.json({
-                "status_code" : 400,
-                "message"     : 'No assigned grade found',
-                "status_name"   : getCode.getStatus(400)
+                "status_code" : 200,
+                "message"     : 'success',
+                "data"        : {'assignedGrades' : []},
+                "status_name"   : getCode.getStatus(200)
             })
         }
         AssignGrade = await db.findSchoolGradeCategory(userUuid,acaUuid)
         if(AssignGrade.length == 0)
         {
-            res.status(400)
+            res.status(200)
             return res.json({
-                "status_code" : 400,
-                "message"     : 'No assigned grade found',
-                "status_name"   : getCode.getStatus(400)
+                "status_code" : 200,
+                "message"     : 'success',
+                "data"        : {'assignedGrades' : []},
+                "status_name"   : getCode.getStatus(200)
             })
         }
         else
@@ -40,7 +42,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
             assignList = []
             gradeCateroryList = []
             Array.from(assignGradeCategory).forEach((element,i)=>{
-                gradeCateroryList.push(AssignGrade.filter(ele => ele.gradeCategoryId == element.gradeCategoryId))
+                gradeCateroryList.push(AssignGrade.filter(ele => parseInt(ele.gradeCategoryId) == parseInt(element.gradeCategoryId)))
             })
             Array.from(gradeCateroryList).forEach(( ele, j ) =>  
             {

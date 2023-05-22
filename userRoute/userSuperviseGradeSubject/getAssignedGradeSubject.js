@@ -20,11 +20,12 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
             assignGrade = await db.findGrade(userUuid,acaUuid)
             if(assignGrade.length == 0)
             {
-                res.status(400)
+                res.status(200)
                 return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No assigned subject found',
-                    "status_name"   : getCode.getStatus(400)
+                    "status_code" : 200,
+                    "data"        : {'assignedSubjects' : []},
+                    "message"     : 'success',
+                    "status_name"   : getCode.getStatus(200)
                 })
             }
             AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid)
@@ -35,11 +36,12 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
             // })
             if(AssignSubject.length == 0)
             {
-                res.status(400)
+                res.status(200)
                 return res.json({
-                    "status_code" : 400,
-                    "message"     : 'No assigned subject found',
-                    "status_name"   : getCode.getStatus(400)
+                    "status_code" : 200,
+                    "data"        : {'assignedSubjects' : []},
+                    "message"     : 'success',
+                    "status_name"   : getCode.getStatus(200)
                 })
             }
             else
@@ -48,7 +50,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                 assignList = []
                 gradeList = []
                 Array.from(assignGrade).forEach((element,i)=>{
-                    gradeList.push(AssignSubject.filter(ele => (ele.gradeId == element.gradeId)))
+                    gradeList.push(AssignSubject.filter(ele => (parseInt(ele.gradeId) == parseInt(element.gradeId))))
                 })
                 Array.from(gradeList).forEach(( ele, j ) =>  
                 {
