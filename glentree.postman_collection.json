@@ -2066,6 +2066,123 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\" : \"\",\r\n    \"email\":\"test20@gmail.com\",\r\n    \"mobile\":\"7856954366\",\r\n    \"gender\" : \"f\",\r\n    \"firstName\" :   \"f\",\r\n    \"lastName\" : \"l\",\r\n    \"role\"    :   {\"id\" : \"1\"},\r\n    \"userType\"    :   {\"id\" : \"2\"},\r\n    \"school\"    :   {\"uuid\" : \"\"},\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/user/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"user",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkFor\" : \"Email\",\r\n    \"value\" : \"testoau80@gmail.com\",\r\n    \"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/user/updateUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"user",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkFor\" : \"Email\",\r\n    \"value\" : \"testoau80@gmail.com\",\r\n    \"uuid\" : \"4c7f1510-de1d-11ed-a234-c4346b527e08\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/user/deleteUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"user",
+								"deleteUser"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2197,6 +2314,51 @@
 										"common",
 										"deleteGradeSection",
 										"1b3e96a0-e3f6-11ed-957b-b1bccacf4680"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getSections",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 2,\r\n    \"name\" : \"class 9\",\r\n    \"gradeCategory\" : {\r\n        \"id\" : 4\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/school/getSections/56ffab7b-e33b-11ed-9f9d-c4346b527e08/04a14e9f-dfb5-11ed-a234-c4346b527e08/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"school",
+										"getSections",
+										"56ffab7b-e33b-11ed-9f9d-c4346b527e08",
+										"04a14e9f-dfb5-11ed-a234-c4346b527e08",
+										"3"
 									]
 								}
 							},
@@ -2455,6 +2617,49 @@
 							"path": [
 								"school",
 								"getSchoolGradeCategories",
+								"04a14e9f-dfb5-11ed-a234-c4346b527e08"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSchoolGrades",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" :  \"testoauth80@gmail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/school/getSchoolGrades/04a14e9f-dfb5-11ed-a234-c4346b527e08",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"school",
+								"getSchoolGrades",
 								"04a14e9f-dfb5-11ed-a234-c4346b527e08"
 							]
 						}
