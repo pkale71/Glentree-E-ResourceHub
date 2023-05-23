@@ -13,4 +13,18 @@ commonFunction.changeDateToSqlDate = (excelDate) =>
     }
 }
 
+commonFunction.getUniqueData = (data) =>
+{
+    if(data)
+    {
+        const dataString = [...new Set(data.map(JSON.stringify))]
+        const dataObj = dataString.map(JSON.parse)
+        return dataObj
+    }
+    else
+    {
+        return data
+    }
+}
+
 module.exports = commonFunction;

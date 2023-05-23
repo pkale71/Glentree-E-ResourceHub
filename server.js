@@ -128,6 +128,7 @@ app.use('/changePassword',require('./authentication/validateToken'),require('./a
 app.use('/user',require('./userRoute/userRoute'))
 app.use('/common',require('./common/commonRoute'))
 app.use('/school',require('./school/schoolRoute'))
+app.use('/report',require('./report/reportRoute'))
 
 app.use('/',(req,res,next)=>{
     console.log(req.baseUrl)

@@ -18,7 +18,8 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
                 LEFT JOIN school s ON s.id = sgs.school_id 
                 LEFT JOIN grade g ON g.id = sgs.grade_id 
                 LEFT JOIN grade_category gc ON gc.id = g.grade_category_id 
-                WHERE sgs.academic_year_id = ? AND sgs.school_id = ? 
+                WHERE sgs.academic_year_id = ? 
+                AND sgs.school_id = ? 
                 AND sgs.grade_id IN (SELECT id from grade where grade_category_id = ?) 
                 AND sgs.grade_id = ?
                 ORDER BY g.id, sgs.grade_id, sgs.id`;
