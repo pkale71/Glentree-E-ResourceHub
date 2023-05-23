@@ -558,6 +558,29 @@ db.getGrades = (uuid) => {
     });
 }
 
+db.getGradeCategory = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`SELECT gc.id, gc.name
+            from school s
+            left join school_grade_category sgc ON sgc.school_id = s.id
+            left join grade_category gc ON gc.id = sgc.grade_category_id
+            where s.uuid = ?
+            order by gc.id`,[uuid],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 
 db.getCurrentAcademicYear = () => {
     return new Promise((resolve, reject)=>{
