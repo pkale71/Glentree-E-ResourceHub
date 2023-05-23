@@ -534,16 +534,17 @@ db.deleteSchool = (uuid) => {
 }
 
 
-db.getGradeCategory = (uuid) => {
+db.getGrades = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT gc.id, gc.name
+            pool.query(`SELECT g.id, g.name
             from school s
             left join school_grade_category sgc ON sgc.school_id = s.id
             left join grade_category gc ON gc.id = sgc.grade_category_id
+            left join grade g ON g.grade_category_id = gc.id
             where s.uuid = ?
-            order by gc.id`,[uuid],(error, result) => 
+            order by g.id`,[uuid],(error, result) => 
             {
                 if(error)
                 {
