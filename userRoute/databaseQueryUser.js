@@ -18,6 +18,38 @@ db.insertUser = (userUuid,firstName,lastName,email,password,gender,userId,userTy
     });
 };
 
+db.insertUserTypeChangeHistory = (userId, newUserTypeId, createdOn, createdById,fromAction) => 
+{
+    return new Promise((resolve, reject)=>
+    {
+        let userId2;
+        if(fromAction == 'create')
+        {
+            userId2 = 0
+        }
+        else
+        {
+            userId2 = userId
+        }
+        try
+        {
+            pool.query(`INSERT INTO user_type_change_history
+            (user_id, previous_user_type_id, new_user_type_id,created_on,created_by) 
+            VALUES (?, (SELECT user_type_id FROM user WHERE id = ?), ?,?,?)`, [userId, userId2, newUserTypeId, createdOn, createdById], (error, result)=>{
+                if(error)
+                {
+                    return reject(error);
+                }
+                return resolve(result);
+            });
+        }
+        catch(e)
+        {
+            console.log(e)
+        }
+    });
+};
+
 db.deleteUser = (uuid,userId,deletedOn) =>{
     return new Promise((resolve, reject)=>{
         try{
@@ -184,6 +216,24 @@ db.getUser = (uuid) => {
             try
             {
                 pool.query("SELECT uuid FROM user WHERE id = ?", [id], (error, result) => 
+                {
+                    if(error)
+                    {
+                        return reject(error);
+                    }          
+                    return resolve(result);
+                });
+            }
+            catch(e){ console.log(e)}
+            
+        });
+    }
+
+    db.getUserId = (uuid) => {
+        return new Promise((resolve, reject)=>{
+            try
+            {
+                pool.query("SELECT id FROM user WHERE uuid = ?", [uuid], (error, result) => 
                 {
                     if(error)
                     {

@@ -1,5 +1,6 @@
 let db = require('./databaseQueryUser')
 let errorCode = require('../common/errorCode')
+let commondb = require('../common/commonDatabaseQuery')
 let getCode = new errorCode()
 let accessToken;
 let firstName
@@ -33,6 +34,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>
          uuid   =   req.body.uuid
          email = req.body.email
          mobile = req.body.mobile
+         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
             if(req.body.role?.id==2 && !req.body.school?.uuid){
                 res.status(404)
                 return res.json({
@@ -67,9 +69,15 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_name" : getCode.getStatus(404),
             })
         }
+        authData = await commondb.selectToken(accessToken)
+        let createdById = authData[0].userId
         if(uuid)
         {
-               let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
+            let userId = await db.getUserId(uuid)
+            db.insertUserTypeChangeHistory(userId[0].id, userTypeId,createdOn, createdById, 'update').then(async(res1) => {
+                if(res1)
+                {
+                    let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
                console.log("***",updateUser)
                        if(updateUser.affectedRows > 0){
                         res.status(200)
@@ -88,19 +96,35 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                                "status_name" : getCode.getStatus(500),
                            }) 
                        }
-           
+                }
+            }) 
         }
          
     } 
     catch(e)
     {
-        res.status(500)
-        return res.json({
-            "status_code" : 500,
-            "message" : "User not updated",
-            "status_name" : getCode.getStatus(500),
-            "error"     :      e.sqlMessage
-        }) 
+        console.log(e)
+        if(e.code == 'ER_DUP_ENTRY')
+        {
+            let msg = e.sqlMessage.replace('_UNIQUE', '');
+            res.status(500)
+            return res.json({
+                "status_code" : 500,
+                "message" : msg,
+                "status_name" : getCode.getStatus(500),
+                "error"     :    msg
+            }) 
+        }
+        else
+        {
+            res.status(500)
+            return res.json({
+                "status_code" : 500,
+                "message" : "User not created",
+                "status_name" : getCode.getStatus(500),
+                "error"     :      e.sqlMessage
+            }) 
+        } 
     }
 
 })

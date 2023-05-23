@@ -61,7 +61,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         authData = await commondb.selectToken(accessToken)
-        console.log(authData)
         createdById = authData[0].userId
         if(createdById)
         {

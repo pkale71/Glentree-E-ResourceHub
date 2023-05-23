@@ -64,7 +64,11 @@ class user {
                                     "email" : data.schoolEmail,
                                     "contact1" : data.contact1,
                                     "curriculumUpload" : data.curriculum_upload,
-                                    "curriculumComplete" : data.curriculum_complete
+                                    "curriculumComplete" : data.curriculum_complete,
+                                    "syllabus" : {
+                                                    "id" : data.syllabusId,
+                                                    "name" : data.syllabusName
+                                                 }
                                 }:null
         this.email          =   data.email
         this.lastLogin      =   data.last_login
