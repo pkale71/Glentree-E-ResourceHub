@@ -59,7 +59,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         topicId = topic[0].id
         let checkUsed = await db.checkChapterTopicUsed(topicId)
-        if(checkUsed[0].isExist == 0)
+        if(checkUsed[0].isExist == 0 && checkUsed[0].statusExist == 0)
         {
             let check = await db.findTopic(name,chapterId,uuid)
             console.log(check)
