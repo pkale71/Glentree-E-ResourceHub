@@ -194,6 +194,47 @@ db.insertSchoolGradeCategory = (schoolId,gradeCategoryId) => {
         
     });
 }
+
+db.insertCurriculumUploadAs = (schoolId,curriculumUploadAs, isActive,createdOn,createdById) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`INSERT INTO curriculum_upload_as_history 
+            (school_id, curriculum_upload_as, academic_year_id, is_active, created_on, created_by_id)
+            VALUES (?, ?, (SELECT id FROM academic_year WHERE is_current = 1), ?, ?, ?)`, [schoolId,curriculumUploadAs, isActive,createdOn,createdById], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.insertCurriculumCompletionAs = (schoolId,curriculumCompleteAs, isActive,createdOn,createdById) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`INSERT INTO	curriculum_completion_as_history  
+            (school_id, curriculum_completion_as, academic_year_id, is_active, created_on, created_by_id) 
+            VALUES (?, ?, (SELECT id FROM academic_year WHERE is_current = 1), ?, ?, ?)`, [schoolId,curriculumCompleteAs, isActive,createdOn,createdById], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.insertSchoolUserSetting = (schoolUserSettingUuid,schoolId,userTypeId,canUpload,canVerify,canPublish) => {
     return new Promise((resolve, reject)=>{
         try
@@ -278,6 +319,43 @@ db.updateSchoolUserSetting = (schoolUserSettingUuid,userTypeId,canUpload,canVeri
        
     });
 };
+
+db.updateCurriculumUploadAsIsActive = (isActive, schoolId, id) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            pool.query(`UPDATE curriculum_upload_as_history SET is_active= ?
+            WHERE academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)
+            AND school_id = ? AND is_active = 1 
+            AND id != ?`, [ isActive, schoolId, id], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
+db.updateCurriculumCompletionAsIsActive = (isActive, schoolId, id) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            pool.query(`UPDATE curriculum_completion_as_history SET is_active= ?
+            WHERE academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)
+            AND school_id = ? AND is_active = 1 
+            AND id != ?`, [ isActive, schoolId, id], (error, result)=>{
+                if(error){
+                    return reject(error);
+                }
+                  return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+       
+    });
+};
+
 db.getSchoolGradeCategorySearch = (schoolId,searchString) => {
     return new Promise((resolve, reject)=>{
         try

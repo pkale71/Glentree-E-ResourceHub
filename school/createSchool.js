@@ -27,7 +27,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.id ||!req.body.gradeCategory?.trim()){
+        if(!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.id ||!req.body.gradeCategory?.trim())
+        {
             res.status(400)
             return res.json({
                 "status_code" : 400,
@@ -49,75 +50,77 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         active = 1
         schoolUuid = createUuid.v1()
         schoolUserSettingList = req.body.schoolUserSetting
-        
-        if(!schoolGradeCategoryList){
+        if(!schoolGradeCategoryList)
+        {
             res.status(404)
             return res.json({
-             "status_code" : 404,
-             "message" : "Grade Category Missing",
-             "status_name" : getCode.getStatus(404)
+                "status_code" : 404,
+                "message" : "Grade Category Missing",
+                "status_name" : getCode.getStatus(404)
             })
         }
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-         authData = await commondb.selectToken(accessToken)
-         console.log(authData)
-         createdById = authData[0].userId
-        if(createdById){
-
+        authData = await commondb.selectToken(accessToken)
+        console.log(authData)
+        createdById = authData[0].userId
+        if(createdById)
+        {
             user = await commondb.getUserById(createdById)
-            if(user.length == 0){
+            if(user.length == 0)
+            {
                 res.status(401)
-               return res.json({
-                "status_code" : 401,
-                "message" : "Invalid token",
-                "status_name" : getCode.getStatus(401)
-               })
-           }
-     
-              // console.log("***********",)
-               let insertSchool = await db.insertSchool(schoolUuid, name, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId, createdOn, createdById, active)
-                       if(insertSchool.affectedRows > 0){
-                        console.log("***insertSchool ",insertSchool)
-                        schoolId = insertSchool.insertId;
-                        if(schoolGradeCategoryArray.length > 0){
-                            Array.from(schoolGradeCategoryArray).forEach(async(ele)=>{
-                                let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
-                            })
-                        }
-                        
-                            if(schoolUserSettingList.length > 0){
-                                Array.from(schoolUserSettingList).forEach(async(ele)=>{
-                                    schoolUserSettingUuid = createUuid.v1()
-                                    let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
-                                    let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
-                                })
-                            }
-                            let returnUuid = await db.selectSchoolUid(schoolId)
-                            res.status(200)
-                               return res.json({
-                                   "status_code" : 200,
-                                   "message" : "success",
-                                   "data" : { "uuid" : returnUuid[0].uuid},
-                                   "status_name" : getCode.getStatus(200)
-                               })            
-           
-                
-                       
-                       }
-                       else{
-                        res.status(500)
-                           return res.json({
-                               "status_code" : 500,
-                               "message" : "School not created",
-                               "status_name" : getCode.getStatus(500)
-                           }) 
-                       }
-           
+                return res.json({
+                    "status_code" : 401,
+                    "message" : "Invalid token",
+                    "status_name" : getCode.getStatus(401)
+                })
+            }
+            let insertSchool = await db.insertSchool(schoolUuid, name, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId, createdOn, createdById, active)
+            if(insertSchool.affectedRows > 0)
+            {
+                schoolId = insertSchool.insertId;
+                if(schoolGradeCategoryArray.length > 0)
+                {
+                    Array.from(schoolGradeCategoryArray).forEach(async(ele)=>
+                    {
+                        let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
+                    })
+                }
+                if(schoolUserSettingList.length > 0)
+                {
+                    Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                        schoolUserSettingUuid = createUuid.v1()
+                        let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                        let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
+                    })
+                }
+                let insertCurriculumUploadAs = await db.insertCurriculumUploadAs(schoolId, curriculumUpload, active, createdOn, createdById)
+                let insertCurriculumCompletionAs = await db.insertCurriculumCompletionAs(schoolId, curriculumComplete, active, createdOn, createdById)
+                let returnUuid = await db.selectSchoolUid(schoolId)
+                res.status(200)
+                return res.json({
+                    "status_code" : 200,
+                    "message" : "success",
+                    "data" : { "uuid" : returnUuid[0].uuid},
+                    "status_name" : getCode.getStatus(200)
+                })
+            }
+            else
+            {
+                res.status(500)
+                return res.json({
+                    "status_code" : 500,
+                    "message" : "School not created",
+                    "status_name" : getCode.getStatus(500)
+                }) 
+            }
         }
-        } catch(e){
+        } 
+        catch(e)
+        {
             console.log(e)
-            
-            if(e.code == 'ER_DUP_ENTRY'){
+            if(e.code == 'ER_DUP_ENTRY')
+            {
                 let msg = e.sqlMessage.replace('_UNIQUE', '');
                 res.status(500)
                 return res.json({
@@ -126,7 +129,9 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
-            }else{
+            }
+            else
+            {
                 res.status(500)
                 return res.json({
                     "status_code" : 500,
@@ -135,7 +140,5 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "error"     :      e.sqlMessage
                 }) 
             }
-           
         }
-
 })

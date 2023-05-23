@@ -15,10 +15,8 @@ let schoolId;
 let gradeCategoryId;
 let gradeCategoryList = []
 let gradeId;
-let grades= []
 let gradeList = []
 let setSections = []
-let finalList = []
 let list = []
 let academic;
 let school;
@@ -65,9 +63,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
         sectionList         = []
         setSections         = []
         gradeList           = []
-        grades              = []
         copySectionList     = []
-        finalList           = []
         list                = []
 
         authData = await commondb.selectToken(accessToken)
@@ -129,7 +125,6 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                     })
                 }
             })
-           
         }
         else if(!gradeId && gradeCategoryId)
         {
@@ -161,9 +156,7 @@ module.exports = require('express').Router().get('/:acadmicUUID/:schoolUUID/:gra
                                     }
                                 }                                        
                             })
-                
                             setSections = sectionList
-                            console.log("SEC = " + JSON.stringify(setSections))
                             for(i=0;i<sectionList.length;i++)
                             {
                                 Array.from(sectionList[i]).forEach((element) =>{

@@ -64,8 +64,37 @@ CREATE TABLE `auth_data` (
 
 LOCK TABLES `auth_data` WRITE;
 /*!40000 ALTER TABLE `auth_data` DISABLE KEYS */;
-INSERT INTO `auth_data` VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTozMTo0NC4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MDowOCBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODIwOCwiZXhwIjoxNjgxODg4MjE4fQ.WvWZ3UnfjVA145CedNP21Aqqeg42uq2Sc7aqX9Wlcs0','1','2023-04-19 07:10:08'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MDowOC4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MTowOCBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODI2OCwiZXhwIjoxNjgxODg4Mjc4fQ.2hEDSh9unBIYPo_htrEMpAzhE96cbw_-m4Mkh29iD84','1','2023-04-19 07:11:08'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MjozNi4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MzowNSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODM4NSwiZXhwIjoxNjgxODg4Mzk1fQ.5LwZPpjjCI8jkF81EWW7ZgAjjKXzlG--Q_3RxofSp8k','1','2023-04-19 07:13:05'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MzowNS4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo1NzowOSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4OTIyOSwiZXhwIjoxNjgxODg5MjM5fQ.833P99CKakVGm3Kvf6M9I_0mDe9olE1fbA_Lb_OReLE','1','2023-04-19 07:27:09'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMjoxMjozMy4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxNToyOToyMyBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg5ODM2MywiZXhwIjoxNjgxOTAwMTYzfQ.HDEP_00qsfWbvGPoFyW6Mlvcf9Vh5L2d_9EIHoBlWiY','1','2023-04-19 09:59:23'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwNDoyOToyMy4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxNTo1OTozNSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTkwMDE3NSwiZXhwIjoxNjgxOTAxOTc1fQ.Fb64ScWSdiPN-7J_XMK1TlpzUCoCC5fjSQFZRfJicUQ','1','2023-04-19 10:29:35'),('CeT3msYo0z76nI9XyXJg88HNGSjELVvIgQu5r5GN44tDJOIEpUXxkNs2','1','2023-04-19 14:24:19'),('01ukg9YozTw5E9dfWePOWd6FKCgCbrD7pwXfgJbl9MbJQzJ1SXXNjtoA','1','2023-04-20 05:29:38'),('wDMAKntuiXXcVCEaBwUEjqzY9RtQUdA85zQJLWarkxyZTxkhVBWrY3XI','1','2023-04-20 07:54:55'),('i87SFHybSWEfgOxMP9ZvE53MdXqGqRjjvgzjjMEiFXFqk2CyjyvcU3nY','1','2023-04-20 07:56:45'),('tSaOHoKSlWKYu5A6pHclz9B2SvJV77E37DF0zUnscytnJdmLWZpxbwGv','1','2023-04-20 07:56:54'),('IQeJFm5G2wNrlwa7gBbQd6tZRoqhtXyHvK2yh2MynisYqUYL8zfu68Y8','1','2023-04-20 08:41:01'),('2FImlh29l3IG94lg1jbAbUaWvknc5XgVNNFjx2JBAWlPwJY4SosBL7b1','1','2023-04-20 09:26:26'),('QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS','1','2023-04-20 12:58:06'),('lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r','1','2023-04-21 04:53:38'),('ohhd44mohA7whl2pU8zsnJ1pqggYo5qAsUNcRBCbQgrqWAcyBKehVHYW','16','2023-04-22 11:01:11'),('1N8GBPFlz9STEkI81bK2XWmWWdfBa7byIuXh1xfUwUOO3aovBD4BJKmK','1','2023-05-05 14:12:40'),('3Q5kj1Bdun7NsQmoNnjbBtXFy71s0D3sDNxnu9EGm1ZxwK6Kx8cg628o','1','2023-05-05 14:13:44'),('BxpljGpIzVjglKHCch5lYXm9dsIwnGN6ZlhJzuTwUkg8K5Tmo5LSGCYz','1','2023-05-05 14:16:15'),('RcnRyv60hfnbSsjv21rJPvsBrBVUmAtZ7dtz924jrPgwZlTGwq5rzFFn','1','2023-05-05 14:17:08'),('kD8zjsQ4c8v5B2F2Zg5iRsjMHyl9zn1U3RST264jBn3jSPCGVm1lmIkE','1','2023-05-05 14:19:44'),('q2FvgfVjxAJPadu439Sqx0Z8EoyWRpqcJF9hyiHfqrgzm8TZmFkL5SNb','1','2023-05-05 14:20:19'),('2pCGALgOToTuwKihq331rFVRP6mTPyKmTTQwW69Oq09UrGVA7OYbp5Uh','1','2023-05-05 14:20:46'),('dSU7R3uGlBWRYC9TuS1o7msT0OH0jOFo7UZfX7zYz3bLbM1bfhaDJubl','1','2023-05-05 14:21:42'),('EYtIYOgJTuUmhCBQWgHtddn5Ab6sd5dqZS1XEI7NBbNyx0OTvQFL6yZU','1','2023-05-05 14:22:47'),('dMHj6HFS083sbvN11dpx2PXluzBCdZzQo53h6DYzC1tDU9tQ2vC8Wj3f','1','2023-05-05 14:24:13'),('Ar2iix9tnQG7QPeKcAcJmnmMJxscEAqr5SZfuyivtxZO7IpDgrXp1uie','1','2023-05-05 14:25:26'),('1P3XnWoqMoo8nkP2Ve66OEDqWJAxzThqlc5QMOhZBNgTyAgghSiDCVIA','1','2023-05-06 04:52:49'),('OfSqcZTcbvc2qiSoTf6HJ7L9mW0ICGYZAwDbKeFswpjujbfYYmSyBAC8','1','2023-05-06 04:53:18'),('xYjucQRI6svH3GtSFytHeOtNXpGWjWMChGGl0O9RU8nN6JIRv51oFzbx','1','2023-05-06 07:43:00'),('8uzAsNl1O4DUhInRvgm0qCDMnnDaEhLaLY8p24A413bpmngg6plS1HIY','1','2023-05-15 06:18:52'),('8MbFQQbWb7B1ZFPEogPf5itClHFIZi7JVuu6EMRd1peWXCwkq3ok8Tdy','2','2023-05-15 06:19:17'),('fcloQngP99nkeBnQu4ahcvkWQe7IulOYdpCu7XXPYjhvepyljtHLoxTT','1','2023-05-15 06:19:25'),('ishavy9XJV5IBsTP6eOvGsafH85cvBMhU2gGSTRHiNAs4XYk2mPVeDVS','1','2023-05-15 06:20:21'),('d8LJUWAFxWCDdyeoSmRsnGMCxxtTLoPeP1qdFCwp7ZkrdAKuqvEBWyEY','1','2023-05-15 06:20:24'),('oqXbVfuMidVjSPbcPQ1b6cDQv7fKRS4fozIRSZswwokDRonymAhRpgIq','1','2023-05-15 06:20:44'),('Q6DDCva3ctqZlZZpB8BBw6DiUlOqsN74mdhzrLCGhVJHdcZqj31N28P4','1','2023-05-15 06:21:39'),('4xtaHuKNQV8q7kQbULx7zqtmN1OmKHD9SjfAY3LW2Yfyg6GP1gy1ziQT','1','2023-05-15 06:22:59'),('qvbu2OlSnPdqUOO3ze7LBR7xXTMd2sXY0SiDmWySEMO2IKHMTAln8oMB','1','2023-05-15 06:23:13'),('dBv1GCFsuHWSb8vnCGvkCSrJCjiGPTsil9nY6OLFBWzsBdevFU9StfsL','1','2023-05-15 06:23:43'),('PGR2mOOvzfb7nSCLvc3n4L1j1MWvrG38T91gdnF34ZHNrSx3zYe8t6Yq','1','2023-05-15 06:31:12'),('mtig72VPdPRr2h0i2B3UiLTHF5y9vy9wAvKnAln9qhgHL9iwq2JY1s2z','1','2023-05-15 06:32:15'),('UV0ZPujuwbpmc02P9SZbVKlOkim8uwIqEzD4Rblx7XPK93jJfgRcUtHf','1','2023-05-15 06:32:49'),('brJZHNz6zzNfbeCybJ5FzWp6pceNVmcUIHVzd6zW3l5HLHOUBx5NIq32','1','2023-05-15 06:33:21'),('Ik1DeuxFqD23uxFnppd6JNRzF8xT6PWLafZGHjYDf47ltg1BMIg17Cd5','2','2023-05-15 06:33:40'),('nq73SVEyAMDsKB6DJVv0TAAHn6xaX06ItRzEbnq5AOHKPV9PfrfX2wPo','2','2023-05-15 06:36:07'),('JTq77zvbZJnUNQo57uYt7cJe8yGS8xC63lQYR8HJuTRMv0j54U43TkZG','1','2023-05-15 06:36:17'),('toUUe1L4GAZ1XlPXdKURczghzAiZiMEVvB8NyKvcelp1KOnSiAhxnW5t','1','2023-05-15 06:42:06'),('JwBocb6XPwkvfrq28QJjKMUUotVchA4KLFZI1qwu3OoMbbO6l24dzFOL','1','2023-05-15 06:42:20'),('DxYpnhl7JselTIRXgZyrdeUV5wdUrUJLE0ReGkip7YiEBP5JlzVkuvkk','2','2023-05-15 06:42:33'),('nJBVzDuP3v5rjZpreMHNcAVgA4jo4gcFaKfK3LMirWTSEhGgwFtogeuQ','2','2023-05-15 08:27:46');
+INSERT INTO `auth_data` VALUES ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTozMTo0NC4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MDowOCBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODIwOCwiZXhwIjoxNjgxODg4MjE4fQ.WvWZ3UnfjVA145CedNP21Aqqeg42uq2Sc7aqX9Wlcs0','1','2023-04-19 07:10:08'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MDowOC4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MTowOCBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODI2OCwiZXhwIjoxNjgxODg4Mjc4fQ.2hEDSh9unBIYPo_htrEMpAzhE96cbw_-m4Mkh29iD84','1','2023-04-19 07:11:08'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MjozNi4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo0MzowNSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4ODM4NSwiZXhwIjoxNjgxODg4Mzk1fQ.5LwZPpjjCI8jkF81EWW7ZgAjjKXzlG--Q_3RxofSp8k','1','2023-04-19 07:13:05'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMTo0MzowNS4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxMjo1NzowOSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg4OTIyOSwiZXhwIjoxNjgxODg5MjM5fQ.833P99CKakVGm3Kvf6M9I_0mDe9olE1fbA_Lb_OReLE','1','2023-04-19 07:27:09'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwMjoxMjozMy4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxNToyOToyMyBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTg5ODM2MywiZXhwIjoxNjgxOTAwMTYzfQ.HDEP_00qsfWbvGPoFyW6Mlvcf9Vh5L2d_9EIHoBlWiY','1','2023-04-19 09:59:23'),('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1dWlkIjoiNjA3ZDRmNjEtZGRjMy0xMWVkLWExNGMtNTRlZTc1M2Y5ZWVhIiwiZnVsbE5hbWUiOiJBZG1pbiAiLCJyb2xlX2lkIjoxLCJyb2xlX25hbWUiOiJIZWFkIiwidXNlcl90eXBlX2lkIjoxLCJsYXN0X2xvZ2luIjoiMjAyMy0wNC0xOVQwNDoyOToyMy4wMDBaIiwicGFzc3dvcmQiOiJhZG1pbiIsImlkIjoxLCJ1c2VyX3R5cGVfbmFtZSI6IkFkbWluaXN0cmF0b3IiLCJ1c2VyX3R5cGVfY29kZSI6IlNVQURNIiwidGltZSI6IldlZCBBcHIgMTkgMjAyMyAxNTo1OTozNSBHTVQrMDUzMCAoSW5kaWEgU3RhbmRhcmQgVGltZSkifV0sImlhdCI6MTY4MTkwMDE3NSwiZXhwIjoxNjgxOTAxOTc1fQ.Fb64ScWSdiPN-7J_XMK1TlpzUCoCC5fjSQFZRfJicUQ','1','2023-04-19 10:29:35'),('CeT3msYo0z76nI9XyXJg88HNGSjELVvIgQu5r5GN44tDJOIEpUXxkNs2','1','2023-04-19 14:24:19'),('01ukg9YozTw5E9dfWePOWd6FKCgCbrD7pwXfgJbl9MbJQzJ1SXXNjtoA','1','2023-04-20 05:29:38'),('wDMAKntuiXXcVCEaBwUEjqzY9RtQUdA85zQJLWarkxyZTxkhVBWrY3XI','1','2023-04-20 07:54:55'),('i87SFHybSWEfgOxMP9ZvE53MdXqGqRjjvgzjjMEiFXFqk2CyjyvcU3nY','1','2023-04-20 07:56:45'),('tSaOHoKSlWKYu5A6pHclz9B2SvJV77E37DF0zUnscytnJdmLWZpxbwGv','1','2023-04-20 07:56:54'),('IQeJFm5G2wNrlwa7gBbQd6tZRoqhtXyHvK2yh2MynisYqUYL8zfu68Y8','1','2023-04-20 08:41:01'),('2FImlh29l3IG94lg1jbAbUaWvknc5XgVNNFjx2JBAWlPwJY4SosBL7b1','1','2023-04-20 09:26:26'),('QDZDkpR0fvbqdHXiJNnueQXktA8iWGKdY4PoF6ti4ZblSiUis2ls5kiS','1','2023-04-20 12:58:06'),('lrBRcfAYVzC9SZnvmrkfscBM06iFi2fzDhRQBxnmGoU8lkw1gDnES21r','1','2023-04-21 04:53:38'),('ohhd44mohA7whl2pU8zsnJ1pqggYo5qAsUNcRBCbQgrqWAcyBKehVHYW','16','2023-04-22 11:01:11'),('1N8GBPFlz9STEkI81bK2XWmWWdfBa7byIuXh1xfUwUOO3aovBD4BJKmK','1','2023-05-05 14:12:40'),('3Q5kj1Bdun7NsQmoNnjbBtXFy71s0D3sDNxnu9EGm1ZxwK6Kx8cg628o','1','2023-05-05 14:13:44'),('BxpljGpIzVjglKHCch5lYXm9dsIwnGN6ZlhJzuTwUkg8K5Tmo5LSGCYz','1','2023-05-05 14:16:15'),('RcnRyv60hfnbSsjv21rJPvsBrBVUmAtZ7dtz924jrPgwZlTGwq5rzFFn','1','2023-05-05 14:17:08'),('kD8zjsQ4c8v5B2F2Zg5iRsjMHyl9zn1U3RST264jBn3jSPCGVm1lmIkE','1','2023-05-05 14:19:44'),('q2FvgfVjxAJPadu439Sqx0Z8EoyWRpqcJF9hyiHfqrgzm8TZmFkL5SNb','1','2023-05-05 14:20:19'),('2pCGALgOToTuwKihq331rFVRP6mTPyKmTTQwW69Oq09UrGVA7OYbp5Uh','1','2023-05-05 14:20:46'),('dSU7R3uGlBWRYC9TuS1o7msT0OH0jOFo7UZfX7zYz3bLbM1bfhaDJubl','1','2023-05-05 14:21:42'),('EYtIYOgJTuUmhCBQWgHtddn5Ab6sd5dqZS1XEI7NBbNyx0OTvQFL6yZU','1','2023-05-05 14:22:47'),('dMHj6HFS083sbvN11dpx2PXluzBCdZzQo53h6DYzC1tDU9tQ2vC8Wj3f','1','2023-05-05 14:24:13'),('Ar2iix9tnQG7QPeKcAcJmnmMJxscEAqr5SZfuyivtxZO7IpDgrXp1uie','1','2023-05-05 14:25:26'),('1P3XnWoqMoo8nkP2Ve66OEDqWJAxzThqlc5QMOhZBNgTyAgghSiDCVIA','1','2023-05-06 04:52:49'),('OfSqcZTcbvc2qiSoTf6HJ7L9mW0ICGYZAwDbKeFswpjujbfYYmSyBAC8','1','2023-05-06 04:53:18'),('xYjucQRI6svH3GtSFytHeOtNXpGWjWMChGGl0O9RU8nN6JIRv51oFzbx','1','2023-05-06 07:43:00'),('8uzAsNl1O4DUhInRvgm0qCDMnnDaEhLaLY8p24A413bpmngg6plS1HIY','1','2023-05-15 06:18:52'),('8MbFQQbWb7B1ZFPEogPf5itClHFIZi7JVuu6EMRd1peWXCwkq3ok8Tdy','2','2023-05-15 06:19:17'),('fcloQngP99nkeBnQu4ahcvkWQe7IulOYdpCu7XXPYjhvepyljtHLoxTT','1','2023-05-15 06:19:25'),('ishavy9XJV5IBsTP6eOvGsafH85cvBMhU2gGSTRHiNAs4XYk2mPVeDVS','1','2023-05-15 06:20:21'),('d8LJUWAFxWCDdyeoSmRsnGMCxxtTLoPeP1qdFCwp7ZkrdAKuqvEBWyEY','1','2023-05-15 06:20:24'),('oqXbVfuMidVjSPbcPQ1b6cDQv7fKRS4fozIRSZswwokDRonymAhRpgIq','1','2023-05-15 06:20:44'),('Q6DDCva3ctqZlZZpB8BBw6DiUlOqsN74mdhzrLCGhVJHdcZqj31N28P4','1','2023-05-15 06:21:39'),('4xtaHuKNQV8q7kQbULx7zqtmN1OmKHD9SjfAY3LW2Yfyg6GP1gy1ziQT','1','2023-05-15 06:22:59'),('qvbu2OlSnPdqUOO3ze7LBR7xXTMd2sXY0SiDmWySEMO2IKHMTAln8oMB','1','2023-05-15 06:23:13'),('dBv1GCFsuHWSb8vnCGvkCSrJCjiGPTsil9nY6OLFBWzsBdevFU9StfsL','1','2023-05-15 06:23:43'),('PGR2mOOvzfb7nSCLvc3n4L1j1MWvrG38T91gdnF34ZHNrSx3zYe8t6Yq','1','2023-05-15 06:31:12'),('mtig72VPdPRr2h0i2B3UiLTHF5y9vy9wAvKnAln9qhgHL9iwq2JY1s2z','1','2023-05-15 06:32:15'),('UV0ZPujuwbpmc02P9SZbVKlOkim8uwIqEzD4Rblx7XPK93jJfgRcUtHf','1','2023-05-15 06:32:49'),('brJZHNz6zzNfbeCybJ5FzWp6pceNVmcUIHVzd6zW3l5HLHOUBx5NIq32','1','2023-05-15 06:33:21'),('Ik1DeuxFqD23uxFnppd6JNRzF8xT6PWLafZGHjYDf47ltg1BMIg17Cd5','2','2023-05-15 06:33:40'),('nq73SVEyAMDsKB6DJVv0TAAHn6xaX06ItRzEbnq5AOHKPV9PfrfX2wPo','2','2023-05-15 06:36:07'),('JTq77zvbZJnUNQo57uYt7cJe8yGS8xC63lQYR8HJuTRMv0j54U43TkZG','1','2023-05-15 06:36:17'),('toUUe1L4GAZ1XlPXdKURczghzAiZiMEVvB8NyKvcelp1KOnSiAhxnW5t','1','2023-05-15 06:42:06'),('JwBocb6XPwkvfrq28QJjKMUUotVchA4KLFZI1qwu3OoMbbO6l24dzFOL','1','2023-05-15 06:42:20'),('DxYpnhl7JselTIRXgZyrdeUV5wdUrUJLE0ReGkip7YiEBP5JlzVkuvkk','2','2023-05-15 06:42:33'),('nJBVzDuP3v5rjZpreMHNcAVgA4jo4gcFaKfK3LMirWTSEhGgwFtogeuQ','2','2023-05-15 08:27:46'),('TNA4jJyC3zmnpMUGoezGCVuSAIy37ms6YqWk5L8BLld1VcIbHZ8CLhIO','6','2023-05-16 11:41:14'),('EXM2xbA1zHe3N46yW8skRUDN39DBuLlpBS5Y4kb6OdGdf3ECdRhty6Y4','6','2023-05-17 08:06:37'),('ufWVBgdO9meEzmH7enSL6VWVVuodx5VMmzlWDSNjjb9wXpR1NFXMxLNK','16','2023-05-17 08:07:02'),('8SO1tyEB27vDXGiMuyuwlyK5P5w72BxlFfBOL94QdJjQxuDEfsKtYABR','16','2023-05-19 04:49:34'),('JHwErTDKXuSEQFytia8YRSicGM5lAfSlJmhPGSvILoQxv19UvumHVGY6','16','2023-05-19 07:31:19'),('Zk6gRv8rFY1JK5VQKbEzrnDn3LCeobvM1bBcuS94YbKmOydTQABlYjpW','16','2023-05-19 07:31:53'),('IhsRDihreFJantdZJw63PMGKqfZWt4I3CuN6NlBGhflIH2ZLFTp3yWUf','16','2023-05-19 07:32:03'),('jQQoQh66dZ2Y9HjfhwxVmkxXKJVHLRwmOkacneGZv74KKohUaDQT9Fus','2','2023-05-19 09:21:46'),('6pRa9Cf8ZfNxFzVNeGMjtvDGuEGPerSPEEMBzw45rwBRJTrtZzRHBezz','1','2023-05-19 09:26:21'),('HkMi05uTpqNDZmTvUy3sTPrJACkBEmBdzLVigXQZ6I4RQkWcJ7Jkwg1r','2','2023-05-19 09:49:44'),('C4ZUtfdoPh3fbBWg7mFKb91oFod3rXpWStAHMQ4i9FBy9mo9JHBtbLlj','2','2023-05-22 11:06:01');
 /*!40000 ALTER TABLE `auth_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `curriculum_completion_as_history`
+--
+
+DROP TABLE IF EXISTS `curriculum_completion_as_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `curriculum_completion_as_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `school_id` int(11) NOT NULL,
+  `curriculum_completion_as` varchar(60) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `academic_year_id` int(11) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_on` date NOT NULL,
+  `created_by_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `curriculum_completion_as_history`
+--
+
+LOCK TABLES `curriculum_completion_as_history` WRITE;
+/*!40000 ALTER TABLE `curriculum_completion_as_history` DISABLE KEYS */;
+INSERT INTO `curriculum_completion_as_history` VALUES (1,1,'t',1,0,'2023-03-01',1),(2,1,'t',1,0,'2023-03-01',1),(3,1,'t',1,1,'2023-03-01',1),(4,19,'Topic-wise',1,0,'2023-05-23',1),(5,21,'Topic-wise',1,1,'2023-05-23',1),(6,19,'Topic-wise',1,0,'2023-05-23',1),(7,19,'Topic-wise',1,0,'2023-05-23',1),(8,19,'Topic-wise',1,1,'2023-05-23',1);
+/*!40000 ALTER TABLE `curriculum_completion_as_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -101,6 +130,35 @@ INSERT INTO `curriculum_master` VALUES (1,'',1,8,0,1,1,2,'0000-00-00 00:00:00',0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `curriculum_upload_as_history`
+--
+
+DROP TABLE IF EXISTS `curriculum_upload_as_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `curriculum_upload_as_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `school_id` int(11) NOT NULL,
+  `curriculum_upload_as` varchar(60) COLLATE latin1_bin NOT NULL,
+  `academic_year_id` int(11) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_on` date NOT NULL,
+  `created_by_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `curriculum_upload_as_history`
+--
+
+LOCK TABLES `curriculum_upload_as_history` WRITE;
+/*!40000 ALTER TABLE `curriculum_upload_as_history` DISABLE KEYS */;
+INSERT INTO `curriculum_upload_as_history` VALUES (1,19,'Topic-wise',1,0,'2023-05-23',1),(2,21,'Topic-wise',1,0,'2023-05-23',1),(3,19,'Chapter-wise',1,0,'2023-05-23',1),(4,19,'Chapter-wise',1,0,'2023-05-23',1),(5,19,'Chapter-wise',1,1,'2023-05-23',1);
+/*!40000 ALTER TABLE `curriculum_upload_as_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `grade`
 --
 
@@ -113,7 +171,7 @@ CREATE TABLE `grade` (
   `grade_category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,9 +253,10 @@ CREATE TABLE `school` (
   `created_on` datetime NOT NULL,
   `created_by_id` int(11) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
+  `curriculum_complete` varchar(60) COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +265,7 @@ CREATE TABLE `school` (
 
 LOCK TABLES `school` WRITE;
 /*!40000 ALTER TABLE `school` DISABLE KEYS */;
-INSERT INTO `school` VALUES (1,'04a14e9f-dfb5-11ed-a234-c4346b527e08','St. Xavies','Bhilai','9698954852',NULL,'school@gmail.com','Chapterwise',1,'2023-04-21 13:48:11',1,1),(3,'5cfbfa40-e272-11ed-88ec-c94f69aa09e5','kv2','bhili','9512634870',NULL,'school1@gmail.com','',1,'2023-04-24 07:33:53',1,1),(5,'aaa5b8d0-e272-11ed-9e54-83aed0538965','kv3','bhili','9512634870',NULL,'school1@gmail.com','',2,'2023-04-24 07:36:03',1,1),(9,'188186e0-e2a0-11ed-a2f3-8b10e9657b22','kv5','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-24 13:01:15',1,1),(11,'9223d520-e2a0-11ed-bddf-1f6cf9a61aa0','kv1','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-24 13:04:39',1,1),(15,'4a873890-e32e-11ed-9114-3d431958d46f','kv','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-25 05:59:07',1,1);
+INSERT INTO `school` VALUES (1,'04a14e9f-dfb5-11ed-a234-c4346b527e08','St. Xavies','Bhilai','9698954852',NULL,'school@gmail.com','Chapterwise',1,'2023-04-21 13:48:11',1,1,''),(3,'5cfbfa40-e272-11ed-88ec-c94f69aa09e5','kv2','bhili','9512634870',NULL,'school1@gmail.com','',1,'2023-04-24 07:33:53',1,1,''),(5,'aaa5b8d0-e272-11ed-9e54-83aed0538965','kv3','bhili','9512634870',NULL,'school1@gmail.com','',2,'2023-04-24 07:36:03',1,1,''),(9,'188186e0-e2a0-11ed-a2f3-8b10e9657b22','kv5','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-24 13:01:15',1,1,''),(11,'9223d520-e2a0-11ed-bddf-1f6cf9a61aa0','kv1','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-24 13:04:39',1,1,''),(15,'4a873890-e32e-11ed-9114-3d431958d46f','kv','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-04-25 05:59:07',1,1,''),(19,'806accb0-f931-11ed-8f7d-c1bd72e66820','kv4','raipur','9512634870','9563425123','school1@gmail.com','Chapter-wise',2,'2023-05-23 06:17:32',1,1,'Topic-wise'),(21,'c8b45a90-f931-11ed-8f5c-554bc0705ad0','GOVT1','bhili','9512634870',NULL,'school1@gmail.com','Topic-wise',2,'2023-05-23 06:19:33',1,1,'Topic-wise');
 /*!40000 ALTER TABLE `school` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +281,7 @@ CREATE TABLE `school_grade_category` (
   `school_id` int(11) NOT NULL,
   `grade_category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +290,7 @@ CREATE TABLE `school_grade_category` (
 
 LOCK TABLES `school_grade_category` WRITE;
 /*!40000 ALTER TABLE `school_grade_category` DISABLE KEYS */;
-INSERT INTO `school_grade_category` VALUES (1,1,1),(2,1,3),(3,1,2),(4,1,4),(5,3,3),(6,5,1),(7,5,3),(16,9,2),(17,9,1),(18,9,3),(19,11,2),(20,11,3),(21,11,1),(22,15,2),(23,15,3),(24,15,1);
+INSERT INTO `school_grade_category` VALUES (1,1,1),(2,1,3),(3,1,2),(4,1,4),(5,3,3),(6,5,1),(7,5,3),(16,9,2),(17,9,1),(18,9,3),(19,11,2),(20,11,3),(21,11,1),(22,15,2),(23,15,3),(24,15,1),(25,19,2),(26,19,1),(27,19,3),(28,21,2),(29,21,3),(30,21,1),(31,19,5),(32,19,4);
 /*!40000 ALTER TABLE `school_grade_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +309,7 @@ CREATE TABLE `school_grade_section` (
   `grade_id` int(11) NOT NULL,
   `section` varchar(15) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +318,7 @@ CREATE TABLE `school_grade_section` (
 
 LOCK TABLES `school_grade_section` WRITE;
 /*!40000 ALTER TABLE `school_grade_section` DISABLE KEYS */;
-INSERT INTO `school_grade_section` VALUES (1,'bce33d20-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'A'),(2,'bcebc8a0-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'B');
+INSERT INTO `school_grade_section` VALUES (1,'bce33d20-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'A'),(2,'bcebc8a0-efc8-11ed-b5d4-13be946f0e1f',1,1,1,'B'),(3,'a55ba430-f626-11ed-aa0a-7374616e4a36',1,1,1,'C'),(4,'a56ae670-f626-11ed-aa0a-7374616e4a36',1,1,1,'D'),(5,'2b24c1a0-f627-11ed-964d-6d3292a6e13c',1,1,1,'E'),(6,'2b2b2a40-f627-11ed-964d-6d3292a6e13c',1,1,1,'F'),(7,'41bb8840-f627-11ed-964d-6d3292a6e13c',1,1,1,'G'),(8,'41bcc0c0-f627-11ed-964d-6d3292a6e13c',1,1,1,'H'),(9,'fdgdfgdf',1,1,7,'A'),(10,'3fb8fe50-f894-11ed-97d8-4b0d9e7f2a1a',1,1,1,'I'),(11,'3fbfb510-f894-11ed-97d8-4b0d9e7f2a1a',1,1,1,'J'),(12,'3fc05150-f894-11ed-97d8-4b0d9e7f2a1a',1,1,1,'K');
 /*!40000 ALTER TABLE `school_grade_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +339,7 @@ CREATE TABLE `school_user_setting` (
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid_UNIQUE` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +348,7 @@ CREATE TABLE `school_user_setting` (
 
 LOCK TABLES `school_user_setting` WRITE;
 /*!40000 ALTER TABLE `school_user_setting` DISABLE KEYS */;
-INSERT INTO `school_user_setting` VALUES (1,'819b07cc-dfb5-11ed-a234-c4346b527e08',1,0,0,1,1),(2,'057e22c7-e0ef-11ed-bc60-c4346b527e08',1,1,1,2,1),(3,'108b3b69-e0ef-11ed-bc60-c4346b527e08',1,1,1,2,1),(4,'aaa5b8d1-e272-11ed-9e54-83aed0538965',1,1,1,3,5),(6,'953d0ef0-e293-11ed-9678-89505a9a3e35',0,0,NULL,0,3),(16,'188641d0-e2a0-11ed-a2f3-8b10e9657b22',1,1,1,3,9),(17,'188668e0-e2a0-11ed-a2f3-8b10e9657b22',0,1,1,1,9),(18,'92264620-e2a0-11ed-bddf-1f6cf9a61aa0',1,1,1,3,11),(19,'92264621-e2a0-11ed-bddf-1f6cf9a61aa0',0,1,1,1,11),(23,'4a893460-e32e-11ed-9114-3d431958d46f',0,1,1,1,15),(24,'4a890d50-e32e-11ed-9114-3d431958d46f',1,1,1,3,15);
+INSERT INTO `school_user_setting` VALUES (1,'819b07cc-dfb5-11ed-a234-c4346b527e08',1,0,0,1,1),(2,'057e22c7-e0ef-11ed-bc60-c4346b527e08',1,1,1,2,1),(3,'108b3b69-e0ef-11ed-bc60-c4346b527e08',1,1,1,2,1),(4,'aaa5b8d1-e272-11ed-9e54-83aed0538965',1,1,1,3,5),(6,'953d0ef0-e293-11ed-9678-89505a9a3e35',0,0,NULL,0,3),(16,'188641d0-e2a0-11ed-a2f3-8b10e9657b22',1,1,1,3,9),(17,'188668e0-e2a0-11ed-a2f3-8b10e9657b22',0,1,1,1,9),(18,'92264620-e2a0-11ed-bddf-1f6cf9a61aa0',1,1,1,3,11),(19,'92264621-e2a0-11ed-bddf-1f6cf9a61aa0',0,1,1,1,11),(23,'4a893460-e32e-11ed-9114-3d431958d46f',0,1,1,1,15),(24,'4a890d50-e32e-11ed-9114-3d431958d46f',1,1,1,3,15),(27,'c8b719b0-f931-11ed-8f5c-554bc0705ad0',1,1,1,3,21),(28,'c8b719b1-f931-11ed-8f5c-554bc0705ad0',0,1,1,1,21),(33,'519f34f0-f933-11ed-a89e-eff04831e82d',0,1,0,1,19);
 /*!40000 ALTER TABLE `school_user_setting` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +370,7 @@ CREATE TABLE `school_user_setting_history` (
   `created_on` datetime NOT NULL,
   `created_by_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +379,7 @@ CREATE TABLE `school_user_setting_history` (
 
 LOCK TABLES `school_user_setting_history` WRITE;
 /*!40000 ALTER TABLE `school_user_setting_history` DISABLE KEYS */;
-INSERT INTO `school_user_setting_history` VALUES (1,8,2,1,0,1,'update','2023-04-25 04:07:54',1),(2,8,1,0,1,0,'add','2023-04-25 04:07:54',1),(3,8,2,1,0,1,'update','2023-04-25 04:08:39',1),(4,8,1,0,1,0,'delete','2023-04-25 04:08:39',1),(5,8,1,0,1,0,'add','2023-04-25 04:08:39',1),(6,8,2,1,0,1,'delete','2023-04-25 04:53:45',1),(7,8,1,0,1,0,'delete','2023-04-25 04:53:45',1),(8,15,1,0,1,1,'add','2023-04-25 05:59:07',1),(9,15,3,1,1,1,'add','2023-04-25 05:59:07',1);
+INSERT INTO `school_user_setting_history` VALUES (1,8,2,1,0,1,'update','2023-04-25 04:07:54',1),(2,8,1,0,1,0,'add','2023-04-25 04:07:54',1),(3,8,2,1,0,1,'update','2023-04-25 04:08:39',1),(4,8,1,0,1,0,'delete','2023-04-25 04:08:39',1),(5,8,1,0,1,0,'add','2023-04-25 04:08:39',1),(6,8,2,1,0,1,'delete','2023-04-25 04:53:45',1),(7,8,1,0,1,0,'delete','2023-04-25 04:53:45',1),(8,15,1,0,1,1,'add','2023-04-25 05:59:07',1),(9,15,3,1,1,1,'add','2023-04-25 05:59:07',1),(10,19,1,0,1,1,'add','2023-05-23 06:17:32',1),(11,19,3,1,1,1,'add','2023-05-23 06:17:32',1),(12,21,1,0,1,1,'add','2023-05-23 06:19:33',1),(13,21,3,1,1,1,'add','2023-05-23 06:19:33',1),(14,19,2,1,0,1,'update','2023-05-23 06:21:21',1),(15,19,1,0,1,1,'delete','2023-05-23 06:21:21',1),(16,19,1,0,1,0,'add','2023-05-23 06:21:21',1),(17,19,3,1,1,1,'delete','2023-05-23 06:21:21',1),(18,19,2,1,0,1,'update','2023-05-23 06:21:56',1),(19,19,1,0,1,0,'add','2023-05-23 06:21:56',1),(20,19,1,0,1,0,'delete','2023-05-23 06:21:56',1),(21,19,2,1,0,1,'update','2023-05-23 06:28:31',1),(22,19,1,0,1,0,'delete','2023-05-23 06:28:31',1),(23,19,1,0,1,0,'add','2023-05-23 06:28:31',1),(24,19,2,1,0,1,'update','2023-05-23 06:29:52',1),(25,19,1,0,1,0,'delete','2023-05-23 06:29:52',1),(26,19,1,0,1,0,'add','2023-05-23 06:29:52',1),(27,19,2,1,0,1,'update','2023-05-23 06:30:32',1),(28,19,1,0,1,0,'delete','2023-05-23 06:30:32',1),(29,19,1,0,1,0,'add','2023-05-23 06:30:32',1);
 /*!40000 ALTER TABLE `school_user_setting_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +432,7 @@ CREATE TABLE `syllabus_grade_subject` (
 
 LOCK TABLES `syllabus_grade_subject` WRITE;
 /*!40000 ALTER TABLE `syllabus_grade_subject` DISABLE KEYS */;
-INSERT INTO `syllabus_grade_subject` VALUES (1,'55b21ee1-e331-11ed-9f9d-c4346b527e08',1,1,'Hindi',1),(2,'aa3f0170-e417-11ed-b74b-6f7650aff17f',1,1,'Science',1),(4,'gdgdfg',1,1,'EVS',1);
+INSERT INTO `syllabus_grade_subject` VALUES (2,'aa3f0170-e417-11ed-b74b-6f7650aff17f',1,1,'Science',1),(4,'gdgdfg',1,1,'EVS',1);
 /*!40000 ALTER TABLE `syllabus_grade_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -400,7 +459,7 @@ CREATE TABLE `syllabus_grade_subject_chapter` (
 
 LOCK TABLES `syllabus_grade_subject_chapter` WRITE;
 /*!40000 ALTER TABLE `syllabus_grade_subject_chapter` DISABLE KEYS */;
-INSERT INTO `syllabus_grade_subject_chapter` VALUES (1,'d2f51ba4-e422-11ed-9f9d-c4346b527e08',1,'BHUMI',1),(5,'53c95e60-ea81-11ed-8444-3f213c3cd1f7',2,'EARTH',1),(6,'7f147a90-ea82-11ed-b77d-77befc8b390d',2,'EARTH2',1);
+INSERT INTO `syllabus_grade_subject_chapter` VALUES (1,'d2f51ba4-e422-11ed-9f9d-c4346b527e08',2,'BHUMI',1),(5,'53c95e60-ea81-11ed-8444-3f213c3cd1f7',2,'EARTH',1),(6,'7f147a90-ea82-11ed-b77d-77befc8b390d',2,'EARTH2',1);
 /*!40000 ALTER TABLE `syllabus_grade_subject_chapter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +487,7 @@ CREATE TABLE `syllabus_grade_subject_chapter_topic` (
 
 LOCK TABLES `syllabus_grade_subject_chapter_topic` WRITE;
 /*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topic` DISABLE KEYS */;
-INSERT INTO `syllabus_grade_subject_chapter_topic` VALUES (2,'6a18f0fc-ea79-11ed-8dfa-c4346b527e08',1,'kahani',1),(3,'7f1c69d0-ea82-11ed-b77d-77befc8b390d',6,'All-Topics',0),(4,'82e88d00-ea82-11ed-b77d-77befc8b390d',7,'All-Topics',1),(5,'9f34a930-ea82-11ed-bf59-f5ef3efb5af1',8,'All-Topics',1),(6,'cb466f50-eb08-11ed-8d50-c71d40b320d8',1,'EARTH',1),(7,'efe5e480-eb08-11ed-be8b-d3bbbf003e99',1,'KAVITA',1),(8,'4f0e9730-eb0a-11ed-84da-8b1c432de4e1',1,'KAVITA',1),(9,'63f7bdc0-eb1e-11ed-870f-b572c3a55e86',5,'KAVITA',1);
+INSERT INTO `syllabus_grade_subject_chapter_topic` VALUES (2,'6a18f0fc-ea79-11ed-8dfa-c4346b527e08',1,'kahani',1),(3,'7f1c69d0-ea82-11ed-b77d-77befc8b390d',6,'All-Topics',1),(4,'82e88d00-ea82-11ed-b77d-77befc8b390d',7,'All-Topics',1),(5,'9f34a930-ea82-11ed-bf59-f5ef3efb5af1',1,'All-Topics',1),(6,'cb466f50-eb08-11ed-8d50-c71d40b320d8',1,'EARTH',1),(7,'efe5e480-eb08-11ed-be8b-d3bbbf003e99',1,'KAVITA',1),(8,'4f0e9730-eb0a-11ed-84da-8b1c432de4e1',5,'KAVITA',1),(9,'63f7bdc0-eb1e-11ed-870f-b572c3a55e86',5,'KAVITA',1);
 /*!40000 ALTER TABLE `syllabus_grade_subject_chapter_topic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,7 +529,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'607d4f61-ddc3-11ed-a14c-54ee753f9eea','Admin','',1,1,'9874563210','testoauth80@gmail.com','Male',NULL,'admin',1,'2023-04-18 14:01:10',NULL,NULL,NULL,'2023-05-15 06:42:20'),(2,'4c7f1510-de1d-11ed-a234-c4346b527e08','rani','singh',1,3,'1236549870','rani8014@gmail.com','female',1,'admin',1,'2023-04-19 13:10:12',1,NULL,NULL,'2023-05-15 08:27:46'),(6,'839b4c80-dea0-11ed-8bc6-d7814a68136d','test','user',1,6,'9512633789','test@gmail.com','Male',NULL,'admin',1,'2023-04-19 10:54:10',1,NULL,NULL,NULL),(7,'ec5fa7f0-dea7-11ed-b84a-e1cb5546788f','test','test',1,1,'9512635789','test1@gmail.com','Male',NULL,'admin',1,'2023-04-19 11:47:12',1,NULL,NULL,NULL),(15,'18a77280-e03c-11ed-a24a-1384e27579ac','test','test',2,1,'6512635789','test52@gmail.com','Male',8,'admin',0,'2023-04-21 12:00:23',1,'2023-04-21 12:26:49',1,NULL),(16,'747c5790-e043-11ed-a39b-d53fbb8e0b8f','test','test',1,1,'9658685','test2@gmail.com','Male',3,'admin',1,'2023-04-21 12:53:04',1,NULL,NULL,'2023-04-22 11:01:11');
+INSERT INTO `user` VALUES (1,'607d4f61-ddc3-11ed-a14c-54ee753f9eea','Admin','',1,1,'9874563210','testoauth80@gmail.com','Male',NULL,'admin',1,'2023-04-18 14:01:10',NULL,NULL,NULL,'2023-05-19 09:26:21'),(2,'4c7f1510-de1d-11ed-a234-c4346b527e08','rani','singh',1,3,'1236549870','rani8014@gmail.com','female',1,'admin',1,'2023-04-19 13:10:12',1,NULL,NULL,'2023-05-22 11:06:01'),(6,'839b4c80-dea0-11ed-8bc6-d7814a68136d','test','user',2,6,'9512633789','test@gmail.com','Male',NULL,'admin',1,'2023-04-19 10:54:10',1,NULL,NULL,'2023-05-17 08:06:37'),(7,'ec5fa7f0-dea7-11ed-b84a-e1cb5546788f','test','test',1,1,'9512635789','test1@gmail.com','Male',NULL,'admin',1,'2023-04-19 11:47:12',1,NULL,NULL,NULL),(15,'18a77280-e03c-11ed-a24a-1384e27579ac','test','test',2,7,'6512635789','test52@gmail.com','Male',9,'admin',0,'2023-04-21 12:00:23',1,'2023-04-21 12:26:49',1,NULL),(16,'747c5790-e043-11ed-a39b-d53fbb8e0b8f','test','test',2,8,'9658685','test2@gmail.com','Male',3,'admin',1,'2023-04-21 12:53:04',1,NULL,NULL,'2023-05-19 07:32:03');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,16 +545,17 @@ CREATE TABLE `user_chapter_complete_status` (
   `uuid` varchar(36) COLLATE latin1_bin NOT NULL,
   `academic_year_id` int(11) NOT NULL,
   `grade_id` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `chapter_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
-  `completed_on` datetime NOT NULL,
+  `completed_on` date NOT NULL,
   `completed_by` int(11) NOT NULL,
   `created_on` datetime NOT NULL,
   `is_completed` tinyint(1) NOT NULL,
-  `section_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uuid_UNIQUE` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -504,6 +564,7 @@ CREATE TABLE `user_chapter_complete_status` (
 
 LOCK TABLES `user_chapter_complete_status` WRITE;
 /*!40000 ALTER TABLE `user_chapter_complete_status` DISABLE KEYS */;
+INSERT INTO `user_chapter_complete_status` VALUES (1,'d26ba4e0-f606-11ed-84e3-89314e89471d',1,1,1,2,6,3,'2023-05-04',16,'2023-05-19 05:34:27',1),(2,'994afd70-f889-11ed-957f-197e2a6e50af',1,1,1,2,5,2,'2023-05-04',16,'2023-05-22 10:15:38',1),(3,'a07fee20-f889-11ed-957f-197e2a6e50af',1,1,2,2,5,5,'2023-05-04',16,'2023-05-22 10:15:50',1),(4,'a473e4a0-f889-11ed-957f-197e2a6e50af',1,1,3,2,5,6,'2023-05-04',16,'2023-05-22 10:15:57',1),(5,'a83d48b0-f889-11ed-957f-197e2a6e50af',1,1,4,2,5,7,'2023-05-04',16,'2023-05-22 10:16:03',1),(6,'ab4f1c90-f889-11ed-957f-197e2a6e50af',1,1,1,2,1,8,'2023-05-04',16,'2023-05-22 10:16:08',1),(7,'b879ee40-f889-11ed-957f-197e2a6e50af',1,1,2,2,1,5,'2023-05-04',16,'2023-05-22 10:16:30',1),(8,'cb529b70-f889-11ed-957f-197e2a6e50af',1,1,3,2,1,6,'2023-05-04',16,'2023-05-22 10:17:02',1),(9,'05c7d130-f88a-11ed-957f-197e2a6e50af',1,1,4,2,1,7,'2023-05-04',16,'2023-05-22 10:18:40',1),(10,'1235bb80-f88a-11ed-957f-197e2a6e50af',1,1,5,2,1,8,'2023-05-04',16,'2023-05-22 10:19:01',1);
 /*!40000 ALTER TABLE `user_chapter_complete_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -523,7 +584,7 @@ CREATE TABLE `user_supervise_grade` (
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid_UNIQUE` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,6 +593,7 @@ CREATE TABLE `user_supervise_grade` (
 
 LOCK TABLES `user_supervise_grade` WRITE;
 /*!40000 ALTER TABLE `user_supervise_grade` DISABLE KEYS */;
+INSERT INTO `user_supervise_grade` VALUES (1,'7cf1a030-f62b-11ed-aa59-3f7117fbe681',6,2,1,1);
 /*!40000 ALTER TABLE `user_supervise_grade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,7 +614,7 @@ CREATE TABLE `user_supervise_grade_subject` (
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid_UNIQUE` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -561,7 +623,7 @@ CREATE TABLE `user_supervise_grade_subject` (
 
 LOCK TABLES `user_supervise_grade_subject` WRITE;
 /*!40000 ALTER TABLE `user_supervise_grade_subject` DISABLE KEYS */;
-INSERT INTO `user_supervise_grade_subject` VALUES (1,'vgbcfg',2,1,1,1,1),(2,'cvgnjbhjjmg',2,2,1,1,1),(3,'fhfgh',3,1,1,1,1),(4,'dfgdgdg',2,4,2,1,1);
+INSERT INTO `user_supervise_grade_subject` VALUES (1,'vgbcfg',2,1,1,1,1),(2,'cvgnjbhjjmg',2,2,1,1,1),(3,'fhfgh',3,1,1,1,1),(4,'dfgdgdg',2,4,2,1,1),(5,'adada0d0-f62a-11ed-ae75-e5adcfd2610b',6,1,1,1,1),(6,'adada0d1-f62a-11ed-ae75-e5adcfd2610b',6,1,2,1,1);
 /*!40000 ALTER TABLE `user_supervise_grade_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -583,7 +645,7 @@ CREATE TABLE `user_teach_subject_section` (
   `school_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid_UNIQUE` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -592,7 +654,7 @@ CREATE TABLE `user_teach_subject_section` (
 
 LOCK TABLES `user_teach_subject_section` WRITE;
 /*!40000 ALTER TABLE `user_teach_subject_section` DISABLE KEYS */;
-INSERT INTO `user_teach_subject_section` VALUES (1,'etret',2,1,1,1,1,1),(3,'trtrty',2,2,2,1,1,1);
+INSERT INTO `user_teach_subject_section` VALUES (1,'etret',2,1,1,1,1,1),(3,'trtrty',2,2,2,1,1,1),(4,'75645650-f62b-11ed-aa59-3f7117fbe681',6,1,1,1,1,1);
 /*!40000 ALTER TABLE `user_teach_subject_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -622,6 +684,33 @@ LOCK TABLES `user_type` WRITE;
 INSERT INTO `user_type` VALUES (1,1,'Administrator','SUADM',1),(2,1,'Curriculum Head','CURHD',1),(3,1,'Head Office Admin','HDOFA',1),(4,2,'Principal','SCHPL',1),(5,2,'Vice Principal','SCHVP',1),(6,2,'Coordinator','SCHCD',1),(7,2,'Subject Head','SUBHD',1),(8,2,'Teacher','TECHR',1);
 /*!40000 ALTER TABLE `user_type` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_type_change_history`
+--
+
+DROP TABLE IF EXISTS `user_type_change_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_type_change_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `previous_user_type_id` int(11) NOT NULL,
+  `new_user_type_id` int(11) NOT NULL,
+  `created_on` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_type_change_history`
+--
+
+LOCK TABLES `user_type_change_history` WRITE;
+/*!40000 ALTER TABLE `user_type_change_history` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_type_change_history` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -632,4 +721,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-15 19:27:15
+-- Dump completed on 2023-05-23 12:18:45
