@@ -258,7 +258,10 @@ db.checkChapterTopicUsed = (id) => {
                 return resolve(result);
             });
         }
-        catch(e){ console.log(e)}
+        catch(e)
+        { 
+            console.log(e)
+        }
         
     });
 }

@@ -12,7 +12,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.subjectChapter?.uuid || !req.body.name || !req.body.uuid){
+        if(!req.body.subjectChapter?.uuid || !req.body.name || !req.body.uuid)
+        {
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -22,8 +23,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         chapterUuid = req.body.subjectChapter?.uuid;
         chapterData = await db.getSubjectChapter(chapterUuid)
-        console.log(chapterData)
-        if(chapterData.length == 0){
+        if(chapterData.length == 0)
+        {
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -37,7 +38,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         uuid = req.body.uuid
         accessToken = req.body.accessToken;
         let checkValid = await db.getChapterTopicDetails(uuid , chapterId)
-        if(checkValid.length == 0){
+        if(checkValid.length == 0)
+        {
             res.status(404)
             return res.json({
                 "status_code"   :   404,
@@ -46,7 +48,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             })
         }
         topic = await db.selectTopic(uuid)
-        if(topic.length == 0){
+        if(topic.length == 0)
+        {
             res.status(404)
             return res.json({
                 "status_code"   :   404,
@@ -56,10 +59,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         topicId = topic[0].id
         let checkUsed = await db.checkChapterTopicUsed(topicId)
-        if(checkUsed[0].isExist == 0){
+        if(checkUsed[0].isExist == 0)
+        {
             let check = await db.findTopic(name,chapterId,uuid)
             console.log(check)
-            if(check[0].Exist != 0){
+            if(check[0].Exist != 0)
+            {
                 res.status(400);
                 return res.json({
                     "status_code": 400,
@@ -67,10 +72,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_name": getCode.getStatus(400)
                 });
             }
-            else{
-            let updateTopic = await db.updateChapterTopic(name,uuid, chapterId)
+            else
+            {
+                let updateTopic = await db.updateChapterTopic(name,uuid, chapterId)
         
-                if (updateTopic.affectedRows > 0) {
+                if (updateTopic.affectedRows > 0)
+                {
                     res.status(200);
                     return res.json({
                         "status_code": 200,
@@ -78,7 +85,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                         "status_name": getCode.getStatus(200)
                     });
                 }
-                else{
+                else
+                {
                     res.status(500);
                     return res.json({
                         "status_code": 500,

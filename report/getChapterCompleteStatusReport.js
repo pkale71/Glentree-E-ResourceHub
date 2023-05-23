@@ -79,7 +79,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                 reports.forEach(ele => {
                     ele.completeStatuses.forEach(e => {
                         delete e.id
-                        delete chapterId
+                        delete e.chapterId
                     })
                     report.setDataAll(ele)
                     reportCompleteChapterStatus.push(report.getDataAll())
@@ -90,7 +90,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                     "message"       :   'success',
                     "data"          :   {"reportUserChapterCompleteStatuses" : reportCompleteChapterStatus},
                     "status_name"   :   getCode.getStatus(200),
-                }) 
+                })
             }
         }
         else
@@ -133,7 +133,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                 reports.forEach(ele => {
                     ele.completeStatuses.forEach(e => {
                         delete e.id
-                        delete chapterId
+                        delete e.chapterId
                     })
                     report.setDataAll(ele)
                     reportCompleteChapterStatus.push(report.getDataAll())
@@ -142,7 +142,7 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                 return res.json({
                     "status_code"   :   200,
                     "message"       :   'success',
-                    "data"          :   {"reportUserChapterCompleteStatuses" : reports},
+                    "data"          :   {"reportUserChapterCompleteStatuses" : reportCompleteChapterStatus},
                     "status_name"   :   getCode.getStatus(200),
                 }) 
             }

@@ -19,8 +19,10 @@ db.insertSubjectChapter = (uuid, syllabusGradeSubjectId, name, isActive) => {
         
     });
 }
-db.findChapter = (name,syllabusGradeSubjectId,uuid) => {
-    return new Promise((resolve, reject)=>{
+db.findChapter = (name,syllabusGradeSubjectId,uuid) => 
+{
+    return new Promise((resolve, reject)=>
+    {
         try
         {
             pool.query(`SELECT COUNT(UPPER(chapter_name)) AS Exist FROM syllabus_grade_subject_chapter WHERE  syllabus_grade_subject_id = ? AND UPPER(chapter_name) LIKE UPPER(?) AND uuid NOT LIKE ?`, [syllabusGradeSubjectId,name,uuid], (error, result) => 
@@ -256,16 +258,20 @@ db.getSubjectChapters = (id,uuid) => {
     });
 }
 
-db.checkSubjectChapterUsed = (id) => {
-    return new Promise((resolve, reject)=>{
+db.checkSubjectChapterUsed = (id) => 
+{
+    return new Promise((resolve, reject)=>
+    {
         try
         {
             let sql = `SELECT IF(COUNT(sgsct.id)> 0,1,0) AS isExist, (SELECT IF(COUNT(chapter_id) > 0 ,1,0)  FROM curriculum_master 
-            WHERE chapter_id = ?) AS Exist
+            WHERE chapter_id = ?) AS Exist,
+            (SELECT IF(COUNT(chapter_id) > 0 ,1,0)  FROM user_chapter_complete_status 
+            WHERE chapter_id = ?) AS statusExist
             FROM syllabus_grade_subject_chapter_topic sgsct 
-            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND UPPER(sgsct.topic_name) NOT LIKE UPPER('All-Topics')  `
+            WHERE sgsct.syllabus_grade_subject_chapter_id = ? AND UPPER(sgsct.topic_name) NOT LIKE UPPER('All-Topics')`
 
-            pool.query(sql,[id,id],(error, result) => 
+            pool.query(sql,[id,id,id],(error, result) => 
             {
                 if(error)
                 {
@@ -274,8 +280,10 @@ db.checkSubjectChapterUsed = (id) => {
                 return resolve(result);
             });
         }
-        catch(e){ console.log(e)}
-        
+        catch(e)
+        { 
+            console.log(e)
+        }
     });
 }
 
