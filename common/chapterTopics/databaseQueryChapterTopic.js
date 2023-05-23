@@ -247,9 +247,12 @@ db.checkChapterTopicUsed = (id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            let sql = `SELECT IF(COUNT(cm.id)> 0,1,0) AS isExist FROM curriculum_master cm 
-            WHERE cm.topic_id = ? `
-            pool.query(sql,[id],(error, result) => 
+            let sql = `SELECT IF(COUNT(cm.id)> 0,1,0) AS isExist,
+            (SELECT IF(COUNT(topic_id) > 0 ,1,0)  FROM user_chapter_complete_status 
+                        WHERE topic_id = ?) AS statusExist
+            FROM curriculum_master cm 
+            WHERE cm.topic_id = ?`
+            pool.query(sql,[id,id],(error, result) => 
             {
                 if(error)
                 {

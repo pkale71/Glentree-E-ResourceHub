@@ -243,26 +243,6 @@ db.getChapterTopics = (id,uuid) => {
     });
 }
 
-db.checkChapterTopicUsed = (id) => {
-    return new Promise((resolve, reject)=>{
-        try
-        {
-            let sql = `SELECT IF(COUNT(cm.id)> 0,1,0) AS isExist FROM curriculum_master cm 
-            WHERE cm.topic_id = ? `
-            pool.query(sql,[id],(error, result) => 
-            {
-                if(error)
-                {
-                    return reject(error);
-                }          
-                return resolve(result);
-            });
-        }
-        catch(e){ console.log(e)}
-        
-    });
-}
-
 
 db.topicStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
