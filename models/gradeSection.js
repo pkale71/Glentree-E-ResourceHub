@@ -67,6 +67,33 @@ class gradeSection {
         }
     }
 
+    setSectionData(data)
+    {
+        this.academic       =   {
+                                    "uuid"    :   data.acaUuid,
+                                    "year"  :   data.year
+                                }
+        this.school         =   {
+                                    "uuid"    :   data.schoolUuid,
+                                    "name"  :   data.schoolName?.trim()
+                                }
+        this.grade          =   {
+                                    "id"         :   data.grade_id,
+                                    "name"       :   data.gradeName?.trim(),
+                                    "sections"    :   data.gradeSection
+                                }
+                                
+    }
+
+    getSectionData()
+    {
+        return {
+            academic : this.academic,
+            school : this.school,
+            grade : this.grade,
+        }
+    }
+
     setDataAll(data)
     {
         this.academic       =   {

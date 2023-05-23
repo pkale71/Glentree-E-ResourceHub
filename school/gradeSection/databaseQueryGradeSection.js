@@ -74,6 +74,38 @@ db.getGradeSections = (academicId,schoolId,gradeId,gradeCategoryId,ele) => {
     });
 }
 
+db.getSections = (academicId,schoolId,gradeId) => 
+{
+    return new Promise((resolve, reject)=>
+    {
+        try
+        {
+            let sql = `SELECT sgs.uuid, sgs.section, g.name AS gradeName, sgs.grade_id,
+            (SELECT IF(COUNT(section_id)> 0,1,0) FROM user_teach_subject_section WHERE sgs.id = section_id) AS isExist
+            FROM school_grade_section sgs 
+            LEFT JOIN academic_year ay ON ay.id = sgs.academic_year_id
+            LEFT JOIN school s ON s.id = sgs.school_id 
+            LEFT JOIN grade g ON g.id = sgs.grade_id 
+            WHERE sgs.academic_year_id = ? 
+            AND sgs.school_id = ?
+            AND sgs.grade_id = ?
+            ORDER BY sgs.id`;
+            pool.query(sql,[academicId,schoolId,gradeId],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                } 
+                return resolve(result)
+            });
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+}
+
 db.getGradeSection = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
