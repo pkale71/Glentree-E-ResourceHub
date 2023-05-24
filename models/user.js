@@ -48,15 +48,15 @@ class user {
 
     setSchool(data){
         this.school         =   {
-                                    "uuid" : data.schoolUuid,
-                                    "name" : data.schoolName?.trim(),
+                                    "uuid" : data.uuid,
+                                    "name" : data.name?.trim(),
                                     "email" : data.schoolEmail,
                                     "contact1" : data.contact1,
-                                    "isExist"   : data.schoolExist,
+                                    "isExist"   : data.isExist,
                                     "curriculumUpload" : data.curriculum_upload,
                                     "curriculumComplete" : data.curriculum_complete,
                                     "syllabus"  :   {
-                                                        "id" : data.syllabusId,
+                                                        "id" : data.id,
                                                         "name" : data.syllabusName
                                                     }
                                 }

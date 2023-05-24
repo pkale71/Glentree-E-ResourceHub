@@ -206,14 +206,17 @@ db.getUser = (uuid) =>
     {
         try
         {
-            pool.query(`SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name, u.last_name,u.gender, u.role_id,r.name AS role_name, u.user_type_id,u.email,u.mobile,  u.last_login,u.password,u.id,ut.name AS user_type_name,ut.code AS user_type_code, u.is_active AS isActive, u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid, s.name AS schoolName  
-            FROM user u 
-            LEFT JOIN role r ON u.role_id = r.id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id  
-            LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id !=1 AND u.uuid = ?`,[uuid] ,(error, result) =>
+            pool.query(`SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName,
+            u.first_name, u.last_name, u.gender, u.role_id, r.name AS role_name, u.user_type_id, u.email, u.mobile, 
+            u.last_login, u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive, 
+            u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,''))
+            AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
+                       FROM user u 
+                       LEFT JOIN role r ON u.role_id = r.id 
+                       LEFT JOIN user_type ut ON ut.id = u.user_type_id  
+                       LEFT JOIN user uc ON (u.created_by_id = uc.id) 
+                       LEFT JOIN user ud ON (u.deleted_by_id = ud.id)
+                       WHERE u.id !=1 AND u.uuid = ?`,[uuid] ,(error, result) =>
             {
                 if(error)
                 {
@@ -228,6 +231,39 @@ db.getUser = (uuid) =>
         }
     });
 }; 
+
+db.getSchools = (uuid) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+            pool.query(`SELECT us.user_id, s.name, s.uuid, s.location, s.contact1, s.curriculum_complete, s.curriculum_upload, s.email,
+            (SELECT IF(COUNT(cm.id)> 0,1,(SELECT IF(COUNT(usg.id)> 0,1,(SELECT IF(COUNT(usgs.id)> 0,1,(SELECT IF(COUNT(utss.id)> 0,1,0) 
+            FROM user_teach_subject_section utss WHERE utss.school_id = us.school_id)) 
+            FROM user_supervise_grade_subject usgs WHERE usgs.school_id = us.school_id)) 
+            FROM user_supervise_grade usg WHERE usg.school_id = us.school_id)) 
+            FROM curriculum_master cm 
+            WHERE cm.id = us.school_id) AS isExist,
+             sy.id, sy.name AS syllabusName
+                        FROM user_school us 
+                        LEFT JOIN school s ON us.school_id = s.id
+                        LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
+                        WHERE us.user_id = (SELECT id FROM user WHERE uuid = ?)`,[uuid] ,(error, result) =>
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+};
 
 db.userStatusChange = (uuid) => 
 {
