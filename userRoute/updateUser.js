@@ -8,17 +8,18 @@ let lastName
 let userTypeId
 let gender
 let schoolId;
-let schoolUuid;
+let schoolUuids;
 let uuid;
 let email
 let mobile
+let deleteUserTypeId
 
 module.exports = require('express').Router().post('/',async(req,res)=>
 {
     try
     {
-        
-        if(!req.body.email  || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school?.uuid)){
+        if(!req.body.email  || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || !req.body.schools || (req.body.schools?.length == 0))
+        {
             res.status(400)
             return res.json({
                 "status_code" : 400,
@@ -34,31 +35,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>
          uuid   =   req.body.uuid
          email = req.body.email
          mobile = req.body.mobile
+         schoolUuids = req.body.schools.split(',')
          createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-            if(req.body.role?.id==2 && !req.body.school?.uuid){
-                res.status(404)
-                return res.json({
-                    "status_code" : 404,
-                    "message" : "School uuid Missing",
-                    "status_name" : getCode.getStatus(404),
-                })
-            }
-         schoolUuid = req.body.role?.id==2?req.body.school?.uuid:null
-        if(schoolUuid){
-            schoolId = await db.selectSchool(schoolUuid)
-            if(schoolId.length == 0){
-                res.status(404)
-                return res.json({
-                    "status_code" : 404,
-                    "message" : "Provide valid school uuid number",
-                    "status_name" : getCode.getStatus(404),
-                })
-            }
-            schoolId = schoolId[0].id
-        }
-        else{
-            schoolId = null
-        }
         if(uuid.length == 0)
         {
             res.status(404)
@@ -73,11 +51,25 @@ module.exports = require('express').Router().post('/',async(req,res)=>
         if(uuid)
         {
             let userId = await db.getUserId(uuid)
-            db.insertUserTypeChangeHistory(userId[0].id, userTypeId,createdOn, createdById, 'update').then(async(res1) => {
+            db.insertUserTypeChangeHistory(userId[0].id, userTypeId,createdOn, createdById, 'update').then(async(res1) => 
+            {
                 if(res1)
                 {
-                    let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
-                       if(updateUser.affectedRows > 0){
+                    deleteUserTypeId = res1.insertId
+                    let updateUser = await db.updateUser(0,uuid,firstName,lastName,gender,userTypeId,email,mobile)
+                       if(updateUser.affectedRows > 0)
+                       {
+                        let deleteUserSchool = await db.deleteSchools(uuid)
+                        let sql = `INSERT INTO user_school (user_id, school_id)  VALUES  `
+                        schoolUuids.forEach((element,i) => 
+                        {
+                            sql = sql + `(${userId[0].id},(SELECT id FROM school WHERE uuid = '${element}'))` 
+                            if(schoolUuids.length != i+1)
+                            {
+                                sql = sql+`,`
+                            }
+                        });
+                        let insertUserSchool = await db.insertUserSchools(sql)
                         res.status(200)
                            return res.json({
                                "status_code" : 200,
@@ -86,7 +78,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                            })            
        
                        }
-                       else{
+                       else
+                       {
+                        let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
                         res.status(500)
                            return res.json({
                                "status_code" : 500,
@@ -101,7 +95,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>
     } 
     catch(e)
     {
-        console.log(e)
+        let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
+        console.log(e,deleteUserTypeHistory,deleteUserTypeId)
         if(e.code == 'ER_DUP_ENTRY')
         {
             let msg = e.sqlMessage.replace('_UNIQUE', '');

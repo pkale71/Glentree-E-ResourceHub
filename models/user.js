@@ -43,6 +43,7 @@ class user {
     school
     firstName
     lastName
+    userTypeExist
 
     constructor(){}
 
@@ -62,10 +63,10 @@ class user {
                                 }
     }
 
-    getSchool(){
+    getSchool()
+    {
         return this.school
-         
-     }
+    }
 
     setData(data){
         this.uuid           =   data.uuid
@@ -134,6 +135,7 @@ class user {
                                     'fullName' :  data.deletedfullName?.trim()
                                 }
         this.gender         =   data.gender,
+        this.userTypeExist  =   data.userTypeExist
         this.school         =   data.schools
     }
 
@@ -153,6 +155,7 @@ class user {
                          active         :   this.active,
                          createdBy      :   this.createdBy,
                          deletedBy      :   this.deletedBy,
+                         usertTypeExist :   this.userTypeExist,
                          schools        :   this.school
 
          }
