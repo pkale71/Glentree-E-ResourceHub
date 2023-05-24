@@ -180,10 +180,7 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
-            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
-            FROM user_chapter_complete_status uccs
-            WHERE uccs.completed_by = u.id) AS userTypeExist
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
             FROM user_school us 
             LEFT JOIN user u ON u.id = us.user_id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
@@ -200,10 +197,7 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
-            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
-            FROM user_chapter_complete_status uccs
-            WHERE uccs.completed_by = u.id) AS userTypeExist
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
@@ -220,10 +214,7 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
-            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
-            FROM user_chapter_complete_status uccs
-            WHERE uccs.completed_by = u.id) AS userTypeExist
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
@@ -240,10 +231,7 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, 
-            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
-            FROM user_chapter_complete_status uccs
-            WHERE uccs.completed_by = u.id) AS userTypeExist
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
@@ -282,9 +270,12 @@ db.getUser = (uuid) =>
             u.last_login, u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive, 
             u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,''))
             AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
-            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
-            FROM user_chapter_complete_status uccs
-            WHERE uccs.completed_by = u.id) AS userTypeExist
+            (SELECT IF(COUNT(cm.id)> 0,1,(SELECT IF(COUNT(usg.id)> 0,1,(SELECT IF(COUNT(usgs.id)> 0,1,(SELECT IF(COUNT(utss.id)> 0,1,0) 
+            FROM user_teach_subject_section utss WHERE utss.user_id = u.id)) 
+            FROM user_supervise_grade_subject usgs WHERE usgs.user_id = u.id)) 
+            FROM user_supervise_grade usg WHERE usg.user_id = u.id)) 
+            FROM curriculum_master cm 
+            WHERE cm.created_by = u.id) AS userTypeExist
                        FROM user u 
                        LEFT JOIN role r ON u.role_id = r.id 
                        LEFT JOIN user_type ut ON ut.id = u.user_type_id  

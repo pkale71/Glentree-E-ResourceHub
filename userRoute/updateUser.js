@@ -45,26 +45,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_name" : getCode.getStatus(404),
             })
         }
-        let duplicateEmail = await commondb.dupEmail(email) 
-        let duplicateMobile = await commondb.dupMobile(mobile)
-        if(duplicateEmail[0].Exist == 1 && uuid != duplicateEmail[0].uuid)
-        {
-            res.status(500)
-            return res.json({
-                "status_code" : 500,
-                "message" : `Duplicate Email`,
-                "status_name" : getCode.getStatus(500)
-            })            
-        }
-        if(duplicateMobile[0].Exist == 1 && uuid != duplicateMobile[0].uuid)
-        {
-            res.status(500)
-            return res.json({
-                "status_code" : 500,
-                "message" : `Duplicate Mobile`,
-                "status_name" : getCode.getStatus(500)
-            })            
-        }
         authData = await commondb.selectToken(accessToken)
         let createdById = authData[0].userId
         if(uuid)

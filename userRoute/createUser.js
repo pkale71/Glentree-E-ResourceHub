@@ -46,26 +46,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         schoolUuids = req.body.schools.split(',')
         authData = await commondb.selectToken(accessToken)
         userId = authData[0].userId
-        let duplicateEmail = await commondb.dupEmail(email) 
-        let duplicateMobile = await commondb.dupMobile(mobile)
-        if(duplicateEmail[0].Exist == 1 && uuid != duplicateEmail[0].uuid)
-        {
-            res.status(500)
-            return res.json({
-                "status_code" : 500,
-                "message" : `Duplicate Email`,
-                "status_name" : getCode.getStatus(500)
-            })            
-        }
-        if(duplicateMobile[0].Exist == 1 && uuid != duplicateMobile[0].uuid)
-        {
-            res.status(500)
-            return res.json({
-                "status_code" : 500,
-                "message" : `Duplicate Mobile`,
-                "status_name" : getCode.getStatus(500)
-            })            
-        }
         if(userId)
         {
             let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,createdOn)
