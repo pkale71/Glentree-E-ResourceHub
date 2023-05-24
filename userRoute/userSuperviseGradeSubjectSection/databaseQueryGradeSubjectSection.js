@@ -248,12 +248,10 @@ db.getChapterTopics = (id,uuid) => {
 db.topicStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
         try{
-            //console.log("p")
             pool.query('UPDATE syllabus_grade_subject_chapter_topic set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
-               // console.log("e")
                   return resolve(result);
             });
         }
@@ -267,7 +265,6 @@ db.findUnAssignedGradeSubjects = (acaId,schoolId,gradeId,subjectId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            console.log(acaId,schoolId,gradeId,subjectId)
 
             pool.query(`SELECT sgs.uuid, sgs.section FROM school_grade_section sgs
             WHERE sgs.school_id = ? AND sgs.academic_year_id = ? AND sgs.grade_id = ?

@@ -23,7 +23,6 @@ module.exports = require('express').Router().get('/:subjectUUID',async(req,res) 
         }
         subjectId = subject[0].id
         subjectStatusChange = await db.subjectStatusChange(subjectId)
-        console.log(subjectStatusChange)
         if(subjectStatusChange.affectedRows > 0){
             res.status(200)
             return res.json({

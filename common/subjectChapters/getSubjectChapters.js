@@ -41,10 +41,6 @@ module.exports = require('express').Router().get('/:subUuid',async(req,res)=>{
             })
         }
        
-         // console.log(subject)
-        //   subject.sort(function(a, b){
-        //     return a.id-b.id})
-          //console.log(subject)
           Array.from(chapters).forEach(async( ele ) =>  {
             chapter.setDataAll(ele)
               chapList.push(chapter.getDataAll()) 

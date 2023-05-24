@@ -34,15 +34,10 @@ module.exports = require('express').Router().get('/:acaUuid/:userUuid/:gradeId/:
             sectionUuid = req.params.sectionUuid
             chapterUuid = req.params['chapterUuid']
         }
-        console.log(sectionUuid,chapterUuid)
-         console.log(req.params)
         acaUuid = req.params.acaUuid
         userUuid = req.params.userUuid
         gradeId = req.params.gradeId
         subjectUuid = req.params.subjectUuid
-        // sectionUuid = req.params.sectionUuid
-        // chapterUuid = req.params.chapterUuid
-        console.log(sectionUuid,chapterUuid)
 
 
         if(chapterUuid)

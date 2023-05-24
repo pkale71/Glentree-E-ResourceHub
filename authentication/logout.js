@@ -23,7 +23,6 @@ module.exports = require('express').Router().get('/',async(req,res)=>
             })
         }        
         let deletedToken = await db.deleteToken(token)
-        console.log(deletedToken)
         if(deletedToken.affectedRows > 0)
         {
             res.status(200)

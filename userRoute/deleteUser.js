@@ -37,7 +37,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                })
            }
                let deleteUser = await db.deleteUser(uuid,userId,deletedOn)
-               console.log(deleteUser)
                        if(deleteUser.affectedRows > 0){
                         res.status(200)
                            return res.json({

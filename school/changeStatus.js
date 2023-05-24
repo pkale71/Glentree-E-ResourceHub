@@ -23,7 +23,6 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         }
         schoolId = school[0].id
         schoolStatuschange = await db.schoolStatusChange(schoolId)
-        console.log(schoolStatuschange)
         if(schoolStatuschange.affectedRows > 0){
             res.status(200)
             return res.json({

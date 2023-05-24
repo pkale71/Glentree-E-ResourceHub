@@ -14,7 +14,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.subjectChapter?.uuid ||!req.body.name){
+        if(!req.body.subjectChapter?.uuid ||!req.body.name)
+        {
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -24,8 +25,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         chapterUuid = req.body.subjectChapter?.uuid;
         chapter = await db.getSubjectChapter(chapterUuid)
-        console.log(chapter)
-        if(chapter.length == 0){
+        if(chapter.length == 0)
+        {
             res.status(404);
             return res.json({
                 "status_code": 404,
@@ -38,11 +39,9 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        console.log(name,chapterId)
-
         let check = await db.findTopic(name,chapterId,0)
-
-        if(check[0].Exist != 0){
+        if(check[0].Exist != 0)
+        {
             res.status(400);
             return res.json({
                 "status_code": 400,
@@ -50,7 +49,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 "status_name": getCode.getStatus(400)
             });
         }
-        else{
+        else
+        {
            
         let insertTopic = await db.insertChapterTopic(uuid, chapterId, name, isActive)
     
@@ -65,7 +65,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_name": getCode.getStatus(200)
                 });
             }
-            else{
+            else
+            {
                 res.status(500);
                 return res.json({
                     "status_code": 500,
@@ -74,10 +75,13 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 });
             }
         }
-        } catch(e){
+        } 
+        catch(e)
+        {
             console.log(e)
             
-            if(e.code == 'ER_DUP_ENTRY'){
+            if(e.code == 'ER_DUP_ENTRY')
+            {
                 let msg = e.sqlMessage.replace('_UNIQUE', '');
                 res.status(500)
                 return res.json({
@@ -86,7 +90,9 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     "status_name"     : getCode.getStatus(500),
                     "error"         : msg
                 }) 
-            }else{
+            }
+            else
+            {
                 res.status(500)
                 return res.json({
                     "status_code" : 500,

@@ -18,10 +18,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
         }
         isInSchool = await db.selectSchool(id)
-        console.log(isInSchool)
 
         if(isInSchool[0].Exist){
-         console.log(isInSchool[0].Exist)
 
             res.status(400)
             return res.json({

@@ -46,6 +46,27 @@ class user {
 
     constructor(){}
 
+    setSchool(data){
+        this.school         =   {
+                                    "uuid" : data.schoolUuid,
+                                    "name" : data.schoolName?.trim(),
+                                    "email" : data.schoolEmail,
+                                    "contact1" : data.contact1,
+                                    "isExist"   : data.schoolExist,
+                                    "curriculumUpload" : data.curriculum_upload,
+                                    "curriculumComplete" : data.curriculum_complete,
+                                    "syllabus"  :   {
+                                                        "id" : data.syllabusId,
+                                                        "name" : data.syllabusName
+                                                    }
+                                }
+    }
+
+    getSchool(){
+        return this.school
+         
+     }
+
     setData(data){
         this.uuid           =   data.uuid
         this.fullName       =   data.fullName?.trim()
@@ -58,18 +79,7 @@ class user {
                                     name    :   data.user_type_name?.trim(),
                                     code    :   data.user_type_code
                                 }
-        this.school         =   data.schoolUuid?.length > 0 ?{
-                                    "uuid" : data.schoolUuid,
-                                    "name" : data.schoolName?.trim(),
-                                    "email" : data.schoolEmail,
-                                    "contact1" : data.contact1,
-                                    "curriculumUpload" : data.curriculum_upload,
-                                    "curriculumComplete" : data.curriculum_complete,
-                                    "syllabus" : {
-                                                    "id" : data.syllabusId,
-                                                    "name" : data.syllabusName
-                                                 }
-                                }:null
+        this.school         =   data.schools
         this.email          =   data.email
         this.lastLogin      =   data.last_login
         this.accessToken    =   data.access_token
@@ -85,7 +95,7 @@ class user {
                         mobile         :   this.mobile,
                         email          :   this.email,
                         lastLogin      :   this.lastLogin,
-                        school         :   this.school,
+                        schools        :   this.school,
                         accessToken    :   this.accessToken
                     },
         "status_code" : 200,
@@ -124,10 +134,7 @@ class user {
                                     'fullName' :  data.deletedfullName?.trim()
                                 }
         this.gender         =   data.gender,
-        this.school         =   {
-                                    "uuid" : data.schoolUuid,
-                                    "name" : data.schoolName?.trim() 
-                                }
+        this.school         =   data.schools
     }
 
     getDataAll(){
@@ -146,7 +153,7 @@ class user {
                          active         :   this.active,
                          createdBy      :   this.createdBy,
                          deletedBy      :   this.deletedBy,
-                         school         :   this.school
+                         schools        :   this.school
 
          }
          

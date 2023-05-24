@@ -25,7 +25,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         subjectId = subject[0].id
         let checkUsed = await db.checkUsedSubject(subjectId)
-        console.log(checkUsed)
         if(checkUsed[0].Exist == 0){              
             let deleteSubject = await db.deleteGradeSubject(uuid)
         

@@ -14,7 +14,6 @@ let subjectUuid;
 module.exports = require('express').Router().get('/:userUuid/:gradeId/:subjectUuid',async(req,res) =>  {
     try
     {  
-        console.log(req.params)
         userUuid    = req.params.userUuid
         gradeId         = req.params.gradeId
         subjectUuid      = req.params.subjectUuid

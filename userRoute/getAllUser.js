@@ -31,26 +31,12 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res)=>{
         {
             roleId = req.params['roleId']
         }
-        console.log(roleId)
         token = req.body.access_token;
         // roleId = req.params['roleId'];
         let param = req.params['0']
         let paramArr = param.split('/')
         usertypeId = paramArr[1];
         userList = []
-        console.log(roleId,usertypeId,paramArr[1],paramArr[2],paramArr)
-        // authData = await commondb.selectToken(token)
-        // if(authData.length == 0)
-        // {
-        //     res.status(401)
-        //     return res.json({
-        //         "status_code" : 401,
-        //         "message" : "Invalid token",
-        //         'status_name' : getCode.getStatus(401),
-        //         }) 
-        // }
-        // userId = authData[0].userId
-
         if(usertypeId && roleId)
         {
             user = await db.getUsers(roleId, usertypeId)

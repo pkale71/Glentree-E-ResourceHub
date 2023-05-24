@@ -308,12 +308,10 @@ db.selectChapter = (uuid) => {
 db.chapterStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
         try{
-            //console.log("p")
             pool.query('UPDATE syllabus_grade_subject_chapter set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
-               // console.log("e")
                   return resolve(result);
             });
         }

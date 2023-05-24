@@ -35,7 +35,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
     } 
     catch(e)
     {
-        console.log()
+        console.log(e)
         res.status(500)
         return res.json({
             "status_code"   :   500,

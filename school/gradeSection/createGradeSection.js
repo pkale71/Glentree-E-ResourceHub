@@ -47,8 +47,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         let insertGrade = []
         section = await db.findLastSection(academicId,schoolId,gradeId)
         section = section[0]?.section ? section[0].section : 64
-        console.log(insertGrade.length,section)
-
         for(i = 0; i < count;i++){
             section++
            insertGrade.push(await db.insertGradeSection(createUuid.v1(), academicId, schoolId, gradeId, String.fromCharCode(section)));  

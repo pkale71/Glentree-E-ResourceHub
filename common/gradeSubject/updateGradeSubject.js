@@ -47,7 +47,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         let checkUsed = await db.checkUsedSubject(subjectId)
         if(checkUsed[0].Exist == 0){
             let check = await db.findSubject(name,gradeId,syllabusId,uuid)
-            console.log(check)
             if(check[0].Exist != 0 && check[0].grade_id){
                 res.status(400);
                 return res.json({

@@ -18,7 +18,6 @@ db.getAcademicYears = (uuid,id) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            console.log(uuid,id,uuid?.length)
             let sql = ''
             if(uuid?.length > 0){
                 sql = `SELECT ay.id,ay.uuid,ay.year,DATE_FORMAT(ay.start_date, '%m-%d-%Y') AS start_date,DATE_FORMAT(ay.end_date, '%m-%d-%Y') AS end_date,ay.is_current,
@@ -84,42 +83,6 @@ db.getCurrentAcademicYears = () => {
         
     });
 }
-
-// db.getAcademicYear = (uuid) => {
-//     return new Promise((resolve, reject)=>{
-//         try
-//         {
-//             pool.query(`SELECT * from academic_year WHERE uuid = ? `,[uuid],(error, result) => 
-//             {
-//                 if(error)
-//                 {
-//                     return reject(error);
-//                 }          
-//                 return resolve(result);
-//             });
-//         }
-//         catch(e){ console.log(e)}
-        
-//     });
-// }
-
-// db.getAcademicYearId = (id) => {
-//     return new Promise((resolve, reject)=>{
-//         try
-//         {
-//             pool.query(`SELECT uuid from academic_year WHERE id = ? `,[id],(error, result) => 
-//             {
-//                 if(error)
-//                 {
-//                     return reject(error);
-//                 }          
-//                 return resolve(result);
-//             });
-//         }
-//         catch(e){ console.log(e)}
-        
-//     });
-// }
 
 db.insertAcademicYear = (uuid,startDate,endDate,year,isCurrent) => {
     return new Promise((resolve, reject)=>{

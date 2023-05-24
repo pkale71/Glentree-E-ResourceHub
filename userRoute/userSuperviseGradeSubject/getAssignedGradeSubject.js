@@ -13,7 +13,6 @@ let gradeId;
 
 module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
     try{
-        console.log(req.params)
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
         

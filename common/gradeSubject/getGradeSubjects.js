@@ -30,15 +30,11 @@ module.exports = require('express').Router().get('/:syllabusId/:gradeId',async(r
                   "status_name"   :   getCode.getStatus(200),
               })   
           }
-         // console.log(subject)
           subject.sort(function(a, b){
             return a.id-b.id})
-          //console.log(subject)
           Array.from(subject).forEach(async( ele ) =>  {
             let subjectCheck = await db.checkUsedSubject(ele.id)
-          
               ele['isExist'] = (subjectCheck[0].Exist == 0) ? 0 :1
-              //console.log("*********",ele)
               subjects.setDataAll(ele)
               subList.push(subjects.getDataAll()) 
   

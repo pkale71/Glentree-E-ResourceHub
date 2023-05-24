@@ -23,7 +23,6 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
             acaId = ids[0]['acaId']
             schoolId = ids[0]['schoolId']
             subjectId = ids[0]['subjectId']
-            console.log(acaId,schoolId,gradeId,subjectId)
             sections = await db.findUnAssignedGradeSubjects(acaId,schoolId,gradeId,subjectId)
             if(sections.length == 0){
                 res.status(200)

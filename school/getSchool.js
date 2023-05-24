@@ -24,7 +24,6 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
                 "status_name"   :   getCode.getStatus(404),
             })  
         }
-        console.log(schoolUUID)
         // school = await db.getSchoolError(schoolUUID)
         //  await Object.keys(school[0]).forEach(function(key) {
         //     school = JSON.parse(school[0][key]);

@@ -75,7 +75,6 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                     })
                 })
                 reports = commonFunction.getUniqueData(reports)
-                console.log(reports.length)
                 reports.forEach(ele => {
                     ele.completeStatuses.forEach(e => {
                         delete e.id
@@ -129,7 +128,6 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
                     })
                 })
                 reports = commonFunction.getUniqueData(reports)
-                console.log(reports.length)
                 reports.forEach(ele => {
                     ele.completeStatuses.forEach(e => {
                         delete e.id
@@ -161,28 +159,3 @@ module.exports = require('express').Router().get('/:acaUuid/:gradeId/:subjectUui
         })     
     }
 })
-
-// function remove(value)
-// {
-//     let a = []
-//     value.forEach(ele => {
-//         console.log(a.includes(ele))
-//         if(a.indexOf(ele) == -1)
-//         {
-//             a.push(ele)
-//         }
-//     })
-
-//     let newArray = [];
-//             let uniqueObject = {};
-//             for (let i in value) {
-//                 objTitle = value[i];
-//                 obj = value[i];
-//                 uniqueObject[objTitle] = value[i];
-//             }
-//             for (i in uniqueObject) {
-//                 newArray.push(uniqueObject[i]);
-//             }
-//             console.log(newArray.length)
-//             return newArray
-// }

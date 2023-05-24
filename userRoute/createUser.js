@@ -14,15 +14,16 @@ let userTypeId
 let mobile
 let gender
 let userUUid;
-let schoolUuid;
-let schoolId;
+let schoolUuids;
 let createdOn;
 let authData
 let userId
 
-module.exports = require('express').Router().post('/',async(req,res)=>{
-    try{
-        if(!req.body.email  || !req.body.password || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || (req.body.role?.id==2 && !req.body.school?.uuid))
+module.exports = require('express').Router().post('/',async(req,res) => 
+{
+    try
+    {
+        if(!req.body.email  || !req.body.password || !req.body.firstName?.trim()  || !req.body.role?.id  || !req.body.mobile  || !req.body.userType.id  || !req.body.gender  || !req.body.schools || (req.body.schools?.length == 0))
         {
             res.status(400)
             return res.json({
@@ -42,43 +43,25 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         gender = req.body.gender?.trim()
         userUUid = userUuid.v1()
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-        if(req.body.role?.id==2 && !req.body.school?.uuid)
-        {
-            res.status(404)
-            return res.json({
-                "status_code" : 404,
-                "message" : "School Uuid Missing",
-                "status_name" : getCode.getStatus(404)
-            })
-        }
-        schoolUuid = req.body.role?.id==2?req.body.school?.uuid:null
-        if(schoolUuid)
-        {
-            schoolId = await db.selectSchool(schoolUuid)
-            schoolId = schoolId[0].id 
-        }
-        else
-        {
-            schoolId = null
-        }
+        schoolUuids = req.body.schools.split(',')
         authData = await commondb.selectToken(accessToken)
         userId = authData[0].userId
         if(userId)
         {
-            user = await commondb.getUserById(userId) 
-            if(user.length == 0)
-            {
-                res.status(401)
-                return res.json({
-                    "status_code" : 401,
-                    "message" : "Invalid token",
-                    "status_name" : getCode.getStatus(401)
-                })
-            }
-            let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,schoolId,createdOn)
+            let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,createdOn)
             if(insertUser.affectedRows > 0)
             {
                 let insertUserTypeChangeHistory = await db.insertUserTypeChangeHistory(insertUser.insertId, userTypeId,createdOn, userId, 'create')
+                let sql = `INSERT INTO user_school (user_id, school_id)  VALUES  `
+                schoolUuids.forEach((element,i) => 
+                {
+                    sql = sql + `(${insertUser.insertId},(SELECT id FROM school WHERE uuid = '${element}'))` 
+                    if(schoolUuids.length != i+1)
+                    {
+                        sql = sql+`,`
+                    }
+                });
+                let insertUserSchool = await db.insertUserSchools(sql)
                 let returnUuid = await db.getUserUuid(insertUser.insertId) 
                 res.status(200)
                 return res.json({

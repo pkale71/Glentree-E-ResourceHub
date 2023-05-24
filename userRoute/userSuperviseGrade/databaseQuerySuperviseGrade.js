@@ -247,12 +247,10 @@ db.getChapterTopics = (id,uuid) => {
 db.topicStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
         try{
-            //console.log("p")
             pool.query('UPDATE syllabus_grade_subject_chapter_topic set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
-               // console.log("e")
                   return resolve(result);
             });
         }
@@ -350,8 +348,6 @@ db.findSchoolAndAcaId = (acaUuid,schoolUuid,userUuid) => {
         {
             let sql = ``
           
-           
-          console.log(userUuid.length)
             if(userUuid){
                 sql = `SELECT s.id AS schoolId,
                 (select ay.id from academic_year ay where ay.uuid = ?) AS acaId,

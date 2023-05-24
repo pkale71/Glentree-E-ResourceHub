@@ -62,7 +62,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         if(checkUsed[0].isExist == 0 && checkUsed[0].statusExist == 0)
         {
             let check = await db.findTopic(name,chapterId,uuid)
-            console.log(check)
             if(check[0].Exist != 0)
             {
                 res.status(400);

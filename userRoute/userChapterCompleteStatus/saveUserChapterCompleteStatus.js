@@ -79,7 +79,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 
 
         currentAca = await db.checkCurrentAcademicYear(acaUuid)
-        console.log(currentAca)
         if(currentAca.length == 0)
         {
                 res.status(400);
@@ -91,7 +90,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
 
         checkExist = await db.checkCompleteStatusExist(acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid)
-        console.log(checkExist)
         if(checkExist.length > 0)
         {
                 res.status(400);
@@ -104,7 +102,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         else
         {
             saveStatus = await db.saveUserChapterCompleteStatus(uuid,acaUuid,gradeId,sectionUuid,subjectUuid,chapterUuid,topicUuid,completedOn,completedBy,createdOn,isCompleted)
-            console.log(saveStatus)
                 if (saveStatus.affectedRows > 0) {
                     let returnUuid = await db.returnUuidUserChapterCompleteStatus(saveStatus.insertId)
                    

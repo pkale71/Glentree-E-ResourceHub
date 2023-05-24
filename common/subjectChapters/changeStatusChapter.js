@@ -23,7 +23,6 @@ module.exports = require('express').Router().get('/:chapterUUID',async(req,res) 
         }
         chapterId = chapter[0].id
         chapterStatusChange = await db.chapterStatusChange(chapterId)
-        console.log(chapterStatusChange)
         if(chapterStatusChange.affectedRows > 0){
             res.status(200)
             return res.json({

@@ -45,7 +45,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>
             }
          schoolUuid = req.body.role?.id==2?req.body.school?.uuid:null
         if(schoolUuid){
-            console.log("true")
             schoolId = await db.selectSchool(schoolUuid)
             if(schoolId.length == 0){
                 res.status(404)
@@ -78,7 +77,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 if(res1)
                 {
                     let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,schoolId,email,mobile)
-               console.log("***",updateUser)
                        if(updateUser.affectedRows > 0){
                         res.status(200)
                            return res.json({

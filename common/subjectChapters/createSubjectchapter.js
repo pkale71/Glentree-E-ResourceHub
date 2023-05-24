@@ -25,7 +25,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         syllabusGradeSubjectUuid = req.body.syllabusGradeSubject?.uuid;
         subject = await db.getGradeSubject(syllabusGradeSubjectUuid)
-        console.log(subject)
         if(subject.length == 0){
             res.status(404);
             return res.json({
@@ -39,7 +38,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         isActive = 1;
         uuid = createUuid.v1()
         accessToken = req.body.accessToken;
-        console.log(name,syllabusGradeSubjectId)
 
         let check = await db.findChapter(name,syllabusGradeSubjectId,0)
 

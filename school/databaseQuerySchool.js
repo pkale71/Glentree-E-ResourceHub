@@ -291,12 +291,10 @@ db.selectSchoolUid = (id) => {
 db.updateSchool = (schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name) => {
     return new Promise((resolve, reject)=>{
         try{
-            //console.log("p")
             pool.query('UPDATE school SET location = ?,contact1 = ?, contact2= ?, email= ?, curriculum_upload=?, curriculum_complete=?, syllabus_id = ?, name = ? WHERE uuid = ?', [ location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,schoolUuid], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
-               // console.log("e")
                   return resolve(result);
             });
         }
@@ -483,12 +481,10 @@ db.getSchoolUserSearch = (schoolId) => {
 db.schoolStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
         try{
-            //console.log("p")
             pool.query('UPDATE school set is_active = IF(is_active = 1,0,1) WHERE id = ?', [id], (error, result)=>{
                 if(error){
                     return reject(error);
                 }
-               // console.log("e")
                   return resolve(result);
             });
         }

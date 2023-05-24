@@ -21,7 +21,6 @@ schoolRouter.use( '/getSections',require('../authentication/validateToken'),requ
 
 
 schoolRouter.use('/',(req,res,next)=>{
-    console.log(req.baseUrl)
     return res.status(400).json({
         "status_code" : 400,
         "message" : "Something went wrong",

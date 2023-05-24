@@ -39,7 +39,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             let curriculumcheck = await db.getSchoolCurriculumSearch(schoolId)
             let userCheck = await db.getSchoolUserSearch(schoolId)
             let ifDelete = (curriculumcheck.length == 0 && userCheck.length == 0) ? 0 :1
-            console.log(!ifDelete,curriculumcheck,userCheck)
             let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
             if(!ifDelete){
                 let deleteschool = await db.deleteSchool(schoolUuid);

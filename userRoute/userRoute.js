@@ -35,7 +35,6 @@ userRouter.use( '/getUserChapterCompleteStatuses',require('../authentication/val
 
 
 userRouter.use('/',(req,res,error)=>{
-    console.log(req.errored,req.method)
     return res.status(400).json({
         "status_code" : 400,
         "message" : "Something went wrong",

@@ -20,7 +20,6 @@ module.exports = require('express').Router().get('/:userUUID',async(req,res) => 
             })   
         }
         userStatusChange = await db.userStatusChange(userUUID)
-        console.log(userStatusChange)
         if(userStatusChange.affectedRows > 0){
             res.status(200)
             return res.json({

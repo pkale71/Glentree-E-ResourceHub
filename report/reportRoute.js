@@ -7,7 +7,6 @@ reportRoute.use( '/getChapterCompleteStatusReport',require('../authentication/ve
 
 
 reportRoute.use('/',(req,res,next)=>{
-    console.log(req.baseUrl)
     return res.status(400).json({
         "status_code" : 400,
         "message" : "Something went wrong",
