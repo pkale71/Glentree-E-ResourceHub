@@ -42,7 +42,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         }
         token = req.body.access_token;
         userList = []
-        if(schoolUuid && usertypeId && roleId)
+        if(schoolUuid)
         {
             user = await db.getUsers(roleId, usertypeId)
             if(user.length == 0)
@@ -71,7 +71,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
                 })
             }
         }
-        else if(usertypeId && roleId && !schoolUuid)
+        else if(usertypeId)
         {
             user = await db.getUsers(roleId, usertypeId)
             if(user.length == 0)
@@ -100,7 +100,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
                 })
             }
         }
-        else if(roleId && !usertypeId && !schoolUuid)
+        else if(roleId)
         {
             user = await db.getUsers(roleId,0)
             if(user.length == 0)
@@ -129,7 +129,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
                 })
             }
         }
-        else if(!roleId && !usertypeId && !schoolUuid)
+        else
         {
             user = await db.getUsers(0,0)
             if(user.length == 0)

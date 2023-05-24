@@ -56,7 +56,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 if(res1)
                 {
                     deleteUserTypeId = res1.insertId
-                    let updateUser = await db.updateUser(0,uuid,firstName,lastName,gender,userTypeId,email,mobile)
+                    let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,email,mobile)
                        if(updateUser.affectedRows > 0)
                        {
                         let deleteUserSchool = await db.deleteSchools(uuid)

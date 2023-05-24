@@ -172,7 +172,7 @@ db.getUsers = (roleId,userTypeId) =>
     return new Promise((resolve, reject) =>
     {
         let sql = ``
-        if(userTypeId && roleId && schoolUuid)
+        if(schoolUuid)
         {
             sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
             u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
@@ -190,7 +190,7 @@ db.getUsers = (roleId,userTypeId) =>
             WHERE u.id != 1 AND u.role_id = ? AND u.user_type_id = ?
             ORDER BY u.id`
         }
-        else if(userTypeId && roleId && !schoolUuid)
+        else if(userTypeId)
         {
             sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
             u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
@@ -208,7 +208,7 @@ db.getUsers = (roleId,userTypeId) =>
             WHERE u.id != 1 AND u.role_id = ? AND u.user_type_id = ?
             ORDER BY u.id`
         }
-        else if(roleId && !userTypeId && !schoolUuid)
+        else if(roleId)
         {
             sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
             u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
@@ -226,7 +226,7 @@ db.getUsers = (roleId,userTypeId) =>
             WHERE u.id != 1 AND u.role_id = ?
             ORDER BY u.id`
         }
-        else if(!userTypeId && !roleId && !schoolUuid)
+        else
         {
             sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
             u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
