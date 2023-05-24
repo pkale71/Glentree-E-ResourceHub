@@ -44,7 +44,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         userList = []
         if(schoolUuid)
         {
-            user = await db.getUsers(roleId, usertypeId)
+            user = await db.getUsers(roleId,usertypeId,schoolUuid)
             if(user.length == 0)
             {
                 res.status(200)
@@ -73,7 +73,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         }
         else if(usertypeId)
         {
-            user = await db.getUsers(roleId, usertypeId)
+            user = await db.getUsers(roleId, usertypeId,schoolUuid)
             if(user.length == 0)
             {
                 res.status(200)
@@ -102,7 +102,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         }
         else if(roleId)
         {
-            user = await db.getUsers(roleId,0)
+            user = await db.getUsers(roleId,usertypeId,schoolUuid)
             if(user.length == 0)
             {
                 res.status(200)
@@ -131,7 +131,7 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         }
         else
         {
-            user = await db.getUsers(0,0)
+            user = await db.getUsers(0,0,0)
             if(user.length == 0)
             {
                 res.status(200)

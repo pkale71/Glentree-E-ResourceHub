@@ -7,7 +7,6 @@ let firstName
 let lastName
 let userTypeId
 let gender
-let schoolId;
 let schoolUuids;
 let uuid;
 let email
@@ -27,16 +26,16 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_name" : getCode.getStatus(400)
             })
         }
-         accessToken = req.body.accessToken;
-         firstName = req.body.firstName?.trim() 
-         lastName = req.body.lastName?.trim() 
-         userTypeId = req.body.userType.id
-         gender = req.body.gender?.trim()
-         uuid   =   req.body.uuid
-         email = req.body.email
-         mobile = req.body.mobile
-         schoolUuids = req.body.schools.split(',')
-         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
+        accessToken = req.body.accessToken;
+        firstName = req.body.firstName?.trim() 
+        lastName = req.body.lastName?.trim() 
+        userTypeId = req.body.userType.id
+        gender = req.body.gender?.trim()
+        uuid   =   req.body.uuid
+        email = req.body.email
+        mobile = req.body.mobile
+        schoolUuids = req.body.schools.split(',')
+        createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
         if(uuid.length == 0)
         {
             res.status(404)
@@ -45,6 +44,26 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_code" : 404,
                 "status_name" : getCode.getStatus(404),
             })
+        }
+        let duplicateEmail = await commondb.dupEmail(email) 
+        let duplicateMobile = await commondb.dupMobile(mobile)
+        if(duplicateEmail[0].Exist == 1 && uuid != duplicateEmail[0].uuid)
+        {
+            res.status(500)
+            return res.json({
+                "status_code" : 500,
+                "message" : `Duplicate Email`,
+                "status_name" : getCode.getStatus(500)
+            })            
+        }
+        if(duplicateMobile[0].Exist == 1 && uuid != duplicateMobile[0].uuid)
+        {
+            res.status(500)
+            return res.json({
+                "status_code" : 500,
+                "message" : `Duplicate Mobile`,
+                "status_name" : getCode.getStatus(500)
+            })            
         }
         authData = await commondb.selectToken(accessToken)
         let createdById = authData[0].userId
@@ -57,8 +76,13 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 {
                     deleteUserTypeId = res1.insertId
                     let updateUser = await db.updateUser(uuid,firstName,lastName,gender,userTypeId,email,mobile)
-                       if(updateUser.affectedRows > 0)
-                       {
+                    console.log("update", updateUser)
+                    if(!updateUser)
+                    {
+                        let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
+                    }
+                    if(updateUser.affectedRows > 0)
+                    {
                         let deleteUserSchool = await db.deleteSchools(uuid)
                         let sql = `INSERT INTO user_school (user_id, school_id)  VALUES  `
                         schoolUuids.forEach((element,i) => 
@@ -71,32 +95,30 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                         });
                         let insertUserSchool = await db.insertUserSchools(sql)
                         res.status(200)
-                           return res.json({
-                               "status_code" : 200,
-                               "message" : "success",
-                               "status_name" : getCode.getStatus(200),
-                           })            
-       
-                       }
-                       else
-                       {
+                        return res.json({
+                            "status_code" : 200,
+                            "message" : "success",
+                            "status_name" : getCode.getStatus(200),
+                        })            
+                    }
+                    else
+                    {
                         let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
                         res.status(500)
-                           return res.json({
-                               "status_code" : 500,
-                               "message" : "User not updated",
-                               "status_name" : getCode.getStatus(500),
-                           }) 
-                       }
+                        return res.json({
+                            "status_code" : 500,
+                            "message" : "User not updated",
+                            "status_name" : getCode.getStatus(500),
+                        }) 
+                    }
                 }
             }) 
         }
-         
     } 
     catch(e)
     {
         let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
-        console.log(e,deleteUserTypeHistory,deleteUserTypeId)
+        console.log(e)
         if(e.code == 'ER_DUP_ENTRY')
         {
             let msg = e.sqlMessage.replace('_UNIQUE', '');
@@ -119,5 +141,4 @@ module.exports = require('express').Router().post('/',async(req,res)=>
             }) 
         } 
     }
-
 })

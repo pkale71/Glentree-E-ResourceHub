@@ -154,8 +154,8 @@ db.updateUser = (uuid,firstName,lastName,gender,userTypeId, email, mobile) =>
             pool.query('UPDATE user SET first_name = ?,last_name = ?, user_type_id= ?, gender= ?, email = ?, mobile = ? WHERE uuid = ?', [firstName,lastName,userTypeId,gender, email, mobile,uuid], (error, result) =>
             {
                 if(error)
-                {
-                    return reject(error);
+                { 
+                    return reject(error);  
                 }
                 return resolve(result);
             });
@@ -167,28 +167,31 @@ db.updateUser = (uuid,firstName,lastName,gender,userTypeId, email, mobile) =>
     });
 };
 
-db.getUsers = (roleId,userTypeId) =>
+db.getUsers = (roleId,userTypeId,schoolUuid) =>
 {
     return new Promise((resolve, reject) =>
     {
+        let passValue;
         let sql = ``
         if(schoolUuid)
         {
-            sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
-            u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
+            sql = `SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
+            u.last_name, u.role_id, u.gender, u.user_type_id, u.email, u.mobile, u.last_login,
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid,
-            s.name AS schoolName 
-            FROM user u 
-            LEFT JOIN role r ON u.role_id = r.id 
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
+            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
+            FROM user_chapter_complete_status uccs
+            WHERE uccs.completed_by = u.id) AS userTypeExist
+            FROM user_school us 
+            LEFT JOIN user u ON u.id = us.user_id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id != 1 AND u.role_id = ? AND u.user_type_id = ?
+            WHERE u.id != 1 AND us.school_id = (SELECT id FROM school WHERE uuid = ?)
             ORDER BY u.id`
+            passValue = schoolUuid
         }
         else if(userTypeId)
         {
@@ -197,16 +200,18 @@ db.getUsers = (roleId,userTypeId) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid,
-            s.name AS schoolName 
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
+            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
+            FROM user_chapter_complete_status uccs
+            WHERE uccs.completed_by = u.id) AS userTypeExist
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            LEFT JOIN school s ON (s.id = u.school_id) 
-            WHERE u.id != 1 AND u.role_id = ? AND u.user_type_id = ?
+            LEFT JOIN user ud ON (u.deleted_by_id = ud.id)
+            WHERE u.id != 1 AND u.user_type_id = ?
             ORDER BY u.id`
+            passValue = userTypeId
         }
         else if(roleId)
         {
@@ -215,16 +220,18 @@ db.getUsers = (roleId,userTypeId) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid,
-            s.name AS schoolName 
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
+            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
+            FROM user_chapter_complete_status uccs
+            WHERE uccs.completed_by = u.id) AS userTypeExist
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            LEFT JOIN school s ON (s.id = u.school_id) 
             WHERE u.id != 1 AND u.role_id = ?
             ORDER BY u.id`
+            passValue = roleId
         }
         else
         {
@@ -233,20 +240,22 @@ db.getUsers = (roleId,userTypeId) =>
             u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
             u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
             CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, s.uuid AS schoolUuid,
-            s.name AS schoolName 
+            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName, 
+            (SELECT IF(COUNT(uccs.completed_by)> 0,1,0) 
+            FROM user_chapter_complete_status uccs
+            WHERE uccs.completed_by = u.id) AS userTypeExist
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id  
             LEFT JOIN user uc ON (u.created_by_id = uc.id) 
             LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            LEFT JOIN school s ON (s.id = u.school_id) 
             WHERE u.id != 1 
             ORDER BY u.id`
+            passValue = 0
         }
         try
         {
-            pool.query(sql,[roleId, userTypeId], (error, result) =>
+            pool.query(sql,[passValue], (error, result) =>
             {
                 if(error)
                 {
@@ -329,6 +338,28 @@ db.getSchools = (uuid) =>
         }
     });
 };
+
+// db.getUserTypeIdExist = (uuid) => 
+// {
+//     return new Promise((resolve, reject) => 
+//     {
+//         try
+//         {
+//             pool.query("SELECT user_type_id FROM user WHERE uuid = ?", [uuid], (error, result) => 
+//             {
+//                 if(error)
+//                 {
+//                     return reject(error);
+//                 }          
+//                 return resolve(result);
+//             });
+//         }
+//         catch(e)
+//         {
+//             console.log(e)
+//         }
+//     });
+// }
 
 db.userStatusChange = (uuid) => 
 {
