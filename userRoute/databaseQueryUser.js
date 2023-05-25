@@ -169,8 +169,7 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
         u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
         CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
         CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
-        FROM user_school us 
-        LEFT JOIN user u ON u.id = us.user_id 
+        FROM user u 
         LEFT JOIN user_type ut ON ut.id = u.user_type_id  
         LEFT JOIN user uc ON (u.created_by_id = uc.id) 
         LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
