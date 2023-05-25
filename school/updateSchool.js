@@ -1,7 +1,8 @@
 let db = require('./databaseQuerySchool')
 let commondb = require('../common/commonDatabaseQuery')
 let errorCode = require('../common/errorCode')
-let createUuid = require('uuid')
+let    upload = require('../common/fileUpload')
+let     createUuid = require('uuid')
 let getCode = new errorCode()
 let accessToken;
 let    authData;

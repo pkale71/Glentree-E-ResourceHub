@@ -1,4 +1,5 @@
 let commonFunction = {};
+let fs = require('fs')
 
 commonFunction.changeDateToSqlDate = (excelDate) =>
 {
@@ -24,6 +25,71 @@ commonFunction.getUniqueData = (data) =>
     else
     {
         return data
+    }
+}
+
+commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, addiFolder) =>
+{
+    let addiFolderCreated = 1
+    let newpath = destinationBaseFolder
+    if(addiFolder != '')
+    {
+        let folders = addiFolder.split('/')
+
+        let i = 0
+        for(; i < folders.length; i++)
+        {
+            try 
+            {
+                if (!fs.existsSync(newpath + '/' + folders[i])) 
+                {
+                    fs.mkdirSync(folders[i]);
+                    newpath = newpath + '/' + folders[i]
+                }
+            } 
+            catch (err) 
+            {
+                console.error(err);
+            }
+        }
+
+        if(parseInt(i) != folders.length)
+        {
+            for( ; i < folders.length; i++)
+            {
+                try 
+                {
+                    if (!fs.existsSync(folders[i])) 
+                    {
+                        fs.unlinkSync(folders[i]);
+                    }
+                } 
+                catch (err) 
+                {
+                    console.error(err);
+                }
+            }
+            addiFolderCreated = 0
+        }
+    }
+    if(addiFolderCreated == 1)
+    {
+        try
+        {
+            let file = fileObject
+            console.log(file)
+            let filepath = file.logo.filepath;
+            newpath = newpath + '/';
+            newpath += fileName;
+            console.log(newpath,filepath)
+            fs.rename(filepath, newpath, function () {
+                return true
+            });
+        }
+        catch
+        {
+            return false
+        }
     }
 }
 

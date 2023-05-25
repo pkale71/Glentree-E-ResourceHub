@@ -1,7 +1,13 @@
 let    db = require('./databaseQuerySchool')
 let    commondb = require('../common/commonDatabaseQuery')
 let    createUuid = require('uuid')
-let    errorCode = require('../common/errorCode')
+let     formidable = require('formidable');
+let     path = require('path')
+let     commonFunction = require('../common/commonFunction')
+let     fs = require('fs');
+let    errorCode = require('../common/errorCode');
+let     docPath = require('../DOC_FOLDER_PATH/docPath')
+let     getPath = new docPath()
 let    getCode = new errorCode()
 let    accessToken;
 let    authData;
@@ -22,14 +28,21 @@ let    active;
 let    schoolUserSettingUuid;
 let    schoolUserSettingList;
 let    schoolId;
+let    fileObject;
+let    fileName;
 
 module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        console.log(req.file, req.body)
-        return
-        if(!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.id ||!req.body.gradeCategory?.trim())
+        console.log("******       ",req.file," *** ", req.body)
+        let form = new formidable.IncomingForm();
+        form.parse(req, function (error, fields, file) {
+            console.log(file)
+            fileObject = file
+            req.body = fields
+        });
+        if(!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.JSON.parse(id) ||!req.body.gradeCategory?.trim())
         {
             res.status(400)
             return res.json({
@@ -46,12 +59,12 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
         curriculumComplete = req.body.curriculumComplete
-        syllabusId = req.body.syllabus.id
+        syllabusId = req.body.syllabus.JSON.parse(id)
         schoolGradeCategoryList = req.body.gradeCategory
         schoolGradeCategoryArray = schoolGradeCategoryList.split(',')
         active = 1
         schoolUuid = createUuid.v1()
-        schoolUserSettingList = req.body.schoolUserSetting
+        schoolUserSettingList = JSON.parse(req.body.schoolUserSetting)
         if(!schoolGradeCategoryList)
         {
             res.status(404)
@@ -88,13 +101,29 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 let insertCurriculumUploadAs = await db.insertCurriculumUploadAs(schoolId, curriculumUpload, active, createdOn, createdById)
                 let insertCurriculumCompletionAs = await db.insertCurriculumCompletionAs(schoolId, curriculumComplete, active, createdOn, createdById)
                 let returnUuid = await db.selectSchoolUid(schoolId)
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "message" : "success",
-                    "data" : { "uuid" : returnUuid[0].uuid},
-                    "status_name" : getCode.getStatus(200)
-                })
+                fileName = "logo" + path.extname(files.originalname)
+                let upload = commonFunction.singleFileUpload(fileObject, getPath.getName('school'), fileName, returnUuid[0].uuid)
+                if(upload)
+                {
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "message" : "success",
+                        "data" : { "uuid" : returnUuid[0].uuid},
+                        "status_name" : getCode.getStatus(200)
+                    })
+                }
+                else
+                {
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "message" : "Not uploaded",
+                        "data" : { "uuid" : returnUuid[0].uuid},
+                        "status_name" : getCode.getStatus(200)
+                    })
+                }
+                
             }
             else
             {
