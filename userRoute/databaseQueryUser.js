@@ -161,79 +161,36 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
 {
     return new Promise((resolve, reject) =>
     {
-        let passValue;
-        let sql = ``
+       let sql = ``
+        
+        sql = `SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
+        u.last_name, u.role_id, u.gender, u.user_type_id, u.email, u.mobile, u.last_login,
+        u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
+        u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
+        CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
+        CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
+        FROM user_school us 
+        LEFT JOIN user u ON u.id = us.user_id 
+        LEFT JOIN user_type ut ON ut.id = u.user_type_id  
+        LEFT JOIN user uc ON (u.created_by_id = uc.id) 
+        LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
+        WHERE u.id != 1`;
         if(schoolUuid)
         {
-            sql = `SELECT u.uuid, CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
-            u.last_name, u.role_id, u.gender, u.user_type_id, u.email, u.mobile, u.last_login,
-            u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
-            u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
-            CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
-            FROM user_school us 
-            LEFT JOIN user u ON u.id = us.user_id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id  
-            LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            WHERE u.id != 1 AND us.school_id = (SELECT id FROM school WHERE uuid = ?)
-            ORDER BY u.id`
-            passValue = schoolUuid
+            sql = sql + ` AND us.school_id = (SELECT id FROM school WHERE uuid = '`+ schoolUuid +`')`;
         }
-        else if(userTypeId)
+        if(userTypeId)
         {
-            sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
-            u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
-            u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
-            u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
-            CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
-            FROM user u 
-            LEFT JOIN role r ON u.role_id = r.id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id  
-            LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id)
-            WHERE u.id != 1 AND u.user_type_id = ?
-            ORDER BY u.id`
-            passValue = userTypeId
+            sql = sql + ` AND u.user_type_id = ` + userTypeId;
         }
-        else if(roleId)
+        if(roleId)
         {
-            sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
-            u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
-            u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
-            u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
-            CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
-            FROM user u 
-            LEFT JOIN role r ON u.role_id = r.id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id  
-            LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            WHERE u.id != 1 AND u.role_id = ?
-            ORDER BY u.id`
-            passValue = roleId
+            sql = sql + ` AND u.role_id = ` + roleId;
         }
-        else
-        {
-            sql = `SELECT u.uuid,CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS fullName, u.first_name,
-            u.last_name, u.role_id, u.gender, r.name AS role_name, u.user_type_id, u.email, u.mobile, u.last_login,
-            u.password, u.id, ut.name AS user_type_name, ut.code AS user_type_code, u.is_active AS isActive,
-            u.created_by_id AS createdById, u.deleted_by_id, uc.uuid AS createdbyUuid, 
-            CONCAT(uc.first_name,' ',IFNULL(uc.last_name,'')) AS createdfullName, ud.uuid AS deletedbyUuid,
-            CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName
-            FROM user u 
-            LEFT JOIN role r ON u.role_id = r.id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id  
-            LEFT JOIN user uc ON (u.created_by_id = uc.id) 
-            LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
-            WHERE u.id != 1 
-            ORDER BY u.id`
-            passValue = 0
-        }
+        sql = sql + ` ORDER BY u.id`;
         try
         {
-            pool.query(sql,[passValue], (error, result) =>
+            pool.query(sql, (error, result) =>
             {
                 if(error)
                 {

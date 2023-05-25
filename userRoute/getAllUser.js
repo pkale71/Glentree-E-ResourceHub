@@ -41,21 +41,6 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         {
             roleId = req.params['roleId']
         }
-        if(schoolUuid.length > 1)
-        {
-            roleId = 0
-            usertypeId = 0
-        }
-        if(usertypeId)
-        {
-            roleId = 0
-            schoolUuid = 0
-        }
-        if(roleId)
-        {
-            schoolUuid = 0
-            usertypeId = 0
-        }
         token = req.body.access_token;
         userList = []
         if(schoolUuid)
