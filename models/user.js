@@ -155,7 +155,7 @@ class user {
                          active         :   this.active,
                          createdBy      :   this.createdBy,
                          deletedBy      :   this.deletedBy,
-                         userTypeExist :   this.userTypeExist,
+                         userTypeExist  :   this.userTypeExist,
                          schools        :   this.school
          }
      }
