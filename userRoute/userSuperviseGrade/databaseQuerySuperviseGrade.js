@@ -319,11 +319,10 @@ db.findSchoolGradeCategoryId = (userUuid) => {
         try
         {
             pool.query(`SELECT distinct  gc.id AS gradeCategoryId, gc.name AS gradeCategoryName
-            
             FROM user u
-            LEFT JOIN school_grade_category sgc ON u.school_id = sgc.school_id
+            LEFT JOIN user_school us ON us.user_id = u.id
+            LEFT JOIN school_grade_category sgc ON us.school_id = sgc.school_id
             LEFT JOIN grade_category gc ON gc.id = sgc.grade_category_id
-           
             WHERE u.uuid = ?
             ORDER BY gc.id`, [userUuid], (error, result) => 
             {
