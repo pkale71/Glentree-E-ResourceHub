@@ -61,7 +61,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                     {
                         let deleteUserTypeHistory = await db.deleteUserTypeChangeHistory(deleteUserTypeId)
                     }
-                    if(updateUser.affectedRows > 0)
+                    if(updateUser?.affectedRows > 0)
                     {
                         let deleteUserSchool = await db.deleteSchools(uuid)
                         let sql = `INSERT INTO user_school (user_id, school_id)  VALUES  `
