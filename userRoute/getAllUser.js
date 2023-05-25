@@ -43,67 +43,9 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         }
         token = req.body.access_token;
         userList = []
-        if(schoolUuid)
+        if(schoolUuid || usertypeId || roleId)
         {
-            user = await db.getUsers(roleId,usertypeId,schoolUuid)
-            if(user.length == 0)
-            {
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data" : {'users' : []},
-                    "message" : 'success',
-                    "status_name" : getCode.getStatus(200)
-                })
-            }
-            userList = []
-            Array.from(user).forEach(ele=>{
-                useUser.setDataAll(ele)
-                userList.push(useUser.getDataAll())
-            })
-            if(user.length == userList.length)
-            {
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data" : {'users' : userList},
-                    "message" : 'success',
-                    "status_name" : getCode.getStatus(200)
-                })
-            }
-        }
-        else if(usertypeId)
-        {
-            user = await db.getUsers(roleId, usertypeId,schoolUuid)
-            if(user.length == 0)
-            {
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data" : {'users' : []},
-                    "message" : 'success',
-                    "status_name" : getCode.getStatus(200)
-                })
-            }
-            userList = []
-            Array.from(user).forEach(ele=>{
-                useUser.setDataAll(ele)
-                userList.push(useUser.getDataAll())
-            })
-            if(user.length == userList.length)
-            {
-                res.status(200)
-                return res.json({
-                    "status_code" : 200,
-                    "data" : {'users' : userList},
-                    "message" : 'success',
-                    "status_name" : getCode.getStatus(200)
-                })
-            }
-        }
-        else if(roleId)
-        {
-            user = await db.getUsers(roleId,usertypeId,schoolUuid)
+            user = await db.getUsers(roleId, usertypeId, schoolUuid)
             if(user.length == 0)
             {
                 res.status(200)
@@ -130,6 +72,64 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
                 })
             }
         }
+        // else if(usertypeId)
+        // {
+        //     user = await db.getUsers(roleId, usertypeId, schoolUuid)
+        //     if(user.length == 0)
+        //     {
+        //         res.status(200)
+        //         return res.json({
+        //             "status_code" : 200,
+        //             "data" : {'users' : []},
+        //             "message" : 'success',
+        //             "status_name" : getCode.getStatus(200)
+        //         })
+        //     }
+        //     userList = []
+        //     Array.from(user).forEach(ele => {
+        //         useUser.setDataAll(ele)
+        //         userList.push(useUser.getDataAll())
+        //     })
+        //     if(user.length == userList.length)
+        //     {
+        //         res.status(200)
+        //         return res.json({
+        //             "status_code" : 200,
+        //             "data" : {'users' : userList},
+        //             "message" : 'success',
+        //             "status_name" : getCode.getStatus(200)
+        //         })
+        //     }
+        // }
+        // else if(roleId)
+        // {
+        //     user = await db.getUsers(roleId, usertypeId, schoolUuid)
+        //     if(user.length == 0)
+        //     {
+        //         res.status(200)
+        //         return res.json({
+        //             "status_code" : 200,
+        //             "data" : {'users' : []},
+        //             "message" : 'success',
+        //             "status_name" : getCode.getStatus(200)
+        //         })
+        //     }
+        //     userList = []
+        //     Array.from(user).forEach(ele => {
+        //         useUser.setDataAll(ele)
+        //         userList.push(useUser.getDataAll())
+        //     })
+        //     if(user.length == userList.length)
+        //     {
+        //         res.status(200)
+        //         return res.json({
+        //             "status_code" : 200,
+        //             "data" : {'users' : userList},
+        //             "message" : 'success',
+        //             "status_name" : getCode.getStatus(200)
+        //         })
+        //     }
+        // }
         else
         {
             user = await db.getUsers(0,0,0)

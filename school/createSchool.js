@@ -27,6 +27,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
+        console.log(req.file, req.body)
+        return
         if(!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.id ||!req.body.gradeCategory?.trim())
         {
             res.status(400)

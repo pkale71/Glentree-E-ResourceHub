@@ -51,7 +51,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             let insertUser = await db.insertUser(userUUid,firstName,lastName,email,password,gender,userId,userTypeId,roleId,mobile,createdOn)
             if(insertUser.affectedRows > 0)
             {
-                let insertUserTypeChangeHistory = await db.insertUserTypeChangeHistory(insertUser.insertId, userTypeId,createdOn, userId, 'create')
+                let insertUserTypeChangeHistory = await db.insertUserTypeChangeHistory(insertUser.insertId,null, userTypeId,createdOn, userId)
                 let sql = `INSERT INTO user_school (user_id, school_id)  VALUES  `
                 schoolUuids.forEach((element,i) => 
                 {
