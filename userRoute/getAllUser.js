@@ -13,6 +13,7 @@ let token;
 let roleId;
 let usertypeId;
 let schoolUuid
+let loginUserId;
 
 module.exports = require('express').Router().get('/:roleId?*',async(req,res) => 
 {
@@ -41,11 +42,13 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         {
             roleId = req.params['roleId']
         }
-        token = req.body.access_token;
+        token = req.body.accessToken;
+        loginUserId = await commondb.selectToken(token)
+        loginUserId = loginUserId[0].userId != 1 ? loginUserId[0].userId : 0
         userList = []
         if(schoolUuid || usertypeId || roleId)
         {
-            user = await db.getUsers(roleId, usertypeId, schoolUuid)
+            user = await db.getUsers(loginUserId, roleId, usertypeId, schoolUuid)
             if(user.length == 0)
             {
                 res.status(200)
@@ -72,67 +75,9 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
                 })
             }
         }
-        // else if(usertypeId)
-        // {
-        //     user = await db.getUsers(roleId, usertypeId, schoolUuid)
-        //     if(user.length == 0)
-        //     {
-        //         res.status(200)
-        //         return res.json({
-        //             "status_code" : 200,
-        //             "data" : {'users' : []},
-        //             "message" : 'success',
-        //             "status_name" : getCode.getStatus(200)
-        //         })
-        //     }
-        //     userList = []
-        //     Array.from(user).forEach(ele => {
-        //         useUser.setDataAll(ele)
-        //         userList.push(useUser.getDataAll())
-        //     })
-        //     if(user.length == userList.length)
-        //     {
-        //         res.status(200)
-        //         return res.json({
-        //             "status_code" : 200,
-        //             "data" : {'users' : userList},
-        //             "message" : 'success',
-        //             "status_name" : getCode.getStatus(200)
-        //         })
-        //     }
-        // }
-        // else if(roleId)
-        // {
-        //     user = await db.getUsers(roleId, usertypeId, schoolUuid)
-        //     if(user.length == 0)
-        //     {
-        //         res.status(200)
-        //         return res.json({
-        //             "status_code" : 200,
-        //             "data" : {'users' : []},
-        //             "message" : 'success',
-        //             "status_name" : getCode.getStatus(200)
-        //         })
-        //     }
-        //     userList = []
-        //     Array.from(user).forEach(ele => {
-        //         useUser.setDataAll(ele)
-        //         userList.push(useUser.getDataAll())
-        //     })
-        //     if(user.length == userList.length)
-        //     {
-        //         res.status(200)
-        //         return res.json({
-        //             "status_code" : 200,
-        //             "data" : {'users' : userList},
-        //             "message" : 'success',
-        //             "status_name" : getCode.getStatus(200)
-        //         })
-        //     }
-        // }
         else
         {
-            user = await db.getUsers(0,0,0)
+            user = await db.getUsers(loginUserId,0,0,0)
             if(user.length == 0)
             {
                 res.status(200)

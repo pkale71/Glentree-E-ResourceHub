@@ -157,7 +157,7 @@ db.updateUser = (uuid,firstName,lastName,gender,userTypeId, email, mobile) =>
     });
 };
 
-db.getUsers = (roleId,userTypeId,schoolUuid) =>
+db.getUsers = (loginUserId, roleId,userTypeId,schoolUuid) =>
 {
     return new Promise((resolve, reject) =>
     {
@@ -174,6 +174,11 @@ db.getUsers = (roleId,userTypeId,schoolUuid) =>
         LEFT JOIN user uc ON (u.created_by_id = uc.id) 
         LEFT JOIN user ud ON (u.deleted_by_id = ud.id) 
         WHERE u.id != 1`;
+        if(parseInt(loginUserId) != 0)
+        {
+            sql = sql + ` AND (SELECT id FROM user_school where user_id = u.id AND 
+            school_id in (SELECT school_id FROM user_school WHERE user_id = ` + loginUserId + `)) IS NOT NULL`;
+        }
         if(schoolUuid)
         {
             sql = sql + ` AND us.school_id = (SELECT id FROM school WHERE uuid = '`+ schoolUuid +`')`;
