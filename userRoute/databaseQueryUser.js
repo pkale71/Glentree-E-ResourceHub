@@ -176,12 +176,12 @@ db.getUsers = (loginUserId, roleId,userTypeId,schoolUuid) =>
         WHERE u.id != 1`;
         if(parseInt(loginUserId) != 0)
         {
-            sql = sql + ` AND (SELECT id FROM user_school where user_id = u.id AND 
-            school_id in (SELECT school_id FROM user_school WHERE user_id = ` + loginUserId + `)) IS NOT NULL`;
+            sql = sql + ` AND (SELECT COUNT(id) FROM user_school where u.id = user_id AND
+            school_id in (SELECT school_id FROM user_school WHERE user_id = ` + loginUserId + `)) > 0`;
         }
         if(schoolUuid)
         {
-            sql = sql + ` AND us.school_id = (SELECT id FROM school WHERE uuid = '`+ schoolUuid +`')`;
+            sql = sql + ` AND (SELECT COUNT(id) FROM user_school where school_id = (SELECT id FROM school WHERE uuid = '`+ schoolUuid +`')) > 0`;
         }
         if(userTypeId)
         {
@@ -192,6 +192,7 @@ db.getUsers = (loginUserId, roleId,userTypeId,schoolUuid) =>
             sql = sql + ` AND u.role_id = ` + roleId;
         }
         sql = sql + ` ORDER BY u.id`;
+        
         try
         {
             pool.query(sql, (error, result) =>
