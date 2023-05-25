@@ -2,6 +2,7 @@ let db = require('./databaseQueryUser')
 let commondb = require('../common/commonDatabaseQuery')
 let users = require('../models/user')
 let errorCode = require('../common/errorCode')
+const role = require('../models/role')
 let getCode = new errorCode()
 let useUser = new users()
 let user;
@@ -22,9 +23,9 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
             let a = req.params['0'].split('/')
             if(a.length == 3)
             {
-                roleId = req.params['roleId'] + a[0]
-                usertypeId = a[1]
-                schoolUuid = a[2]
+                roleId = parseInt(req.params['roleId'] + a[0])
+                usertypeId = parseInt(a[1] == 0 ? 0 : a[1])
+                schoolUuid = (a[2] == '' || a[2] == 0) ? 0 : a[2]
             }
             else if(a.length == 2) 
             {
@@ -39,6 +40,21 @@ module.exports = require('express').Router().get('/:roleId?*',async(req,res) =>
         else
         {
             roleId = req.params['roleId']
+        }
+        if(schoolUuid.length > 1)
+        {
+            roleId = 0
+            usertypeId = 0
+        }
+        if(usertypeId)
+        {
+            roleId = 0
+            schoolUuid = 0
+        }
+        if(roleId)
+        {
+            schoolUuid = 0
+            usertypeId = 0
         }
         token = req.body.access_token;
         userList = []
