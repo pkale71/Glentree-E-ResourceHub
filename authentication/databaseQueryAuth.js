@@ -8,15 +8,12 @@ db.getUserByEmail = (email) =>
         try
         {
             pool.query(`SELECT u.uuid, TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName, 
-            u.role_id, TRIM(r.name) AS role_name, u.user_type_id, ut.name AS user_type_name, ut.code AS user_type_code, 
-            u.last_login, u.password, u.id, u.is_active, u.school_id, s.uuid AS schoolUuid, s.name AS schoolName,
-            s.curriculum_upload, s.curriculum_complete, s.email AS schoolEmail , s.contact1, s.is_active AS schoolActive,
-            sy.id AS syllabusId, sy.name AS syllabusName
+            u.role_id, TRIM(r.name) AS role_name, u.user_type_id, 
+            ut.name AS user_type_name, ut.code AS user_type_code, 
+            u.last_login, u.password, u.id, u.is_active
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
-            LEFT JOIN user_type ut ON ut.id = u.user_type_id 
-            LEFT JOIN school s ON s.id = u.school_id
-            LEFT JOIN syllabus sy ON s.syllabus_id = sy.id
+            LEFT JOIN user_type ut ON ut.id = u.user_type_id
             WHERE u.email = ? AND u.is_active =1`, [email], (error, users) => {
                 if(error)
                 {
@@ -32,6 +29,40 @@ db.getUserByEmail = (email) =>
     });
 };
  
+db.getSchools = (email) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+            pool.query(`SELECT us.user_id, s.name, s.uuid, s.location, s.contact1, s.curriculum_complete, s.curriculum_upload, s.email,
+            (SELECT IF(COUNT(cm.id)> 0,1,(SELECT IF(COUNT(usg.id)> 0,1,(SELECT IF(COUNT(usgs.id)> 0,1,(SELECT IF(COUNT(utss.id)> 0,1,0) 
+            FROM user_teach_subject_section utss WHERE utss.school_id = us.school_id)) 
+            FROM user_supervise_grade_subject usgs WHERE usgs.school_id = us.school_id)) 
+            FROM user_supervise_grade usg WHERE usg.school_id = us.school_id)) 
+            FROM curriculum_master cm 
+            WHERE cm.id = us.school_id) AS isExist,
+             sy.id, sy.name AS syllabusName
+                        FROM user_school us 
+                        LEFT JOIN school s ON us.school_id = s.id
+                        LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
+                        WHERE us.user_id = (SELECT id FROM user WHERE email = ?)
+                             AND s.is_active = 1`,[email] ,(error, result) =>
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+};
+
 db.insertLastLogin = (userId, authTime) =>
 {
     return new Promise((resolve, reject) =>

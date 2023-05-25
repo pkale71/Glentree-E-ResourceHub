@@ -8,12 +8,11 @@ db.getAllSchools = () => {
             pool.query(`SELECT distinct s.id,s.uuid , s.name, s.location , s.contact1, s.contact2, s.email, s.curriculum_upload AS curriculumUpload, s.curriculum_complete AS curriculumComplete,
             s.syllabus_id AS syllabusId, sy.name AS syllabusName, s.created_on, s.created_by_id, 
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
-            (select IF((select IF(count(u.id) > 0,1,0) from user u
-            where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
-            where cm.school_id = s.id))) AS isExist
-            FROM school s 
+            (select IF(count(us.id) > 0,1,0) from user_school us
+            where us.school_id = s.id) AS isExist
+            FROM school s
             LEFT JOIN syllabus sy ON sy.id = s.syllabus_id 
-            LEFT JOIN user u ON u.id = s.created_by_id
+            LEFT JOIN user u ON s.created_by_id = u.id
             ORDER BY s.id`,(error, result) => 
             {
                 if(error)
@@ -63,7 +62,7 @@ db.getSchoolError = (uuid) => {
     });
 }
 
-db.getSchool = (uuid,acaId) => {
+db.getSchool = (uuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -73,19 +72,19 @@ db.getSchool = (uuid,acaId) => {
             s.created_on,s.created_by_id, s.curriculum_upload AS curriculumUpload, s.curriculum_complete AS curriculumComplete, s.is_active, sy.name AS syllabusName, 
                         CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS createdByName, s.is_active,
                        (SELECT IF(COUNT(cm.school_id)> 0,1,0) FROM curriculum_master cm
-                           WHERE cm.school_id = s.id AND cm.academic_year_id = ?) AS curriculumExist,
+                           WHERE cm.school_id = s.id AND cm.academic_year_id = 
+                           (SELECT id FROM academic_year WHERE is_current = 1)) AS curriculumExist,
                         (SELECT IF(COUNT(ccm.id)> 0,1,0) FROM user_chapter_complete_status ccm
 						   LEFT JOIN school_grade_section sgs ON sgs.id = ccm.section_id
-                           WHERE sgs.school_id = s.id AND ccm.academic_year_id = ?) AS curriculumCompleteExist,
-                        (select IF((select IF(count(u.id) > 0,1,0) from user u
-                        where u.school_id = s.id) > 0, 1, (SELECT IF(count(cm.id) > 0,1,0) FROM curriculum_master cm
-                        where cm.school_id = s.id))) AS isExist
+                           WHERE sgs.school_id = s.id AND ccm.academic_year_id = 
+                           (SELECT id FROM academic_year WHERE is_current = 1)) AS curriculumCompleteExist,
+                        (select IF(count(us.id) > 0,1,0) from user_school us
+							where us.school_id = s.id) AS isExist
                         FROM school s 
                         LEFT JOIN syllabus sy ON sy.id = s.syllabus_id
                         LEFT JOIN user u ON u.id = s.created_by_id
                         where s.uuid = ?
-                        order by s.id
-                `, [acaId,acaId,uuid],(error, result) => 
+                        order by s.id`, [uuid],(error, result) => 
             {
                 if(error)
                 {

@@ -8,12 +8,16 @@ let email;
 let password;
 let userId
 let user
+let schools;
+let schoolList = []
 module.exports = require('express').Router().post('/',async(req,res)=>
 {
     try
     {
         email = req.body.email;
         password = req.body.password;
+        schoolList = []
+        schools = await db.getSchools(email)
         user = await db.getUserByEmail(email);
         if(user.length == 0)
         {
@@ -24,7 +28,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_name" : getCode.getStatus(401)
             })
         }
-        if(user[0].role_id == 2 && user[0].schoolActive == 0)
+        if((user[0].user_type_code != 'SUADM') && (schools.length == 0))
         {
             res.status(401)
             return res.json({
@@ -46,6 +50,11 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 user[0]['access_token']=jsontoken
                 let insertToken = await db.insertToken(jsontoken, userId, mysqlDatetime)
                 let insert_lastLogin = await db.insertLastLogin(userId,mysqlDatetime)
+                schools.forEach(element => {
+                    useUser.setSchool(element)
+                    schoolList.push(useUser.getSchool())
+                }); 
+                user[0]['schools'] = schoolList
                 useUser.setData(user[0])
                 res.status(200)
                 return res.json(useUser.getData())

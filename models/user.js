@@ -155,11 +155,9 @@ class user {
                          active         :   this.active,
                          createdBy      :   this.createdBy,
                          deletedBy      :   this.deletedBy,
-                         usertTypeExist :   this.userTypeExist,
+                         userTypeExist :   this.userTypeExist,
                          schools        :   this.school
-
          }
-         
      }
 }
 module.exports = user

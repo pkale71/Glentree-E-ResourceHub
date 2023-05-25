@@ -47,24 +47,13 @@ db.insertUserSchools = (sql) =>
     });
 }
 
-db.insertUserTypeChangeHistory = (userId, newUserTypeId, createdOn, createdById,fromAction) => 
+db.getUserTypeId = (userId) => 
 {
     return new Promise((resolve, reject) =>
     {
-        let userId2;
-        if(fromAction == 'create')
-        {
-            userId2 = 0
-        }
-        else
-        {
-            userId2 = userId
-        }
         try
         {
-            pool.query(`INSERT INTO user_type_change_history
-            (user_id, previous_user_type_id, new_user_type_id,created_on,created_by) 
-            VALUES (?, (SELECT user_type_id FROM user WHERE id = ?), ?,?,?)`, [userId, userId2, newUserTypeId, createdOn, createdById], (error, result) =>
+            pool.query(`SELECT user_type_id FROM user WHERE id = ?`, [userId], (error, result) =>
             {
                 if(error)
                 {
@@ -80,14 +69,15 @@ db.insertUserTypeChangeHistory = (userId, newUserTypeId, createdOn, createdById,
     });
 };
 
-db.deleteUserTypeChangeHistory = (id) => 
+db.insertUserTypeChangeHistory = (userId, previousTypeId, newUserTypeId, createdOn, createdById) => 
 {
     return new Promise((resolve, reject) =>
     {
         try
         {
-            pool.query(`DELETE FROM user_type_change_history
-             WHERE id = ?`, [id], (error, result) =>
+            pool.query(`INSERT INTO user_type_change_history
+            (user_id, previous_user_type_id, new_user_type_id,created_on,created_by) 
+            VALUES (?, ?, ?, ?, ?)`, [userId, previousTypeId, newUserTypeId, createdOn, createdById], (error, result) =>
             {
                 if(error)
                 {
@@ -271,11 +261,11 @@ db.getUser = (uuid) =>
             u.created_by_id AS createdById, u.deleted_by_id,uc.uuid AS createdbyUuid, CONCAT(uc.first_name,' ',IFNULL(uc.last_name,''))
             AS createdfullName, ud.uuid AS deletedbyUuid, CONCAT(ud.first_name,' ',IFNULL(ud.last_name,'')) AS deletedfullName,
             (SELECT IF(COUNT(cm.id)> 0,1,(SELECT IF(COUNT(usg.id)> 0,1,(SELECT IF(COUNT(usgs.id)> 0,1,(SELECT IF(COUNT(utss.id)> 0,1,0) 
-            FROM user_teach_subject_section utss WHERE utss.user_id = u.id)) 
-            FROM user_supervise_grade_subject usgs WHERE usgs.user_id = u.id)) 
-            FROM user_supervise_grade usg WHERE usg.user_id = u.id)) 
+            FROM user_teach_subject_section utss WHERE utss.user_id = u.id AND utss.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1))) 
+            FROM user_supervise_grade_subject usgs WHERE usgs.user_id = u.id AND usgs.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1))) 
+            FROM user_supervise_grade usg WHERE usg.user_id = u.id AND usg.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1))) 
             FROM curriculum_master cm 
-            WHERE cm.created_by = u.id) AS userTypeExist
+            WHERE cm.created_by = u.id AND cm.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)) AS userTypeExist
                        FROM user u 
                        LEFT JOIN role r ON u.role_id = r.id 
                        LEFT JOIN user_type ut ON ut.id = u.user_type_id  

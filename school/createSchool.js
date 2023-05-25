@@ -64,16 +64,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         createdById = authData[0].userId
         if(createdById)
         {
-            user = await commondb.getUserById(createdById)
-            if(user.length == 0)
-            {
-                res.status(401)
-                return res.json({
-                    "status_code" : 401,
-                    "message" : "Invalid token",
-                    "status_name" : getCode.getStatus(401)
-                })
-            }
             let insertSchool = await db.insertSchool(schoolUuid, name, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId, createdOn, createdById, active)
             if(insertSchool.affectedRows > 0)
             {
