@@ -1,5 +1,6 @@
 let commonFunction = {};
 let fs = require('fs')
+const mime = require('mime');
 
 commonFunction.changeDateToSqlDate = (excelDate) =>
 {
@@ -150,7 +151,6 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
 {
     return new Promise((resolve, reject)=>{
         try{
-            let addiFolderCreated = 1
             let newpath = destinationBaseFolder
             if(addiFolder != '')
             {
@@ -162,8 +162,10 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
                     {
                         if (fs.existsSync(newpath + '/' + folders[i] + '/' + fileName)) 
                         {
-                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName, 'base64url');
+                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName, 'base64')
                             newpath = newpath + '/' + folders[i] + '/' + fileName
+                            const mime_type = mime.getType(newpath)
+                            file = `data:${mime_type};base64,` + file
                             return resolve(file)
                            // return resolve(newpath)
                         }

@@ -107,14 +107,15 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     schoolId = insertSchool.insertId;
                     if(schoolGradeCategoryArray.length > 0)
                     {
-                        Array.from(schoolGradeCategoryArray).forEach(async(ele)=>
+                        Array.from(schoolGradeCategoryArray).forEach(async(ele )=>
                         {
                             let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
                         })
                     }
                     if(schoolUserSettingList.length > 0)
                     {
-                        Array.from(schoolUserSettingList).forEach(async(ele)=>{
+                        Array.from(schoolUserSettingList).forEach(async(ele) =>
+                        {
                             schoolUserSettingUuid = createUuid.v1()
                             let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
                             let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)

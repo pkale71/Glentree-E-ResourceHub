@@ -1,14 +1,14 @@
-let db = require('./databaseQuerySchool')
-let commondb = require('../common/commonDatabaseQuery')
+let    db = require('./databaseQuerySchool')
+let    commondb = require('../common/commonDatabaseQuery')
 let    formidable = require('formidable');
 let    path = require('path')
 let    commonFunction = require('../common/commonFunction')
-let errorCode = require('../common/errorCode')
+let    errorCode = require('../common/errorCode')
 let    docPath = require('../DOC_FOLDER_PATH/docPath')
 let    getPath = new docPath()
-let     createUuid = require('uuid')
-let getCode = new errorCode()
-let accessToken;
+let    createUuid = require('uuid')
+let    getCode = new errorCode()
+let    accessToken;
 let    authData;
 let    schoolUuid;
 let    name;
@@ -30,12 +30,13 @@ let    createdById
 let    active
 let    fileObject;
 let    fileName;
-let    originalFilename;
 
-module.exports = require('express').Router().post('/',async(req,res)=>{
+module.exports = require('express').Router().post('/',async(req,res) => 
+{
     try
     {
-        const options = {
+        const options = 
+        {
             maxFiles: 1
         };
         accessToken = req.body.accessToken;
@@ -65,167 +66,167 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             // replace access token here with body
             req.body = fields
             if(!req.body.uuid||!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !JSON.parse(req.body.syllabus).id ||!req.body.gradeCategory?.trim())
-        {
-            res.status(400)
-            return res.json({
-                "status_code" : 400,
-                "message" : "Provide all values",
-                "status_name" : getCode.getStatus(400)
-            })
-        }
-        email = req.body.email
-        name = req.body.name?.trim();
-        location = req.body.location?.trim()
-        contact1 = req.body.contact1
-        contact2 = req.body.contact2 == ""?null : req.body.contact2
-        curriculumUpload = req.body.curriculumUpload
-        curriculumComplete = req.body.curriculumComplete
-        syllabusId = JSON.parse(req.body.syllabus).id
-        schoolGradeCategory = req.body.gradeCategory
-        schoolGradeCategoryArray = schoolGradeCategory.split(',')
-        schoolUuid = req.body.uuid
-        active = 1
-        schoolUserSettingList = JSON.parse(req.body.schoolUserSetting);
-        authData = await commondb.selectToken(accessToken)
-        createdById = authData[0].userId
-        createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
-        insertGradeCategory = []
-        if(!schoolGradeCategory)
-        {
-            res.status(404)
-            return res.json({
-                "status_code" : 404,
-                "message" : "Grade Category Missing",
-                "status_name" : getCode.getStatus(404)
-            })
-        }
-        if(schoolUuid)
-        {
-            schoolId = await db.selectSchool(schoolUuid)
-            if(schoolId.length == 0)
-            {
-                res.status(404)
-                return res.json({
-                    "status_code" : 404,
-                    "message" : "Provide valid school uuid number",
-                    "status_name" : getCode.getStatus(404),
-                })
-            }
-            schoolId = schoolId[0].id
-            let schoolGradeCategoryMatch = await db.getSchoolGradeCategorySearch(schoolId,schoolGradeCategory)
-            if(schoolGradeCategoryMatch.length > 0)
             {
                 res.status(400)
                 return res.json({
                     "status_code" : 400,
-                    "message" : `School is currently on use, so grade categories cannot be deleted, only new grade categories can be added.`,
+                    "message" : "Provide all values",
                     "status_name" : getCode.getStatus(400)
                 })
             }
-            schoolGradeCategoryList = await db.getSchoolGradeCategory(schoolId)
-            let list = [];
-            Array.from(schoolGradeCategoryList).forEach((ele) => 
+            email = req.body.email
+            name = req.body.name?.trim();
+            location = req.body.location?.trim()
+            contact1 = req.body.contact1
+            contact2 = req.body.contact2 == ""?null : req.body.contact2
+            curriculumUpload = req.body.curriculumUpload
+            curriculumComplete = req.body.curriculumComplete
+            syllabusId = JSON.parse(req.body.syllabus).id
+            schoolGradeCategory = req.body.gradeCategory
+            schoolGradeCategoryArray = schoolGradeCategory.split(',')
+            schoolUuid = req.body.uuid
+            active = 1
+            schoolUserSettingList = JSON.parse(req.body.schoolUserSetting);
+            authData = await commondb.selectToken(accessToken)
+            createdById = authData[0].userId
+            createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
+            insertGradeCategory = []
+            if(!schoolGradeCategory)
             {
-                list.push(ele.gradeId.toString())
-            })
-            let flag = 1;
-            Array.from(schoolGradeCategoryArray).forEach((ele) => 
+                res.status(404)
+                return res.json({
+                    "status_code" : 404,
+                    "message" : "Grade Category Missing",
+                    "status_name" : getCode.getStatus(404)
+                })
+            }
+            if(schoolUuid)
             {
-                let index = list.indexOf(ele)
-                if(index == -1)
+                schoolId = await db.selectSchool(schoolUuid)
+                if(schoolId.length == 0)
                 {
-                    insertGradeCategory.push(ele)
+                    res.status(404)
+                    return res.json({
+                        "status_code" : 404,
+                        "message" : "Provide valid school uuid number",
+                        "status_name" : getCode.getStatus(404),
+                    })
                 }
-            })
-            if(flag)
-            {
-                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,fileName)
-                if(updateSchool.affectedRows > 0)
+                schoolId = schoolId[0].id
+                let schoolGradeCategoryMatch = await db.getSchoolGradeCategorySearch(schoolId,schoolGradeCategory)
+                if(schoolGradeCategoryMatch.length > 0)
                 {
-                    if(insertGradeCategory.length > 0)
+                    res.status(400)
+                    return res.json({
+                        "status_code" : 400,
+                        "message" : `School is currently on use, so grade categories cannot be deleted, only new grade categories can be added.`,
+                        "status_name" : getCode.getStatus(400)
+                    })
+                }
+                schoolGradeCategoryList = await db.getSchoolGradeCategory(schoolId)
+                let list = [];
+                Array.from(schoolGradeCategoryList).forEach((ele) => 
+                {
+                    list.push(ele.gradeId.toString())
+                })
+                let flag = 1;
+                Array.from(schoolGradeCategoryArray).forEach((ele) => 
+                {
+                    let index = list.indexOf(ele)
+                    if(index == -1)
                     {
-                        Array.from(insertGradeCategory).forEach(async(ele)=>
-                        {
-                            let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
-                        })
+                        insertGradeCategory.push(ele)
                     }
-                    let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
-                    let searchUserSettingUuid = []
-                    Array.from(schoolUserSettingUuidList).forEach((ele)=>
+                })
+                if(flag)
+                {
+                    let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,fileName)
+                    if(updateSchool.affectedRows > 0)
                     {
-                        searchUserSettingUuid.push(ele.uuid)                       
-                    })
-                    Array.from(schoolUserSettingList).forEach((ele)=>
-                    {
-                        if(ele.uuid)
+                        if(insertGradeCategory.length > 0)
                         {
-                            let index = searchUserSettingUuid.indexOf(ele.uuid)
-                            if(index != -1)
+                            Array.from(insertGradeCategory).forEach(async(ele)=>
                             {
-                                searchUserSettingUuid.splice(index, 1)
-                                schoolUserSettingUuidList.splice(index,1)
-                            }
+                                let insertSchoolGradeCategory = await db.insertSchoolGradeCategory(schoolId,parseInt(ele))
+                            })
                         }
-                    })
-                    Array.from(searchUserSettingUuid).forEach(async(ele,i)=>
-                    {
-                        let deleteSUSetting      = await  db.deleteSchoolUserSetting(ele);
-                        let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,schoolUserSettingUuidList[i].user_type_id,schoolUserSettingUuidList[i].can_upload,schoolUserSettingUuidList[i].can_verify,schoolUserSettingUuidList[i].can_publish, 'delete',createdOn, createdById)
-                    })
-                    if(schoolUserSettingList.length > 0)
-                    {
-                        Array.from(schoolUserSettingList).forEach(async(ele)=>
+                        let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
+                        let searchUserSettingUuid = []
+                        Array.from(schoolUserSettingUuidList).forEach((ele) =>
+                        {
+                            searchUserSettingUuid.push(ele.uuid)                       
+                        })
+                        Array.from(schoolUserSettingList).forEach((ele) =>
                         {
                             if(ele.uuid)
                             {
-                                let insertSchoolUserSetting = await db.updateSchoolUserSetting(ele.uuid,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
-                                let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'update',createdOn, createdById)
-                            }
-                            else
-                            {
-                                let schoolUserSettingUuid = createUuid.v1()
-                                let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
-                                let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
+                                let index = searchUserSettingUuid.indexOf(ele.uuid)
+                                if(index != -1)
+                                {
+                                    searchUserSettingUuid.splice(index, 1)
+                                    schoolUserSettingUuidList.splice(index,1)
+                                }
                             }
                         })
-                    }
-                    let insertCurriculumUploadAs = await db.insertCurriculumUploadAs(schoolId, curriculumUpload, active, createdOn, createdById)
-                    if(insertCurriculumUploadAs.affectedRows > 0)
-                    {
-                        let updateCurriculumUploadAsIsActive = await db.updateCurriculumUploadAsIsActive(0, schoolId, insertCurriculumUploadAs.insertId)
-                    }
-                    let insertCurriculumCompletionAs = await db.insertCurriculumCompletionAs(schoolId, curriculumComplete, active, createdOn, createdById)
-                    if(insertCurriculumCompletionAs.affectedRows > 0)
-                    {
-                        let updateCurriculumCompletionAsIsActive = await db.updateCurriculumCompletionAsIsActive(0, schoolId, insertCurriculumCompletionAs.insertId)
-                    }
-                    if(Object.keys(file).length > 0)
-                    {
-                        let upload = await commonFunction.singleFileUpload(fileObject, getPath.getName('school'), fileName, schoolUuid)
-                        if(upload)
+                        Array.from(searchUserSettingUuid).forEach(async(ele,i) =>
                         {
-                            let uploaded = await db.insertSchoolLogo(schoolUuid, fileName)
-                            console.log(uploaded + " File uploaded successfully")
+                            let deleteSUSetting      = await  db.deleteSchoolUserSetting(ele);
+                            let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,schoolUserSettingUuidList[i].user_type_id,schoolUserSettingUuidList[i].can_upload,schoolUserSettingUuidList[i].can_verify,schoolUserSettingUuidList[i].can_publish, 'delete',createdOn, createdById)
+                        })
+                        if(schoolUserSettingList.length > 0)
+                        {
+                            Array.from(schoolUserSettingList).forEach(async(ele) =>
+                            {
+                                if(ele.uuid)
+                                {
+                                    let insertSchoolUserSetting = await db.updateSchoolUserSetting(ele.uuid,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                    let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'update',createdOn, createdById)
+                                }
+                                else
+                                {
+                                    let schoolUserSettingUuid = createUuid.v1()
+                                    let insertSchoolUserSetting = await db.insertSchoolUserSetting(schoolUserSettingUuid,schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish)
+                                    let insertSUSettingHistory = await db.insertSchoolUserSettingHistory(schoolId,ele.userType.id,ele.canUpload,ele.canVerify,ele.canPublish, 'add',createdOn, createdById)
+                                }
+                            })
                         }
+                        let insertCurriculumUploadAs = await db.insertCurriculumUploadAs(schoolId, curriculumUpload, active, createdOn, createdById)
+                        if(insertCurriculumUploadAs.affectedRows > 0)
+                        {
+                            let updateCurriculumUploadAsIsActive = await db.updateCurriculumUploadAsIsActive(0, schoolId, insertCurriculumUploadAs.insertId)
+                        }
+                        let insertCurriculumCompletionAs = await db.insertCurriculumCompletionAs(schoolId, curriculumComplete, active, createdOn, createdById)
+                        if(insertCurriculumCompletionAs.affectedRows > 0)
+                        {
+                            let updateCurriculumCompletionAsIsActive = await db.updateCurriculumCompletionAsIsActive(0, schoolId, insertCurriculumCompletionAs.insertId)
+                        }
+                        if(Object.keys(file).length > 0)
+                        {
+                            let upload = await commonFunction.singleFileUpload(fileObject, getPath.getName('school'), fileName, schoolUuid)
+                            if(upload)
+                            {
+                                let uploaded = await db.insertSchoolLogo(schoolUuid, fileName)
+                                console.log(uploaded + " File uploaded successfully")
+                            }
+                        }
+                        res.status(200)
+                        return res.json({
+                            "status_code" : 200,
+                            "message" : "success",
+                            "status_name" : getCode.getStatus(200),
+                        })
                     }
-                    res.status(200)
-                    return res.json({
-                        "status_code" : 200,
-                        "message" : "success",
-                        "status_name" : getCode.getStatus(200),
-                    })
-                }
-                else
-                {
-                    res.status(500)
-                    return res.json({
-                        "status_code" : 500,
-                        "message" : "School not updated",
-                        'status_name' : getCode.getStatus(500),
-                    }) 
+                    else
+                    {
+                        res.status(500)
+                        return res.json({
+                            "status_code" : 500,
+                            "message" : "School not updated",
+                            'status_name' : getCode.getStatus(500),
+                        }) 
+                    }
                 }
             }
-        }
         });
     }
     catch(e)

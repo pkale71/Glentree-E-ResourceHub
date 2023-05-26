@@ -33,7 +33,6 @@ module.exports = require('express').Router().get('/:schoolUUID',async(req,res) =
         }
 
         let logoFile = await commonFunction.getFileUploaded(getPath.getName('school'), schoolLogo[0].fileName, schoolUUID)
-
        // res.sendFile(path.join(__dirname,"../",logoFile))
        res.status(200)
         return res.json({
