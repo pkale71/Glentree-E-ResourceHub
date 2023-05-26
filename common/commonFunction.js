@@ -164,7 +164,7 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
                         {
                             let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName,);
                             newpath = newpath + '/' + folders[i] + '/' + fileName
-                            return resolve(file)
+                            return resolve(newpath)
                         }
                         else
                         {
