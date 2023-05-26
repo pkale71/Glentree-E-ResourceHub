@@ -3,12 +3,18 @@ let commondb = require('../common/commonDatabaseQuery')
 let errorCode = require('../common/errorCode')
 let createUuid = require('uuid')
 let getCode = new errorCode()
+let    path = require('path')
+let    commonFunction = require('../common/commonFunction')
+let    fs = require('fs');
+let    docPath = require('../DOC_FOLDER_PATH/docPath')
+let    getPath = new docPath()
 let accessToken;
 let authData;
 let schoolUuid;
 let schoolId;
 let createdOn
-let createdById
+let createdById;
+let fileName;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try{
@@ -41,6 +47,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             let ifDelete = (curriculumcheck.length == 0 && userCheck.length == 0) ? 0 :1
             let schoolUserSettingUuidList = await db.getSchoolUserSettingUuid(schoolId)
             if(!ifDelete){
+                fileName = await db.getLogoName(schoolUuid)
                 let deleteschool = await db.deleteSchool(schoolUuid);
                 if(deleteschool.affectedRows > 0){
                     await Array.from(schoolUserSettingUuidList).forEach(async(ele)=>{
@@ -48,6 +55,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     })
                     let delSchoolGradeCategory = await db.deleteSchoolGradeCategory(schoolId)
                     let delSchoolUserSetting = await db.deleteSchoolUserSettingId(schoolId)
+                    let deleteSchoolLogo = await commonFunction.deleteUploadedFile(getPath.getName('school'),fileName[0].fileName,schoolUuid)
+
+                    console.log(deleteSchoolLogo)
 
                     res.status(200)
                     return res.json({
@@ -65,7 +75,8 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                        })
                 }
             }
-            else{
+            else
+            {
                 res.status(400)
                 return res.json({
                     "status_code" : 400,
@@ -74,7 +85,10 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                    })
             }
         }   
-        } catch(e){
+        } 
+        catch(e)
+        {
+            console.log(e)
             res.status(500)
             return res.json({
                 "status_code" : 500,

@@ -5,9 +5,9 @@ let    formidable = require('formidable');
 let    path = require('path')
 let    commonFunction = require('../common/commonFunction')
 let    fs = require('fs');
-let    errorCode = require('../common/errorCode');
 let    docPath = require('../DOC_FOLDER_PATH/docPath')
 let    getPath = new docPath()
+let    errorCode = require('../common/errorCode');
 let    getCode = new errorCode()
 let    accessToken;
 let    authData;
@@ -44,7 +44,6 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         form.parse(req, async function (error, fields, file) 
         {
             if(error) throw error
-            console.log(file)
             if(Object.keys(file).length > 0)
             {
                 fileObject = file

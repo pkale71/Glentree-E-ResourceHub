@@ -43,7 +43,6 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         form.parse(req, async function (error, fields, file) 
         {
             if(error) throw error
-            console.log(file)
             if(Object.keys(file).length > 0)
             {
                 fileObject = file

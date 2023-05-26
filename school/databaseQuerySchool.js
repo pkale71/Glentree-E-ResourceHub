@@ -482,7 +482,7 @@ db.getSchoolUserSearch = (schoolId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query("SELECT * FROM user  WHERE school_id IN (?)",[schoolId],(error, result) => 
+            pool.query("SELECT * FROM user_school  WHERE school_id IN (?)",[schoolId],(error, result) => 
             {
                 if(error)
                 {
@@ -495,6 +495,25 @@ db.getSchoolUserSearch = (schoolId) => {
         
     });
 }
+
+db.getLogoName = (uuid) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query("SELECT logo_file_name AS fileName FROM school  WHERE uuid = ?;",[uuid],(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.schoolStatusChange = (id) => {
     return new Promise((resolve, reject)=>{
         try{

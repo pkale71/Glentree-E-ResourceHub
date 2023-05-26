@@ -61,7 +61,7 @@ commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, 
                         {
                             if (!fs.existsSync(folders[i])) 
                             {
-                                fs.unlinkSync(folders[i]);
+                                fs.rmdirSync(folders[i]);
                             }
                         } 
                         catch (err) 
@@ -92,6 +92,45 @@ commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, 
                 catch(e)
                 {
                     throw e
+                }
+            }
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+}
+
+commonFunction.deleteUploadedFile = (destinationBaseFolder, fileName, addiFolder) =>
+{
+    return new Promise((resolve, reject)=>{
+        try{
+            let newpath = destinationBaseFolder
+            if(addiFolder != '')
+            {
+                let folders = addiFolder.split('/')
+                let i = 0
+                for(; i < folders.length; i++)
+                {
+                    try 
+                    {
+                        if (fs.existsSync(newpath + '/' + folders[i])) 
+                        {
+                            fs.unlinkSync(newpath + '/' + folders[i] + '/' + fileName)
+                            fs.rmdirSync(newpath + '/' + folders[i]);
+                            newpath = newpath + '/' + folders[i]
+                            return resolve(true)
+                        }
+                        else
+                        {
+                            return resolve("File not exist")
+                        }
+                    } 
+                    catch (err) 
+                    {
+                        console.error(err);
+                    }
                 }
             }
         }
