@@ -162,9 +162,10 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
                     {
                         if (fs.existsSync(newpath + '/' + folders[i] + '/' + fileName)) 
                         {
-                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName,);
+                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName, 'base64url');
                             newpath = newpath + '/' + folders[i] + '/' + fileName
-                            return resolve(newpath)
+                            return resolve(file)
+                           // return resolve(newpath)
                         }
                         else
                         {
