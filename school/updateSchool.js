@@ -139,7 +139,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
             })
             if(flag)
             {
-                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name)
+                let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,fileName)
                 if(updateSchool.affectedRows > 0)
                 {
                     if(insertGradeCategory.length > 0)

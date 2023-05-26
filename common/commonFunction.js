@@ -47,6 +47,10 @@ commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, 
                             fs.mkdirSync(newpath + '/' + folders[i]);
                             newpath = newpath + '/' + folders[i]
                         }
+                        else
+                        {
+                            newpath = newpath + '/' + folders[i]
+                        }
                     } 
                     catch (err) 
                     {
@@ -80,6 +84,7 @@ commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, 
                         let filepath = file.logoFile.filepath;
                         newpath = newpath + '/';
                         newpath += fileName;
+                        console.log(newpath,filepath)
                         fs.copyFile(filepath, newpath, function (err) {
                             if(err)
                             {
