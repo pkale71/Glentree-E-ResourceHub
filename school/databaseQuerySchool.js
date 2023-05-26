@@ -176,6 +176,24 @@ db.insertSchool = (schooUuid, name, location, contact1, contact2, email, curricu
     });
 }
 
+db.insertSchoolLogo = (schooUuid, fileName) => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            pool.query(`UPDATE school SET logo_file_name = ? WHERE uuid = ?`, [fileName,schooUuid], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.insertSchoolGradeCategory = (schoolId,gradeCategoryId) => {
     return new Promise((resolve, reject)=>{
         try

@@ -1,7 +1,11 @@
 let db = require('./databaseQuerySchool')
 let commondb = require('../common/commonDatabaseQuery')
+let    formidable = require('formidable');
+let    path = require('path')
+let    commonFunction = require('../common/commonFunction')
 let errorCode = require('../common/errorCode')
-let    upload = require('../common/fileUpload')
+let    docPath = require('../DOC_FOLDER_PATH/docPath')
+let    getPath = new docPath()
 let     createUuid = require('uuid')
 let getCode = new errorCode()
 let accessToken;
@@ -24,11 +28,44 @@ let    insertGradeCategory = [];
 let    createdOn
 let    createdById
 let    active
+let    fileObject;
+let    fileName;
+let    originalFilename;
 
 module.exports = require('express').Router().post('/',async(req,res)=>{
     try
     {
-        if(!req.body.uuid||!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !req.body.syllabus?.id ||!req.body.gradeCategory?.trim())
+        const options = {
+            maxFiles: 1
+        };
+        accessToken = req.body.accessToken;
+        let form = new formidable.IncomingForm(options);
+        form.parse(req, async function (error, fields, file) 
+        {
+            if(error) throw error
+            console.log(file)
+            if(Object.keys(file).length > 0)
+            {
+                fileObject = file
+                let fileType = file.logoFile['mimetype']
+                originalFilename = file.logoFile.originalFilename
+                if(fileType == 'image/jpg' || fileType == 'image/png' || fileType == 'image/jpeg')
+                {
+                    fileName = "logo" + path.extname(file.logoFile.originalFilename)
+                } 
+                else 
+                {
+                    res.status(400)
+                    return res.json({
+                        "status_code" : 400,
+                        "message" : "Incorrect file type",
+                        "status_name" : getCode.getStatus(400)
+                    })
+                }
+            }
+            // replace access token here with body
+            req.body = fields
+            if(!req.body.uuid||!req.body.email || !req.body.name?.trim()  || !req.body.location  || !req.body.contact1  || !req.body.curriculumUpload  || !req.body.curriculumComplete  || !JSON.parse(req.body.syllabus).id ||!req.body.gradeCategory?.trim())
         {
             res.status(400)
             return res.json({
@@ -39,18 +76,17 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
         }
         email = req.body.email
         name = req.body.name?.trim();
-        accessToken = req.body.accessToken;
         location = req.body.location?.trim()
         contact1 = req.body.contact1
         contact2 = req.body.contact2 == ""?null : req.body.contact2
         curriculumUpload = req.body.curriculumUpload
         curriculumComplete = req.body.curriculumComplete
-        syllabusId = req.body.syllabus.id
+        syllabusId = JSON.parse(req.body.syllabus).id
         schoolGradeCategory = req.body.gradeCategory
         schoolGradeCategoryArray = schoolGradeCategory.split(',')
         schoolUuid = req.body.uuid
         active = 1
-        schoolUserSettingList = req.body.schoolUserSetting;
+        schoolUserSettingList = JSON.parse(req.body.schoolUserSetting);
         authData = await commondb.selectToken(accessToken)
         createdById = authData[0].userId
         createdOn =  new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -164,6 +200,15 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                     {
                         let updateCurriculumCompletionAsIsActive = await db.updateCurriculumCompletionAsIsActive(0, schoolId, insertCurriculumCompletionAs.insertId)
                     }
+                    if(Object.keys(file).length > 0)
+                    {
+                        let upload = await commonFunction.singleFileUpload(fileObject, getPath.getName('school'), fileName, schoolUuid)
+                        if(upload)
+                        {
+                            let uploaded = await db.insertSchoolLogo(schoolUuid, fileName)
+                            console.log(uploaded + " File uploaded successfully")
+                        }
+                    }
                     res.status(200)
                     return res.json({
                         "status_code" : 200,
@@ -182,6 +227,7 @@ module.exports = require('express').Router().post('/',async(req,res)=>{
                 }
             }
         }
+        });
     }
     catch(e)
     {

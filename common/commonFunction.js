@@ -30,67 +30,76 @@ commonFunction.getUniqueData = (data) =>
 
 commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, addiFolder) =>
 {
-    let addiFolderCreated = 1
-    let newpath = destinationBaseFolder
-    if(addiFolder != '')
-    {
-        let folders = addiFolder.split('/')
-
-        let i = 0
-        for(; i < folders.length; i++)
-        {
-            try 
+    return new Promise((resolve, reject)=>{
+        try{
+            let addiFolderCreated = 1
+            let newpath = destinationBaseFolder
+            if(addiFolder != '')
             {
-                if (!fs.existsSync(newpath + '/' + folders[i])) 
+                let folders = addiFolder.split('/')
+                let i = 0
+                for(; i < folders.length; i++)
                 {
-                    fs.mkdirSync(folders[i]);
-                    newpath = newpath + '/' + folders[i]
-                }
-            } 
-            catch (err) 
-            {
-                console.error(err);
-            }
-        }
-
-        if(parseInt(i) != folders.length)
-        {
-            for( ; i < folders.length; i++)
-            {
-                try 
-                {
-                    if (!fs.existsSync(folders[i])) 
+                    try 
                     {
-                        fs.unlinkSync(folders[i]);
+                        if (!fs.existsSync(newpath + '/' + folders[i])) 
+                        {
+                            fs.mkdirSync(newpath + '/' + folders[i]);
+                            newpath = newpath + '/' + folders[i]
+                        }
+                    } 
+                    catch (err) 
+                    {
+                        console.error(err);
                     }
-                } 
-                catch (err) 
+                }
+                if(parseInt(i) != folders.length)
                 {
-                    console.error(err);
+                    for( ; i < folders.length; i++)
+                    {
+                        try 
+                        {
+                            if (!fs.existsSync(folders[i])) 
+                            {
+                                fs.unlinkSync(folders[i]);
+                            }
+                        } 
+                        catch (err) 
+                        {
+                            console.error(err);
+                        }
+                    }
+                    addiFolderCreated = 0
                 }
             }
-            addiFolderCreated = 0
+            if(addiFolderCreated == 1)
+            {
+                try
+                {
+                    let file = fileObject
+                        let filepath = file.logoFile.filepath;
+                        newpath = newpath + '/';
+                        newpath += fileName;
+                        fs.copyFile(filepath, newpath, function (err) {
+                            if(err)
+                            {
+                                throw err 
+                            }
+                            fs.unlinkSync(filepath)
+                            return  resolve(true)
+                        });
+                }
+                catch(e)
+                {
+                    throw e
+                }
+            }
         }
-    }
-    if(addiFolderCreated == 1)
-    {
-        try
-        {
-            let file = fileObject
-            console.log(file)
-            let filepath = file.logo.filepath;
-            newpath = newpath + '/';
-            newpath += fileName;
-            console.log(newpath,filepath)
-            fs.rename(filepath, newpath, function () {
-                return true
-            });
+        catch(e)
+        { 
+            console.log(e)
         }
-        catch
-        {
-            return false
-        }
-    }
+    });
 }
 
 module.exports = commonFunction;
