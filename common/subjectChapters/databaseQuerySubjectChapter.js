@@ -213,24 +213,31 @@ db.getSubjectChapters = (id,uuid) => {
         {
             let sql = ``
             if(id){
-                sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
+                sql = `select sgsc.*, 
+                (SELECT IF(COUNT(sgsct.id)> 0,1,(SELECT IF(COUNT(uccs.id)> 0,1,0) 
+                FROM user_chapter_complete_status uccs 
+                WHERE uccs.chapter_id = sgsc.id)) 
+                FROM syllabus_grade_subject_chapter_topic sgsct 
                 WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics' ) AS isExist,
-                sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
-                sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
-                sy.name AS syllabusName, 
-                g.name AS gradeName
-                from syllabus_grade_subject_chapter sgsc
-                LEFT JOIN syllabus_grade_subject sgst ON sgsc.syllabus_grade_subject_id = sgst.id
-                LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
-                LEFT JOIN grade g ON g.id = sgst.grade_id 
-                LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
-                where sgsc.syllabus_grade_subject_id = ?
-                ORDER BY sgsc.id`
+                                sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
+                                sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
+                                sy.name AS syllabusName, 
+                                g.name AS gradeName
+                                from syllabus_grade_subject_chapter sgsc
+                                LEFT JOIN syllabus_grade_subject sgst ON sgsc.syllabus_grade_subject_id = sgst.id
+                                LEFT JOIN syllabus sy ON sy.id = sgst.syllabus_id
+                                LEFT JOIN grade g ON g.id = sgst.grade_id 
+                                LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
+                                where sgsc.syllabus_grade_subject_id = ?
+                                ORDER BY sgsc.id`
             }
             else 
             {
-                sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,0) FROM syllabus_grade_subject_chapter_topic sgsct 
-                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics') AS isExist,
+                sql = `select sgsc.*, (SELECT IF(COUNT(sgsct.id)> 0,1,(SELECT IF(COUNT(uccs.id)> 0,1,0) 
+                FROM user_chapter_complete_status uccs 
+                WHERE uccs.chapter_id = sgsc.id)) 
+                FROM syllabus_grade_subject_chapter_topic sgsct 
+                WHERE sgsct.syllabus_grade_subject_chapter_id = sgsc.id AND sgsct.topic_name NOT LIKE 'All-Topics' ) AS isExist,
                 sgst.uuid AS subUuid,sgst.is_active AS subIsActive,
                 sgst.grade_id, sgst.syllabus_id, sgst.subject_name , 
                 sy.name AS syllabusName, 
