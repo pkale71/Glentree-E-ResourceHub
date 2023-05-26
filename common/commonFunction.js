@@ -146,4 +146,44 @@ commonFunction.deleteUploadedFile = (destinationBaseFolder, fileName, addiFolder
     });
 }
 
+commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =>
+{
+    return new Promise((resolve, reject)=>{
+        try{
+            let addiFolderCreated = 1
+            let newpath = destinationBaseFolder
+            if(addiFolder != '')
+            {
+                let folders = addiFolder.split('/')
+                let i = 0
+                for(; i < folders.length; i++)
+                {
+                    try 
+                    {
+                        if (fs.existsSync(newpath + '/' + folders[i] + '/' + fileName)) 
+                        {
+                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName,);
+                            newpath = newpath + '/' + folders[i] + '/' + fileName
+                            return resolve(file)
+                        }
+                        else
+                        {
+                            newpath = newpath + '/' + folders[i]
+                            return resolve("File not exist")
+                        }
+                    } 
+                    catch (err) 
+                    {
+                        console.error(err);
+                    }
+                }
+            }
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+}
+
 module.exports = commonFunction;

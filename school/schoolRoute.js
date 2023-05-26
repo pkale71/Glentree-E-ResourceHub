@@ -19,6 +19,7 @@ schoolRouter.use( '/deleteGradeSection',require('../authentication/validateToken
 schoolRouter.use( '/getSchoolGradeCategories',require('../authentication/validateToken'),require('./getSchoolGradeCategories'))
 schoolRouter.use( '/getSchoolGrades',require('../authentication/validateToken'),require('./getSchoolGrades'))
 schoolRouter.use( '/getSections',require('../authentication/validateToken'),require('./gradeSection/getSections'))
+schoolRouter.use( '/getSchoolLogo',require('../authentication/validateToken'),require('./getSchoolLogo'))
 
 
 
