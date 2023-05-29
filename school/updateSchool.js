@@ -140,6 +140,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                 })
                 if(flag)
                 {
+                    let fileNameDB = await db.getLogoName(schoolUuid)
                     let updateSchool = await db.updateSchool(schoolUuid, location, contact1, contact2, email, curriculumUpload, curriculumComplete, syllabusId,name,fileName)
                     if(updateSchool.affectedRows > 0)
                     {
@@ -202,6 +203,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                         }
                         if(Object.keys(file).length > 0)
                         {
+                            let deleteSchoolLogo = await commonFunction.deleteUploadedFile(getPath.getName('school'),fileNameDB[0].fileName,schoolUuid)
+                            console.log(fileObject,fileName)
                             let upload = await commonFunction.singleFileUpload(fileObject, getPath.getName('school'), fileName, schoolUuid)
                             if(upload)
                             {
