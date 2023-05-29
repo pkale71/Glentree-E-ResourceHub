@@ -172,7 +172,7 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
                         else
                         {
                             newpath = newpath + '/' + folders[i]
-                            return resolve("File not exist")
+                            return resolve("")
                         }
                     } 
                     catch (err) 
