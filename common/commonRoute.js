@@ -37,6 +37,11 @@ commonRoute.use( '/deleteChapterTopic',require('../authentication/validateToken'
 commonRoute.use( '/changeChapterTopicStatus',require('../authentication/validateToken'),require('./chapterTopics/changeStatusTopic'))
 commonRoute.use( '/getChapterTopic',require('../authentication/validateToken'),require('./chapterTopics/getChapterTopic'))
 commonRoute.use( '/getChapterTopics',require('../authentication/validateToken'),require('./chapterTopics/getChapterTopics'))
+commonRoute.use( '/saveMaterialType',require('../authentication/validateToken'),require('./materialType/createMaterialType'))
+commonRoute.use( '/updateMaterialType',require('../authentication/validateToken'),require('./materialType/updateMaterialType'))
+commonRoute.use( '/deleteMaterialType',require('../authentication/validateToken'),require('./materialType/deleteMaterialType'))
+commonRoute.use( '/getMaterialType',require('../authentication/validateToken'),require('./materialType/getMaterialType'))
+commonRoute.use( '/getMaterialTypes',require('../authentication/validateToken'),require('./materialType/getMaterialTypes'))
 
 
 commonRoute.use('/',(req,res,next)=>{
