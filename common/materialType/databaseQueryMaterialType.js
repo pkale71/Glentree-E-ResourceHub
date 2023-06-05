@@ -16,13 +16,16 @@ db.getMaterialTypes = (uuid) => {
         try
         {
             let sql = ''
-            sql = `SELECT m.uuid, m.name, m.file_type_ids, m.created_on, m.created_by_id
-            FROM material_type m `
+            sql = `SELECT m.uuid, m.name, m.file_type_ids,DATE_FORMAT(m.created_on, '%m-%d-%Y') AS created_on, m.created_by_id
+            FROM material_type m`
 
             if(uuid.length > 1)
             {
                 sql = sql + ` WHERE m.uuid = '${uuid}'`
             }
+
+            sql += ` 
+            ORDER BY m.name `
             pool.query(sql, (error, result) => 
             {
                 if(error)

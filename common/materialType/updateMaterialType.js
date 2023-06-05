@@ -9,7 +9,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.uuid || !req.body.name || !req.body.fileType)
+        if(!req.body.uuid || !req.body.name || !req.body.fileTypes)
         {
             res.status(400);
             return res.json({
@@ -20,7 +20,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         uuid = req.body.uuid
         name = req.body.name
-        fileType = req.body.fileType
+        fileType = req.body.fileTypes
         checkUsed = await db.checkMaterialTypeUsed(uuid)
         if(checkUsed[0].Exist != 0)
         {

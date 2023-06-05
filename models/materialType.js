@@ -1,3 +1,4 @@
+const commonFunction = require("../common/commonFunction")
 class materialType {
     uuid
     name
@@ -21,17 +22,17 @@ class materialType {
     
     setDataAll(data)
     {
-        this.uuid     =   data.id
+        this.uuid     =   data.uuid
         this.name   =   data.name?.trim()
         this.fileTypes = data.fileTypes
-        this.createdOn = data.created_on
+        this.createdOn = commonFunction.changeDateToSqlDate(data.created_on)
         this.createdById = data.created_by_id
     }
 
     getDataAll()
     {
         return {
-            uuid : this.id,
+            uuid : this.uuid,
             name : this.name,
             fileTypes : this.fileTypes,
             createdOn : this.createdOn,

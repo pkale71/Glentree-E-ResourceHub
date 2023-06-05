@@ -14,7 +14,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
 {
     try
     {
-        if(!req.body.name || !req.body.fileType)
+        if(!req.body.name || !req.body.fileTypes)
         {
             res.status(400);
             return res.json({
@@ -25,7 +25,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         }
         uuid = createUuid.v1()
         name = req.body.name
-        fileType = req.body.fileType
+        fileType = req.body.fileTypes
         accessToken = req.body.accessToken
         let authData = await commondb.selectToken(accessToken)
         createdById = authData[0].userId
@@ -43,7 +43,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
         let insertMaterialType = await db.insertMaterialType(uuid, name, fileType, createdOn, createdById)
         if(insertMaterialType.affectedRows > 0)
         {
-            let returnUuid = await db.returnUuidMaterialType(insertMaterialType.insetId)
+            let returnUuid = await db.returnUuidMaterialType(insertMaterialType.insertId)
             res.status(200);
             return res.json({
                 "status_code": 200,
