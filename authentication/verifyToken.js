@@ -1,4 +1,5 @@
-let commondb = require('../common/commonDatabaseQuery')
+let commondb = require('../common/commonDatabaseQuery');
+const commonFunction = require('../common/commonFunction');
 let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let userTypeCode;
@@ -6,7 +7,10 @@ let accessToken;
 let userId;
 let authData;
 let tokenArr;
-let email
+let email;
+let schoolUuid;
+let schoolId;
+let userSchoolId;
 
 async function  verifyToken  (req, res, next){
     try 
@@ -95,25 +99,53 @@ async function  verifyToken  (req, res, next){
                     console.log("7")     
                     req.body.accessToken = accessToken
                     next()
-                 }
-                 else if (req.method == 'GET' && (req.baseUrl.includes('get') || req.baseUrl ==  '/logout' ))
-                 {
+                }
+                else if (req.method == 'GET' && (req.baseUrl.includes('get') || req.baseUrl ==  '/logout' ))
+                {
+                req.body.accessToken = accessToken
+                next()
+                }
+                else if (req.method == 'POST' && (req.baseUrl ==  '/authenticate' || req.baseUrl ==  '/changePassword'))
+                {
+                req.body.accessToken = accessToken
+                next()
+                }
+                else if (req.method == 'POST' && (req.baseUrl ==  '/curriculum/saveCurriculum'))
+                {
+                //    if(req.body.school)
+                //    {
+                //         schoolUuid = req.body.school.uuid
+                //         schoolId = await db.getSchoolId(schoolUuid)
+                //         let curriculumUuid = req.body.uuid
+                //         if(schoolId.length == 0)
+                //         {
+                //             res.status(400)
+                //             return res.json({
+                //                 'message'       :       `School Not Found`,
+                //                 "status_name"           : getCode.getStatus(400),
+                //                 "status_code"   :       400
+                //             });
+                //         }
+                //         schoolId = schoolId[0].id
+                //         let check = await commonFunction.schoolUserHaveAuth(curriculumUuid, schoolId, userId)
+                //    }
+                //    if(!req.body.school)
+                //    {
+                //         schoolId = 0
+                //         let curriculumUuid = req.body.uuid
+                //         let check = await commonFunction.schoolUserHaveAuth(curriculumUuid, schoolId, userId)
+                //    }
                     req.body.accessToken = accessToken
                     next()
-                 }
-                 else if (req.method == 'POST' && (req.baseUrl ==  '/authenticate' || req.baseUrl ==  '/changePassword'))
-                 {
-                    req.body.accessToken = accessToken
-                    next()
-                 }
+                }
                 else 
                 {
-                        res.status(401)
-                        return res.json({
-                            'message'       :       `Invalid user`,
-                            "status_name" : getCode.getStatus(401),
-                            "status_code"   :       401
-                        });
+                    res.status(401)
+                    return res.json({
+                        'message'       :       `Invalid user`,
+                        "status_name" : getCode.getStatus(401),
+                        "status_code"   :       401
+                    });
                 }
                
             }

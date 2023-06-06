@@ -30,6 +30,7 @@ app.use('/user',require('./userRoute/userRoute'))
 app.use('/common',require('./common/commonRoute'))
 app.use('/school',require('./school/schoolRoute'))
 app.use('/report',require('./report/reportRoute'))
+app.use('/curriculum',require('./curriculum/curriculumRoute'))
 
 app.use('/',(req,res,next)=>{
     return res.status(400).json({

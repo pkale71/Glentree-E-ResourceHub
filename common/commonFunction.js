@@ -1,6 +1,7 @@
 let commonFunction = {};
 let fs = require('fs')
 const mime = require('mime');
+const commondb = require('./commonDatabaseQuery');
 
 commonFunction.changeDateToSqlDate = (excelDate) =>
 {
@@ -107,6 +108,84 @@ commonFunction.singleFileUpload = (fileObject, destinationBaseFolder, fileName, 
         }
     });
 }
+commonFunction.multiFileUpload = (fileObject, destinationBaseFolder, fileName, addiFolder) =>
+{
+    return new Promise((resolve, reject)=>{
+        try{
+            let addiFolderCreated = 1
+            let newpath = destinationBaseFolder
+            if(addiFolder != '')
+            {
+                let folders = addiFolder.split('/')
+                let i = 0
+                for(; i < folders.length; i++)
+                {
+                    try 
+                    {
+                        if (!fs.existsSync(newpath + '/' + folders[i])) 
+                        {
+                            fs.mkdirSync(newpath + '/' + folders[i]);
+                            newpath = newpath + '/' + folders[i]
+                        }
+                        else
+                        {
+                            newpath = newpath + '/' + folders[i]
+                        }
+                    } 
+                    catch (err) 
+                    {
+                        console.error(err);
+                    }
+                }
+                if(parseInt(i) != folders.length)
+                {
+                    for( ; i < folders.length; i++)
+                    {
+                        try 
+                        {
+                            if (!fs.existsSync(folders[i])) 
+                            {
+                                fs.rmdirSync(folders[i]);
+                            }
+                        } 
+                        catch (err) 
+                        {
+                            console.error(err);
+                        }
+                    }
+                    addiFolderCreated = 0
+                }
+            }
+            if(addiFolderCreated == 1)
+            {
+                try
+                {
+                    let file = fileObject
+                        let filepath = file.filepath;
+                        newpath = newpath + '/';
+                        newpath += fileName;
+                        console.log(newpath,filepath)
+                        fs.copyFile(filepath, newpath, function (err) {
+                            if(err)
+                            {
+                                throw err 
+                            }
+                            fs.unlinkSync(filepath)
+                            return  resolve(true)
+                        });
+                }
+                catch(e)
+                {
+                    throw e
+                }
+            }
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+}
 
 commonFunction.deleteUploadedFile = (destinationBaseFolder, fileName, addiFolder) =>
 {
@@ -180,6 +259,44 @@ commonFunction.getFileUploaded = (destinationBaseFolder, fileName, addiFolder) =
                         console.error(err);
                     }
                 }
+            }
+        }
+        catch(e)
+        { 
+            console.log(e)
+        }
+    });
+}
+
+commonFunction.schoolUserHaveAuth = (curriculumUuid, schoolId, userId) =>
+{
+    return new Promise((resolve, reject) =>
+    {
+        try
+        {
+            if(curriculumUuid.length > 1)
+            {
+                commondb.getCurriculumSchool(curriculumUuid).then(
+                    res => {
+                        if(res)
+                        {
+                            commondb.getUserSchoolId(userId, res.school_id).then(userSchool => {
+                                if(userSchool)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    return -1
+                                }
+                            })
+                        }
+                    }
+                )
+            }
+            else
+            {
+
             }
         }
         catch(e)

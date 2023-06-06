@@ -4,7 +4,7 @@ class docPath{
     {
         try 
         {
-            let folderNames = ["uploads","uploads/school"]
+            let folderNames = ["uploads","uploads/school","uploads/curriculum"]
             for(let i = 0; i < folderNames.length; i++)
             {
                 if (!fs.existsSync(folderNames[i])) 
@@ -26,6 +26,7 @@ class docPath{
 		{
 			case 'root': return 'uploads'; 
 			case 'school': return 'uploads/school'; 
+			case 'curriculum': return 'uploads/curriculum'; 
 			default:
 				return "unknown folder"
 		}

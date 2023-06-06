@@ -61,6 +61,27 @@ db.getFileTypes = (id) => {
     });
 }
 
+db.getAllFileTypes = () => {
+    return new Promise((resolve, reject)=>{
+        try
+        {
+            let sql = ''
+            sql = `SELECT id, name, mime_type
+            FROM file_types`
+            pool.query(sql, (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 db.insertMaterialType = (uuid,name,fileType, createdOn, createdById) => {
     return new Promise((resolve, reject)=>{
         try
