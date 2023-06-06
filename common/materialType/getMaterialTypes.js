@@ -26,35 +26,39 @@ module.exports = require('express').Router().get('/',async(req,res) =>  {
         fileTypesList = []
               
         Array.from(materialTypes).forEach(element  =>  {
-            fileTypeIds = element.file_type_ids.split(",")
-            fileTypeIds.forEach((ele) => 
+            db.getFileTypes(element.file_type_ids).then(res1 =>
             {
-                db.getFileTypes(ele).then(res1 =>
+                if(res1)
                 {
-                    if(res1)
-                    {
-                        materialType.setFileType(res1[0])
+                    res1.forEach(ele => {
+                        materialType.setFileType(ele)
                         fileTypesList.push(materialType.getFileType())
-                        if(fileTypeIds.length == fileTypesList.length)
-                        {
-                            element['fileTypes'] = fileTypesList
-                            fileTypesList = []
-                            materialType.setDataAll(element)
-                            materialTypeList.push(materialType.getDataAll())
-                            if(materialTypes.length == materialTypeList.length)
-                            {
-                                res.status(200)
-                                return res.json({
-                                    "status_code" : 200,
-                                    "data"        : {'materialTypes' : materialTypeList},
-                                    "message"     : 'success',
-                                    "status_name"   : getCode.getStatus(200)
-                                })
+                    })
+                    element['fileTypes'] = fileTypesList
+                    fileTypesList = []
+                    materialType.setDataAll(element)
+                    materialTypeList.push(materialType.getDataAll())
+                    if(materialTypes.length == materialTypeList.length)
+                    {
+                        materialTypeList.sort(function (a, b) {
+                            if (a.name < b.name) {
+                              return -1;
                             }
-                        }
-                    }
-                })
-            })
+                            if (a.name > b.name) {
+                              return 1;
+                            }
+                            return 0;
+                          });
+                        res.status(200)
+                        return res.json({
+                            "status_code" : 200,
+                            "data"        : {'materialTypes' : materialTypeList},
+                            "message"     : 'success',
+                            "status_name"   : getCode.getStatus(200)
+                        })
+                    } 
+                }
+            }) 
         }) 
     } 
     catch(e)

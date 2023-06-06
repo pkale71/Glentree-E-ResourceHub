@@ -3,6 +3,7 @@ class materialType {
     uuid
     name
     fileTypes
+    isExist
     createdOn
     createdById
 
@@ -27,6 +28,7 @@ class materialType {
         this.fileTypes = data.fileTypes
         this.createdOn = commonFunction.changeDateToSqlDate(data.created_on)
         this.createdById = data.created_by_id
+        this.isExist = data.isExist
     }
 
     getDataAll()
@@ -36,6 +38,7 @@ class materialType {
             name : this.name,
             fileTypes : this.fileTypes,
             createdOn : this.createdOn,
+            isExist : this.isExist,
             createdById : this.createdById
         }
     }

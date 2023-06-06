@@ -16,7 +16,7 @@ db.getMaterialTypes = (uuid) => {
         try
         {
             let sql = ''
-            sql = `SELECT m.uuid, m.name, m.file_type_ids,DATE_FORMAT(m.created_on, '%m-%d-%Y') AS created_on, m.created_by_id
+            sql = `SELECT m.uuid, m.name, m.file_type_ids,DATE_FORMAT(m.created_on, '%m-%d-%Y') AS created_on, m.created_by_id, (SELECT IF(count(material_type_id) > 0,1,0) FROM curriculum_upload WHERE m.id = material_type_id) AS isExist
             FROM material_type m`
 
             if(uuid.length > 1)
@@ -40,13 +40,13 @@ db.getMaterialTypes = (uuid) => {
     });
 }
 
-db.getFileTypes = (id) => {
+db.getFileTypes = (ids) => {
     return new Promise((resolve, reject)=>{
         try
         {
             let sql = ''
             sql = `SELECT id, name, mime_type
-            FROM file_types WHERE id = ${id}`
+            FROM file_types WHERE id IN (${ids})`
             pool.query(sql, (error, result) => 
             {
                 if(error)
@@ -67,7 +67,8 @@ db.getAllFileTypes = () => {
         {
             let sql = ''
             sql = `SELECT id, name, mime_type
-            FROM file_types`
+            FROM file_types
+            ORDER BY name`
             pool.query(sql, (error, result) => 
             {
                 if(error)

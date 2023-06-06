@@ -32,28 +32,27 @@ module.exports = require('express').Router().get('/:uuid',async(req,res) =>  {
                 "status_name"   :   getCode.getStatus(404),
             })   
         }
-        fileTypeIds = materialTypes[0].file_type_ids.split(",")
-        fileTypeIds.forEach((element) => {
-            db.getFileTypes(element).then(res1 => {
-                if(res1)
-                {
-                    materialType.setFileType(res1[0])
+        db.getFileTypes(materialTypes[0].file_type_ids).then(res1 => {
+            if(res1)
+            {
+                res1.forEach(ele => {
+                    materialType.setFileType(ele)
                     fileTypes.push(materialType.getFileType())
-                    if(fileTypes.length == fileTypeIds.length)
-                    {
-                        materialTypes[0]['fileTypes'] = fileTypes
-                        materialType.setDataAll(materialTypes[0])
-                        res.status(200)
-                        return res.json({
-                            "status_code" : 200,
-                            "data"        : {'materialType' : materialType.getDataAll()},
-                            "message"     : 'success',
-                            "status_name"   : getCode.getStatus(200)
-                        })
-                    }
+                })
+                if(fileTypes.length == res1.length)
+                {
+                    materialTypes[0]['fileTypes'] = fileTypes
+                    materialType.setDataAll(materialTypes[0])
+                    res.status(200)
+                    return res.json({
+                        "status_code" : 200,
+                        "data"        : {'materialType' : materialType.getDataAll()},
+                        "message"     : 'success',
+                        "status_name"   : getCode.getStatus(200)
+                    })
                 }
-            })
-        });
+            }
+        }) 
     } 
     catch(e)
     {
