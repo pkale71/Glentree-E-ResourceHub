@@ -228,4 +228,49 @@ db.getFileName = (uuid) =>
         
     });
 }
+
+db.getCurriculumUpload = (uuid) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+              let  sql = `SELECT cu.uuid, cu.file_name AS fileName, cu.is_active, cu.is_published, cu.is_rejected, cu.is_verified, cu.material_type_id, 
+              mt.uuid AS materialUuid, mt.name AS materialName, cu.uploaded_on AS uploadedOn,
+              cu.rejected_on AS rejectOn, cu.published_on AS publishOn,
+              cu.verified_on AS verifyOn, cu.uploaded_by_id AS uploadId, uu.uuid AS uploadUuid,
+              TRIM(CONCAT(uu.first_name,' ',IFNULL(uu.last_name,''))) AS uploadName,  cu.verified_by_id AS verifyId, uv.uuid AS verifyUuid,
+              TRIM(CONCAT(uv.first_name,' ',IFNULL(uv.last_name,''))) AS verifyName, cu.published_by_id AS publishedId, up.uuid AS publishUuid,
+              TRIM(CONCAT(up.first_name,' ',IFNULL(up.last_name,''))) AS publishName,  cu.rejected_by_id AS rejectId, ur.uuid AS rejectUuid,
+              TRIM(CONCAT(ur.first_name,' ',IFNULL(ur.last_name,''))) AS rejectName, (SELECT COUNT(c.id) FROM curriculum_upload c WHERE c.curriculum_id = cu.curriculum_id) AS isExist,
+              cu.curriculum_id, cm.uuid AS curriculumUuid, cm.academic_year_id, ay.uuid AS acaUuid, ay.year AS acaYear, s.uuid AS schoolUuid, s.name AS schoolName,
+              g.id AS gradeId, g.name AS gradeName, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName, sgsc.uuid AS chapterUuid, sgsc.chapter_name AS chapterName,
+              sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName
+                             FROM curriculum_upload cu
+                             LEFT JOIN material_type mt ON mt.id = cu.material_type_id
+                             LEFT JOIN user uu ON uu.id = cu.uploaded_by_id
+                             LEFT JOIN user uv ON uv.id = cu.verified_by_id
+                             LEFT JOIN user up ON up.id = cu.published_by_id
+                             LEFT JOIN user ur ON ur.id = cu.rejected_by_id
+                             LEFT JOIN curriculum_master cm ON cm.id = cu.curriculum_id
+                             LEFT JOIN academic_year ay ON ay.id = cm.academic_year_id
+                             LEFT JOIN school s ON s.id = cm.school_id
+                             LEFT JOIN grade g ON g.id = cm.grade_id
+                              LEFT JOIN syllabus_grade_subject sgs ON sgs.id = cm.subject_id
+                             LEFT JOIN syllabus_grade_subject_chapter sgsc ON sgsc.id = cm.chapter_id
+                             LEFT JOIN syllabus_grade_subject_chapter_topic sgsct ON sgsct.id = cm.topic_id
+                             WHERE cu.uuid = '${uuid}'`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 module.exports = db

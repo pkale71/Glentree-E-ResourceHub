@@ -8,6 +8,7 @@ let    getCode = new errorCode()
 curriculumRoute.use('/saveCurriculum',require('../authentication/validateToken'),require('./saveCurriculum'))
 curriculumRoute.use('/verifyFiles',require('../authentication/validateToken'),require('./verifyFiles'))
 curriculumRoute.use('/getCurriculumUploadFile',require('../authentication/validateToken'),require('./getCurriculumUploadFile'))
+curriculumRoute.use('/getCurriculumUpload',require('../authentication/validateToken'),require('./getCurriculumUpload'))
 curriculumRoute.use('/deleteCurriculumUpload',require('../authentication/validateToken'),require('./deleteCurriculumUpload'))
 
 
