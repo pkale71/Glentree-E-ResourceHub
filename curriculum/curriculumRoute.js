@@ -5,7 +5,10 @@ let    getCode = new errorCode()
 
 //app.use(upload.any())
 
-curriculumRoute.use( '/saveCurriculum',require('../authentication/validateToken'),require('./saveCurriculum'))
+curriculumRoute.use('/saveCurriculum',require('../authentication/validateToken'),require('./saveCurriculum'))
+curriculumRoute.use('/verifyFiles',require('../authentication/validateToken'),require('./verifyFiles'))
+curriculumRoute.use('/getCurriculumUploadFile',require('../authentication/validateToken'),require('./getCurriculumUploadFile'))
+curriculumRoute.use('/deleteCurriculumUpload',require('../authentication/validateToken'),require('./deleteCurriculumUpload'))
 
 
 

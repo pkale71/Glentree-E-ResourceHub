@@ -163,4 +163,69 @@ db.deleteCurriculumUpload = (curriculumId) =>
         
     });
 }
+
+db.deleteCurriculumUploadByUuid = (uuid) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+              let  sql = `DELETE FROM curriculum_upload WHERE uuid = '${uuid}'`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.deleteCurriculumMaster = (id) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+              let  sql = `DELETE FROM curriculum_master WHERE id = ${id}`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.getFileName = (uuid) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+              let  sql = `SELECT cu.file_name AS fileName, cu.material_type_id, cu.curriculum_id,
+              (SELECT COUNT(c.id) FROM curriculum_upload c WHERE c.curriculum_id = cu.curriculum_id) AS Exist
+               FROM curriculum_upload cu WHERE cu.uuid = '${uuid}'`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
 module.exports = db

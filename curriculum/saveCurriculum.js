@@ -177,7 +177,17 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                                     commonFunction.deleteUploadedFile(getPath.getName('curriculum'),ele.fileName,ele.uuid).then(deleteUploads => {
                                                         if(deleteUploads)
                                                         {
-                                                            console.log("deleted")
+                                                            db.deleteCurriculumMaster(curriculumId).then(deleteCurriculumMaster => {
+                                                                if(deleteCurriculumMaster.affectedRows > 0)
+                                                                {
+                                                                    res.status(200)
+                                                                    return res.json({
+                                                                        "status_code" : 200,
+                                                                        "message" : `success`,
+                                                                        "status_name" : getCode.getStatus(200)
+                                                                    })
+                                                                }
+                                                            })
                                                         }
                                                     })
                                                 })
