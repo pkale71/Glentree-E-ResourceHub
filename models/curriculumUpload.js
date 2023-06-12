@@ -17,6 +17,7 @@ class curriculumUpload {
     isPublished
     isVerified
     isExist
+    status
 
     constructor(){}
     
@@ -80,6 +81,7 @@ class curriculumUpload {
         this.isPublished    =   data.is_published
         this.isVerified     =   data.is_verified,
         this.isRejected     =   data.is_rejected
+        this.status         =   data.Status
     }
 
     getDataAll()
@@ -101,7 +103,8 @@ class curriculumUpload {
             isExist : this.isExist,
             pubished: this.isPublished,
             verified : this.isVerified,
-            rejected : this.isRejected
+            rejected : this.isRejected,
+            status : this.status
         }
     }
 }
