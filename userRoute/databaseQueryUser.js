@@ -227,7 +227,7 @@ db.getUser = (uuid) =>
             FROM user_supervise_grade_subject usgs WHERE usgs.user_id = u.id AND usgs.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1))) 
             FROM user_supervise_grade usg WHERE usg.user_id = u.id AND usg.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1))) 
             FROM curriculum_master cm 
-            WHERE cm.created_by = u.id AND cm.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)) AS userTypeExist
+            WHERE cm.created_by_id = u.id AND cm.academic_year_id = (SELECT id FROM academic_year WHERE is_current = 1)) AS userTypeExist
                        FROM user u 
                        LEFT JOIN role r ON u.role_id = r.id 
                        LEFT JOIN user_type ut ON ut.id = u.user_type_id  
