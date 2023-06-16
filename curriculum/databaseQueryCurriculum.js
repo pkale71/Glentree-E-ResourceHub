@@ -50,7 +50,7 @@ db.insertCurriculumMaster = (uuid, academicYearUuid, schoolUuid, gradeId, gradeS
     {
         try
         {
-              let  sql = `INSERT INTO curriculum_master (uuid, academic_year_id, school_id, grade_id, subject_id, chapter_id, created_on, created_by, topic_id) values 
+              let  sql = `INSERT INTO curriculum_master (uuid, academic_year_id, school_id, grade_id, subject_id, chapter_id, created_on, created_by_id, topic_id) values 
               ('${uuid}', (SELECT id FROM academic_year WHERE uuid = '${academicYearUuid}'), (SELECT id FROM school WHERE uuid = '${schoolUuid}'), ${gradeId},
                (SELECT id FROM syllabus_grade_subject WHERE uuid = '${gradeSubjectUuid}'), 
               (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = '${subjectChapterUuid}'), ?, ${createdById}, `;
