@@ -61,7 +61,7 @@ db.insertCurriculumMaster = (uuid, academicYearUuid, schoolUuid, gradeId, gradeS
               }
               else
               {
-                sql = sql + `(SELECT id FROM syllabus_grade_subject_chapter_topic WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = '${subjectChapterUuid}')))`
+                sql = sql + `(SELECT id FROM syllabus_grade_subject_chapter_topic WHERE syllabus_grade_subject_chapter_id = (SELECT id FROM syllabus_grade_subject_chapter WHERE uuid = '${subjectChapterUuid}') AND topic_name = 'All-Topics'))`
               }
               console.log(sql)
             pool.query(sql, [createdOn], (error, result) => 
