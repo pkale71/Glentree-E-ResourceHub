@@ -203,7 +203,13 @@ commonFunction.deleteUploadedFile = (destinationBaseFolder, fileName, addiFolder
                         if (fs.existsSync(newpath + '/' + folders[i])) 
                         {
                             fs.unlinkSync(newpath + '/' + folders[i] + '/' + fileName)
-                            fs.rmdirSync(newpath + '/' + folders[i]);
+                            let dir = newpath + '/' + folders[i]
+                            fs.readdir(dir, (err, files) => {
+                                if(files.length == 0)
+                                {
+                                    fs.rmdirSync(newpath + '/' + folders[i]);
+                                }
+                            });                            
                             newpath = newpath + '/' + folders[i]
                             return resolve(true)
                         }
