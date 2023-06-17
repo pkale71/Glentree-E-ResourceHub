@@ -19,7 +19,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
             return res.json({
                 "status_code" : 200,
                 "message"       :   "success",
-                "data"          :   {"logoFile" : []},
+                "data"          :   {"curriculumFile" : []},
                 "status_name"   : getCode.getStatus(200)
             })   
         }
@@ -30,7 +30,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
         return res.json({
             "status_code"   :   200,
             "message"       :   "success",
-            "data"          :   {"logoFile" : file},
+            "data"          :   {"curriculumFile" : file},
             "status_name"   :   getCode.getStatus(200)
         })
     } 
