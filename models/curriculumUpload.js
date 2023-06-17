@@ -25,7 +25,7 @@ class curriculumUpload {
     {
         this.uuid           =   data.uuid
         this.curriculumMaster = {
-                                    "uuid" : data.curriculumMasterUuid,
+                                    "uuid" : data.curriculumUuid,
                                     "academicYear" :   {
                                                         "uuid" : data.acaUuid,
                                                         "year" : data.acaYear

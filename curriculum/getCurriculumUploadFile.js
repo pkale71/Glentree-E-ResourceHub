@@ -3,9 +3,12 @@ let errorCode = require('../common/errorCode')
 let getCode = new errorCode()
 let commonFunction = require('../common/commonFunction')
 let docPath = require('../DOC_FOLDER_PATH/docPath')
+let curriculumObj = require('../models/curriculumUpload')
+let curriculum = new curriculumObj()
 let getPath = new docPath()
 let fileName;
 let uploadUuid;
+let curriculumMasterUUID;
 
 module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =>  
 {
@@ -13,7 +16,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
     {
         uploadUuid = req.params.uploadUuid 
         fileName = await db.getFileName(uploadUuid)
-        if(fileName[0].fileName == null)
+        if(fileName[0].fileName == null && curriculumUpload)
         {
             res.status(200)
             return res.json({
@@ -23,8 +26,13 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
                 "status_name"   : getCode.getStatus(200)
             })   
         }
-
-        let file = await commonFunction.getFileUploaded(getPath.getName('curriculum'), fileName[0].fileName, uploadUuid)
+///get curriculum master UUID
+        let curriculumUpload = await db.getCurriculumUpload(uploadUuid)
+        curriculum.setDataAll(curriculumUpload[0])
+        let curriculumMaster = curriculum.getDataAll()
+        curriculumMasterUUID = curriculumMaster.curriculum.uuid;
+///////////
+        let file = await commonFunction.getFileUploaded(getPath.getName('curriculum'), fileName[0].fileName, curriculumMasterUUID)
        // res.sendFile(path.join(__dirname,"../",logoFile))
        res.status(200)
         return res.json({
