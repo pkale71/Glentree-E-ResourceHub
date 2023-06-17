@@ -8,10 +8,13 @@ let commonFunction = require('../common/commonFunction')
 let fs = require('fs');
 let docPath = require('../DOC_FOLDER_PATH/docPath')
 let getPath = new docPath()
+let curriculumObj = require('../models/curriculumUpload')
+let curriculum = new curriculumObj()
 let accessToken;
 let authData;
 let uploadUuid;
 let curriculumUpload;
+let curriculumMasterUUID;
 
 module.exports = require('express').Router().post('/',async(req,res) => 
 {
@@ -51,10 +54,16 @@ module.exports = require('express').Router().post('/',async(req,res) =>
             ifDelete = false
             if(!ifDelete)
             {
+        ///get curriculum master UUID
+                let curriculumUpload = await db.getCurriculumUpload(uploadUuid)
+                curriculum.setDataAll(curriculumUpload[0])
+                let curriculumMaster = curriculum.getDataAll()
+                curriculumMasterUUID = curriculumMaster.curriculum.uuid;
+        ///////////
                 let deleteCurriculumUploadByUuid = await db.deleteCurriculumUploadByUuid(uploadUuid);
                 if(deleteCurriculumUploadByUuid.affectedRows > 0)
                 {
-                    let deleteCurriculumUpload = await commonFunction.deleteUploadedFile(getPath.getName('curriculum'),curriculumUpload[0].fileName,uploadUuid)
+                    let deleteCurriculumUpload = await commonFunction.deleteUploadedFile(getPath.getName('curriculum'),curriculumUpload[0].fileName,curriculumMasterUUID)
                     if(deleteCurriculumUpload)
                     {
                         if(curriculumUpload[0].Exist == 1)
