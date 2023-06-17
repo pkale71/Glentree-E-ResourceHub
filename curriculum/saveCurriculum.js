@@ -146,7 +146,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                                             {
                                                 if(uploadedUuid.length > 0)
                                                 {
-                                                     commonFunction.multiFileUpload(ele, getPath.getName('curriculum'), ele.originalFilename, uploadedUuid[0].uuid).then(upload =>
+                                                     commonFunction.multiFileUpload(ele, getPath.getName('curriculum'), ele.originalFilename, uuid).then(upload =>
                                                     {
                                                         if(upload)
                                                         {
