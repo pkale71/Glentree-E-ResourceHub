@@ -135,7 +135,8 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                         let uploadFileSize = []
                         Array.from(curriculumFiles).forEach((ele)=>
                         {
-                            db.insertCurriculumUploads(uuid, curriculumId, materialTypeUuid, ele.originalFilename, isActive, createdOn, createdById).then(insertCurriculumUploads => {
+                            uuid1 = createUuid.v1()
+                            db.insertCurriculumUploads(uuid1, curriculumId, materialTypeUuid, ele.originalFilename, isActive, createdOn, createdById).then(insertCurriculumUploads => {
                                 if(insertCurriculumUploads)
                                 {
                                     if(insertCurriculumUploads.affectedRows > 0)
