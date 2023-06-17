@@ -16,7 +16,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
     {
         uploadUuid = req.params.uploadUuid 
         fileName = await db.getFileName(uploadUuid)
-        if(fileName[0].fileName == null && curriculumUpload)
+        if(fileName[0].fileName == null)
         {
             res.status(200)
             return res.json({
