@@ -60,22 +60,22 @@ class curriculumUpload {
         this.uploadedOn     =   data.uploadedOn,
         this.uploadedBy     =   {
                                     uuid : data.uploadUuid,
-                                    name : data.uploadName
+                                    fullName : data.uploadName
                                 }
         this.publishedOn     =   data.publishOn,
         this.publishedBy     =   {
                                     uuid : data.publishUuid,
-                                    name : data.publishName
+                                    fullName : data.publishName
                                 }
         this.rejectedOn     =   data.rejectOn,
         this.rejectedBy     =   {
                                     uuid : data.rejectUuid,
-                                    name : data.rejectName
+                                    fullName : data.rejectName
                                 }
         this.verifiedOn     =   data.verifyOn,
         this.verifiedBy     =   {
                                     uuid : data.verifyUuid,
-                                    name : data.verifyName
+                                    fullName : data.verifyName
                                 }
         this.isActive       =   data.is_active
         this.isPublished    =   data.is_published
