@@ -447,7 +447,7 @@ db.getCurriculumUploads = (acaUuid, gradeId, subjectUuid, chapterUuid, topicUuid
 
             sql = sql + ` ORDER BY cu.uploaded_on DESC;`
 
-            //console.log(sql)
+            // console.log(sql)
                 
             pool.query(sql,(error, result) => 
             {

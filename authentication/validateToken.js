@@ -34,6 +34,11 @@ app.get('/:UUID1/:UUID2/:UUID3/:UUID4/:UUID5/:UUID6/:UUID7',async (req,res,next)
     verifyToken(req,res,next)
 })
 
+app.get('/:UUID1/:UUID2/:UUID3/:UUID4?*',async (req,res,next)=>{
+    console.log("v4")
+    verifyToken(req,res,next)
+})
+
 
 app.get('/',async (req,res,next)=>{
     console.log("v7")
