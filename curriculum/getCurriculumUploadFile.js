@@ -32,7 +32,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
         let curriculumMaster = curriculum.getDataAll()
         curriculumMasterUUID = curriculumMaster.curriculum.uuid;
 ///////////
-        let file = await commonFunction.getFileUploaded(getPath.getName('curriculum'), fileName[0].fileName, curriculumMasterUUID)
+        let file = await commonFunction.getFileUploadedPath(getPath.getName('curriculum'), fileName[0].fileName, curriculumMasterUUID)
        // res.sendFile(path.join(__dirname,"../",logoFile))
        res.status(200)
         return res.json({
@@ -41,6 +41,7 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
             "data"          :   {"curriculumFile" : file},
             "status_name"   :   getCode.getStatus(200)
         })
+    // res.sendFile(file)
     } 
     catch(e)
     {

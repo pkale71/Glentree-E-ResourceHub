@@ -378,7 +378,7 @@ db.getCurriculumUploads = (acaUuid, gradeId, subjectUuid, chapterUuid, topicUuid
             TRIM(CONCAT(uv.first_name,' ',IFNULL(uv.last_name,''))) AS verifyName, cu.published_by_id AS publishedId, up.uuid AS publishUuid,
             TRIM(CONCAT(up.first_name,' ',IFNULL(up.last_name,''))) AS publishName,  cu.rejected_by_id AS rejectId, ur.uuid AS rejectUuid,
             TRIM(CONCAT(ur.first_name,' ',IFNULL(ur.last_name,''))) AS rejectName, (SELECT IF(COUNT(c.id) > 0, 1, 0) FROM curriculum_upload c WHERE c.curriculum_id = cu.curriculum_id) AS isExist,
-            cu.curriculum_id, cm.uuid AS curriculumMasterUuid, cm.academic_year_id, ay.uuid AS acaUuid, ay.year AS acaYear, s.uuid AS schoolUuid, s.name AS schoolName,
+            cu.curriculum_id, cm.uuid AS curriculumUuid, cm.academic_year_id, ay.uuid AS acaUuid, ay.year AS acaYear, s.uuid AS schoolUuid, s.name AS schoolName,
             g.id AS gradeId, g.name AS gradeName, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName, sgsc.uuid AS chapterUuid, sgsc.chapter_name AS chapterName,
             sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName,
             IF((cu.is_active = 1 AND cu.is_verified IS NULL AND cu. is_published IS NULL 

@@ -118,7 +118,7 @@ module.exports = require('express').Router().get('/:status/:acadmicUUID/:schoolU
             res.status(400)
             return res.json({
                 "status_code" : 400,
-                "message" : "Provide valid value for optional feild",
+                "message" : "Provide valid value for optional field",
                 "status_name" : getCode.getStatus(400)
             })
        }
