@@ -303,7 +303,7 @@ commonFunction.getFileUploadedPath = (destinationBaseFolder, fileName, addiFolde
                             // file = `data:${mime_type};base64,` + file
                             console.log(newpath, "** ", '/' + folders[i] + '/' + fileName)
                             console.log(path.join(__dirname))
-                            return resolve(path.join(__dirname, "../",newpath))
+                            return resolve(path.join(__dirname, '../', newpath))
                         }
                         else
                         {
