@@ -66,7 +66,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>
                     let deleteCurriculumUpload = await commonFunction.deleteUploadedFile(getPath.getName('curriculum'),curriculumUpload[0].fileName,curriculumMasterUUID)
                     if(deleteCurriculumUpload)
                     {
-                        if(curriculumUpload[0].Exist == 1)
+                        if(curriculumUpload[0].isExist == 1)
                         {
                             let deleteCurriculumMaster = await db.deleteCurriculumMaster(curriculumUpload[0].curriculum_id)
                             if(deleteCurriculumMaster.affectedRows > 0)

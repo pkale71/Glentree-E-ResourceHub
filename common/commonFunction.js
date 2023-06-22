@@ -208,7 +208,7 @@ commonFunction.deleteUploadedFile = (destinationBaseFolder, fileName, addiFolder
                             fs.readdir(dir, (err, files) => {
                                 if(files.length == 0)
                                 {
-                                    fs.rmdirSync(newpath + '/' + folders[i]);
+                                    fs.rmdirSync(dir);
                                 }
                             });                            
                             newpath = newpath + '/' + folders[i]

@@ -94,7 +94,7 @@ module.exports = require('express').Router().post('/',async(req,res) =>  {
         {
             if(checkStatus[0].is_active == 1 && checkStatus[0].is_rejected == null)
             {
-                let sql = `UPDATE curriculum_upload SET is_rejected = 1, rejected_on = ?, rejected_by_id = ${userId} where uuid = '${uuid}'`
+                let sql = `UPDATE curriculum_upload SET is_rejected = 1, is_active = 0, rejected_on = ?, rejected_by_id = ${userId} where uuid = '${uuid}'`
 
                 let changeStatus = await db.changeStatus(sql, new Date())
 
