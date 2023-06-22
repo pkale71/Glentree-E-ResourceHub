@@ -6,6 +6,7 @@ let docPath = require('../DOC_FOLDER_PATH/docPath')
 let curriculumObj = require('../models/curriculumUpload')
 let curriculum = new curriculumObj()
 let getPath = new docPath()
+let path = require("path")
 let fileName;
 let uploadUuid;
 let curriculumMasterUUID;
@@ -34,7 +35,6 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
 ///////////
         let file = await commonFunction.getFileUploadedPath(getPath.getName('curriculum'), fileName[0].fileName, curriculumMasterUUID)
        // res.sendFile(path.join(__dirname,"../",logoFile))
-       
     //    res.status(200)
     //     return res.json({
     //         "status_code"   :   200,
@@ -42,7 +42,10 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
     //         "data"          :   {"curriculumFile" : file},
     //         "status_name"   :   getCode.getStatus(200)
     //     })
-    res.sendFile(file)
+    //  res.setHeader('Content-Type', `'${file.mime}'`);
+    // res.setHeader('Content-Disposition', `attachment; filename="${file.fileName}"`);
+  //console.log(path.join(__dirname,"../",file.path))
+ res.sendFile(path.join(__dirname,"../",file.path))
     } 
     catch(e)
     {

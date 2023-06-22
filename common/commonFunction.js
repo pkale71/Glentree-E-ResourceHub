@@ -290,20 +290,11 @@ commonFunction.getFileUploadedPath = (destinationBaseFolder, fileName, addiFolde
                     {
                         if (fs.existsSync(newpath + '/' + folders[i] + '/' + fileName)) 
                         {
-                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName,  "utf8", (err, jsonString) => {
-                                if (err) {
-                                  console.log("File read failed:", err);
-                                  return;
-                                }
-                                console.log("File data:", jsonString);
-                              })
-                            // , 'base64')
+                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName, 'base64')
                             newpath = newpath + '/' + folders[i] + '/' + fileName
                             const mime_type = mime.getType(newpath)
-                            // file = `data:${mime_type};base64,` + file
-                            console.log(newpath, "** ", '/' + folders[i] + '/' + fileName)
-                            console.log(path.join(__dirname))
-                            return resolve(path.join(__dirname, '../', newpath))
+                            //file = `data:${mime_type};base64,` + file
+                            return resolve({path:newpath, mime : mime_type, fileName : fileName, file: file})
                         }
                         else
                         {

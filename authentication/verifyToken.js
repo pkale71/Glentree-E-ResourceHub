@@ -15,7 +15,12 @@ let userSchoolId;
 async function  verifyToken  (req, res, next){
     try 
     {
-        console.log("PARAM")
+        if(req.baseUrl ==  '/curriculum/getCurriculumUploadFile')
+        {
+            next()
+            return
+        }
+        console.log("PARAM", req.baseUrl)
         let token = req.headers['authorization']
         if(!token)
         {
