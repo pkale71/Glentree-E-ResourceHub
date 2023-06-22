@@ -5,15 +5,17 @@ const school = require('../../models/school')
 let getCode = new errorCode()
 let assignGrade = new assignedGrade()
 let acaUuid;
-let userUuid
+let userUuid;
+let schoolUuid;
 let AssignGrade
 let assignGradeList = []
 let assignList = []
 
-module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:acaUuid/:schoolUuid',async(req,res)=>{
     try{
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
+        schoolUuid = req.params.schoolUuid
         assignGradeCategory = await db.findSchoolGradeCategoryId(userUuid)
         if(assignGradeCategory.length == 0)
         {
@@ -25,7 +27,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                 "status_name"   : getCode.getStatus(200)
             })
         }
-        AssignGrade = await db.findSchoolGradeCategory(userUuid,acaUuid)
+        AssignGrade = await db.findSchoolGradeCategory(userUuid,acaUuid, schoolUuid)
         if(AssignGrade.length == 0)
         {
             res.status(200)

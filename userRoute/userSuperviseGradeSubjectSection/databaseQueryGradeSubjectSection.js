@@ -396,7 +396,7 @@ db.deleteAssignedGradeSection = (uuid) => {
     });
 }
 
-db.findGrade = (userUuid,acaUuid) => {
+db.findGrade = (userUuid,acaUuid, schoolUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -404,8 +404,9 @@ db.findGrade = (userUuid,acaUuid) => {
             FROM user_teach_subject_section utss
             LEFT JOIN user u ON u.id = utss.user_id
             LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
-            WHERE u.uuid = ?  AND ay.uuid = ?
-			ORDER BY  utss.subject_id`, [userUuid,acaUuid], (error, result) => 
+            LEFT JOIN school s ON s.id = utss.school_id
+            WHERE u.uuid = ?  AND ay.uuid = ? AND s.uuid = ?
+			ORDER BY  utss.subject_id`, [userUuid,acaUuid, schoolUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -420,11 +421,11 @@ db.findGrade = (userUuid,acaUuid) => {
 }
 
 
-db.findSubjectGradeSection = (userUuid,acaUuid) => {
+db.findSubjectGradeSection = (userUuid,acaUuid, schoolUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct utss.uuid, utss.subject_id AS id, utss.section_id AS sectionId, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
+            pool.query(`SELECT distinct sgs.id, utss.uuid, utss.subject_id AS id, utss.section_id AS sectionId, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
             s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
             FROM user_teach_subject_section utss
@@ -435,10 +436,10 @@ db.findSubjectGradeSection = (userUuid,acaUuid) => {
             LEFT JOIN syllabus_grade_subject sgs ON sgs.id = utss.subject_id
             LEFT JOIN school_grade_section ss ON ss.id = utss.section_id
             LEFT JOIN user u ON u.id = utss.user_id
-            WHERE u.uuid = ? AND ay.uuid = ?
+            WHERE u.uuid = ? AND ay.uuid = ? AND s.uuid = ?
             AND sgs.uuid IS NOT null
             AND ss.uuid IS NOT null
-            ORDER BY sgs.id`, [userUuid,acaUuid], (error, result) => 
+            ORDER BY sgs.id`, [userUuid,acaUuid, schoolUuid], (error, result) => 
             {
                 if(error)
                 {

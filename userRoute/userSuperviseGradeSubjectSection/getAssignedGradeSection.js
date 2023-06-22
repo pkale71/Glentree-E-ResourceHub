@@ -4,17 +4,19 @@ let errorCode = require('../../common/errorCode')
 let getCode = new errorCode()
 let assignedSection = new assignedGradeSection()
 let acaUuid;
+let schoolUuid;
 let userUuid
 let AssignGrade
 let assignGradeList = []
 let assignList = []
 let assignGrade;
 
-module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:acaUuid/:schoolUuid',async(req,res)=>{
     try{
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
-        assignGrade = await db.findGrade(userUuid,acaUuid)
+        schoolUuid = req.params.schoolUuid
+        assignGrade = await db.findGrade(userUuid,acaUuid, schoolUuid)
         if(assignGrade.length == 0)
         {
             res.status(200)
@@ -25,7 +27,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                 "status_name"   : getCode.getStatus(200)
             })
         }
-        AssignGrade = await db.findSubjectGradeSection(userUuid,acaUuid)
+        AssignGrade = await db.findSubjectGradeSection(userUuid,acaUuid, schoolUuid)
         // return res.json({
         //     "status_code" : 400,
         //     "message"     : AssignGrade,

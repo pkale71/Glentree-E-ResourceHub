@@ -8,15 +8,17 @@ let gradeSectionList = [];;
 let userUuid;
 let gradeId;
 let subjectUuid;
+let schoolUuid;
 
 
 
-module.exports = require('express').Router().get('/:userUuid/:gradeId/:subjectUuid',async(req,res) =>  {
+module.exports = require('express').Router().get('/:userUuid/:gradeId/:subjectUuid/:schoolUuid',async(req,res) =>  {
     try
     {  
         userUuid    = req.params.userUuid
         gradeId         = req.params.gradeId
         subjectUuid      = req.params.subjectUuid
+        schoolUuid      = req.params.schoolUuid
         accessToken     = req.body.accessToken
 
         gradeSectionList    = []
@@ -24,7 +26,7 @@ module.exports = require('express').Router().get('/:userUuid/:gradeId/:subjectUu
        
 
         if(gradeId){
-            section = await db.getGradeSection(userUuid,gradeId,subjectUuid);
+            section = await db.getGradeSection(userUuid,gradeId,subjectUuid, schoolUuid);
             if(section.length == 0)
             {
                 res.status(200)

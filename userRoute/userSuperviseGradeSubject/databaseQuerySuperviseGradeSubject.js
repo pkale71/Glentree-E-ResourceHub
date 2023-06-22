@@ -372,7 +372,7 @@ db.deleteAssignedGradeSubject = (uuid) => {
     });
 }
 
-db.findGrade = (userUuid,acaUuid) => {
+db.findGrade = (userUuid,acaUuid, schoolUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -380,8 +380,9 @@ db.findGrade = (userUuid,acaUuid) => {
             FROM user_supervise_grade_subject usgs
             LEFT JOIN user u ON u.id = usgs.user_id
             LEFT JOIN academic_year ay ON ay.id = usgs.academic_year_id
-            WHERE u.uuid = ?  AND ay.uuid = ?
-			ORDER BY  usgs.grade_id`, [userUuid,acaUuid], (error, result) => 
+            LEFT JOIN school s ON s.id = usgs.school_id
+            WHERE u.uuid = ?  AND ay.uuid = ? AND s.uuid = ?
+			ORDER BY  usgs.grade_id`, [userUuid,acaUuid, schoolUuid], (error, result) => 
             {
                 if(error)
                 {
@@ -395,7 +396,7 @@ db.findGrade = (userUuid,acaUuid) => {
     });
 }
 
-db.findSubjectGradeSubject = (userUuid,acaUuid) => {
+db.findSubjectGradeSubject = (userUuid,acaUuid, schoolUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -412,11 +413,11 @@ db.findSubjectGradeSubject = (userUuid,acaUuid) => {
                           INNER JOIN grade g ON g.id = usgs.grade_id
                           LEFT JOIN syllabus_grade_subject sgs ON sgs.id = usgs.subject_id
                           LEFT JOIN user u ON u.id = usgs.user_id
-                          WHERE u.uuid = ? AND ay.uuid = ?
+                          WHERE u.uuid = ? AND ay.uuid = ? AND s.uuid = ?
                           AND sgs.uuid IS NOT null
                           ORDER BY g.id`
             
-            pool.query(sql, [userUuid,acaUuid], (error, result) => 
+            pool.query(sql, [userUuid,acaUuid, schoolUuid], (error, result) => 
             {
                 if(error)
                 {

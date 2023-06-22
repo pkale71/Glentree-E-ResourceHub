@@ -283,7 +283,7 @@ db.findUnAssignedGrade = (acaId,schoolId,gradeCategoryId) => {
 }
 
 
-db.findSchoolGradeCategory = (userUuid,acaUuid) => {
+db.findSchoolGradeCategory = (userUuid,acaUuid, schoolUuid) => {
     return new Promise((resolve, reject)=>{
         try
         {
@@ -297,9 +297,9 @@ db.findSchoolGradeCategory = (userUuid,acaUuid) => {
            INNER JOIN grade g ON g.id = usg.grade_id
            LEFT JOIN grade_category gc ON gc.id = g.grade_category_id
            LEFT JOIN user u ON u.id = usg.user_id
-           WHERE u.uuid = ? AND ay.uuid = ?
+           WHERE u.uuid = ? AND ay.uuid = ? AND s.uuid = ?
            AND g.id IS NOT null
-           ORDER BY gc.id`, [userUuid,acaUuid], (error, result) => 
+           ORDER BY gc.id`, [userUuid, acaUuid, schoolUuid], (error, result) => 
             {
                 if(error)
                 {

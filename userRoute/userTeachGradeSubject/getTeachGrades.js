@@ -6,14 +6,16 @@ let grade = new gradeObj()
 let grades;
 let gradeList = [];
 let userUuid;
+let schoolUuid;
 
-module.exports = require('express').Router().get('/:userUuid',async(req,res) =>  {
+module.exports = require('express').Router().get('/:userUuid/:schoolUuid',async(req,res) =>  {
     try
     {
         userUuid = req.params.userUuid
+        schoolUuid = req.params.schoolUuid
         if(userUuid)
         {
-            grades = await db.getGrades(userUuid)
+            grades = await db.getGrades(userUuid, schoolUuid)
             gradeList = [];
             if(grades.length == 0)
             {

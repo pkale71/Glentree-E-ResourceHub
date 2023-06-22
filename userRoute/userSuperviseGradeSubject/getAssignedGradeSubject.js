@@ -9,14 +9,14 @@ let AssignSubject
 let assignGradeList = []
 let assignList = []
 let assignGrade;
-let gradeId;
+let schoolUuid;
 
-module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:acaUuid/:schoolUuid',async(req,res)=>{
     try{
         acaUuid =  req.params.acaUuid
         userUuid = req.params.userUuid
-        
-            assignGrade = await db.findGrade(userUuid,acaUuid)
+        schoolUuid = req.params.schoolUuid
+            assignGrade = await db.findGrade(userUuid,acaUuid, schoolUuid)
             if(assignGrade.length == 0)
             {
                 res.status(200)
@@ -27,7 +27,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid',async(req
                     "status_name"   : getCode.getStatus(200)
                 })
             }
-            AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid)
+            AssignSubject = await db.findSubjectGradeSubject(userUuid,acaUuid, schoolUuid)
             // return res.json({
             //     "status_code" : 400,
             //     "message"     : AssignSubject,

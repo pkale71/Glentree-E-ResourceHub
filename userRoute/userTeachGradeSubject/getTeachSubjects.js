@@ -10,15 +10,16 @@ let subject
 let userId
 let subjectList = []
 let subList = []
-let token;
+let schoolUuid;
 let userUuid;
 
-module.exports = require('express').Router().get('/:userUuid/:gradeId',async(req,res)=>{
+module.exports = require('express').Router().get('/:userUuid/:gradeId/:schoolUuid',async(req,res)=>{
     try
     {
         userUuid = req.params.userUuid
         gradeId =  req.params.gradeId
-        subject = await db.getGradeSubjectList(userUuid,gradeId)
+        schoolUuid = req.params.schoolUuid
+        subject = await db.getGradeSubjectList(userUuid,gradeId, schoolUuid)
           subjectList = [];
           subList = []
           if(subject.length == 0)
