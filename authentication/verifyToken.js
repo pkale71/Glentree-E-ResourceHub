@@ -115,7 +115,7 @@ async function  verifyToken  (req, res, next){
                 req.body.accessToken = accessToken
                 next()
                 }
-                else if (req.method == 'POST' && (req.baseUrl ==  '/curriculum/saveCurriculum' || req.baseUrl ==  '/curriculum/verifyFiles' || req.baseUrl ==  '/curriculum/deleteCurriculumUpload'))
+                else if (req.method == 'POST' && (req.baseUrl ==  '/curriculum/saveCurriculum' || req.baseUrl ==  '/curriculum/verifyFiles' || req.baseUrl ==  '/curriculum/deleteCurriculumUpload' || req.baseUrl ==  '/curriculum/changeStatus'))
                 {
                 //    if(req.body.school)
                 //    {

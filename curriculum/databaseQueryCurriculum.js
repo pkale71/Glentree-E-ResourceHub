@@ -462,4 +462,47 @@ db.getCurriculumUploads = (acaUuid, gradeId, subjectUuid, chapterUuid, topicUuid
         
     });
 }
+
+
+db.checkStatus = (uuid) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+              let  sql = `SELECT is_active, uploaded_on, is_verified, is_published, is_rejected FROM curriculum_upload WHERE uuid = '${uuid}'`;
+            pool.query(sql,(error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
+db.changeStatus = (sql, date) => 
+{
+    return new Promise((resolve, reject) => 
+    {
+        try
+        {
+            pool.query(sql, [date], (error, result) => 
+            {
+                if(error)
+                {
+                    return reject(error);
+                }          
+                return resolve(result);
+            });
+        }
+        catch(e){ console.log(e)}
+        
+    });
+}
+
 module.exports = db

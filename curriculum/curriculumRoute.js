@@ -11,6 +11,7 @@ curriculumRoute.use('/getCurriculumUploadFile',require('../authentication/valida
 curriculumRoute.use('/getCurriculumUpload',require('../authentication/validateToken'),require('./getCurriculumUpload'))
 curriculumRoute.use('/getCurriculumUploads',require('../authentication/validateToken'),require('./getCurriculumUploads'))
 curriculumRoute.use('/deleteCurriculumUpload',require('../authentication/validateToken'),require('./deleteCurriculumUpload'))
+curriculumRoute.use('/changeStatus',require('../authentication/validateToken'),require('./changeStatus'))
 
 
 
