@@ -396,17 +396,24 @@ db.deleteAssignedGradeSection = (uuid) => {
     });
 }
 
-db.findGrade = (userUuid,acaUuid, schoolUuid) => {
+db.findGrade = (userUuid,acaUuid, schoolUuid, gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct  utss.grade_id AS gradeId, utss.subject_id AS id
+            let sql = `SELECT distinct  utss.grade_id AS gradeId, utss.subject_id AS id
             FROM user_teach_subject_section utss
             LEFT JOIN user u ON u.id = utss.user_id
             LEFT JOIN academic_year ay ON ay.id = utss.academic_year_id
             LEFT JOIN school s ON s.id = utss.school_id
-            WHERE u.uuid = ?  AND ay.uuid = ? AND s.uuid = ?
-			ORDER BY  utss.subject_id`, [userUuid,acaUuid, schoolUuid], (error, result) => 
+            WHERE u.uuid = ?  AND ay.uuid = ? AND s.uuid = ? `
+
+            if(gradeId)
+            {
+                sql = sql + ` AND utss.grade_id = ? `
+            }
+
+			sql = sql + ` ORDER BY  utss.subject_id `
+            pool.query(sql, [userUuid,acaUuid, schoolUuid, gradeId], (error, result) => 
             {
                 if(error)
                 {
@@ -421,11 +428,11 @@ db.findGrade = (userUuid,acaUuid, schoolUuid) => {
 }
 
 
-db.findSubjectGradeSection = (userUuid,acaUuid, schoolUuid) => {
+db.findSubjectGradeSection = (userUuid,acaUuid, schoolUuid, gradeId) => {
     return new Promise((resolve, reject)=>{
         try
         {
-            pool.query(`SELECT distinct sgs.id, utss.uuid, utss.subject_id AS id, utss.section_id AS sectionId, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
+            let sql = `SELECT distinct sgs.id, utss.uuid, utss.subject_id AS id, utss.section_id AS sectionId, ss.uuid AS sectionUuid,ss.section , ay.uuid AS acaUuid, ay.year, sgs.uuid AS subjectUuid, sgs.subject_name AS subjectName,
             s.uuid AS schoolUuid,s.name AS schoolName, g.id AS gradeId , g.name  AS gradeName, u.uuid AS userUuid,
             CONCAT(u.first_name,' ',IFNULL(u.last_name,'')) AS userName 
             FROM user_teach_subject_section utss
@@ -438,8 +445,15 @@ db.findSubjectGradeSection = (userUuid,acaUuid, schoolUuid) => {
             LEFT JOIN user u ON u.id = utss.user_id
             WHERE u.uuid = ? AND ay.uuid = ? AND s.uuid = ?
             AND sgs.uuid IS NOT null
-            AND ss.uuid IS NOT null
-            ORDER BY sgs.id`, [userUuid,acaUuid, schoolUuid], (error, result) => 
+            AND ss.uuid IS NOT null `
+
+            if(gradeId)
+            {
+                sql  = sql + ` AND g.id = ? `
+            }
+
+            sql = sql + ` ORDER BY sgs.id`
+            pool.query(sql, [userUuid,acaUuid, schoolUuid, gradeId], (error, result) => 
             {
                 if(error)
                 {
