@@ -23,7 +23,7 @@ module.exports = require('express').Router().get('/:userUuid/:acaUuid/:schoolUui
             if(a.length > 1)
             {
                 schoolUuid = req.params.schoolUuid + a[0]
-                gradeId = a[1]
+                gradeId = parseInt(a[1])
             }
             else if(a.length == 1) 
             {

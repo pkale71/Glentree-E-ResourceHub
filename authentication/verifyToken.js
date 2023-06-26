@@ -107,13 +107,13 @@ async function  verifyToken  (req, res, next){
                 }
                 else if (req.method == 'GET' && (req.baseUrl.includes('get') || req.baseUrl ==  '/logout' ))
                 {
-                req.body.accessToken = accessToken
-                next()
+                    req.body.accessToken = accessToken
+                    next()
                 }
                 else if (req.method == 'POST' && (req.baseUrl ==  '/authenticate' || req.baseUrl ==  '/changePassword'))
                 {
-                req.body.accessToken = accessToken
-                next()
+                    req.body.accessToken = accessToken
+                    next()
                 }
                 else if (req.method == 'POST' && (req.baseUrl ==  '/curriculum/saveCurriculum' || req.baseUrl ==  '/curriculum/verifyFiles' || req.baseUrl ==  '/curriculum/deleteCurriculumUpload' || req.baseUrl ==  '/curriculum/changeStatus'))
                 {
@@ -150,7 +150,7 @@ async function  verifyToken  (req, res, next){
                         'message'       :       `Invalid user`,
                         "status_name" : getCode.getStatus(401),
                         "status_code"   :       401
-                    });
+                    });2
                 }
                
             }

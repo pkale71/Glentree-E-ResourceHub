@@ -290,7 +290,7 @@ commonFunction.getFileUploadedPath = (destinationBaseFolder, fileName, addiFolde
                     {
                         if (fs.existsSync(newpath + '/' + folders[i] + '/' + fileName)) 
                         {
-                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName, 'base64')
+                            let file = fs.readFileSync(newpath + '/' + folders[i] + '/' + fileName)
                             newpath = newpath + '/' + folders[i] + '/' + fileName
                             const mime_type = mime.getType(newpath)
                             //file = `data:${mime_type};base64,` + file
