@@ -14,11 +14,14 @@ module.exports = require('express').Router().post('/',async(req,res)=>
 {
     try
     {
+        console.log("Authenticate")
         email = req.body.email;
         password = req.body.password;
         schoolList = []
-        schools = await db.getSchools(email)
+
         user = await db.getUserByEmail(email);
+        console.log("2")
+
         if(user.length == 0)
         {
             res.status(401)
@@ -28,6 +31,9 @@ module.exports = require('express').Router().post('/',async(req,res)=>
                 "status_name" : getCode.getStatus(401)
             })
         }
+        
+        schools = await db.getSchools(email)
+        console.log("3")
         if((user[0].user_type_code != 'SUADM') && (schools.length == 0))
         {
             res.status(401)

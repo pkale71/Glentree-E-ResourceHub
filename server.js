@@ -8,6 +8,8 @@ let    getCode = new errorCode()
 let     docPath = require('./DOC_FOLDER_PATH/docPath')
 let     getPath = new docPath()
 let createFolder = require('./DOC_FOLDER_PATH/createDocFolder')
+let https = require('https')
+let fs = require('fs')
 
 let app = express()
 app.use(cors())
@@ -17,10 +19,9 @@ dotenv.config();
 
 // create uploads folder if not exist
 //createFolder('root')
-
-app.listen(8082,()=>{
-    console.log("server is listing on port no 8082")
-})
+// app.listen(8082,()=>{
+//     console.log("server is listing on port no 8082")
+// })
 
 app.use('/authenticate',require('./authentication/authenticate'));
 app.use('/authenticate',require('./authentication/authenticate'));
@@ -44,3 +45,15 @@ app.use('/',(req,res,next)=>{
         "error"     : "Wrong method or api"
     }) 
 })
+
+https.createServer(
+    {
+      key: fs.readFileSync('/etc/letsencrypt/live/nodeserver.ssinformatics.org.in/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/nodeserver.ssinformatics.org.in/cert.pem'),
+      ca: fs.readFileSync('/etc/letsencrypt/live/nodeserver.ssinformatics.org.in/chain.pem'),
+    },
+   app
+  )
+  .listen(443, () => {
+    console.log('Listening...on HTTPS port')
+  })

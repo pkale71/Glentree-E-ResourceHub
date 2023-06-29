@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
  
   let obj = {
  
@@ -10,5 +10,14 @@ const mysql = require('mysql');
 }
   
 const pool = mysql.createPool(obj);
+console.log(pool)
+if(pool)
+{
+  console.log('Connected to database')
+}
+else
+{
+  console.log("database connection failed")
+}
 
 module.exports = pool

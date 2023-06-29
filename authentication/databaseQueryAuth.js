@@ -7,19 +7,22 @@ db.getUserByEmail = (email) =>
     {
         try
         {
-            pool.query(`SELECT u.uuid, TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName, 
+            let sql = `SELECT u.uuid, TRIM(CONCAT(u.first_name,' ',IFNULL(u.last_name,''))) AS fullName, 
             u.role_id, TRIM(r.name) AS role_name, u.user_type_id, 
             ut.name AS user_type_name, ut.code AS user_type_code, 
             u.last_login, u.password, u.id, u.is_active
             FROM user u 
             LEFT JOIN role r ON u.role_id = r.id 
             LEFT JOIN user_type ut ON ut.id = u.user_type_id
-            WHERE u.email = ? AND u.is_active =1`, [email], (error, users) => {
+            WHERE u.email = '${email}' AND u.is_active =1`
+            console.log(sql)
+            pool.query(sql, (error, user) => {
+                console.log("USER LOgin1", email, user)
                 if(error)
                 {
                     return reject(error);
                 }
-                return resolve(users);
+                return resolve(user);
             });
         }
         catch(e)
@@ -49,6 +52,7 @@ db.getSchools = (email) =>
                         WHERE us.user_id = (SELECT id FROM user WHERE email = ?)
                              AND s.is_active = 1`,[email] ,(error, result) =>
             {
+                console.log("School")
                 if(error)
                 {
                     return reject(error);

@@ -42,11 +42,13 @@ module.exports = require('express').Router().get('/:uploadUuid',async(req,res) =
     //         "data"          :   {"curriculumFile" : file},
     //         "status_name"   :   getCode.getStatus(200)
     //     })
-    //   res.setHeader('Content-Type', `'${file.mime}'`);
+         res.setHeader('Content-Type', `'${file.mime}'`);
+        // res.setHeader('Content-type',  'text/pdf' );
     // res.setHeader('Content-Disposition', `attachment; filename="${file.fileName}"`);
   //console.log(path.join(__dirname,"../",file.path))
-  res.sendFile(path.join(__dirname,"../",file.path))
-  // res.end(file.file)
+  console.log(file)
+//   res.sendFile(path.join(__dirname,"../",file.path))
+   res.end(file.file)
     } 
     catch(e)
     {
