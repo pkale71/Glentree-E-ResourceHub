@@ -46,6 +46,10 @@ app.use('/',(req,res,next)=>{
     }) 
 })
 
+// app.listen(8082,() => {
+//        console.log('Listening...on HTTPS port')
+// })
+
 https.createServer(
     {
       key: fs.readFileSync('/etc/letsencrypt/live/nodeserver.ssinformatics.org.in/privkey.pem'),

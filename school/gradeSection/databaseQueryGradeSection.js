@@ -130,7 +130,7 @@ db.getGradeId = (acaId, schoolId) => {
         {
             pool.query(`SELECT distinct grade_id from school_grade_section 
             WHERE academic_year_id = ? AND school_id = ?
-            ORDER BY id `,[acaId, schoolId],(error, result) => 
+            ORDER BY grade_id `,[acaId, schoolId],(error, result) => 
             {
                 if(error)
                 {

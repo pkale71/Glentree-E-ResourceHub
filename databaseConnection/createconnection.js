@@ -10,7 +10,6 @@ const mysql = require('mysql2');
 }
   
 const pool = mysql.createPool(obj);
-console.log(pool)
 if(pool)
 {
   console.log('Connected to database')

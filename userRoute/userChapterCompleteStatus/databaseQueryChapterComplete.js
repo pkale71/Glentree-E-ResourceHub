@@ -218,7 +218,7 @@ db.getUserChapterCompleteStatus = (acaUuid,userUuid,gradeId,subjectUuid,sectionU
             let sql = ``
            if(chapterUuid)
            {
-            sql = `SELECT distinct uccs.uuid,DATE_FORMAT(uccs.completed_on, '%m-%d-%Y') AS completed_on, uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
+            sql = `SELECT distinct uccs.id, uccs.uuid,DATE_FORMAT(uccs.completed_on, '%m-%d-%Y') AS completed_on, uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
             sgs.uuid AS sectionUuid, sgs.section AS sectionName, sygs.uuid AS subjectUuid, 
             sygs.subject_name AS subjectName, sgsc.chapter_name AS chapterName, sgsc.uuid AS chapterUuid,
             sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName,
@@ -241,7 +241,7 @@ db.getUserChapterCompleteStatus = (acaUuid,userUuid,gradeId,subjectUuid,sectionU
            }
            else
            {
-            sql = `SELECT distinct uccs.uuid,DATE_FORMAT(uccs.completed_on, '%m-%d-%Y') AS completed_on,uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
+            sql = `SELECT distinct uccs.id, uccs.uuid,DATE_FORMAT(uccs.completed_on, '%m-%d-%Y') AS completed_on,uccs.is_completed, ay.uuid AS acaUuid, ay.year, g.id AS gradeId, g.name AS gradeName, 
             sgs.uuid AS sectionUuid, sgs.section AS sectionName, sygs.uuid AS subjectUuid, 
             sygs.subject_name AS subjectName, sgsc.chapter_name AS chapterName, sgsc.uuid AS chapterUuid,
             sgsct.uuid AS topicUuid, sgsct.topic_name AS topicName,
